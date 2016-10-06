@@ -1,0 +1,130 @@
+.switcher {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  flex-grow: 1;
+  text-align: center;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  &__input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+  }
+
+  &__label {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 0;
+    font-weight: 400;
+    background-color: #dde3e6;
+    cursor: pointer;
+    vertical-align: top;
+    touch-action: manipulation;
+
+    .switcher_size_medium & {
+      height: 40px;
+      padding: 10px 20px;
+    }
+
+    .switcher_size_large & {
+      height: 60px;
+      padding: 20px 30px;
+    }
+
+    &:before,
+    &:after {
+      content: "";
+      display: inline-block;
+      border-radius: 50%;
+      vertical-align: top;
+    }
+
+    &:before {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #cfd8dc;
+      margin-right: 10px;
+    }
+
+    :not(:checked) + & {
+      &:hover,
+      &:focus,
+      &:active {
+        color: #fff;
+
+        &:before {
+          border-color: #fff;
+        }
+      }
+
+      &:hover {
+        background-color: #2196f3;
+      }
+
+      &:focus,
+      &:active {
+        background-color: #1976d2;
+
+        .switcher_size_medium & {
+          padding: 11px 20px 9px;
+        }
+
+        .switcher_size_large & {
+          padding: 21px 30px 19px;
+        }
+
+        &:before {
+          width: 16px;
+          height: 16px;
+          margin: 3px 12px 0 2px;
+          border-color: #fff;
+          background-color: #fff;
+        }
+      }
+    }
+
+    :checked + & {
+      font-weight: 700;
+      color: #1ab744;
+      background-color: #fff;
+
+      &:before {
+        border-color: #1ab744;
+        background: radial-gradient(circle, #1ab744 5px, rgba(0, 0, 0, 0) 5px);
+      }
+    }
+
+    :disabled + & {
+      color: #b0bec5;
+      cursor: default;
+      pointer-events: none;
+
+      &:before {
+        border-color: #cfd8dc;
+      }
+    }
+
+    :disabled:checked + & {
+      color: #90a4ae;
+      background-color: #fff;
+
+      &:before {
+        border-color: #90a4ae;
+        background: radial-gradient(circle, #90a4ae 5px, rgba(0, 0, 0, 0) 5px);
+      }
+    }
+  }
+}
