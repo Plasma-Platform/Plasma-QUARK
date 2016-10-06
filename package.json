@@ -1,5 +1,5 @@
 {
-  "name": "QUARK-React",
+  "name": "quark",
   "version": "0.0.1",
   "description": "QUARK-React description",
   "main": "webpack.config.js",
