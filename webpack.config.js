@@ -1,33 +1,40 @@
-var config = {
+var webpack = require('webpack')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+
+module.exports = {
   entry: './index.js',
 
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        BROWSER  : JSON.stringify(true),
+        NODE_ENV : JSON.stringify(process.env.NODE_ENV || 'development')
+      }
+    }),
+    new ExtractTextPlugin('main.css')
+  ],
+
   output: {
-    path     : './',
-    filename : 'index.js'
+    path          : __dirname + '/css/',
+    libraryTarget : 'commonjs',
+    filename      : 'main.js'
   },
-
-  devServer: {
-    inline             : true,
-    port               : 8080,
-    historyApiFallback : true
+  target    : 'node',
+  externals : {
+    react: 'React'
   },
-
   module: {
     loaders: [
       {
-        test   : /\.less/,
-        loader : 'style-loader!css-loader!postcss-loader!less-loader'
+        test   : /\.css$/,
+        loader : ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
       },
       {
-        test    : /\.jsx?$/,
-        loader  : 'babel',
-        exclude : /node_modules/,
-        query   : {
-          presets: ['es2015', 'react', 'stage-0']
-        }
-      }
+        test   : /\.less$/,
+        loader : ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!less-loader')
+      },
+      { test: /\.jsx$/, loader: 'babel', exclude: [/node_modules/, /public/] },
+      { test: /\.js$/, loader: 'babel', exclude: [/node_modules/, /public/] }
     ]
   }
 }
-
-module.exports = config
