@@ -1,5 +1,5 @@
-import SwitcherGroup from '../SwitcherGroup.jsx'
+import SWG1 from './SWG1.jsx'
 
 export default {
-  SwitcherGroup
+  SWG1
 }
