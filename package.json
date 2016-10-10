@@ -57,6 +57,8 @@
     "webpack-dev-server": "^1.15.2"
   },
   "dependencies": {
-    "react": "^15.3.1"
+    "react": "^15.3.1",
+    "react-dom": "^15.3.2",
+    "ui-toolkit": "git+ssh://git@templatemonster.git.beanstalkapp.com:/templatemonster/ui-toolkit.git"
   }
 }
