@@ -4,7 +4,7 @@ import TextFieldStateless               from './textFields/TextFieldStateless.js
 import {connectNotificationTextField}   from './utils';
 
 import './TextField.less';
-import 'animations.less';
+import '../styles/animations.less';
 
 export default class TextField extends Component {
 
@@ -179,7 +179,7 @@ export default class TextField extends Component {
         onFocus       = {this.onFocus}
         onBlur        = {this.onBlur}
         onChange      = {this.onChange}
-        notification  = { {code: 'N2B', text: this.state.notificationText} }
+        notification  = { {code: this.props.notificationType || 'N2B', text: this.state.notificationText} }
       />
     );
   }
