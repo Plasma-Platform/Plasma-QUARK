@@ -146,7 +146,7 @@
     background: #546e7a;
     opacity: 0;
     transform: scaleY(0);
-    transition: transform .5s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: transform .5s cubic-bezier(.68, -.55, .265, 1.55), opacity .5s cubic-bezier(.68, -.55, .265, 1.55);
 
     .dropdown_state_open & {
       opacity: 1;
@@ -190,6 +190,7 @@
   }
 
   &__options {
+    border-top: 1px solid #455a64;
     padding: 0;
     margin: 0;
     text-align: left;
