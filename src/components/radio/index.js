@@ -1,5 +1,5 @@
-import Radio from '../Radio.jsx'
+import R1 from './R1.jsx'
 
 export default {
-  Radio
+  R1
 }
