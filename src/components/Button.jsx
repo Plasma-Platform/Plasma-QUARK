@@ -10,7 +10,7 @@ export default class Button extends React.Component {
     bgType      : React.PropTypes.oneOf(['facebook', 'twitter', 'google-plus', 'pinterest', 'vk', '1', '2', '3']).isRequired,
     icon        : React.PropTypes.string,
     className   : React.PropTypes.string,
-    type        : React.PropTypes.oneOf(['button', 'submit', 'reset', 'link'])
+    type        : React.PropTypes.oneOf(['button', 'submit', 'reset', 'link', 'text'])
   }
 
   static defaultProps = {
@@ -18,7 +18,7 @@ export default class Button extends React.Component {
   }
 
   render () {
-    const {widthType, heightType, roundedType, bgType, icon, className, ...props} = this.props
+    const {widthType, heightType, roundedType, bgType, icon, className, type, ...props} = this.props
 
     const widthClassName  = ` button_width_${widthType}`
     const heightClassName = ` button_height_${heightType}`
@@ -28,7 +28,7 @@ export default class Button extends React.Component {
     const addClassName    = className ? ` ${className}` : ''
     const fullClassName   = `button${widthClassName}${heightClassName}${roundClassName}${bgClassName}${iconClassName}${addClassName}`
 
-    if (this.props.type === 'link') {
+    if (type === 'link') {
       return (
         <a
           {...props}
@@ -37,10 +37,21 @@ export default class Button extends React.Component {
           {this.props.children}
         </a>
       )
+    } else if (type === 'text') {
+      return (
+        <span
+          {...props}
+          className = {fullClassName}
+          ref       = {ref => { this.button = ref }}
+        >
+          {this.props.children}
+        </span>
+      )
     } else {
       return (
         <button
           {...props}
+          type      = {type}
           className = {fullClassName}
           ref       = {ref => { this.button = ref }}
         >
