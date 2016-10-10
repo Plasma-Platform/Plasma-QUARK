@@ -9,10 +9,10 @@ export function prepareNotification(notification, handleHide) {
   if (notification) {
     const NotificationComponent = Notifications[notification.code];
     const notificationClassnames = classnames({
-      'animatedRightToLeft': notification.code === 'N2A',
-      'animatedLeftToRight': notification.code === 'N2B',
-      'animatedUpToDown': notification.code === 'N2C',
-      'animatedDownToUp': notification.code === 'N2D',
+      'animatedRightToLeft' : ['N1A','N2A','N3A'].indexOf(notification.code) >= 0,
+      'animatedLeftToRight' : ['N1B','N2B','N3B'].indexOf(notification.code) >= 0,
+      'animatedUpToDown'    : ['N1C','N2C','N3C'].indexOf(notification.code) >= 0,
+      'animatedDownToUp'    : ['N1D','N2D','N3D'].indexOf(notification.code) >= 0,
     });
 
     return (
