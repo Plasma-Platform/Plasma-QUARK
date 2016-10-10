@@ -467,6 +467,29 @@
     box-shadow: inset 0 1px 0 0 #cfd8dc;
   }
 }
+/* Custom animations */
+/**************************** Keyframes ****************************/
+@keyframes shake {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  10%,
+  50%,
+  90% {
+    transform: translate3d(-10px, 0, 0);
+  }
+  30%,
+  70% {
+    transform: translate3d(10px, 0, 0);
+  }
+}
+/**************************** Classes ****************************/
+/* @todo: uncomment this after new popup release
+.element-animated-shake {
+  animation: shake .3s both;
+}
+*/
 .dropdown {
   box-sizing: border-box;
   position: relative;
