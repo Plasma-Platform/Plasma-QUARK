@@ -1,5 +1,4 @@
 import React from 'react'
-import {F1} from './textFields'
 
 import './Dropdown.less'
 
@@ -224,7 +223,7 @@ export default class Dropdown extends React.Component {
       <span className="dropdown__arrow"></span>
     </button>
 
-    const filterInput = <F1
+    const filterInput = <input
       className   = "dropdown__filter-input"
       type        = "search"
       placeholder = {this.props.filterHint ? this.props.filterHint : ''}
