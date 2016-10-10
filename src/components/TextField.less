@@ -1,0 +1,201 @@
+@import "../styles/variables";
+
+.text-field {
+  position: relative;
+
+  &__input {
+    width: 100%;
+    height: @spacing4x;
+    background: #eceff1;
+    box-shadow: inset 0 1px 0 0 #cfd8dc;
+    color: @basic;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    outline: none;
+    padding: 0 @spacing4x 0 @spacing2x;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2;
+    transition: .3s;
+
+    &::placeholder {
+      color: #90a4ae;
+    }
+
+    &:focus {
+      background: #fff;
+      box-shadow: none;
+      border-color: #90caf9;
+
+      &::placeholder {
+        color: #bbdefb;
+      }
+    }
+
+    &:disabled {
+      border-color: #eceff1;
+      color: #eceff1;
+      background: #fff;
+      box-shadow: none;
+
+      &::placeholder,
+      & + .text-field__label {
+        color: #eceff1;
+      }
+    }
+  }
+
+  &__label {
+    position: absolute;
+    top: 21px;
+    left: 22px;
+    color: #90a4ae;
+    cursor: text;
+    transition: .3s;
+  }
+
+  &__type-icon,
+  &__notification-icon {
+    position: absolute !important;
+    width: 20px;
+    height: 20px;
+  }
+
+  &__type-icon {
+    top: 11px;
+    left: 20px;
+  }
+
+  &__notification-icon {
+    right: 20px;
+    top: 9px;
+    opacity: 0;
+    transition: opacity .25s @easeInOutCubic;
+  }
+
+  &_focused {
+    .text-field__label {
+      color: #BBDEFB;
+    }
+  }
+
+  &_filled {
+    .text-field__label {
+      font-size: 11px;
+      top: 12px;
+      color: #90a4ae;
+    }
+  }
+
+  &_F3, &_F4 {
+
+    &.text-field_filled {
+      .text-field__input {
+        padding-top: 20px;
+      }
+    }
+
+    .text-field__input {
+      height: 60px;
+      font-size: 16px;
+    }
+
+    .text-field__type-icon,
+    .text-field__notification-icon {
+      top: 21px;
+    }
+  }
+
+  &_F2, &_F4 {
+    .text-field__input {
+      padding-left: 50px;
+    }
+
+    .text-field__label {
+      padding-left: 30px;
+    }
+  }
+
+  &_valid, &_invalid {
+    .text-field__notification-icon {
+      opacity: 1;
+    }
+
+    &.animated {
+      .text-field__input {
+        border-color: transparent;
+      }
+    }
+  }
+
+  &_valid.animated {
+    .text-field__input {
+      animation: showSuccessField .25s @easeInOutCubic both, hideSuccessField .25s @easeInOutCubic .75s forwards;
+    }
+  }
+
+  &_invalid.animated {
+    .text-field__input {
+      animation: showErrorField .25s @easeInOutCubic both, hideErrorField .25s @easeInOutCubic .75s forwards;
+    }
+  }
+}
+
+.animatedLeftToRight {
+  animation: animatedNotification .25s @easeInOutQuint both;
+}
+
+@keyframes animatedNotification {
+  0% {
+    transform: translateX(-40px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes showSuccessField {
+  0% {
+    background: #eceff1;
+    box-shadow: inset 0 1px 0 0 #cfd8dc;
+  }
+  100% {
+    background: #ddf7e5;
+    box-shadow: inset 0 1px 0 0 #a8e4bb;
+  }
+}
+
+@keyframes hideSuccessField {
+  0% {
+    background: #ddf7e5;
+    box-shadow: inset 0 1px 0 0 #a8e4bb;
+  }
+  100% {
+    background: #eceff1;
+    box-shadow: inset 0 1px 0 0 #cfd8dc;
+  }
+}
+
+@keyframes showErrorField {
+  0% {
+    background: #eceff1;
+    box-shadow: inset 0 1px 0 0 #cfd8dc;
+  }
+  100% {
+    background: #fff8e1;
+    box-shadow: inset 0 1px 0 0 #ffca28;
+  }
+}
+
+@keyframes hideErrorField {
+  0% {
+    background: #fff8e1;
+    box-shadow: inset 0 1px 0 0 #ffca28;
+  }
+  100% {
+    background: #eceff1;
+    box-shadow: inset 0 1px 0 0 #cfd8dc;
+  }
+}
