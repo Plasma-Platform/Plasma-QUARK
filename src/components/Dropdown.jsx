@@ -248,6 +248,7 @@ export default class Dropdown extends React.Component {
           className  = {optionClassName}
           aria-label = {option.label}
           tabIndex   = "-1"
+          role       = "option"
           onClick    = {() => { this.handleOptionClick(option) }}
           onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex) }}
           key        = {optionIndex}
@@ -281,7 +282,10 @@ export default class Dropdown extends React.Component {
           ref       = {(ref) => { this.content = ref }}
         >
           {this.props.showFilter ? filterInput : null}
-          <ul className="dropdown__options">
+          <ul
+            className = "dropdown__options"
+            role      = "list"
+          >
             {isNoResults
               ? <li className="dropdown__option dropdown__no-results">
                   {`${this.props.noResultsText} "${this.state.filterQuery}"`}
