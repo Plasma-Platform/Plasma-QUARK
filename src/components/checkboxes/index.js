@@ -1,5 +1,5 @@
-import Checkbox from '../Checkbox.jsx'
+import C1 from './C1.jsx'
 
 export default {
-  Checkbox
+  C1
 }
