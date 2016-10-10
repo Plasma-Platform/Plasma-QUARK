@@ -1,7 +1,7 @@
 import React, {Component, PropTypes}    from 'react';
 import ReactDOM                         from 'react-dom';
 import TextFieldStateless               from './textFields/TextFieldStateless.jsx';
-import {connectNotificationTextField}   from '../utils';
+import {connectNotificationTextField}   from './utils';
 
 import './TextField.less';
 import 'animations.less';
