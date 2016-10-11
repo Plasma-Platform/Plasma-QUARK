@@ -3,23 +3,19 @@ import TextField 						from '../../TextField.jsx';
 
 export default class F1 extends Component {
 	static propTypes = {
-		sizeType    : React.PropTypes.string,
+		sizeType  : React.PropTypes.string,
 		onChange 	: React.PropTypes.func
 	}
 
 	constructor(props, context) {
 		super(props, context);
-
-		this.value = this.props.value || '';
 	}
 
-	changeHandler = (event) => {
-		this.value = event.target.value;
+  get value(){
+    return this.getValue();
+  }
 
-		if(typeof this.props.onChange === 'function') {
-			this.props.onChange(event);
-		}
-	}
+  set value(val) {}
 
 	getValue = () => {
 		return this.input.getValue();
@@ -29,15 +25,15 @@ export default class F1 extends Component {
 		this.input.focus();
 	}
 
-    render() {
+  render() {
 
-			return (
-				<TextField
-					{...this.props}
-					ref				= {input => this.input = input}
-					sizeType	= 'F1'
-					onChange	= {this.changeHandler}
-				/>
-			);
-    }
+    return (
+      <TextField
+        {...this.props}
+        ref				= {input => this.input = input}
+        sizeType	= 'F1'
+        onChange	= {this.changeHandler}
+      />
+    );
+  }
 }
