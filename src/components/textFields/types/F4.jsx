@@ -32,7 +32,6 @@ export default class F4 extends Component {
                 {...this.props}
                 ref       = {input => this.input = input}
                 sizeType  = 'F4'
-                onChange	= {this.changeHandler}
             />
         );
     }
