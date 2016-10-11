@@ -1037,6 +1037,7 @@
 }
 .text-field__label {
   position: absolute;
+  pointer-events: none;
   top: 21px;
   left: 22px;
   color: #90a4ae;

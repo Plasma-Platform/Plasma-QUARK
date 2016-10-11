@@ -63,6 +63,7 @@ export default class TextField extends Component {
           onFocus     = {this.props.onFocus}
           onBlur      = {this.props.onBlur}
           onKeyUp     = {this.props.onKeyUp}
+          onKeyDown   = {this.props.onKeyDown}
         />
         <span
           className     = { iconNotificationClassname }
