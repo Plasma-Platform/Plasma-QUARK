@@ -31,10 +31,16 @@ module.exports = {
       },
       {
         test   : /\.less$/,
-        loader : ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!less-loader')
+        loader : ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader!postcss-loader')
       },
       { test: /\.jsx$/, loader: 'babel', exclude: [/node_modules/, /public/] },
       { test: /\.js$/, loader: 'babel', exclude: [/node_modules/, /public/] }
+    ]
+  },
+  postcss: function() {
+    return [
+      require('postcss-inline-svg'),
+      require('autoprefixer')
     ]
   }
 }
