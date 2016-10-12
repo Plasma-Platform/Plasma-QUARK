@@ -1,16 +1,16 @@
 .button {
-  box-sizing: border-box;
-  display: inline-block;
-  padding-top: 0;
-  padding-bottom: 0;
   border: 0;
-  overflow: hidden;
-  margin: 0;
+  box-sizing: border-box;
   color: #fff;
   cursor: pointer;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
+  display: inline-block;
+  margin: 0;
+  overflow: hidden;
+  padding-bottom: 0;
+  padding-top: 0;
   -webkit-text-decoration-skip: objects;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
   touch-action: manipulation;
 
   *,
@@ -48,9 +48,9 @@
     &::before {
       content: "";
       display: inline-block;
-      width: 20px;
       height: 20px;
       vertical-align: top;
+      width: 20px;
     }
 
     &.button_width_auto,
@@ -110,8 +110,8 @@
   /* .button height */
 
   &_height_medium {
-    height: 40px;
     font-size: 14px;
+    height: 40px;
     line-height: 40px;
 
     &.button_width_auto,
@@ -127,8 +127,8 @@
   }
 
   &_height_large {
-    height: 60px;
     font-size: 16px;
+    height: 60px;
     line-height: 60px;
 
     &.button_width_auto,
@@ -258,8 +258,8 @@
   /* .button disabled */
 
   &:disabled {
-    border: 2px solid #b0bec5;
     background-color: rgba(0, 0, 0, 0);
+    border: 2px solid #b0bec5;
     cursor: default;
     pointer-events: none;
 

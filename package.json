@@ -58,6 +58,7 @@
   },
   "dependencies": {
     "react": "^15.3.1",
+    "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^15.3.2",
     "ui-toolkit": "git+ssh://git@templatemonster.git.beanstalkapp.com:/templatemonster/ui-toolkit.git"
   }

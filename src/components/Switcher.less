@@ -1,11 +1,11 @@
 .switcher {
   box-sizing: border-box;
-  position: relative;
   display: inline-block;
   flex-grow: 1;
+  position: relative;
   text-align: center;
-  -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 
   *,
   *::before,
@@ -14,25 +14,25 @@
   }
 
   &__input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
     height: 0;
-    padding: 0;
+    left: 0;
     margin: 0;
     opacity: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 0;
   }
 
   &__label {
-    display: inline-block;
-    width: 100%;
-    margin-bottom: 0;
-    font-weight: 400;
     background-color: #dde3e6;
     cursor: pointer;
-    vertical-align: top;
+    display: inline-block;
+    font-weight: 400;
+    margin-bottom: 0;
     touch-action: manipulation;
+    vertical-align: top;
+    width: 100%;
 
     .switcher_size_medium & {
       height: 40px;
@@ -46,17 +46,17 @@
 
     &:before,
     &:after {
+      border-radius: 50%;
       content: "";
       display: inline-block;
-      border-radius: 50%;
       vertical-align: top;
     }
 
     &:before {
-      width: 20px;
-      height: 20px;
       border: 2px solid #cfd8dc;
+      height: 20px;
       margin-right: 10px;
+      width: 20px;
     }
 
     :not(:checked) + & {
@@ -87,23 +87,23 @@
         }
 
         &:before {
-          width: 16px;
+          background-color: #fff;
+          border-color: #fff;
           height: 16px;
           margin: 3px 12px 0 2px;
-          border-color: #fff;
-          background-color: #fff;
+          width: 16px;
         }
       }
     }
 
     :checked + & {
-      font-weight: 700;
-      color: #1ab744;
       background-color: #fff;
+      color: #1ab744;
+      font-weight: 700;
 
       &:before {
-        border-color: #1ab744;
         background: radial-gradient(circle, #1ab744 5px, rgba(0, 0, 0, 0) 5px);
+        border-color: #1ab744;
       }
     }
 
@@ -118,12 +118,12 @@
     }
 
     :disabled:checked + & {
-      color: #90a4ae;
       background-color: #fff;
+      color: #90a4ae;
 
       &:before {
-        border-color: #90a4ae;
         background: radial-gradient(circle, #90a4ae 5px, rgba(0, 0, 0, 0) 5px);
+        border-color: #90a4ae;
       }
     }
   }
