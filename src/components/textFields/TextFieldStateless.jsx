@@ -31,11 +31,13 @@ export default class TextField extends Component {
     const iconClassname = classnames('text-field__type-icon', 'icon', {
       'icon-letter'     : this.props.type === 'email',
       'icon-magnifier'  : this.props.type === 'search',
-      'icon-eye'        : this.props.type === 'password'
+      'icon-key'        : this.props.type === 'password'
     });
+    const isPassword = this.props.type === 'password';
     const iconNotificationClassname = classnames('text-field__notification-icon', 'icon', {
-      'icon-alert'        : this.props.isValid !== null && !this.props.isValid,
-      'icon-check_circle' : this.props.isValid
+      'icon-alert'                : !isPassword && this.props.isValid !== null && !this.props.isValid,
+      'icon-check_circle'         : !isPassword && this.props.isValid,
+      'password-toggle icon-eye'  : isPassword
     });
 
     const hint = this.props.placeholder || this.props.label;
@@ -45,7 +47,7 @@ export default class TextField extends Component {
         className={inputWrapClassname}
       >
         {['F2', 'F4'].indexOf(this.props.sizeType) >= 0 &&
-          <span className = { iconClassname }/>
+          <span className = {iconClassname} />
         }
 
         <input
@@ -61,8 +63,14 @@ export default class TextField extends Component {
           onFocus     = {this.props.onFocus}
           onBlur      = {this.props.onBlur}
           onKeyUp     = {this.props.onKeyUp}
+          onKeyDown   = {this.props.onKeyDown}
         />
-        <span className={ iconNotificationClassname }/>
+        <span
+          className     = { iconNotificationClassname }
+          onMouseDown   = {isPassword ? this.props.changeFieldType.bind(this, 'text') : null}
+          onMouseUp     = {isPassword ? this.props.changeFieldType.bind(this, 'password') : null}
+          onMouseLeave  = {isPassword ? this.props.changeFieldType.bind(this, 'password') : null}
+        />
         { ['F3', 'F4'].indexOf(this.props.sizeType) >= 0 &&
           <label
             className = {labelClassname}

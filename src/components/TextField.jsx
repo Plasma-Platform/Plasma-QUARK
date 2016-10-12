@@ -3,8 +3,9 @@ import ReactDOM                         from 'react-dom';
 import TextFieldStateless               from './textFields/TextFieldStateless.jsx';
 import {connectNotificationTextField}   from './utils';
 
-import './TextField.less';
+import '../styles/icons.less';
 import '../styles/animations.less';
+import './TextField.less';
 
 export default class TextField extends Component {
 
@@ -62,6 +63,14 @@ export default class TextField extends Component {
     }
   }
 
+  componentDidUpdate = () => {
+    if (this.state.isValid === false) {
+      this.comp.input.showNotification();
+    } else {
+      this.comp.input.hideNotification();
+    }
+  }
+
   focus = () => {
     this.setState({
       filled  : true,
@@ -80,20 +89,16 @@ export default class TextField extends Component {
     }
   }
 
-  componentDidUpdate = () => {
-    if (this.state.isValid === false) {
-      this.comp.input.showNotification();
-    } else {
-      this.comp.input.hideNotification();
-    }
-  }
-
   getValidationStatus = () => {
     return this.state.isValid;
   }
 
   getValue = () => {
     return this.state.value;
+  }
+
+  changeFieldType = (newType = 'text') => {
+    this.inputDOMElement.setAttribute('type', newType);
   }
 
   onChange = (event) => {
@@ -170,16 +175,17 @@ export default class TextField extends Component {
     return (
       <DecoratedTextField
         {...this.props}
-        ref           = {comp => this.comp = comp}
-        value         = {this.state.value}
-        filled        = {this.state.filled}
-        focused       = {this.state.focused}
-        isValid       = {this.state.isValid}
-        animated      = {this.state.animated}
-        onFocus       = {this.onFocus}
-        onBlur        = {this.onBlur}
-        onChange      = {this.onChange}
-        notification  = { {code: this.props.notificationType || 'N2B', text: this.state.notificationText} }
+        ref             = {comp => this.comp = comp}
+        value           = {this.state.value}
+        filled          = {this.state.filled}
+        focused         = {this.state.focused}
+        isValid         = {this.state.isValid}
+        animated        = {this.state.animated}
+        onFocus         = {this.onFocus}
+        onBlur          = {this.onBlur}
+        onChange        = {this.onChange}
+        changeFieldType = {this.changeFieldType}
+        notification    = { {code: this.props.notificationType || 'N2B', text: this.state.notificationText} }
       />
     );
   }

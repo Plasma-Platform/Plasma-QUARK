@@ -1,5 +1,29 @@
 @import "../styles/variables";
 
+.icon {
+  &-letter:before {
+    background-image: svg-load('../images/icons/icon-letter.svg', fill:#B0BEC5);
+  }
+  &-eye:before {
+    background-image: svg-load('../images/icons/icon-eye.svg', fill:#2196F3);
+  }
+  &-eye_crossed:before {
+    background-image: svg-load('../images/icons/icon-eye-crossed.svg');
+  }
+  &-key:before {
+    background-image: svg-load('../images/icons/icon-key.svg', fill:#B0BEC5);
+  }
+  &-magnifier:before {
+    background-image: svg-load('../images/icons/icon-magnifier.svg', fill:#B0BEC5);
+  }
+  &-alert:before {
+    background-image: svg-load('../images/icons/icon-alert.svg', fill:#FF8F00);
+  }
+  &-check_circle:before {
+    background-image: svg-load('../images/icons/icon-check-circle.svg', fill:#1AB744);
+  }
+}
+
 .text-field {
   position: relative;
 
@@ -47,6 +71,7 @@
 
   &__label {
     position: absolute;
+    pointer-events: none;
     top: 21px;
     left: 22px;
     color: #90a4ae;
@@ -69,13 +94,36 @@
   &__notification-icon {
     right: 20px;
     top: 9px;
-    opacity: 0;
     transition: opacity .25s @easeInOutCubic;
+  }
+
+  &__notification-icon:not(.password-toggle) {
+    opacity: 0;
+  }
+
+  .password-toggle {
+    cursor: pointer;
+
+    &:active:before {
+      background-image: svg-load('../images/icons/icon-eye.svg', fill:#0d47a1);
+    }
   }
 
   &_focused {
     .text-field__label {
       color: #BBDEFB;
+    }
+
+    .icon {
+      &-letter:before {
+        background-image: svg-load('../images/icons/icon-letter.svg', fill:#90caf9);
+      }
+      &-key:before {
+        background-image: svg-load('../images/icons/icon-key.svg', fill:#90caf9);
+      }
+      &-magnifier:before {
+        background-image: svg-load('../images/icons/icon-magnifier.svg', fill:#90caf9);
+      }
     }
   }
 
@@ -87,7 +135,8 @@
     }
   }
 
-  &_F3, &_F4 {
+  &_F3,
+  &_F4 {
 
     &.text-field_filled {
       .text-field__input {
@@ -106,7 +155,8 @@
     }
   }
 
-  &_F2, &_F4 {
+  &_F2,
+  &_F4 {
     .text-field__input {
       padding-left: 50px;
     }
@@ -116,7 +166,8 @@
     }
   }
 
-  &_valid, &_invalid {
+  &_valid,
+  &_invalid {
     .text-field__notification-icon {
       opacity: 1;
     }

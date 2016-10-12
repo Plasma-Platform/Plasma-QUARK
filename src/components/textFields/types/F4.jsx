@@ -9,16 +9,13 @@ export default class F4 extends Component {
 
     constructor(props, context) {
         super(props, context);
-
-        this.value = this.props.value || '';
     }
 
-    changeHandler = (event) => {
-        this.value = event.target.value;
-        if(typeof this.props.onChange === 'function') {
-            this.props.onChange(event);
-        }
+    get value(){
+        return this.getValue();
     }
+
+    set value(val) {}
 
     getValue = () => {
         return this.input.getValue();
@@ -35,7 +32,6 @@ export default class F4 extends Component {
                 {...this.props}
                 ref       = {input => this.input = input}
                 sizeType  = 'F4'
-                onChange	= {this.changeHandler}
             />
         );
     }
