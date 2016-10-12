@@ -1,0 +1,86 @@
+.loader {
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+
+  /* .loadre modes */
+
+  &_width_full {
+    width: 100%;
+  }
+
+  &_width_fixed {
+    width: 120px;
+  }
+
+  &_height_medium {
+    height: 4px;
+  }
+
+  &_height_large {
+    height: 8px;
+  }
+
+
+  /* .loader__line */
+
+  .loader__line {
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    background-color: rgb(33, 150, 243);
+    bottom: 0;
+    position: absolute;
+    top: 0;
+
+    &:first-child {
+      animation-delay: 1s;
+      animation-name: move1;
+      left: 0;
+      opacity: .25;
+      width: calc(200%/3);
+    }
+
+    &:nth-child(2) {
+      animation-delay: .5s;
+      animation-name: move2;
+      left: 0;
+      opacity: .5;
+      width: calc(200%/3);
+    }
+
+    &:last-child {
+      animation-delay: 0s;
+      animation-name: move3;
+      left: calc(100%/6);
+      opacity: 1;
+      width: calc(100%/3);
+    }
+
+    @keyframes move1 {
+      50% {
+        transform: translateX(50%);
+      }
+    }
+
+    @keyframes move2 {
+      50% {
+        transform: translateX(50%);
+      }
+    }
+
+    @keyframes move3 {
+      50% {
+        transform: translateX(100%);
+      }
+    }
+  }
+}
