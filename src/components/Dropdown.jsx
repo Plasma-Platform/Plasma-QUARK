@@ -5,15 +5,15 @@ import './Dropdown.less';
 export default class Dropdown extends React.Component {
   static PropTypes = {
     type          : React.PropTypes.oneOf([1, 2, 3]).isRequired,
+    label         : React.PropTypes.string.isRequired,
+    options       : React.PropTypes.array.isRequired,
     className     : React.PropTypes.string,
     open          : React.PropTypes.bool,
     disabled      : React.PropTypes.bool,
-    label         : React.PropTypes.string.isRequired,
     showFilter    : React.PropTypes.bool,
     filterQuery   : React.PropTypes.string,
     filterHint    : React.PropTypes.string,
     noResultsText : React.PropTypes.string,
-    options       : React.PropTypes.array.isRequired,
     optionsToShow : React.PropTypes.number,
     value         : React.PropTypes.string,
     onChange      : React.PropTypes.func

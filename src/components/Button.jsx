@@ -33,6 +33,7 @@ export default class Button extends React.Component {
         <a
           {...props}
           className = {fullClassName}
+          ref       = {ref => { this.button = ref; }}
         >
           {this.props.children}
         </a>
