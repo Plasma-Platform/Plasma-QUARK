@@ -1096,27 +1096,27 @@
   font-size: 11px;
   top: 12px;
 }
-.text-field_f3.text-field_filled .text-field__input,
-.text-field_f4.text-field_filled .text-field__input {
+.text-field_F3.text-field_filled .text-field__input,
+.text-field_F4.text-field_filled .text-field__input {
   padding-top: 20px;
 }
-.text-field_f3 .text-field__input,
-.text-field_f4 .text-field__input {
+.text-field_F3 .text-field__input,
+.text-field_F4 .text-field__input {
   font-size: 16px;
   height: 60px;
 }
-.text-field_f3 .text-field__type-icon,
-.text-field_f4 .text-field__type-icon,
-.text-field_f3 .text-field__notification-icon,
-.text-field_f4 .text-field__notification-icon {
+.text-field_F3 .text-field__type-icon,
+.text-field_F4 .text-field__type-icon,
+.text-field_F3 .text-field__notification-icon,
+.text-field_F4 .text-field__notification-icon {
   top: 21px;
 }
-.text-field_f2 .text-field__input,
-.text-field_f4 .text-field__input {
+.text-field_F2 .text-field__input,
+.text-field_F4 .text-field__input {
   padding-left: 50px;
 }
-.text-field_f2 .text-field__label,
-.text-field_f4 .text-field__label {
+.text-field_F2 .text-field__label,
+.text-field_F4 .text-field__label {
   padding-left: 30px;
 }
 .text-field_valid .text-field__notification-icon,
