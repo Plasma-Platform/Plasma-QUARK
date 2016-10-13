@@ -155,13 +155,11 @@ export default class Dropdown extends React.Component {
   handleOptionKeyDown = (event, option, optionIndex) => {
     const keyCode = event.keyCode;
 
-    const prevOptionIndex = this.props.options.findIndex((option, index, options) => {
-      return (index < optionIndex && option.disabled !== true);
-    });
-
     const nextOptionIndex = this.props.options.findIndex((option, index) => {
       return (index > optionIndex && option.disabled !== true);
     });
+
+    const prevOptionIndex = Math.max(0, optionIndex - 1);
 
     if (keyCode === 13 && option.disabled !== true) {
       this.setValue(option.value);
@@ -272,9 +270,7 @@ export default class Dropdown extends React.Component {
       >
 
         {(this.props.type === 1 || this.props.type === 2) ? label : null}
-
         {button}
-
         {(this.props.type === 3) ? label : null}
 
         <div
