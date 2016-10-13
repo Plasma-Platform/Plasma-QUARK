@@ -10,11 +10,11 @@ export default class B3M extends React.Component {
   render () {
     return (
       <Button
+        {...this.props}
         widthType   = "square"
         heightType  = "medium"
         roundedType = "all"
         bgType      = "3"
-        {...this.props}
       >
         {this.props.children}
       </Button>

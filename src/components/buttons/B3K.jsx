@@ -10,11 +10,11 @@ export default class B3K extends React.Component {
   render () {
     return (
       <Button
+        {...this.props}
         widthType   = "full"
         heightType  = "large"
         roundedType = "bottom"
         bgType      = "3"
-        {...this.props}
       >
         {this.props.children}
       </Button>

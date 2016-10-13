@@ -6,11 +6,11 @@ export default class B3J extends React.Component {
   render () {
     return (
       <Button
+        {...this.props}
         widthType   = "full"
         heightType  = "medium"
         roundedType = "bottom"
         bgType      = "3"
-        {...this.props}
       >
         {this.props.children}
       </Button>

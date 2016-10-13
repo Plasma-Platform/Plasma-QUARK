@@ -10,11 +10,11 @@ export default class B1N extends React.Component {
   render () {
     return (
       <Button
+        {...this.props}
         widthType   = "square"
         heightType  = "large"
         roundedType = "all"
         bgType      = "1"
-        {...this.props}
       >
         {this.props.children}
       </Button>

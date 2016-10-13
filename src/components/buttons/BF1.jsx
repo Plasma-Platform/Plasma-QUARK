@@ -6,12 +6,12 @@ export default class BF1 extends React.Component {
   render () {
     return (
       <Button
+        {...this.props}
         widthType   = "auto"
         heightType  = "medium"
         roundedType = "all"
         bgType      = "facebook"
         icon        = "facebook"
-        {...this.props}
       >
         {this.props.children}
       </Button>

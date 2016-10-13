@@ -10,11 +10,11 @@ export default class B2D extends React.Component {
   render () {
     return (
       <Button
+        {...this.props}
         widthType   = "full"
         heightType  = "large"
         roundedType = "all"
         bgType      = "2"
-        {...this.props}
       >
         {this.props.children}
       </Button>

@@ -6,12 +6,12 @@ export default class BG5 extends React.Component {
   render () {
     return (
       <Button
+        {...this.props}
         widthType   = "square"
         heightType  = "medium"
         roundedType = "all"
         bgType      = "google-plus"
         icon        = "google-plus"
-        {...this.props}
       >
         {this.props.children}
       </Button>
