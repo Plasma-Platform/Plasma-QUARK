@@ -315,10 +315,14 @@
   transform: rotate(-45deg);
   width: 14px;
 }
-.checkbox__label:hover {
+.checkbox__label:hover,
+.checkbox__label:focus,
+.checkbox__label:active {
   color: #1ab744;
 }
-.checkbox__label:hover::before {
+.checkbox__label:hover::before,
+.checkbox__label:focus::before,
+.checkbox__label:active::before {
   border-color: #1ab744;
 }
 .checkbox__label:focus,
@@ -328,7 +332,6 @@
 .checkbox__label:focus::before,
 .checkbox__label:active::before {
   background-color: #1ab744;
-  border-color: #1ab744;
   height: 16px;
   margin: -8px 0 0 2px;
   width: 16px;
@@ -803,10 +806,14 @@
   margin: -5px 0 0 5px;
   width: 10px;
 }
-:not(:checked) + .radio__label:hover {
+:not(:checked) + .radio__label:hover,
+:not(:checked) + .radio__label:focus,
+:not(:checked) + .radio__label:active {
   color: #1ab744;
 }
-:not(:checked) + .radio__label:hover::before {
+:not(:checked) + .radio__label:hover::before,
+:not(:checked) + .radio__label:focus::before,
+:not(:checked) + .radio__label:active::before {
   border-color: #1ab744;
 }
 :not(:checked) + .radio__label:focus,
@@ -816,7 +823,6 @@
 :not(:checked) + .radio__label:focus::before,
 :not(:checked) + .radio__label:active::before {
   background-color: #1ab744;
-  border-color: #1ab744;
   height: 16px;
   margin: -8px 0 0 2px;
   width: 16px;

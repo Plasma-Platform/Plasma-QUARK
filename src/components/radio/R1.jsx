@@ -5,7 +5,10 @@ import Radio from '../Radio.jsx';
 export default class R1 extends React.Component {
   render () {
     return (
-      <Radio {...this.props} />
+      <Radio
+        {...this.props}
+        ref = {ref => { this.radio = ref; }}
+      />
     );
   }
 }

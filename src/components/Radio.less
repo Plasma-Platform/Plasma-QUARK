@@ -53,7 +53,9 @@
     }
 
     :not(:checked) + & {
-      &:hover {
+      &:hover,
+      &:focus,
+      &:active {
         color: #1ab744;
 
         &::before {
@@ -67,7 +69,6 @@
 
         &::before {
           background-color: #1ab744;
-          border-color: #1ab744;
           height: 16px;
           margin: -8px 0 0 2px;
           width: 16px;

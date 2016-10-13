@@ -11,14 +11,13 @@ export default class Switcher extends React.Component {
   }
 
   render () {
-    const {size, className, id, name, label, checked, ...props} = this.props;
+    const {size, className, id, name, label, checked, tabIndex, ...props} = this.props;
 
     const addClassName = className ? ` ${className}` : '';
 
     return (
       <div
         className = {`switcher switcher_size_${size}${addClassName}`}
-        ref       = {switcher => this.switcher = switcher}
       >
         <input
           {...props}
@@ -27,11 +26,13 @@ export default class Switcher extends React.Component {
           name           = {name}
           type           = "radio"
           defaultChecked = {checked}
-          ref            = {(ref) => { this.input = ref; }}
+          ref            = {ref => { this.input = ref; }}
         />
         <label
           className = "switcher__label"
           htmlFor   = {id}
+          tabIndex  = {tabIndex || this.props.tabIndex}
+          ref       = {ref => { this.label = ref; }}
         >
           {label}
         </label>

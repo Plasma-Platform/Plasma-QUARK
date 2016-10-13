@@ -8,6 +8,7 @@ export default class SW1 extends React.Component {
       <Switcher
         {...this.props}
         size = "medium"
+        ref  = {ref => { this.switcher = ref; }}
       />
     );
   }

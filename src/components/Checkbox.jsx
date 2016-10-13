@@ -4,19 +4,23 @@ import './Checkbox.less';
 
 export default class Checkbox extends React.Component {
   static propTypes = {
+    id        : React.PropTypes.string.isRequired,
     className : React.PropTypes.string,
-    id        : React.PropTypes.string.isRequired
+    tabIndex  : React.PropTypes.number
+  }
+
+  static defaultProps = {
+    tabIndex: 0
   }
 
   render () {
-    const {className, id, label, checked, ...props} = this.props;
+    const {className, id, label, checked, tabIndex, ...props} = this.props;
 
     const addClassName = className ? ` ${className}` : '';
 
     return (
       <div
         className = {`checkbox${addClassName}`}
-        ref       = {ref => { this.checkbox = ref; }}
       >
         <input
           {...props}
@@ -29,6 +33,8 @@ export default class Checkbox extends React.Component {
         <label
           className = "checkbox__label"
           htmlFor   = {id}
+          tabIndex  = {tabIndex || this.props.tabIndex}
+          ref       = {ref => { this.label = ref; }}
         >
           {label}
         </label>
