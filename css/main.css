@@ -24,7 +24,8 @@
 .button *::after {
   box-sizing: inherit;
 }
-.button:hover {
+.button:hover,
+.button:focus {
   color: #fff;
 }
 .button:active,
@@ -126,7 +127,8 @@
   background: -webkit-linear-gradient(top, #f4511e 0%, #d84315 100%);
   background: linear-gradient(to bottom, #f4511e 0%, #d84315 100%);
 }
-.button_bg_1:hover {
+.button_bg_1:hover,
+.button_bg_1:focus {
   background: -webkit-linear-gradient(top, #d84315 0%, #bf360c 100%);
   background: linear-gradient(to bottom, #d84315 0%, #bf360c 100%);
 }
@@ -138,7 +140,8 @@
   background: -webkit-linear-gradient(top, #42a5f5 0%, #2196f3 100%);
   background: linear-gradient(to bottom, #42a5f5 0%, #2196f3 100%);
 }
-.button_bg_2:hover {
+.button_bg_2:hover,
+.button_bg_2:focus {
   background: -webkit-linear-gradient(top, #2196f3 0%, #1976d2 100%);
   background: linear-gradient(to bottom, #2196f3 0%, #1976d2 100%);
 }
@@ -150,7 +153,8 @@
   background: -webkit-linear-gradient(top, #90a4ae 0%, #78909c 100%);
   background: linear-gradient(to bottom, #90a4ae 0%, #78909c 100%);
 }
-.button_bg_3:hover {
+.button_bg_3:hover,
+.button_bg_3:focus {
   background: -webkit-linear-gradient(top, #78909c 0%, #546e7a 100%);
   background: linear-gradient(to bottom, #78909c 0%, #546e7a 100%);
 }
@@ -162,7 +166,8 @@
   background: -webkit-linear-gradient(top, #4f69a3 0%, #415b93 100%);
   background: linear-gradient(to bottom, #4f69a3 0%, #415b93 100%);
 }
-.button_bg_facebook:hover {
+.button_bg_facebook:hover,
+.button_bg_facebook:focus {
   background: -webkit-linear-gradient(top, #415b93 0%, #324d89 100%);
   background: linear-gradient(to bottom, #415b93 0%, #324d89 100%);
 }
@@ -174,7 +179,8 @@
   background: -webkit-linear-gradient(top, #db4937 0%, #c43a2e 100%);
   background: linear-gradient(to bottom, #db4937 0%, #c43a2e 100%);
 }
-.button_bg_google-plus:hover {
+.button_bg_google-plus:hover,
+.button_bg_google-plus:focus {
   background: -webkit-linear-gradient(top, #c43a2e 0%, #ba2b1f 100%);
   background: linear-gradient(to bottom, #c43a2e 0%, #ba2b1f 100%);
 }
@@ -186,7 +192,8 @@
   background: -webkit-linear-gradient(top, #56acee 0%, #4f9fdb 100%);
   background: linear-gradient(to bottom, #56acee 0%, #4f9fdb 100%);
 }
-.button_bg_twitter:hover {
+.button_bg_twitter:hover,
+.button_bg_twitter:focus {
   background: -webkit-linear-gradient(top, #4f9fdb 0%, #3a8ece 100%);
   background: linear-gradient(to bottom, #4f9fdb 0%, #3a8ece 100%);
 }
@@ -198,7 +205,8 @@
   background: -webkit-linear-gradient(top, #e3262d 0%, #cb2026 100%);
   background: linear-gradient(to bottom, #e3262d 0%, #cb2026 100%);
 }
-.button_bg_pinterest:hover {
+.button_bg_pinterest:hover,
+.button_bg_pinterest:focus {
   background: -webkit-linear-gradient(top, #cb2026 0%, #b70f15 100%);
   background: linear-gradient(to bottom, #cb2026 0%, #b70f15 100%);
 }
@@ -210,7 +218,8 @@
   background: -webkit-linear-gradient(top, #5b7fa6 0%, #346184 100%);
   background: linear-gradient(to bottom, #5b7fa6 0%, #346184 100%);
 }
-.button_bg_vk:hover {
+.button_bg_vk:hover,
+.button_bg_vk:focus {
   background: -webkit-linear-gradient(top, #346184 0%, #1d4b6e 100%);
   background: linear-gradient(to bottom, #346184 0%, #1d4b6e 100%);
 }
