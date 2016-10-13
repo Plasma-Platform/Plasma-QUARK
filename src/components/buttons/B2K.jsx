@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
-import Button from '../Button.jsx'
+import Button from '../Button.jsx';
 
 export default class B2K extends React.Component {
   static propTypes = {
     icon: React.PropTypes.string.isRequired
   }
-  
+
   render () {
     return (
       <Button
@@ -18,6 +18,6 @@ export default class B2K extends React.Component {
       >
         {this.props.children}
       </Button>
-    )
+    );
   }
 }

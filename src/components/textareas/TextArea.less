@@ -1,49 +1,49 @@
-@import "../../styles/variables";
+@import "../../assets/styles/variables";
 
 .TextArea {
-  resize: none;
   display: block;
+  resize: none;
 
   &_wrapper {
     position: relative;
 
     &:after {
-      position: absolute;
-      content: '';
-      display: block;
-      width: ~'calc(100% - 45px)';
-      height: @spacing4x;
-      left: 1px;
-      top: 1px;
-      z-index: 5;
       background: @light-grey;
       border-radius: 3px 0 0 0;
       box-shadow: inset 0 1px 0 0 @light-grey-2;
+      content: "";
+      display: block;
+      height: @spacing4x;
+      left: 1px;
+      position: absolute;
+      top: 1px;
       transition: .3s;
+      width: ~'calc(100% - 45px)';
+      z-index: 5;
     }
 
     &.TextArea_inFocus {
       &:after {
-        box-shadow: none;
         background: @color-white;
+        box-shadow: none;
       }
     }
   }
 
   &__input {
-    width: 100%;
-    min-height: 110px;
-    height: auto;
-    max-height: 274px;
     background: @light-grey;
-    box-shadow: inset 0 1px 0 0 @light-grey-2;
-    color: @basic;
     border: 1px solid transparent;
     border-radius: 3px;
+    box-shadow: inset 0 1px 0 0 @light-grey-2;
+    color: @basic;
+    font-size: 14px;
+    height: auto;
+    max-height: 274px;
+    min-height: 110px;
     outline: none;
     padding: @spacing4x @spacing2x @spacing2x @spacing2x;
-    font-size: 14px;
     transition: .3s;
+    width: 100%;
 
     &::placeholder {
       color: @secodary;
@@ -51,8 +51,8 @@
 
     &:focus {
       background: @color-white;
-      box-shadow: none;
       border-color: @light-blue;
+      box-shadow: none;
 
       &::placeholder {
         color: @light-blue-2;
@@ -60,10 +60,10 @@
     }
 
     &:disabled {
-      border-color: @light-grey;
-      color: @light-grey-2;
       background: @color-white;
+      border-color: @light-grey;
       box-shadow: none;
+      color: @light-grey-2;
       cursor: not-allowed;
       user-select: none;
 
@@ -76,43 +76,46 @@
   }
 
   &__label {
-    position: absolute;
-    z-index: 6;
-    top: 20px;
-    left: 20px;
     color: @secodary;
     cursor: text;
-    transition: .3s;
     font-size: 14px;
+    left: 20px;
+    position: absolute;
+    top: 20px;
+    transition: .3s;
+    z-index: 6;
   }
 
   &__type-icon,
   &__notification-icon {
+    height: 20px;
     position: absolute !important;
     width: 20px;
-    height: 20px;
     z-index: 200;
   }
 
   &__type-icon {
-    top: 11px;
     left: 20px;
+    top: 11px;
   }
 
   &__notification-icon {
+    opacity: 0;
     right: 20px;
     top: 20px;
-    opacity: 0;
     transition: opacity .25s @easeInOutCubic;
   }
 
-  &_fieldFilled {
+  &_fieldfilled {
     .TextArea__label {
       font-size: 11px !important;
     }
   }
 
-  &_TA2, &_TA4, &_TA6, &_TA8 {
+  &_ta2,
+  &_ta4,
+  &_ta6,
+  &_ta8 {
     .TextArea__type-icon,
     .TextArea__notification-icon {
       top: 21px;
@@ -127,7 +130,10 @@
     }
   }
 
-  &_TA3, &_TA4, &_TA7, &_TA8 {
+  &_ta3,
+  &_ta4,
+  &_ta7,
+  &_ta8 {
     .TextArea__input {
       font-size: 16px;
     }
@@ -137,7 +143,8 @@
     }
   }
 
-  &_valid, &_invalid {
+  &_valid,
+  &_invalid {
     .TextArea__notification-icon {
       opacity: 1;
     }
@@ -159,22 +166,22 @@
     &:after {
       animation: showErrorField .25s @easeInOutCubic forwards, hideErrorField .25s @easeInOutCubic .75s both;
     }
-
   }
 
   &__limit {
-    font-size: 11px;
-    font-weight: normal;
-    font-style: normal;
-    text-align: right;
-    color: @secodary;
-    position: absolute;
-    z-index: 50;
-    right: 10px;
     bottom: 10px;
+    color: @secodary;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: normal;
+    position: absolute;
+    right: 10px;
+    text-align: right;
+    z-index: 50;
   }
 
-  &_TA7, &_TA8 {
+  &_ta7,
+  &_ta8 {
     .TextArea__limit {
       font-size: 13px;
     }
@@ -224,5 +231,3 @@
     box-shadow: inset 0 1px 0 0 @light-grey-2;
   }
 }
-
-

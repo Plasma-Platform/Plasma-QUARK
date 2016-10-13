@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import './Loader.less'
+import './Loader.less';
 
 export default class Loader extends React.Component {
   static propTypes = {
@@ -10,10 +10,10 @@ export default class Loader extends React.Component {
   }
 
   render () {
-    const addClassName    = this.props.className ? ` ${this.props.className}` : ''
-    const widthClassName  = ` loader_width_${this.props.width}`
-    const heightClassName = ` loader_height_${this.props.height}`
-    const fullClassName   = `loader${widthClassName}${heightClassName}${addClassName}`
+    const addClassName    = this.props.className ? ` ${this.props.className}` : '';
+    const widthClassName  = ` loader_width_${this.props.width}`;
+    const heightClassName = ` loader_height_${this.props.height}`;
+    const fullClassName   = `loader${widthClassName}${heightClassName}${addClassName}`;
 
     return (
       <span className={fullClassName}>
@@ -21,6 +21,6 @@ export default class Loader extends React.Component {
         <span className="loader__line"></span>
         <span className="loader__line"></span>
       </span>
-    )
+    );
   }
 }

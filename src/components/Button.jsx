@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import './Button.less'
+import './Button.less';
 
 export default class Button extends React.Component {
   static propTypes = {
@@ -18,15 +18,15 @@ export default class Button extends React.Component {
   }
 
   render () {
-    const {widthType, heightType, roundedType, bgType, icon, className, type, ...props} = this.props
+    const {widthType, heightType, roundedType, bgType, icon, className, type, ...props} = this.props;
 
-    const widthClassName  = ` button_width_${widthType}`
-    const heightClassName = ` button_height_${heightType}`
-    const roundClassName  = ` button_rounded_${roundedType}`
-    const bgClassName     = this.props.disabled ? ' button_bg_disabled' : ` button_bg_${bgType}`
-    const iconClassName   = icon ? ` icon icon-${icon}` : ''
-    const addClassName    = className ? ` ${className}` : ''
-    const fullClassName   = `button${widthClassName}${heightClassName}${roundClassName}${bgClassName}${iconClassName}${addClassName}`
+    const widthClassName  = ` button_width_${widthType}`;
+    const heightClassName = ` button_height_${heightType}`;
+    const roundClassName  = ` button_rounded_${roundedType}`;
+    const bgClassName     = this.props.disabled ? ' button_bg_disabled' : ` button_bg_${bgType}`;
+    const iconClassName   = icon ? ` icon icon-${icon}` : '';
+    const addClassName    = className ? ` ${className}` : '';
+    const fullClassName   = `button${widthClassName}${heightClassName}${roundClassName}${bgClassName}${iconClassName}${addClassName}`;
 
     if (type === 'link') {
       return (
@@ -36,28 +36,28 @@ export default class Button extends React.Component {
         >
           {this.props.children}
         </a>
-      )
+      );
     } else if (type === 'text') {
       return (
         <span
           {...props}
           className = {fullClassName}
-          ref       = {ref => { this.button = ref }}
+          ref       = {ref => { this.button = ref; }}
         >
           {this.props.children}
         </span>
-      )
+      );
     } else {
       return (
         <button
           {...props}
           type      = {type}
           className = {fullClassName}
-          ref       = {ref => { this.button = ref }}
+          ref       = {ref => { this.button = ref; }}
         >
           {this.props.children}
         </button>
-      )
+      );
     }
   }
 }

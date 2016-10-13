@@ -3,22 +3,21 @@ import React, { Component, PropTypes } 	from 'react';
 import TextArea from '../TextArea.jsx';
 
 export default class TA1 extends Component {
-    static propTypes = {  
-        id                      : React.PropTypes.string,
-        value                   : React.PropTypes.string,
-        disabled                : React.PropTypes.bool,
-        label                   : React.PropTypes.string,
-        notificationText        : React.PropTypes.string,
-        onValidate              : React.PropTypes.func
-    };
+  static propTypes = {
+    id               : React.PropTypes.string,
+    value            : React.PropTypes.string,
+    disabled         : React.PropTypes.bool,
+    label            : React.PropTypes.string,
+    notificationText : React.PropTypes.string,
+    onValidate       : React.PropTypes.func
+  };
 
-    getValue = () => {
-        return this.input.getValue();
-    }
+  getValue = () => {
+    return this.input.getValue();
+  }
 
-    render() {
-
-        return (
+  render () {
+    return (
             <TextArea
                 id 			= { this.props.id }
                 ref			= {input => this.input = input}
@@ -31,5 +30,5 @@ export default class TA1 extends Component {
                 notificationText = {this.props.notificationText}
             />
         );
-    }
+  }
 }

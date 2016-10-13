@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import './Checkbox.less'
+import './Checkbox.less';
 
 export default class Checkbox extends React.Component {
   static propTypes = {
@@ -9,14 +9,14 @@ export default class Checkbox extends React.Component {
   }
 
   render () {
-    const {className, id, label, checked, ...props} = this.props
+    const {className, id, label, checked, ...props} = this.props;
 
-    const addClassName = className ? ` ${className}` : ''
+    const addClassName = className ? ` ${className}` : '';
 
     return (
       <div
         className = {`checkbox${addClassName}`}
-        ref       = {ref => { this.checkbox = ref }}
+        ref       = {ref => { this.checkbox = ref; }}
       >
         <input
           {...props}
@@ -24,7 +24,7 @@ export default class Checkbox extends React.Component {
           id             = {id}
           type           = "checkbox"
           defaultChecked = {checked}
-          ref            = {ref => { this.input = ref }}
+          ref            = {ref => { this.input = ref; }}
         />
         <label
           className = "checkbox__label"
@@ -33,6 +33,6 @@ export default class Checkbox extends React.Component {
           {label}
         </label>
       </div>
-    )
+    );
   }
 }

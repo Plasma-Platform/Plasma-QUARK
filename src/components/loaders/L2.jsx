@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import Loader from '../Loader.jsx'
+import Loader from '../Loader.jsx';
 
 export default class L2 extends React.Component {
   render () {
@@ -10,6 +10,6 @@ export default class L2 extends React.Component {
         width  = "fixed"
         height = "large"
       />
-    )
+    );
   }
 }

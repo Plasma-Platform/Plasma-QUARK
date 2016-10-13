@@ -3,8 +3,8 @@ import ReactDOM                         from 'react-dom';
 import TextFieldStateless               from './textFields/TextFieldStateless.jsx';
 import {connectNotificationTextField}   from './utils';
 
-import '../styles/icons.less';
-import '../styles/animations.less';
+import '../assets/styles/icons.less';
+import '../assets/styles/animations.less';
 import './TextField.less';
 
 export default class TextField extends Component {

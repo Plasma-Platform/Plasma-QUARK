@@ -1,5 +1,5 @@
-var webpack = require('webpack')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: './index.js',
@@ -37,10 +37,10 @@ module.exports = {
       { test: /\.js$/, loader: 'babel', exclude: [/node_modules/, /public/] }
     ]
   },
-  postcss: function() {
+  postcss: function () {
     return [
       require('postcss-inline-svg'),
       require('autoprefixer')
-    ]
+    ];
   }
-}
+};

@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import './Dropdown.less'
+import './Dropdown.less';
 
 export default class Dropdown extends React.Component {
   static PropTypes = {
@@ -26,43 +26,43 @@ export default class Dropdown extends React.Component {
   }
 
   constructor (props) {
-    super(props)
+    super(props);
 
-    this.handleDocumentClick = this.handleDocumentClick.bind(this)
-    this.handleDropdownBlur  = this.handleDropdownBlur.bind(this)
-    this.handleDropdownKeyUp = this.handleDropdownKeyUp.bind(this)
-    this.setContentPos       = this.setContentPos.bind(this)
-    this.setValue            = this.setValue.bind(this)
-    this.getValue            = this.getValue.bind(this)
-    this.open                = this.open.bind(this)
-    this.close               = this.close.bind(this)
-    this.toggle              = this.toggle.bind(this)
-    this.filterOptions       = this.filterOptions.bind(this)
-    this.handleFilterBlur    = this.handleFilterBlur.bind(this)
-    this.handleFilterKeyDown = this.handleFilterKeyDown.bind(this)
-    this.handleOptionClick   = this.handleOptionClick.bind(this)
-    this.handleOptionKeyDown = this.handleOptionKeyDown.bind(this)
-    this.getOptionByValue    = this.getOptionByValue.bind(this)
+    this.handleDocumentClick = this.handleDocumentClick.bind(this);
+    this.handleDropdownBlur  = this.handleDropdownBlur.bind(this);
+    this.handleDropdownKeyUp = this.handleDropdownKeyUp.bind(this);
+    this.setContentPos       = this.setContentPos.bind(this);
+    this.setValue            = this.setValue.bind(this);
+    this.getValue            = this.getValue.bind(this);
+    this.open                = this.open.bind(this);
+    this.close               = this.close.bind(this);
+    this.toggle              = this.toggle.bind(this);
+    this.filterOptions       = this.filterOptions.bind(this);
+    this.handleFilterBlur    = this.handleFilterBlur.bind(this);
+    this.handleFilterKeyDown = this.handleFilterKeyDown.bind(this);
+    this.handleOptionClick   = this.handleOptionClick.bind(this);
+    this.handleOptionKeyDown = this.handleOptionKeyDown.bind(this);
+    this.getOptionByValue    = this.getOptionByValue.bind(this);
 
-    this.activeOption = 0
-    this.contentPos   = 'bottom'
+    this.activeOption = 0;
+    this.contentPos   = 'bottom';
   }
 
   handleDocumentClick = (event) => {
     if (this.container.contains(event.target) === false && this.container !== event.target && this.state.open) {
-      this.close()
+      this.close();
     }
   }
 
   handleDropdownBlur = (event) => {
     if (this.container.contains(event.relatedTarget) === false && this.container !== event.relatedTarget && this.open) {
-      this.close()
+      this.close();
     }
   }
 
   handleDropdownKeyUp = (event) => {
     if (event.keyCode === 27 && this.state.open) {
-      this.close()
+      this.close();
     }
   }
 
@@ -74,14 +74,14 @@ export default class Dropdown extends React.Component {
       document.documentElement.offsetHeight,
       document.body.clientHeight,
       document.documentElement.clientHeight
-    )
-    const contentHeight    = this.content.offsetHeight
-    const contentTopOffset = this.content.getBoundingClientRect().top + pageYOffset
+    );
+    const contentHeight    = this.content.offsetHeight;
+    const contentTopOffset = this.content.getBoundingClientRect().top + pageYOffset;
 
     if (contentTopOffset + contentHeight - documentHeight > 0 && contentTopOffset > documentHeight - contentTopOffset) {
-      this.contentPos = 'top'
+      this.contentPos = 'top';
     } else {
-      this.contentPos = 'bottom'
+      this.contentPos = 'bottom';
     }
   }
 
@@ -91,100 +91,100 @@ export default class Dropdown extends React.Component {
       value : newValue
     }, () => {
       if (this.props.onChange) {
-        this.props.onChange(newValue)
+        this.props.onChange(newValue);
       }
-    })
+    });
   }
 
   getValue = () => {
-    return this.state.value
+    return this.state.value;
   }
 
   open = () => {
-    this.setContentPos()
+    this.setContentPos();
 
     this.setState({
       open        : true,
       filterQuery : ''
     }, () => {
-      this.filterInput.focus()
-    })
+      this.filterInput.focus();
+    });
   }
 
   close = () => {
     this.setState({
       open: false
-    })
+    });
   }
 
   toggle = () => {
     if (this.state.open === true) {
-      this.close()
+      this.close();
     } else {
-      this.open()
+      this.open();
     }
   }
 
   filterOptions = () => {
     if (this.contentPos === 'bottom') {
-      this.setContentPos()
+      this.setContentPos();
     }
 
     this.setState({
       filterQuery: this.filterInput.value
-    })
+    });
   }
 
   handleFilterBlur = (event) => {
-    this.filterInput.value = this.filterInput.value.trim()
-    this.filterOptions()
+    this.filterInput.value = this.filterInput.value.trim();
+    this.filterOptions();
   }
 
   handleFilterKeyDown= (event) => {
     if (event.keyCode === 40) {
-      this.option0.focus()
+      this.option0.focus();
     }
   }
 
   handleOptionClick = (option) => {
     if (option.disabled !== true) {
-      this.setValue(option.value)
+      this.setValue(option.value);
     }
   }
 
   handleOptionKeyDown = (event, option, optionIndex) => {
-    const keyCode = event.keyCode
+    const keyCode = event.keyCode;
 
     const prevOptionIndex = this.props.options.findIndex((option, index, options) => {
-      return (index < optionIndex && option.disabled !== true)
-    })
+      return (index < optionIndex && option.disabled !== true);
+    });
 
     const nextOptionIndex = this.props.options.findIndex((option, index) => {
-      return (index > optionIndex && option.disabled !== true)
-    })
+      return (index > optionIndex && option.disabled !== true);
+    });
 
     if (keyCode === 13 && option.disabled !== true) {
-      this.setValue(option.value)
+      this.setValue(option.value);
     } else if (keyCode === 40 && nextOptionIndex >= 0) {
-      this[`option${nextOptionIndex}`].focus()
+      this[`option${nextOptionIndex}`].focus();
     } else if (keyCode === 38) {
       if (prevOptionIndex >= 0) {
-        this[`option${prevOptionIndex}`].focus()
+        this[`option${prevOptionIndex}`].focus();
       } else if (this.props.showFilter) {
-        this.filterInput.focus()
+        this.filterInput.focus();
       }
     }
   }
 
   getOptionByValue = (optionValue) => {
     return this.props.options.filter((option) => {
-      return option.value === optionValue
-    })[0]
+      return option.value === optionValue;
+    })[0];
   }
 
   componentDidMount () {
-    window.addEventListener('click', this.handleDocumentClick)
-    this.setContentPos()
+    window.addEventListener('click', this.handleDocumentClick);
+    this.setContentPos();
   }
 
   componentWillReceiveProps (nextProps) {
@@ -192,24 +192,24 @@ export default class Dropdown extends React.Component {
       open        : nextProps.open ? nextProps.open : this.state.open,
       filterQuery : nextProps.filterQuery ? nextProps.filterQuery : this.state.filterQuery,
       value       : nextProps.value ? nextProps.value : this.state.value
-    })
+    });
   }
 
   componentWillUnmount () {
-    window.removeEventListener('click', this.handleDocumentClick)
+    window.removeEventListener('click', this.handleDocumentClick);
   }
 
   render () {
-    const filterRegExp   = this.state.filterQuery.toLowerCase()
-    const selectedOption = this.getOptionByValue(this.state.value || this.props.value)
+    const filterRegExp   = this.state.filterQuery.toLowerCase();
+    const selectedOption = this.getOptionByValue(this.state.value || this.props.value);
 
-    const openClassName     = `${this.state.open ? ' dropdown_state_open' : ''}`
-    const disabledClassName   = `${this.props.disabled ? ' dropdown_disabled' : ''}`
-    const contentPosClassName = ` dropdown_content-pos_${this.contentPos}`
-    const addClassName       = `${this.props.className ? ' ' + this.props.className : ''}`
-    const typeClassName     = ` dropdown_type_${this.props.type}`
+    const openClassName     = `${this.state.open ? ' dropdown_state_open' : ''}`;
+    const disabledClassName   = `${this.props.disabled ? ' dropdown_disabled' : ''}`;
+    const contentPosClassName = ` dropdown_content-pos_${this.contentPos}`;
+    const addClassName       = `${this.props.className ? ' ' + this.props.className : ''}`;
+    const typeClassName     = ` dropdown_type_${this.props.type}`;
 
-    const label = <span className="dropdown__label">{this.props.label}</span>
+    const label = <span className="dropdown__label">{this.props.label}</span>;
 
     const button = <button
       className  = {`dropdown__button${selectedOption.icon ? ' icon icon-' + selectedOption.icon : ''}`}
@@ -221,7 +221,7 @@ export default class Dropdown extends React.Component {
     >
       {selectedOption.label}
       <span className="dropdown__arrow"></span>
-    </button>
+    </button>;
 
     const filterInput = <input
       className   = "dropdown__filter-input"
@@ -233,15 +233,15 @@ export default class Dropdown extends React.Component {
       onBlur      = {this.handleFilterBlur}
       onKeyDown   = {this.handleFilterKeyDown}
       ref         = {(ref) => this.filterInput = ref}
-    />
+    />;
 
     const options = this.props.options.filter((option) => {
-      return option.label.toLowerCase().indexOf(filterRegExp) === 0
+      return option.label.toLowerCase().indexOf(filterRegExp) === 0;
     }).map((option, optionIndex) => {
-      const selectedClassName = option.value === this.state.value ? ' dropdown__option_selected' : ''
-      const disabledClassName = option.disabled ? ' dropdown__option_disabled' : ''
-      const iconClassName   = option.icon ? ` icon icon-${option.icon}` : ''
-      const optionClassName   = `dropdown__option${selectedClassName}${disabledClassName}${iconClassName}`
+      const selectedClassName = option.value === this.state.value ? ' dropdown__option_selected' : '';
+      const disabledClassName = option.disabled ? ' dropdown__option_disabled' : '';
+      const iconClassName   = option.icon ? ` icon icon-${option.icon}` : '';
+      const optionClassName   = `dropdown__option${selectedClassName}${disabledClassName}${iconClassName}`;
 
       return (
         <li
@@ -249,17 +249,17 @@ export default class Dropdown extends React.Component {
           aria-label = {option.label}
           tabIndex   = "-1"
           role       = "option"
-          onClick    = {() => { this.handleOptionClick(option) }}
-          onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex) }}
+          onClick    = {() => { this.handleOptionClick(option); }}
+          onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
           key        = {optionIndex}
-          ref        = {(ref) => { this[`option${optionIndex}`] = ref }}
+          ref        = {(ref) => { this[`option${optionIndex}`] = ref; }}
         >
           {option.label}
         </li>
-      )
-    })
+      );
+    });
 
-    const isNoResults = this.props.showFilter && options.length === 0 && filterRegExp.length > 0 && this.props.noResultsText
+    const isNoResults = this.props.showFilter && options.length === 0 && filterRegExp.length > 0 && this.props.noResultsText;
 
     return (
       <div
@@ -279,7 +279,7 @@ export default class Dropdown extends React.Component {
 
         <div
           className = "dropdown__content"
-          ref       = {(ref) => { this.content = ref }}
+          ref       = {(ref) => { this.content = ref; }}
         >
           {this.props.showFilter ? filterInput : null}
           <ul
@@ -296,6 +296,6 @@ export default class Dropdown extends React.Component {
         </div>
 
       </div>
-    )
+    );
   }
 }

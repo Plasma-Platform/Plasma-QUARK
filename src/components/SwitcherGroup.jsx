@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import './SwitcherGroup.less'
+import './SwitcherGroup.less';
 
 export default class Switcher extends React.Component {
   render () {
@@ -8,6 +8,6 @@ export default class Switcher extends React.Component {
       <div className="switcher-group">
         {this.props.children}
       </div>
-    )
+    );
   }
 }

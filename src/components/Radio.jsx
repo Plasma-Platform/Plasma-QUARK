@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import './Radio.less'
+import './Radio.less';
 
 export default class Radio extends React.Component {
   static propTypes = {
@@ -10,9 +10,9 @@ export default class Radio extends React.Component {
   }
 
   render () {
-    const {className, id, name, label, checked, ...props} = this.props
+    const {className, id, name, label, checked, ...props} = this.props;
 
-    const addClassName = className ? ` ${className}` : ''
+    const addClassName = className ? ` ${className}` : '';
 
     return (
       <div
@@ -26,7 +26,7 @@ export default class Radio extends React.Component {
           name           = {name}
           type           = "radio"
           defaultChecked = {checked}
-          ref            = {(ref) => { this.input = ref }}
+          ref            = {(ref) => { this.input = ref; }}
         />
         <label
           className = "radio__label"
@@ -35,6 +35,6 @@ export default class Radio extends React.Component {
           {label}
         </label>
       </div>
-    )
+    );
   }
 }

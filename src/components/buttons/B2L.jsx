@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import Button from '../Button.jsx'
+import Button from '../Button.jsx';
 
 export default class B2L extends React.Component {
   render () {
@@ -14,6 +14,6 @@ export default class B2L extends React.Component {
       >
         {this.props.children}
       </Button>
-    )
+    );
   }
 }

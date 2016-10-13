@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import Switcher from '../Switcher.jsx'
+import Switcher from '../Switcher.jsx';
 
 export default class SW1 extends React.Component {
   render () {
@@ -9,6 +9,6 @@ export default class SW1 extends React.Component {
         {...this.props}
         size = "medium"
       />
-    )
+    );
   }
 }

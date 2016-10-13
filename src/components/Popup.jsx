@@ -1,7 +1,7 @@
-import React                   from 'react'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import React                   from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import './Popup.less'
+import './Popup.less';
 
 export default class Popup extends React.Component {
   static propTypes = {
@@ -15,16 +15,16 @@ export default class Popup extends React.Component {
   }
 
   render () {
-    const addClassName     = this.props.className ? ` ${this.props.className}` : ''
-    const bgClassName      = ` popup_bg_${this.props.bg}`
-    const paddingClassName = ` popup_padding_${this.props.padding}`
-    const fullClassName    = `popup${paddingClassName}${bgClassName}${addClassName}`
+    const addClassName     = this.props.className ? ` ${this.props.className}` : '';
+    const bgClassName      = ` popup_bg_${this.props.bg}`;
+    const paddingClassName = ` popup_padding_${this.props.padding}`;
+    const fullClassName    = `popup${paddingClassName}${bgClassName}${addClassName}`;
 
     const bg = <div
       className = "popup__bg"
       onClick   = {this.props.onRequestClose}
     >
-    </div>
+    </div>;
 
     const closeBtn = <button
       className  = "popup__close-btn"
@@ -33,24 +33,24 @@ export default class Popup extends React.Component {
       onClick    = {this.props.onRequestClose}
     >
       <span className="popup__close-text">{this.props.closeText}</span>
-    </button>
+    </button>;
 
     const content = <div className="popup__content">
       {this.props.showCloseBtn ? closeBtn : null}
       {this.props.children}
-    </div>
+    </div>;
 
     const inner = <div className="popup__inner" role="dialog">
       {bg}
       {content}
-    </div>
+    </div>;
 
     return (
       <ReactCSSTransitionGroup
         component              = "div"
         className              = {fullClassName}
         id                     = {this.props.id ? this.props.id : null}
-        ref                    = {(ref) => { this.container = ref }}
+        ref                    = {(ref) => { this.container = ref; }}
         transitionAppear       = {false}
         transitionLeave        = {true}
         transitionLeaveTimeout = {0}
@@ -60,6 +60,6 @@ export default class Popup extends React.Component {
       >
         {this.props.open === true ? inner : null}
       </ReactCSSTransitionGroup>
-    )
+    );
   }
 }

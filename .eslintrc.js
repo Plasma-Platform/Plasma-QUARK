@@ -16,6 +16,9 @@ module.exports = {
         "on": "colon"
       }
     }],
+    "semi": [
+      "error", "always"
+    ],
     "no-return-assign": "off",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",

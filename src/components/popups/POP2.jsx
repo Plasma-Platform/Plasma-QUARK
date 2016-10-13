@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import Popup from '../Popup.jsx'
+import Popup from '../Popup.jsx';
 
 export default class POP2 extends React.Component {
   render () {
@@ -9,6 +9,6 @@ export default class POP2 extends React.Component {
         {...this.props}
         bg = "transparent"
       />
-    )
+    );
   }
 }

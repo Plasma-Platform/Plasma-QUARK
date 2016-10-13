@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import Button from '../Button.jsx'
+import Button from '../Button.jsx';
 
 export default class B1K extends React.Component {
   static propTypes = {
@@ -18,6 +18,6 @@ export default class B1K extends React.Component {
       >
         {this.props.children}
       </Button>
-    )
+    );
   }
 }

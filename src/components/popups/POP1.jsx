@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import Popup from '../Popup.jsx'
+import Popup from '../Popup.jsx';
 
 export default class POP1 extends React.Component {
   render () {
@@ -10,6 +10,6 @@ export default class POP1 extends React.Component {
         showCloseBtn = {true}
         bg           = "fill"
       />
-    )
+    );
   }
 }
