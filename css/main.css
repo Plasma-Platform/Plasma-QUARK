@@ -1790,77 +1790,70 @@
 .loader .loader__line {
   -webkit-animation-duration: 2s;
   animation-duration: 2s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-  animation-timing-function: linear;
   background-color: #2196f3;
   bottom: 0;
   position: absolute;
   top: 0;
 }
 .loader .loader__line:first-child {
-  -webkit-animation-delay: 1s;
-  animation-delay: 1s;
-  -webkit-animation-name: move1;
-  animation-name: move1;
+  -webkit-animation-delay: .2s;
+  animation-delay: .2s;
+  -webkit-animation-name: loaderLine1Move;
+  animation-name: loaderLine1Move;
   left: 0;
   opacity: .25;
-  width: calc(66.66666667%);
+  width: 25%;
 }
 .loader .loader__line:nth-child(2) {
-  -webkit-animation-delay: .5s;
-  animation-delay: .5s;
-  -webkit-animation-name: move2;
-  animation-name: move2;
+  -webkit-animation-delay: .1s;
+  animation-delay: .1s;
+  -webkit-animation-name: loaderLine2Move;
+  animation-name: loaderLine2Move;
   left: 0;
   opacity: .5;
-  width: calc(66.66666667%);
+  width: 25%;
 }
 .loader .loader__line:last-child {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-name: move3;
-  animation-name: move3;
-  left: calc(16.66666667%);
-  opacity: 1;
-  width: calc(33.33333333%);
+  -webkit-animation-name: loaderLine3Move;
+  animation-name: loaderLine3Move;
+  left: 12.5%;
+  width: 12.5%;
 }
-@-webkit-keyframes move1 {
+@-webkit-keyframes loaderLine1Move {
   50% {
-    -webkit-transform: translateX(50%);
-    transform: translateX(50%);
+    -webkit-transform: translateX(300%);
+    transform: translateX(300%);
   }
 }
-@keyframes move1 {
+@keyframes loaderLine1Move {
   50% {
-    -webkit-transform: translateX(50%);
-    transform: translateX(50%);
+    -webkit-transform: translateX(300%);
+    transform: translateX(300%);
   }
 }
-@-webkit-keyframes move2 {
+@-webkit-keyframes loaderLine2Move {
   50% {
-    -webkit-transform: translateX(50%);
-    transform: translateX(50%);
+    -webkit-transform: translateX(300%);
+    transform: translateX(300%);
   }
 }
-@keyframes move2 {
+@keyframes loaderLine2Move {
   50% {
-    -webkit-transform: translateX(50%);
-    transform: translateX(50%);
+    -webkit-transform: translateX(300%);
+    transform: translateX(300%);
   }
 }
-@-webkit-keyframes move3 {
+@-webkit-keyframes loaderLine3Move {
   50% {
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
+    -webkit-transform: translateX(500%);
+    transform: translateX(500%);
   }
 }
-@keyframes move3 {
+@keyframes loaderLine3Move {
   50% {
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
+    -webkit-transform: translateX(500%);
+    transform: translateX(500%);
   }
 }

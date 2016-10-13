@@ -33,53 +33,49 @@
 
   .loader__line {
     animation-duration: 2s;
-    animation-fill-mode: forwards;
     animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    background-color: rgb(33, 150, 243);
+    background-color: #2196f3;
     bottom: 0;
     position: absolute;
     top: 0;
 
     &:first-child {
-      animation-delay: 1s;
-      animation-name: move1;
+      animation-delay: .2s;
+      animation-name: loaderLine1Move;
       left: 0;
       opacity: .25;
-      width: calc(200%/3);
+      width: 25%;
     }
 
     &:nth-child(2) {
-      animation-delay: .5s;
-      animation-name: move2;
+      animation-delay: .1s;
+      animation-name: loaderLine2Move;
       left: 0;
       opacity: .5;
-      width: calc(200%/3);
+      width: 25%;
     }
 
     &:last-child {
-      animation-delay: 0s;
-      animation-name: move3;
-      left: calc(100%/6);
-      opacity: 1;
-      width: calc(100%/3);
+      animation-name: loaderLine3Move;
+      left: 12.5%;
+      width: 12.5%;
     }
 
-    @keyframes move1 {
+    @keyframes loaderLine1Move {
       50% {
-        transform: translateX(50%);
+        transform: translateX(300%);
       }
     }
 
-    @keyframes move2 {
+    @keyframes loaderLine2Move {
       50% {
-        transform: translateX(50%);
+        transform: translateX(300%);
       }
     }
 
-    @keyframes move3 {
+    @keyframes loaderLine3Move {
       50% {
-        transform: translateX(100%);
+        transform: translateX(500%);
       }
     }
   }
