@@ -49,7 +49,6 @@ export default class Dropdown extends React.Component {
     this.handleOptionKeyDown = this.handleOptionKeyDown.bind(this);
     this.getOptionByValue    = this.getOptionByValue.bind(this);
 
-    this.options      = [];
     this.contentPos   = 'bottom';
   }
 
@@ -223,7 +222,7 @@ export default class Dropdown extends React.Component {
       type        = "search"
       placeholder = {this.props.filterHint ? this.props.filterHint : ''}
       value       = {this.state.filterQuery}
-      tabIndex    = "0"
+      tabIndex    = {this.state.open ? 0 : -1}
       onChange    = {this.filterOptions}
       onBlur      = {this.handleFilterBlur}
       onKeyDown   = {this.handleFilterKeyDown}
@@ -232,8 +231,6 @@ export default class Dropdown extends React.Component {
   }
 
   renderOptions = (filterRegExp) => {
-    this.options = [];
-
     return this.props.options.filter((option) => {
       return option.label.toLowerCase().indexOf(filterRegExp) === 0;
     }).map((option, optionIndex) => {
@@ -246,7 +243,7 @@ export default class Dropdown extends React.Component {
         <li
           className  = {optionClassName}
           aria-label = {option.label}
-          tabIndex   = {option.disabled ? -1 : 0}
+          tabIndex   = {option.disabled || this.state.open === false ? -1 : 0}
           role       = "option"
           onClick    = {() => { this.handleOptionClick(option); }}
           onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
@@ -286,9 +283,6 @@ export default class Dropdown extends React.Component {
     const addClassName       = `${this.props.className ? ' ' + this.props.className : ''}`;
     const typeClassName     = ` dropdown_type_${this.props.type}`;
 
-    const label       = this.renderLabel();
-    const button      = this.renderButton(selectedOption);
-    const filterInput = this.renderFilterInput();
     const options     = this.renderOptions(filterRegExp);
     const isNoResults = this.props.showFilter && options.length === 0 && filterRegExp.length > 0 && this.props.noResultsText;
 
@@ -302,15 +296,15 @@ export default class Dropdown extends React.Component {
         ref       = {container => this.container = container}
       >
 
-        {(this.props.type === 1 || this.props.type === 2) ? label : null}
-        {button}
-        {(this.props.type === 3) ? label : null}
+        {(this.props.type === 1 || this.props.type === 2) ? this.renderLabel() : null}
+        {this.renderButton(selectedOption)}
+        {(this.props.type === 3) ? this.renderLabel() : null}
 
         <div
           className = "dropdown__content"
           ref       = {(ref) => { this.content = ref; }}
         >
-          {this.props.showFilter ? filterInput : null}
+          {this.props.showFilter ? this.renderFilterInput() : null}
           <ul
             className = "dropdown__options"
             role      = "list"
