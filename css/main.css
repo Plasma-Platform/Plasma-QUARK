@@ -1715,8 +1715,13 @@
   background-color: #fff;
   height: 16px;
   left: 13px;
-  top: 7px;
   width: 4px;
+}
+.popup_bg_fill .popup__close-btn::before {
+  top: 7px;
+}
+.popup_bg_fill .popup__close-btn::after {
+  top: 8px;
 }
 .popup__close-text {
   background-color: #546e7a;
