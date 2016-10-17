@@ -63,6 +63,10 @@
     "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-textarea-autosize": "^4.0.5",
+    "is-retina": "^1.0.3",
+    "md5": "^2.1.0",
+    "query-string": "^4.2.2",
+    "fetch-jsonp": "^1.0.2",
     "ui-toolkit": "git+ssh://git@templatemonster.git.beanstalkapp.com:/templatemonster/ui-toolkit.git"
   }
 }
