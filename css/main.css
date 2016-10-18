@@ -1615,11 +1615,23 @@
   }
 }
 .popup {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   box-sizing: border-box;
-  height: 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  width: 0;
+  top: 0;
+  width: 100%;
 }
 .popup *,
 .popup *::before,
@@ -1647,14 +1659,24 @@
   touch-action: manipulation;
 }
 .popup__content {
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
+  animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
   border-radius: 3px;
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  -webkit-transform: scale(1) translateY(-50%) translateX(-50%);
-  transform: scale(1) translateY(-50%) translateX(-50%);
+  display: inline-block;
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
+}
+.popup_open .popup__content {
+  -webkit-animation-name: popupOpen;
+  animation-name: popupOpen;
+}
+.popup_closed .popup__content {
+  -webkit-animation-name: popupClosed;
+  animation-name: popupClosed;
 }
 .popup_bg_transparent .popup__content {
   background-color: rgba(0, 0, 0, 0);
@@ -1725,8 +1747,8 @@
   background-color: #fff;
   height: 16px;
   left: 13px;
-  width: 4px;
   top: 7px;
+  width: 4px;
 }
 .popup__close-text {
   background-color: #546e7a;
@@ -1763,45 +1785,53 @@
   transform: rotate(-45deg);
   width: 14px;
 }
-.popup .popup-transition-enter {
-  opacity: 0;
+@-webkit-keyframes popupOpen {
+  from {
+    opacity: 0;
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
 }
-.popup .popup-transition-enter .popup__content {
-  -webkit-transform: scale(0.8) translateY(-50%) translateX(-50%);
-  transform: scale(0.8) translateY(-50%) translateX(-50%);
+@keyframes popupOpen {
+  from {
+    opacity: 0;
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
 }
-.popup .popup-transition-enter.popup-transition-enter-active {
-  opacity: 1;
-  -webkit-transition: opacity 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-  transition: opacity 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+@-webkit-keyframes popupClosed {
+  from {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
 }
-.popup .popup-transition-enter.popup-transition-enter-active .popup__content {
-  -webkit-transform: scale(1) translateY(-50%) translateX(-50%);
-  transform: scale(1) translateY(-50%) translateX(-50%);
-  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-  transition: -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-  transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-  transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1), -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-}
-.popup .popup-transition-leave {
-  opacity: 1;
-}
-.popup .popup-transition-leave .popup__content {
-  -webkit-transform: scale(1) translateY(-50%) translateX(-50%);
-  transform: scale(1) translateY(-50%) translateX(-50%);
-}
-.popup .popup-transition-leave.popup-transition-leave-active {
-  opacity: 0;
-  -webkit-transition: opacity 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-  transition: opacity 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-}
-.popup .popup-transition-leave.popup-transition-leave-active .popup__content {
-  -webkit-transform: scale(0.8) translateY(-50%) translateX(-50%);
-  transform: scale(0.8) translateY(-50%) translateX(-50%);
-  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-  transition: -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-  transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-  transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1), -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+@keyframes popupClosed {
+  from {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
 }
 .loader {
   box-sizing: border-box;

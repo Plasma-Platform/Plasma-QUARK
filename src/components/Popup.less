@@ -1,9 +1,15 @@
 .popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
-  height: 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  width: 0;
+  top: 0;
+  width: 100%;
 
   *,
   *::before,
@@ -33,12 +39,20 @@
   }
 
   &__content {
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(.86, 0, .07, 1);
     border-radius: 3px;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: scale(1) translateY(-50%) translateX(-50%);
+    display: inline-block;
     transform-origin: 0 0;
+
+    .popup_open & {
+      animation-name: popupOpen;
+    }
+
+    .popup_closed & {
+      animation-name: popupClosed;
+    }
 
     .popup_bg_transparent & {
       background-color: rgba(0,0,0,0);
@@ -120,8 +134,8 @@
         background-color: #fff;
         height: 16px;
         left: 13px;
-        width: 4px;
         top: 7px;
+        width: 4px;
       }
     }
   }
@@ -160,39 +174,27 @@
     }
   }
 
-  .popup-transition-enter {
-    opacity: 0;
+  @keyframes popupOpen {
+    from {
+      opacity: 0;
+      transform: scale(.8);
+    }
 
-    .popup__content {
-      transform: scale(.8) translateY(-50%) translateX(-50%);
+    to {
+      opacity: 1;
+      transform: scale(1);
     }
   }
 
-  .popup-transition-enter.popup-transition-enter-active {
-    opacity: 1;
-    transition: opacity .3s cubic-bezier(.86, 0, .07, 1);
-
-    .popup__content {
-      transform: scale(1) translateY(-50%) translateX(-50%);
-      transition: transform .3s cubic-bezier(.86, 0, .07, 1);
+  @keyframes popupClosed {
+    from {
+      opacity: 1;
+      transform: scale(1);
     }
-  }
 
-  .popup-transition-leave {
-    opacity: 1;
-
-    .popup__content {
-      transform: scale(1) translateY(-50%) translateX(-50%);
-    }
-  }
-
-  .popup-transition-leave.popup-transition-leave-active {
-    opacity: 0;
-    transition: opacity .3s cubic-bezier(.86, 0, .07, 1);
-
-    .popup__content {
-      transform: scale(.8) translateY(-50%) translateX(-50%);
-      transition: transform .3s cubic-bezier(.86, 0, .07, 1);
+    to {
+      opacity: 0;
+      transform: scale(.8);
     }
   }
 }

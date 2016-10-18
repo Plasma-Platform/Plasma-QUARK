@@ -1,65 +1,81 @@
 import React                   from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import './Popup.less';
 
 export default class Popup extends React.Component {
   static propTypes = {
-    open         : React.PropTypes.bool.isRequired,
-    bg           : React.PropTypes.oneOf(['transparent', 'fill']).isRequired,
-    padding      : React.PropTypes.oneOf(['medium', 'large']).isRequired,
-    showCloseBtn : React.PropTypes.bool,
-    closeText    : React.PropTypes.string.isRequired,
-    className    : React.PropTypes.string,
-    id           : React.PropTypes.string
+    open           : React.PropTypes.bool.isRequired,
+    bg             : React.PropTypes.oneOf(['transparent', 'fill']).isRequired,
+    padding        : React.PropTypes.oneOf(['medium', 'large']).isRequired,
+    closeText      : React.PropTypes.string.isRequired,
+    onRequestClose : React.PropTypes.func.isRequired,
+    showCloseBtn   : React.PropTypes.bool,
+    className      : React.PropTypes.string,
+    id             : React.PropTypes.string
+  }
+
+  renderBg = () => {
+    return (
+      <div
+        className = "popup__bg"
+        onClick   = {this.handleCloseClick}
+      >
+      </div>
+    );
+  }
+
+  renderCloseBtn = () => {
+    return (
+      this.props.showCloseBtn ? (
+        <button
+          className  = "popup__close-btn"
+          type       = "button"
+          aria-label = {this.props.closeText}
+          onClick    = {this.handleCloseClick}
+        >
+          <span className="popup__close-text">{this.props.closeText}</span>
+        </button>
+      ) : null
+    );
+  }
+
+  renderContent = () => {
+    return (
+      <div className="popup__content">
+        {this.renderCloseBtn()}
+        {this.props.children}
+      </div>
+    );
+  }
+
+  handleCloseClick = () => {
+    this.container.classList.add('popup_closed');
+    this.container.addEventListener('animationend', this.hide);
+  }
+
+  hide = () => {
+    this.container.removeEventListener('animationend', this.hide);
+    this.props.onRequestClose();
   }
 
   render () {
-    const addClassName     = this.props.className ? ` ${this.props.className}` : '';
     const bgClassName      = ` popup_bg_${this.props.bg}`;
     const paddingClassName = ` popup_padding_${this.props.padding}`;
-    const fullClassName    = `popup${paddingClassName}${bgClassName}${addClassName}`;
-
-    const bg = <div
-      className = "popup__bg"
-      onClick   = {this.props.onRequestClose}
-    >
-    </div>;
-
-    const closeBtn = <button
-      className  = "popup__close-btn"
-      type       = "button"
-      aria-label = {this.props.closeText}
-      onClick    = {this.props.onRequestClose}
-    >
-      <span className="popup__close-text">{this.props.closeText}</span>
-    </button>;
-
-    const content = <div className="popup__content">
-      {this.props.showCloseBtn ? closeBtn : null}
-      {this.props.children}
-    </div>;
-
-    const inner = <div className="popup__inner" role="dialog">
-      {bg}
-      {content}
-    </div>;
+    const addClassName     = this.props.className ? ` ${this.props.className}` : '';
+    const fullClassName    = `popup popup_open${paddingClassName}${bgClassName}${addClassName}`;
 
     return (
-      <ReactCSSTransitionGroup
-        component              = "div"
-        className              = {fullClassName}
-        id                     = {this.props.id ? this.props.id : null}
-        ref                    = {(ref) => { this.container = ref; }}
-        transitionAppear       = {false}
-        transitionLeave        = {true}
-        transitionLeaveTimeout = {0}
-        transitionEnter        = {true}
-        transitionEnterTimeout = {0}
-        transitionName         = "popup-transition"
-      >
-        {this.props.open === true ? inner : null}
-      </ReactCSSTransitionGroup>
+      this.props.open === true ? (
+        <div
+          className      = {fullClassName}
+          id             = {this.props.id ? this.props.id : null}
+          role           = "dialog"
+          ref            = {(ref) => { this.container = ref; }}
+        >
+          {this.renderBg()}
+          {this.renderContent()}
+        </div>
+      ) : null
     );
   }
 }
