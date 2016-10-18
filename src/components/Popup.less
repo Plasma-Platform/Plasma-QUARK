@@ -44,7 +44,6 @@
     animation-timing-function: cubic-bezier(.86, 0, .07, 1);
     border-radius: 3px;
     display: inline-block;
-    transform-origin: 0 0;
 
     .popup_open & {
       animation-name: popupOpen;
@@ -134,8 +133,15 @@
         background-color: #fff;
         height: 16px;
         left: 13px;
-        top: 7px;
         width: 4px;
+      }
+
+      &::before {
+        top: 7px;
+      }
+
+      &::after {
+        top: 8px;
       }
     }
   }

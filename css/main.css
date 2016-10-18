@@ -1667,8 +1667,6 @@
   animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
   border-radius: 3px;
   display: inline-block;
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
 }
 .popup_open .popup__content {
   -webkit-animation-name: popupOpen;
@@ -1747,8 +1745,13 @@
   background-color: #fff;
   height: 16px;
   left: 13px;
-  top: 7px;
   width: 4px;
+}
+.popup_bg_fill .popup__close-btn::before {
+  top: 7px;
+}
+.popup_bg_fill .popup__close-btn::after {
+  top: 8px;
 }
 .popup__close-text {
   background-color: #546e7a;
