@@ -479,7 +479,7 @@
   display: inline-block;
   height: 20px;
   margin-right: 10px;
-  vertical-align: middle;
+  vertical-align: top;
   width: 20px;
 }
 .dropdown__arrow {
@@ -610,7 +610,7 @@
   display: inline-block;
   height: 20px;
   margin-right: 10px;
-  vertical-align: middle;
+  vertical-align: top;
   width: 20px;
 }
 .dropdown_state_open.dropdown_content-pos_bottom .dropdown__button {
