@@ -479,8 +479,12 @@
   display: inline-block;
   height: 20px;
   margin-right: 10px;
+  margin-top: 10px;
   vertical-align: top;
   width: 20px;
+}
+:hover.dropdown__button.icon::before {
+  margin-top: 9px;
 }
 .dropdown__arrow {
   border-bottom: 2px solid;
