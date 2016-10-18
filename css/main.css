@@ -479,12 +479,8 @@
   display: inline-block;
   height: 20px;
   margin-right: 10px;
-  margin-top: 10px;
   vertical-align: top;
   width: 20px;
-}
-:hover.dropdown__button.icon::before {
-  margin-top: 9px;
 }
 .dropdown__arrow {
   border-bottom: 2px solid;
@@ -613,9 +609,12 @@
   content: "";
   display: inline-block;
   height: 20px;
-  margin-right: 10px;
+  margin-top: 10px;
   vertical-align: top;
   width: 20px;
+}
+:hover.dropdown__option.icon::before {
+  margin-top: 9px;
 }
 .dropdown_state_open.dropdown_content-pos_bottom .dropdown__button {
   border-radius: 3px 3px 0 0;
