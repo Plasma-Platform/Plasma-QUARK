@@ -23,6 +23,7 @@ export default class TextField extends Component {
       'text-field_filled'   : this.props.filled,
       'text-field_focused'  : this.props.focused,
       'text-field_valid'    : this.props.isValid,
+      'text-field_disabled' : this.props.disabled,
       'text-field_invalid'  : (this.props.isValid !== null) && !this.props.isValid,
       'animated'            : this.props.animated
     });

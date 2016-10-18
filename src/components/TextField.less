@@ -63,7 +63,7 @@
       color: #eceff1;
 
       &::placeholder,
-      & + .text-field__label {
+      & ~ .text-field__label {
         color: #eceff1;
       }
     }
@@ -123,6 +123,22 @@
       }
       &-magnifier:before {
         background-image: svg-load("../assets/images/icons/icon-magnifier.svg", fill: #90caf9);
+      }
+    }
+  }
+
+  &_disabled {
+    .text-field__type-icon {
+      &.icon {
+        &-letter:before {
+          background-image: svg-load("../assets/images/icons/icon-letter.svg", fill: #eceff1);
+        }
+        &-key:before {
+          background-image: svg-load("../assets/images/icons/icon-key.svg", fill: #eceff1);
+        }
+        &-magnifier:before {
+          background-image: svg-load("../assets/images/icons/icon-magnifier.svg", fill: #eceff1);
+        }
       }
     }
   }
