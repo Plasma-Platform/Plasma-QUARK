@@ -289,7 +289,7 @@ export default class Dropdown extends React.Component {
     return (
       <div
         className = {`dropdown${typeClassName}${contentPosClassName}${openClassName}${disabledClassName}${addClassName}`}
-        tabIndex  = "0"
+        tabIndex  = "-1"
         role      = "listbox"
         onBlur    = {this.handleDropdownBlur}
         onKeyDown = {this.handleDropdownKeyUp}
