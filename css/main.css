@@ -290,6 +290,7 @@
   padding-left: 30px;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
+  color: #243238;
 }
 .checkbox__label::before,
 .checkbox__label::after {
