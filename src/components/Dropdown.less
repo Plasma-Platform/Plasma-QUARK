@@ -248,13 +248,14 @@
         content: "";
         display: inline-block;
         height: 20px;
+        margin-right: 10px;
         margin-top: 10px;
         vertical-align: top;
         width: 20px;
+      }
 
-        :hover& {
-          margin-top: 9px;
-        }
+      &:not(.dropdown__option_selected):hover::before {
+        margin-top: 9px;
       }
     }
   }
