@@ -1646,10 +1646,10 @@
   top: 0;
   width: 100%;
 }
-.popup_padding_medium {
+.popup_padding:not(.popup_bg_transparent)_medium {
   padding: 40px;
 }
-.popup_padding_large {
+.popup_padding:not(.popup_bg_transparent)_large {
   padding: 80px;
 }
 .popup *,
@@ -1719,7 +1719,6 @@
   height: 40px;
   cursor: pointer;
   position: absolute;
-  right: -20px;
   -webkit-text-decoration-skip: objects;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -1727,10 +1726,12 @@
   touch-action: manipulation;
 }
 .popup_bg_transparent .popup__close-btn {
-  top: 0;
+  top: 40px;
+  right: -40px;
 }
 .popup_bg_fill .popup__close-btn {
   top: -20px;
+  right: -20px;
 }
 .popup__close-cross {
   position: absolute;
@@ -1746,17 +1747,24 @@
   position: absolute;
   background-color: #fff;
 }
+.popup_bg_transparent .popup__close-cross {
+  width: 26px;
+  height: 26px;
+}
+.popup_bg_transparent .popup__close-cross::before,
+.popup_bg_transparent .popup__close-cross::after {
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 .popup_bg_transparent .popup__close-cross::before {
   width: 100%;
-  height: 4px;
-  left: 0;
-  top: 8px;
+  height: 3px;
 }
 .popup_bg_transparent .popup__close-cross::after {
-  width: 4px;
+  width: 3px;
   height: 100%;
-  left: 8px;
-  top: 0;
 }
 .popup_bg_transparent .popup__close-cross:hover::before,
 .popup_bg_transparent .popup__close-cross:hover::after {

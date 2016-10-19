@@ -11,7 +11,7 @@
   top: 0;
   width: 100%;
 
-  &_padding {
+  &_padding:not(&_bg_transparent) {
     &_medium {
       padding: 40px;
     }
@@ -92,18 +92,19 @@
     height: 40px;
     cursor: pointer;
     position: absolute;
-    right: -20px;
     -webkit-text-decoration-skip: objects;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     touch-action: manipulation;
 
     .popup_bg_transparent & {
-      top: 0;
+      top: 40px;
+      right: -40px;
     }
 
     .popup_bg_fill & {
       top: -20px;
+      right: -20px;
     }
   }
 
@@ -122,18 +123,24 @@
     }
 
     .popup_bg_transparent & {
+      width: 26px;
+      height: 26px;
+
+      &::before,
+      &::after {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
       &::before {
         width: 100%;
-        height: 4px;
-        left: 0;
-        top: 8px;
+        height: 3px;
       }
 
       &::after {
-        width: 4px;
+        width: 3px;
         height: 100%;
-        left: 8px;
-        top: 0;
       }
 
       &:hover {
