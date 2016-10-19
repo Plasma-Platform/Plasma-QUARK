@@ -7,8 +7,7 @@ export default class POP1 extends React.Component {
     return (
       <Popup
         {...this.props}
-        showCloseBtn = {true}
-        bg           = "fill"
+        bg = "fill"
       />
     );
   }

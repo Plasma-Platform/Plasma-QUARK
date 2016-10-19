@@ -1723,19 +1723,14 @@
   -ms-text-size-adjust: 100%;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 .popup__close-btn::before,
 .popup__close-btn::after {
   content: "";
   position: absolute;
-}
-.popup__close-btn::before {
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-}
-.popup__close-btn::after {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
+  background-color: #fff;
 }
 .popup_bg_transparent .popup__close-btn {
   background-color: rgba(0, 0, 0, 0);
@@ -1745,7 +1740,6 @@
 }
 .popup_bg_transparent .popup__close-btn::before,
 .popup_bg_transparent .popup__close-btn::after {
-  background-color: #fff;
   height: 22px;
   left: 9px;
   top: -1px;
@@ -1764,17 +1758,16 @@
 .popup_bg_fill .popup__close-btn:hover {
   background-color: #d84315;
 }
-.popup_bg_fill .popup__close-btn::before,
+.popup_bg_fill .popup__close-btn::before {
+  width: 16px;
+  height: 4px;
+  left: 7px;
+  top: 13px;
+}
 .popup_bg_fill .popup__close-btn::after {
-  background-color: #fff;
+  width: 4px;
   height: 16px;
   left: 13px;
-  width: 4px;
-}
-.popup_bg_fill .popup__close-btn::before {
-  top: 8px;
-}
-.popup_bg_fill .popup__close-btn::after {
   top: 7px;
 }
 .popup__close-text {

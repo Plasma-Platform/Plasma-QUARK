@@ -9,43 +9,16 @@ export default class Popup extends React.Component {
     padding        : React.PropTypes.oneOf(['medium', 'large']).isRequired,
     closeText      : React.PropTypes.string.isRequired,
     onRequestClose : React.PropTypes.func.isRequired,
-    showCloseBtn   : React.PropTypes.bool,
     className      : React.PropTypes.string,
     id             : React.PropTypes.string
   }
 
-  renderBg = () => {
-    return (
-      <div
-        className = "popup__bg"
-        onClick   = {this.handleCloseClick}
-      >
-      </div>
-    );
-  }
+  constructor (props) {
+    super(props);
 
-  renderCloseBtn = () => {
-    return (
-      this.props.showCloseBtn ? (
-        <button
-          className  = "popup__close-btn"
-          type       = "button"
-          aria-label = {this.props.closeText}
-          onClick    = {this.handleCloseClick}
-        >
-          <span className="popup__close-text">{this.props.closeText}</span>
-        </button>
-      ) : null
-    );
-  }
-
-  renderContent = () => {
-    return (
-      <div className="popup__content">
-        {this.renderCloseBtn()}
-        {this.props.children}
-      </div>
-    );
+    this.renderContent    = this.renderContent.bind(this);
+    this.handleCloseClick = this.handleCloseClick.bind(this);
+    this.hide             = this.hide.bind(this);
   }
 
   handleCloseClick = () => {
@@ -58,24 +31,43 @@ export default class Popup extends React.Component {
     this.props.onRequestClose();
   }
 
-  render () {
+  renderContent = () => {
     const bgClassName      = ` popup_bg_${this.props.bg}`;
     const paddingClassName = ` popup_padding_${this.props.padding}`;
     const addClassName     = this.props.className ? ` ${this.props.className}` : '';
     const fullClassName    = `popup popup_open${paddingClassName}${bgClassName}${addClassName}`;
 
     return (
-      this.props.open === true ? (
+      <div
+        className      = {fullClassName}
+        id             = {this.props.id ? this.props.id : null}
+        role           = "dialog"
+        ref            = {(ref) => { this.container = ref; }}
+      >
         <div
-          className      = {fullClassName}
-          id             = {this.props.id ? this.props.id : null}
-          role           = "dialog"
-          ref            = {(ref) => { this.container = ref; }}
+          className = "popup__bg"
+          onClick   = {this.handleCloseClick}
         >
-          {this.renderBg()}
-          {this.renderContent()}
         </div>
-      ) : null
+
+        <div className="popup__content">
+          <button
+            className  = "popup__close-btn"
+            type       = "button"
+            aria-label = {this.props.closeText}
+            onClick    = {this.handleCloseClick}
+          >
+            <span className="popup__close-text">{this.props.closeText}</span>
+          </button>
+          {this.props.children}
+        </div>
+      </div>
+    );
+  }
+
+  render () {
+    return (
+      this.props.open === true ? this.renderContent() : null
     );
   }
 }

@@ -95,19 +95,13 @@
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     touch-action: manipulation;
+    transform: rotate(45deg);
 
     &::before,
     &::after {
       content: "";
       position: absolute;
-    }
-
-    &::before {
-      transform: rotate(-45deg);
-    }
-
-    &::after {
-      transform: rotate(45deg);
+      background-color: #fff;
     }
 
     .popup_bg_transparent & {
@@ -118,7 +112,6 @@
 
       &::before,
       &::after {
-        background-color: #fff;
         height: 22px;
         left: 9px;
         top: -1px;
@@ -143,19 +136,17 @@
         background-color: #d84315;
       }
 
-      &::before,
+      &::before {
+        width: 16px;
+        height: 4px;
+        left: 7px;
+        top: 13px;
+      }
+
       &::after {
-        background-color: #fff;
+        width: 4px;
         height: 16px;
         left: 13px;
-        width: 4px;
-      }
-
-      &::before {
-        top: 8px;
-      }
-
-      &::after {
         top: 7px;
       }
     }
