@@ -113,6 +113,7 @@
 }
 .button_height_medium.button_width_auto:disabled,
 .button_height_medium.button_width_full:disabled {
+  line-height: 36px;
   padding-left: 18px;
   padding-right: 18px;
 }
@@ -128,6 +129,7 @@
 }
 .button_height_large.button_width_auto:disabled,
 .button_height_large.button_width_full:disabled {
+  line-height: 56px;
   padding-left: 28px;
   padding-right: 28px;
 }
