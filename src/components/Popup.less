@@ -110,12 +110,18 @@
       top: 0;
       width: 20px;
 
-      &::before,
+      &::before {
+        width: 100%;
+        height: 4px;
+        left: 0;
+        top: 8px;
+      }
+
       &::after {
-        height: 22px;
-        left: 9px;
-        top: -1px;
-        width: 2px;
+        width: 4px;
+        height: 100%;
+        left: 8px;
+        top: 0;
       }
 
       &:hover {
@@ -163,12 +169,12 @@
     opacity: 0;
     padding: 0 20px;
     position: absolute;
-    transform: scale(.8) translateX(-50%);
+    transform: scale(.8) translateX(-50%) rotate(-45deg);
 
     .popup__close-btn:hover & {
       bottom: -60px;
       opacity: 1;
-      transform: scale(1) translateX(-50%);
+      transform: scale(1) translateX(-50%) rotate(-45deg);
       transition: opacity .3s cubic-bezier(.68, -.55, .265, 1.55) .2s, bottom .3s cubic-bezier(.68, -.55, .265, 1.55) .2s;
     }
 
