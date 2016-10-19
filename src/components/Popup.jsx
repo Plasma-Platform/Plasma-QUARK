@@ -57,6 +57,7 @@ export default class Popup extends React.Component {
             aria-label = {this.props.closeText}
             onClick    = {this.handleCloseClick}
           >
+            <span className="popup__close-cross"></span>
             <span className="popup__close-text">{this.props.closeText}</span>
           </button>
           {this.props.children}

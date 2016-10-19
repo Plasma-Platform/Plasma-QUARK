@@ -87,15 +87,32 @@
   }
 
   &__close-btn {
-    border-radius: 50%;
+    background: rgba(0, 0, 0, 0);
+    width: 40px;
+    height: 40px;
     cursor: pointer;
     position: absolute;
-    right: -15px;
+    right: -20px;
     -webkit-text-decoration-skip: objects;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     touch-action: manipulation;
-    transform: rotate(45deg);
+
+    .popup_bg_transparent & {
+      top: 0;
+    }
+
+    .popup_bg_fill & {
+      top: -20px;
+    }
+  }
+
+  &__close-cross {
+    position: absolute;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
 
     &::before,
     &::after {
@@ -105,11 +122,6 @@
     }
 
     .popup_bg_transparent & {
-      background-color: rgba(0,0,0,0);
-      height: 20px;
-      top: 0;
-      width: 20px;
-
       &::before {
         width: 100%;
         height: 4px;
@@ -135,7 +147,6 @@
     .popup_bg_fill & {
       background-color: #b0bec5;
       height: 30px;
-      top: -15px;
       width: 30px;
 
       &:hover {
@@ -169,12 +180,13 @@
     opacity: 0;
     padding: 0 20px;
     position: absolute;
-    transform: scale(.8) translateX(-50%) rotate(-45deg);
+    left: 50%;
+    transform: scale(.8) translateX(-50%);
 
     .popup__close-btn:hover & {
       bottom: -60px;
       opacity: 1;
-      transform: scale(1) translateX(-50%) rotate(-45deg);
+      transform: scale(1) translateX(-50%);
       transition: opacity .3s cubic-bezier(.68, -.55, .265, 1.55) .2s, bottom .3s cubic-bezier(.68, -.55, .265, 1.55) .2s;
     }
 
