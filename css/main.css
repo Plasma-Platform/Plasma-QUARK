@@ -1686,6 +1686,7 @@
   animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
   border-radius: 3px;
   display: inline-block;
+  position: relative;
 }
 .popup_open .popup__content {
   -webkit-animation-name: popupOpen;
