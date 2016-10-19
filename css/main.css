@@ -18,6 +18,7 @@
   /* .button rounded */
   /* .button bg */
   /* .button disabled */
+  /* .button loading */
 }
 .button *,
 .button *::before,
@@ -261,6 +262,12 @@
 }
 .button:disabled:not(.button_width_square) {
   color: #b0bec5;
+}
+.button .button_loading {
+  font-size: 0;
+}
+.button .button_loading.icon::before {
+  display: none;
 }
 .checkbox {
   box-sizing: border-box;
@@ -1856,6 +1863,7 @@
   box-sizing: border-box;
   display: inline-block;
   position: relative;
+  vertical-align: middle;
   /* .loadre modes */
   /* .loader__line */
 }

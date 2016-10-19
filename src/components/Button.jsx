@@ -10,7 +10,8 @@ export default class Button extends React.Component {
     bgType      : React.PropTypes.oneOf(['facebook', 'twitter', 'google-plus', 'pinterest', 'vk', '1', '2', '3']).isRequired,
     icon        : React.PropTypes.string,
     className   : React.PropTypes.string,
-    type        : React.PropTypes.oneOf(['button', 'submit', 'reset', 'link', 'text'])
+    type        : React.PropTypes.oneOf(['button', 'submit', 'reset', 'link', 'text']),
+    isLoading   : React.PropTypes.bool
   }
 
   static defaultProps = {
@@ -18,15 +19,16 @@ export default class Button extends React.Component {
   }
 
   render () {
-    const {widthType, heightType, roundedType, bgType, icon, className, type, ...props} = this.props;
+    const {widthType, heightType, roundedType, bgType, icon, className, type, isLoading, ...props} = this.props;
 
-    const widthClassName  = ` button_width_${widthType}`;
-    const heightClassName = ` button_height_${heightType}`;
-    const roundClassName  = ` button_rounded_${roundedType}`;
-    const bgClassName     = this.props.disabled ? ' button_bg_disabled' : ` button_bg_${bgType}`;
-    const iconClassName   = icon ? ` icon icon-${icon}` : '';
-    const addClassName    = className ? ` ${className}` : '';
-    const fullClassName   = `button${widthClassName}${heightClassName}${roundClassName}${bgClassName}${iconClassName}${addClassName}`;
+    const widthClassName   = ` button_width_${widthType}`;
+    const heightClassName  = ` button_height_${heightType}`;
+    const roundClassName   = ` button_rounded_${roundedType}`;
+    const bgClassName      = this.props.disabled ? '' : ` button_bg_${bgType}`;
+    const iconClassName    = icon ? ` icon icon-${icon}` : '';
+    const loadingClassName = isLoading ? ' button_loading' : '';
+    const addClassName     = className ? ` ${className}` : '';
+    const fullClassName    = `button${widthClassName}${heightClassName}${roundClassName}${bgClassName}${iconClassName}${loadingClassName}${addClassName}`;
 
     if (type === 'link') {
       return (
