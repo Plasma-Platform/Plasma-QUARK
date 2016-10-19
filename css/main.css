@@ -255,7 +255,7 @@
   background: linear-gradient(to bottom, #113b5a 0%, #1d4b6e 100%);
 }
 .button:disabled {
-  background-color: rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0);
   border: 2px solid #b0bec5;
   cursor: default;
   pointer-events: none;
@@ -263,10 +263,10 @@
 .button:disabled:not(.button_width_square) {
   color: #b0bec5;
 }
-.button .button_loading {
+.button_loading {
   font-size: 0;
 }
-.button .button_loading.icon::before {
+.button_loading.icon::before {
   display: none;
 }
 .checkbox {
