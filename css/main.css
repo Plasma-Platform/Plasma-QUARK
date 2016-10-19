@@ -1810,8 +1810,8 @@
   opacity: 1;
   -webkit-transform: scale(1) translateX(-50%);
   transform: scale(1) translateX(-50%);
-  -webkit-transition: opacity 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s, bottom 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s;
-  transition: opacity 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s, bottom 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s;
+  -webkit-transition: opacity 0.3s cubic-bezier(0.86, 0, 0.07, 1) 0.2s, bottom 0.3s cubic-bezier(0.86, 0, 0.07, 1) 0.2s;
+  transition: opacity 0.3s cubic-bezier(0.86, 0, 0.07, 1) 0.2s, bottom 0.3s cubic-bezier(0.86, 0, 0.07, 1) 0.2s;
 }
 .popup__close-text::before {
   background-color: #546e7a;
