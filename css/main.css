@@ -1729,9 +1729,16 @@
   top: 40px;
   right: -40px;
 }
+.popup_bg_transparent .popup__close-btn:hover .popup__close-cross::before,
+.popup_bg_transparent .popup__close-btn:hover .popup__close-cross::after {
+  background-color: #d84315;
+}
 .popup_bg_fill .popup__close-btn {
   top: -20px;
   right: -20px;
+}
+.popup_bg_fill .popup__close-btn:hover .popup__close-cross {
+  background-color: #d84315;
 }
 .popup__close-cross {
   position: absolute;
@@ -1766,17 +1773,10 @@
   width: 3px;
   height: 100%;
 }
-.popup_bg_transparent .popup__close-cross:hover::before,
-.popup_bg_transparent .popup__close-cross:hover::after {
-  background-color: #d84315;
-}
 .popup_bg_fill .popup__close-cross {
   background-color: #b0bec5;
   height: 30px;
   width: 30px;
-}
-.popup_bg_fill .popup__close-cross:hover {
-  background-color: #d84315;
 }
 .popup_bg_fill .popup__close-cross::before {
   width: 16px;
@@ -1802,16 +1802,24 @@
   padding: 0 20px;
   position: absolute;
   left: 50%;
-  -webkit-transform: scale(0.8) translateX(-50%);
-  transform: scale(0.8) translateX(-50%);
+  -webkit-transform: scale(0.8) translateX(-60%);
+  transform: scale(0.8) translateX(-60%);
+  -webkit-transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  -webkit-transition-delay: .2s;
+  transition-delay: .2s;
+  -webkit-transition-duration: .5s;
+  transition-duration: .5s;
+  -webkit-transition-property: opacity, bottom, -webkit-transform;
+  transition-property: opacity, bottom, -webkit-transform;
+  transition-property: opacity, bottom, transform;
+  transition-property: opacity, bottom, transform, -webkit-transform;
 }
 .popup__close-btn:hover .popup__close-text {
   bottom: -54px;
   opacity: 1;
   -webkit-transform: scale(1) translateX(-50%);
   transform: scale(1) translateX(-50%);
-  -webkit-transition: opacity 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s, bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s;
-  transition: opacity 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s, bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s;
 }
 .popup__close-text::before {
   background-color: #546e7a;

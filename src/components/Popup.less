@@ -100,11 +100,22 @@
     .popup_bg_transparent & {
       top: 40px;
       right: -40px;
+
+      &:hover .popup__close-cross {
+        &::before,
+        &::after {
+          background-color: #d84315;
+        }
+      }
     }
 
     .popup_bg_fill & {
       top: -20px;
       right: -20px;
+
+      &:hover .popup__close-cross {
+        background-color: #d84315;
+      }
     }
   }
 
@@ -142,23 +153,12 @@
         width: 3px;
         height: 100%;
       }
-
-      &:hover {
-        &::before,
-        &::after {
-          background-color: #d84315;
-        }
-      }
     }
 
     .popup_bg_fill & {
       background-color: #b0bec5;
       height: 30px;
       width: 30px;
-
-      &:hover {
-        background-color: #d84315;
-      }
 
       &::before {
         width: 16px;
@@ -188,13 +188,16 @@
     padding: 0 20px;
     position: absolute;
     left: 50%;
-    transform: scale(.8) translateX(-50%);
+    transform: scale(.8) translateX(-60%);
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition-delay: .2s;
+    transition-duration: .5s;
+    transition-property: opacity, bottom, transform;
 
     .popup__close-btn:hover & {
       bottom: -54px;
       opacity: 1;
       transform: scale(1) translateX(-50%);
-      transition: opacity .5s cubic-bezier(0.68, -0.55, 0.265, 1.55) .2s, bottom .5s cubic-bezier(0.68, -0.55, 0.265, 1.55) .2s;
     }
 
     &::before {
