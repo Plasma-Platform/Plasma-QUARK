@@ -125,6 +125,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(45deg);
+    z-index: 2;
 
     &::before,
     &::after {
@@ -188,11 +189,12 @@
     padding: 0 20px;
     position: absolute;
     left: 50%;
-    transform: scale(.8) translateX(-60%);
+    transform: scale(.8) translateX(-62%);
     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     transition-delay: .2s;
     transition-duration: .5s;
     transition-property: opacity, bottom, transform;
+    z-index: 1;
 
     .popup__close-btn:hover & {
       bottom: -54px;

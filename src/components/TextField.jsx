@@ -1,4 +1,4 @@
-import React, {Component, PropTypes}    from 'react';
+import React, {Component}    from 'react';
 import ReactDOM                         from 'react-dom';
 import TextFieldStateless               from './textFields/TextFieldStateless.jsx';
 import {connectNotificationTextField}   from './utils';
@@ -17,22 +17,21 @@ export default class TextField extends Component {
     disabled    : React.PropTypes.bool
   }
 
-  constructor(props, context) {
+  constructor (props, context) {
     super(props, context);
 
     this.state = {
-      value             : props.value || '',
-      filled            : props.filled || !!this.props.value || false,
-      focused           : !!props.focused,
-      isValid           : null,
-      animated          : false,
-      notificationText  : this.props.notificationText || ''
-    }
+      value            : props.value || '',
+      filled           : props.filled || !!this.props.value || false,
+      focused          : !!props.focused,
+      isValid          : null,
+      animated         : false,
+      notificationText : this.props.notificationText || ''
+    };
 
     this.oldValue = '';
     this.inputElement = null;
     this.inputDOMElement = null;
-
   }
 
   componentDidMount = () => {
@@ -57,8 +56,8 @@ export default class TextField extends Component {
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.value !== this.props.value) {
       this.setState({
-        value   : nextProps.value,
-        filled  : true
+        value  : nextProps.value,
+        filled : true
       });
     }
   }
@@ -156,8 +155,8 @@ export default class TextField extends Component {
 
   handleValidation = (data) => {
     this.setState({
-      isValid           : data.status,
-      notificationText  : data.message
+      isValid          : data.status,
+      notificationText : data.message
     });
   }
 
@@ -169,7 +168,7 @@ export default class TextField extends Component {
 
   component = this.component || connectNotificationTextField(TextFieldStateless);
 
-  render() {
+  render () {
     const DecoratedTextField = this.component;
 
     return (
