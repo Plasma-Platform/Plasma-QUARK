@@ -1762,6 +1762,11 @@
   -webkit-text-decoration-skip: objects;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+  z-index: 2;
+}
+.popup__close-btn::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
 }
 .popup__close-btn_bg_fill {
   right: -20px;
@@ -1870,7 +1875,7 @@
   top: 10px;
   -webkit-transform: scale(0.8) translateX(-62%);
   transform: scale(0.8) translateX(-62%);
-  margin-left: -20px;
+  margin-left: 20px;
 }
 .popup__close-btn_bg_fill + .popup__close-text {
   left: 100%;

@@ -114,6 +114,12 @@
       -webkit-text-decoration-skip: objects;
       -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
+      z-index: 2;
+
+      &::-moz-focus-inner {
+        border-style: none;
+        padding: 0;
+      }
 
       &_bg {
         &_fill {
@@ -231,7 +237,7 @@
         left: 100%;
         top: 10px;
         transform: scale(.8) translateX(-62%);
-        margin-left: -20px;
+        margin-left: 20px;
       }
 
       .popup__close-btn_bg_fill + & {
