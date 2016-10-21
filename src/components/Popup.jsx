@@ -40,7 +40,7 @@ export default class Popup extends React.Component {
 
     const closeBtnClassName = `popup__close-btn popup__close-btn_bg_${this.props.bg}`;
 
-    const closeCrossClassName = `popup__close-cross_bg_${this.props.bg}`;
+    const closeCrossClassName = `popup__close-cross popup__close-cross_bg_${this.props.bg}`;
 
     return (
       <div
