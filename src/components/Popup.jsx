@@ -1,4 +1,4 @@
-import React                   from 'react';
+import React from 'react';
 
 import './Popup.less';
 
@@ -18,31 +18,40 @@ export default class Popup extends React.Component {
 
     this.renderContent    = this.renderContent.bind(this);
     this.handleCloseClick = this.handleCloseClick.bind(this);
-    this.hide             = this.hide.bind(this);
+    this.hideContent      = this.hideContent.bind(this);
   }
 
   handleCloseClick = () => {
-    this.container.classList.add('popup_closed');
-    this.container.addEventListener('animationend', this.hide);
+    this.content.classList.add('popup__content_animate_hide');
+    this.content.addEventListener('animationend', this.hideContent);
   }
 
-  hide = () => {
-    this.container.removeEventListener('animationend', this.hide);
+  hideContent = () => {
+    this.content.removeEventListener('animationend', this.hideContent);
     this.props.onRequestClose();
   }
 
+  componentWillReceiveProps (nextProps) {
+    document.body.style.overflow = nextProps.open === true ? 'hidden' : null;
+  }
+
   renderContent = () => {
-    const bgClassName      = ` popup_bg_${this.props.bg}`;
-    const paddingClassName = ` popup_padding_${this.props.padding}`;
-    const addClassName     = this.props.className ? ` ${this.props.className}` : '';
-    const fullClassName    = `popup popup_open${paddingClassName}${bgClassName}${addClassName}`;
+    const popupClassName = `popup${this.props.className ? ' ' + this.props.className : ''}`;
+
+    const contentBgClassName      = ` popup__content_bg_${this.props.bg}`;
+    const contentPaddingClassName = ` popup__content_padding_${this.props.padding}`;
+    const contentClassName        = `popup__content popup__content_animate_show${contentPaddingClassName}${contentBgClassName}`;
+
+    const closeBtnClassName = `popup__close-btn popup__close-btn_bg_${this.props.bg}`;
+
+    const closeCrossClassName = `popup__close-cross popup__close-cross_bg_${this.props.bg}`;
 
     return (
       <div
-        className      = {fullClassName}
-        id             = {this.props.id ? this.props.id : null}
-        role           = "dialog"
-        ref            = {(ref) => { this.container = ref; }}
+        className = {popupClassName}
+        id        = {this.props.id ? this.props.id : null}
+        role      = "dialog"
+        ref       = {ref => { this.container = ref; }}
       >
         <div
           className = "popup__bg"
@@ -50,16 +59,19 @@ export default class Popup extends React.Component {
         >
         </div>
 
-        <div className="popup__content">
+        <div
+          className = {contentClassName}
+          ref       = {ref => { this.content = ref; }}
+        >
           <button
-            className  = "popup__close-btn"
+            className  = {closeBtnClassName}
             type       = "button"
             aria-label = {this.props.closeText}
             onClick    = {this.handleCloseClick}
           >
-            <span className="popup__close-cross"></span>
-            <span className="popup__close-text">{this.props.closeText}</span>
+            <span className={closeCrossClassName}></span>
           </button>
+          <span className="popup__close-text">{this.props.closeText}</span>
           {this.props.children}
         </div>
       </div>
