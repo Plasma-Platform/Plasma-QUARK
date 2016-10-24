@@ -1,4 +1,4 @@
-import React                   from 'react';
+import React from 'react';
 
 import './Popup.less';
 
@@ -27,13 +27,12 @@ export default class Popup extends React.Component {
   }
 
   hideContent = () => {
-    document.body.style.overflow = null;
     this.content.removeEventListener('animationend', this.hideContent);
     this.props.onRequestClose();
   }
 
-  componentDidMount () {
-    document.body.style.overflow = 'hidden';
+  componentWillReceiveProps (nextProps) {
+    document.body.style.overflow = nextProps.open === true ? 'hidden' : null;
   }
 
   renderContent = () => {
