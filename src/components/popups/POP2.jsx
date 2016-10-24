@@ -7,6 +7,7 @@ export default class POP2 extends React.Component {
     return (
       <Popup
         {...this.props}
+        ref = {ref => this.pop2 = ref}
         bg = "transparent"
       />
     );

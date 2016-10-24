@@ -1189,10 +1189,22 @@
   animation: showErrorField 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) both, hideErrorField 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.75s forwards;
 }
 .animatedLeftToRight {
-  -webkit-animation: animatedNotification 0.25s cubic-bezier(0.86, 0, 0.07, 1) both;
-  animation: animatedNotification 0.25s cubic-bezier(0.86, 0, 0.07, 1) both;
+  -webkit-animation: animationLeftToRight 0.25s cubic-bezier(0.86, 0, 0.07, 1) both;
+  animation: animationLeftToRight 0.25s cubic-bezier(0.86, 0, 0.07, 1) both;
 }
-@-webkit-keyframes animatedNotification {
+.animatedRightToLeft {
+  -webkit-animation: animationRightToLeft 0.25s cubic-bezier(0.86, 0, 0.07, 1) both;
+  animation: animationRightToLeft 0.25s cubic-bezier(0.86, 0, 0.07, 1) both;
+}
+.animatedTopToBottom {
+  -webkit-animation: animationTopToBottom 0.25s cubic-bezier(0.86, 0, 0.07, 1) both;
+  animation: animationTopToBottom 0.25s cubic-bezier(0.86, 0, 0.07, 1) both;
+}
+.animatedBottomToTop {
+  -webkit-animation: animationBottomToTop 0.25s cubic-bezier(0.86, 0, 0.07, 1) both;
+  animation: animationBottomToTop 0.25s cubic-bezier(0.86, 0, 0.07, 1) both;
+}
+@-webkit-keyframes animationLeftToRight {
   0% {
     opacity: 0;
     -webkit-transform: translateX(-40px);
@@ -1204,7 +1216,7 @@
     transform: translateX(0);
   }
 }
-@keyframes animatedNotification {
+@keyframes animationLeftToRight {
   0% {
     opacity: 0;
     -webkit-transform: translateX(-40px);
@@ -1214,6 +1226,78 @@
     opacity: 1;
     -webkit-transform: translateX(0);
     transform: translateX(0);
+  }
+}
+@-webkit-keyframes animationRightToLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(40px);
+    transform: translateX(40px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@keyframes animationRightToLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(40px);
+    transform: translateX(40px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@-webkit-keyframes animationTopToBottom {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-40px);
+    transform: translateY(-40px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+@keyframes animationTopToBottom {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-40px);
+    transform: translateY(-40px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+@-webkit-keyframes animationBottomToTop {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(40px);
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+@keyframes animationBottomToTop {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(40px);
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
   }
 }
 @-webkit-keyframes showSuccessField {
@@ -1330,11 +1414,10 @@
   }
 }
 /**************************** Classes ****************************/
-/* @todo: uncomment this after new popup release
 .element-animated-shake {
+  -webkit-animation: shake .3s both;
   animation: shake .3s both;
 }
-*/
 /* colors */
 /* spacings */
 /* easings */

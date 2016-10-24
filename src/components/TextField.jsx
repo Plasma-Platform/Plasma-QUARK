@@ -17,6 +17,10 @@ export default class TextField extends Component {
     disabled    : React.PropTypes.bool
   }
 
+  static defaultProps = {
+    notificationAlt: {status:false}
+  };
+
   constructor (props, context) {
     super(props, context);
 
