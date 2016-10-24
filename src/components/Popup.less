@@ -1,7 +1,4 @@
 .popup {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   box-sizing: border-box;
   height: 100%;
   left: 0;
@@ -27,6 +24,8 @@
     right: 0;
     top: 0;
     z-index: 0;
+    overflow: auto;
+    line-height: 100vh;
   }
 
   &__content {
@@ -37,6 +36,8 @@
     display: inline-block;
     position: relative;
     z-index: 1;
+    line-height: 1;
+    vertical-align: middle;
 
     &_padding {
       &_medium {

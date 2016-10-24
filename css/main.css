@@ -1711,15 +1711,6 @@
   }
 }
 .popup {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
   box-sizing: border-box;
   height: 100%;
   left: 0;
@@ -1744,6 +1735,8 @@
   right: 0;
   top: 0;
   z-index: 0;
+  overflow: auto;
+  line-height: 100vh;
 }
 .popup__content {
   -webkit-animation-duration: .3s;
@@ -1756,6 +1749,8 @@
   display: inline-block;
   position: relative;
   z-index: 1;
+  line-height: 1;
+  vertical-align: middle;
 }
 .popup__content_padding_medium {
   padding: 40px;
