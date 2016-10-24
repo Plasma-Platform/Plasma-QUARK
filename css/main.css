@@ -1690,12 +1690,10 @@
 .popup__content_bg_fill.popup__content_padding_medium {
   margin: 40px;
   max-width: calc(100vw - 80px);
-  max-height: calc(100vh - 80px);
 }
 .popup__content_bg_fill.popup__content_padding_large {
   margin: 0 80px;
   max-width: calc(100vw - 160px);
-  max-height: calc(100vh - 160px);
 }
 .popup__content_animate_show {
   -webkit-animation-name: showPopupContent;
