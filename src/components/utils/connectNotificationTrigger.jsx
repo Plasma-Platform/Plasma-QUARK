@@ -16,6 +16,8 @@ export default function connectNotificationTrigger(Component, props) {
 
     constructor(props, context) {
       super(props, context);
+      this.lastWidth = 0;
+      this.originalCode = null;
     }
 
     componentDidMount() {
@@ -105,27 +107,74 @@ export default function connectNotificationTrigger(Component, props) {
       }
     }
 
-    calcNotificationCoords(targetCoords) {
-      const coords = {};
+    rerenderNotice = (newCode) => {
+      let {code, text, maxWidth} = this.props.notification;
+      let newTooltip = prepareNotification({code: newCode || this.originalCode, text, maxWidth}, this.hideNotification);
+      this.notification = React.cloneElement(newTooltip, {
+        ref: c => this.notification = c
+      });
+      ReactDOM.render(this.notification, this.popup);
+    };
+
+    calcNotificationCoords(targetCoords, position = this.notification.props.position) {
+      let coords = {};
       const {top, left, width, height} = targetCoords;
       const notification = ReactDOM.findDOMNode(this.notification);
-
-      switch (this.notification.props.position) {
+      const windowWidth = window.innerWidth;
+      const rightOffSet = windowWidth - notification.getBoundingClientRect().right;
+      switch (position) {
         case 'left':
-          coords.top = (height / 2) - (notification.offsetHeight / 2);
-          coords.left = notification.offsetWidth - 20;
+          if (notification.getBoundingClientRect().left <= 0 && this.lastWidth == 0) {
+            this.lastWidth = windowWidth;
+            this.originalCode = this.props.notification.code;
+          }
+
+          if (windowWidth > this.lastWidth) {
+            this.lastWidth = 0;
+          }
+
+          if (this.lastWidth != 0 && this.props.notificationAlt.status) {
+            this.rerenderNotice(this.props.notificationAlt.type);
+          } else {
+            coords.top = (height / 2) - (notification.offsetHeight / 2);
+            coords.left = notification.offsetWidth - 20;
+          }
           break;
         case 'right':
-          coords.top = (height / 2) - (notification.offsetHeight / 2);
-          coords.left = width + 20;
+          if (rightOffSet <= 0 && this.lastWidth == 0) {
+            this.lastWidth = windowWidth;
+            this.originalCode = this.props.notification.code;
+          }
+
+          if (windowWidth > this.lastWidth) {
+            this.lastWidth = 0;
+          }
+
+          if (this.lastWidth != 0 && this.props.notificationAlt.status) {
+            this.rerenderNotice(this.props.notificationAlt.type);
+          } else {
+            coords.top = (height / 2) - (notification.offsetHeight / 2);
+            coords.left = width + 20;
+          }
+
           break;
         case 'top':
-          coords.top = notification.offsetHeight - 20;
-          coords.left = (width / 2) - (notification.offsetWidth / 2);
+          if (windowWidth > this.lastWidth && this.lastWidth != 0) {
+            this.lastWidth = 0;
+            this.rerenderNotice(this.originalCode);
+          } else {
+            coords.top = notification.offsetHeight - 20;
+            coords.left = (width / 2) - (notification.offsetWidth / 2);
+          }
           break;
         default:
-          coords.top = height + 20;
-          coords.left = (width / 2) - (notification.offsetWidth / 2);
+          if (windowWidth > this.lastWidth && this.lastWidth != 0) {
+            this.lastWidth = 0;
+            this.rerenderNotice(this.originalCode);
+          } else {
+            coords.top = height + 20;
+            coords.left = (width / 2) - (notification.offsetWidth / 2);
+          }
       }
 
       return coords;
