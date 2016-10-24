@@ -31,6 +31,14 @@ export default class Popup extends React.Component {
     this.props.onRequestClose();
   }
 
+  componentDidMount () {
+    document.body.style.overflow = 'hidden';
+  }
+
+  componentWillUnmount () {
+    document.body.style.overflow = null;
+  }
+
   renderContent = () => {
     const popupClassName = `popup${this.props.className ? ' ' + this.props.className : ''}`;
 
