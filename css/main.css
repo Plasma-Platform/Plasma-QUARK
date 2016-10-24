@@ -1330,11 +1330,10 @@
   }
 }
 /**************************** Classes ****************************/
-/* @todo: uncomment this after new popup release
 .element-animated-shake {
+  -webkit-animation: shake .3s both;
   animation: shake .3s both;
 }
-*/
 /* colors */
 /* spacings */
 /* easings */
