@@ -1924,6 +1924,8 @@
   animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
   background-color: #2196f3;
   bottom: 0;
   position: absolute;
