@@ -1036,6 +1036,7 @@
   -webkit-transition: .3s;
   transition: .3s;
   width: 100%;
+  -webkit-appearance: none;
 }
 .text-field__input::-webkit-input-placeholder {
   color: #90a4ae;
