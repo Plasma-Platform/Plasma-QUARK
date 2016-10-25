@@ -12,12 +12,21 @@ export default function connectNotificationTrigger(Component, props) {
 
     state = {
       notification: null
-    }
+    };
 
     constructor(props, context) {
       super(props, context);
       this.lastWidth = 0;
-      this.originalCode = null;
+      this._originalCode = null;
+    }
+
+    set originalCode(value) {
+      if (this._originalCode === null)
+        this._originalCode = value;
+    }
+
+    get originalCode(){
+      return this._originalCode;
     }
 
     componentDidMount() {
@@ -45,31 +54,31 @@ export default function connectNotificationTrigger(Component, props) {
       };
 
       return data;
-    }
+    };
 
     showNotification = () => {
       if (!this.popup) {
         this.targetNode = ReactDOM.findDOMNode(this.target);
 
-        const preparedNotification = this.props.popover
+        let preparedNotification = this.props.popover
           ? preparePopover(this.props.popover, this.hideNotification)
           : prepareNotification(this.props.notification, this.hideNotification);
 
         this.notification = React.cloneElement(preparedNotification, {
           ref: c => this.notification = c
         });
-
         this.popup = document.createElement('div');
         this.targetNode.appendChild(this.popup);
         ReactDOM.render(this.notification, this.popup);
-
-        this.handleResize();
-
         setTimeout(() => {
           this.setState({notification: this.notification});
+          if(this.props.notificationAlt.status){
+              this.calcSidePosition();
+          }
         }, 100);
+        this.handleResize();
       }
-    }
+    };
 
     hideNotification = () => {
       if (this.popup) {
@@ -81,7 +90,7 @@ export default function connectNotificationTrigger(Component, props) {
 
         this.setState({notification: null});
       }
-    }
+    };
 
     handleClosePopover = (e) => {
       if (this.props.popover && this.state.notification) {
@@ -96,7 +105,7 @@ export default function connectNotificationTrigger(Component, props) {
           props.onHide();
         }
       }
-    }
+    };
 
     handleResize = () => {
       if (this.notification) {
@@ -104,8 +113,16 @@ export default function connectNotificationTrigger(Component, props) {
         const notificationCoords = this.calcNotificationCoords(targetCoords);
 
         this.notification.setPosition(notificationCoords);
+
+        if(this.props.notificationAlt.status){
+          setTimeout(()=>{
+            this.calcSidePosition();
+          },150);
+        }
+
       }
-    }
+    };
+
 
     rerenderNotice = (newCode) => {
       let {code, text, maxWidth} = this.props.notification;
@@ -116,16 +133,17 @@ export default function connectNotificationTrigger(Component, props) {
       ReactDOM.render(this.notification, this.popup);
     };
 
-    calcNotificationCoords(targetCoords, position = this.notification.props.position) {
-      let coords = {};
-      const {top, left, width, height} = targetCoords;
+    calcSidePosition () {
+      if(!this.notification) return false;
+
       const notification = ReactDOM.findDOMNode(this.notification);
       const windowWidth = window.innerWidth;
-      const rightOffSet = windowWidth - notification.getBoundingClientRect().right;
-      switch (position) {
+      const rect = notification.getBoundingClientRect();
+      const rightOffSet = windowWidth - rect.right;
+      switch (this.notification.props.position) {
         case 'left':
-          if (notification.getBoundingClientRect().left <= 0 && this.lastWidth == 0) {
-            this.lastWidth = windowWidth;
+          if (rect.left <= 0 && this.lastWidth == 0) {
+            this.lastWidth = windowWidth + ((rect.left * -1) * 2);
             this.originalCode = this.props.notification.code;
           }
 
@@ -133,16 +151,13 @@ export default function connectNotificationTrigger(Component, props) {
             this.lastWidth = 0;
           }
 
-          if (this.lastWidth != 0 && this.props.notificationAlt.status) {
+          if (this.lastWidth != 0) {
             this.rerenderNotice(this.props.notificationAlt.type);
-          } else {
-            coords.top = (height / 2) - (notification.offsetHeight / 2);
-            coords.left = notification.offsetWidth - 20;
           }
           break;
         case 'right':
           if (rightOffSet <= 0 && this.lastWidth == 0) {
-            this.lastWidth = windowWidth;
+            this.lastWidth = windowWidth + ((rightOffSet * -1) * 2);
             this.originalCode = this.props.notification.code;
           }
 
@@ -150,31 +165,51 @@ export default function connectNotificationTrigger(Component, props) {
             this.lastWidth = 0;
           }
 
-          if (this.lastWidth != 0 && this.props.notificationAlt.status) {
+          if (this.lastWidth != 0) {
             this.rerenderNotice(this.props.notificationAlt.type);
-          } else {
-            coords.top = (height / 2) - (notification.offsetHeight / 2);
-            coords.left = width + 20;
           }
-
           break;
         case 'top':
           if (windowWidth > this.lastWidth && this.lastWidth != 0) {
             this.lastWidth = 0;
             this.rerenderNotice(this.originalCode);
-          } else {
-            coords.top = notification.offsetHeight - 20;
-            coords.left = (width / 2) - (notification.offsetWidth / 2);
           }
           break;
-        default:
+        case 'bottom':
           if (windowWidth > this.lastWidth && this.lastWidth != 0) {
             this.lastWidth = 0;
             this.rerenderNotice(this.originalCode);
-          } else {
-            coords.top = height + 20;
-            coords.left = (width / 2) - (notification.offsetWidth / 2);
           }
+      }
+      if(this.lastWidth != 0){
+        const targetCoords = this.getTargetCoords();
+        const notificationCoords = this.calcNotificationCoords(targetCoords);
+
+        this.notification.setPosition(notificationCoords);
+      }
+
+    };
+
+    calcNotificationCoords(targetCoords) {
+      let coords = {};
+      const {top, left, width, height} = targetCoords;
+      const notification = ReactDOM.findDOMNode(this.notification);
+      switch (this.notification.props.position) {
+        case 'left':
+          coords.top = (height / 2) - (notification.offsetHeight / 2);
+          coords.left = notification.offsetWidth - 20;
+          break;
+        case 'right':
+          coords.top = (height / 2) - (notification.offsetHeight / 2);
+          coords.left = width + 20;
+          break;
+        case 'top':
+          coords.top = height * -1;
+          coords.left = (width / 2) - (notification.offsetWidth / 2);
+          break;
+        default:
+          coords.top = height + 20;
+          coords.left = (width / 2) - (notification.offsetWidth / 2);
       }
 
       return coords;
@@ -184,8 +219,8 @@ export default function connectNotificationTrigger(Component, props) {
       return (
         <Component
           {...this.props}
-          ref                     = {c => this.target = c}
-          handleHideNotification  = {this.hideNotification}
+          ref={c => this.target = c}
+          handleHideNotification={this.hideNotification}
         />
       );
     }
