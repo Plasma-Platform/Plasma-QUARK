@@ -1099,6 +1099,10 @@
   top: 21px;
   -webkit-transition: .3s;
   transition: .3s;
+  white-space: nowrap;
+  max-width: calc(60%);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .text-field__type-icon,
 .text-field__notification-icon {
