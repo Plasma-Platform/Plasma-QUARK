@@ -1100,7 +1100,7 @@
   -webkit-transition: .3s;
   transition: .3s;
   white-space: nowrap;
-  max-width: calc(60%);
+  max-width: calc(100% - 100px);
   overflow: hidden;
   text-overflow: ellipsis;
 }
