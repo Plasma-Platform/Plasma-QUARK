@@ -265,6 +265,7 @@
 }
 .button_loading {
   font-size: 0;
+  vertical-align: middle;
 }
 .button_loading.icon::before {
   display: none;
