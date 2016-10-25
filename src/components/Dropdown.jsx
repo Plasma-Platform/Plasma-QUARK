@@ -8,6 +8,7 @@ export default class Dropdown extends React.Component {
     label         : React.PropTypes.string.isRequired,
     options       : React.PropTypes.array.isRequired,
     className     : React.PropTypes.string,
+    id            : React.PropTypes.string,
     open          : React.PropTypes.bool,
     disabled      : React.PropTypes.bool,
     showFilter    : React.PropTypes.bool,
@@ -289,6 +290,7 @@ export default class Dropdown extends React.Component {
     return (
       <div
         className = {`dropdown${typeClassName}${contentPosClassName}${openClassName}${disabledClassName}${addClassName}`}
+        id        = {this.props.id || null}
         tabIndex  = "-1"
         role      = "listbox"
         onBlur    = {this.handleDropdownBlur}
