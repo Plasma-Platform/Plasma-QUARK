@@ -1722,6 +1722,7 @@
   z-index: 9999;
   overflow: auto;
   line-height: 100vh;
+  text-align: center;
 }
 .popup *,
 .popup *::before,
