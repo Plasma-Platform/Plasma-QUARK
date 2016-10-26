@@ -31,10 +31,11 @@ module.exports = {
       },
       {
         test   : /\.less$/,
-        loader : ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader!postcss-loader')
+        loader : ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader!postcss-loader?parser=postcss-safe-parser')
       },
       { test: /\.jsx$/, loader: 'babel', exclude: [/node_modules/, /public/] },
-      { test: /\.js$/, loader: 'babel', exclude: [/node_modules/, /public/] }
+      { test: /\.js$/, loader: 'babel', exclude: [/node_modules/, /public/] },
+      { test: /\.svg/, loader: 'file-loader' }
     ]
   },
   postcss: function () {
