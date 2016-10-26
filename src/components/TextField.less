@@ -78,6 +78,10 @@
     position: absolute;
     top: 21px;
     transition: .3s;
+    white-space: nowrap;
+    max-width: calc(~'100% - 100px');
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__type-icon,
@@ -104,6 +108,7 @@
 
   .password-toggle {
     cursor: pointer;
+    margin-right: @spacing4x;
 
     &:active:before {
       background-image: svg-load("../assets/images/icons/icon-eye.svg", fill: #0d47a1);
