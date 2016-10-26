@@ -118,6 +118,10 @@
   padding-left: 18px;
   padding-right: 18px;
 }
+.button_height_medium.button_width_auto.button_loading,
+.button_height_medium.button_width_full.button_loading {
+  line-height: 0;
+}
 .button_height_large {
   font-size: 16px;
   height: 60px;
@@ -133,6 +137,10 @@
   line-height: 56px;
   padding-left: 28px;
   padding-right: 28px;
+}
+.button_height_large.button_width_auto.button_loading,
+.button_height_large.button_width_full.button_loading {
+  line-height: 0;
 }
 .button_rounded_all {
   border-radius: 3px;
@@ -265,6 +273,7 @@
 }
 .button_loading {
   font-size: 0;
+  vertical-align: middle;
 }
 .button_loading.icon::before {
   display: none;
@@ -1037,6 +1046,7 @@
   -webkit-transition: .3s;
   transition: .3s;
   width: 100%;
+  -webkit-appearance: none;
 }
 .text-field__input::-webkit-input-placeholder {
   color: #90a4ae;
@@ -1089,6 +1099,9 @@
 .text-field__input:disabled ~ .text-field__label {
   color: #eceff1;
 }
+.text-field__input[type='password'] ~ .text-field__label {
+  max-width: calc(100% - 100px);
+}
 .text-field__label {
   color: #90a4ae;
   cursor: text;
@@ -1096,8 +1109,12 @@
   pointer-events: none;
   position: absolute;
   top: 21px;
-  -webkit-transition: .3s;
-  transition: .3s;
+  -webkit-transition-duration: .3s;
+  transition-duration: .3s;
+  white-space: nowrap;
+  max-width: calc(100% - 80px);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .text-field__type-icon,
 .text-field__notification-icon {
@@ -1118,8 +1135,13 @@
 .text-field__notification-icon:not(.password-toggle) {
   opacity: 0;
 }
+.text-field [class*='icon-'] + .password-toggle {
+  margin-right: 40px;
+}
 .text-field .password-toggle {
   cursor: pointer;
+  -webkit-transition: .3s;
+  transition: .3s;
 }
 .text-field .password-toggle:active:before {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='15' viewBox='0 0 20 15' xmlns='http://www.w3.org/2000/svg' fill='%230d47a1'%3E%3Cpath d='M0 7.143c1.573 4.18 5.455 7.143 10 7.143s8.427-2.962 10-7.143C18.427 2.962 14.545 0 10 0S1.573 2.962 0 7.143zm5.714 0A4.287 4.287 0 0 1 10 2.857a4.287 4.287 0 0 1 4.286 4.286A4.287 4.287 0 0 1 10 11.429a4.287 4.287 0 0 1-4.286-4.286zm1.905 0A2.378 2.378 0 0 0 10 9.523a2.378 2.378 0 0 0 2.381-2.38A2.378 2.378 0 0 0 10 4.762a2.378 2.378 0 0 0-2.381 2.38z'/%3E%3C/svg%3E");
@@ -1900,6 +1922,7 @@
   z-index: 9999;
   overflow: auto;
   line-height: 100vh;
+  text-align: center;
 }
 .popup *,
 .popup *::before,

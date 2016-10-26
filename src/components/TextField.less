@@ -41,6 +41,7 @@
     padding: 0 @spacing4x 0 @spacing2x;
     transition: .3s;
     width: 100%;
+    -webkit-appearance: none;
 
     &::placeholder {
       color: #90a4ae;
@@ -67,6 +68,12 @@
         color: #eceff1;
       }
     }
+
+    &[type='password']{
+      & ~ .text-field__label {
+        max-width: calc(~'100% - 100px');
+      }
+    }
   }
 
   &__label {
@@ -76,7 +83,11 @@
     pointer-events: none;
     position: absolute;
     top: 21px;
-    transition: .3s;
+    transition-duration: .3s;
+    white-space: nowrap;
+    max-width: calc(~'100% - 80px');
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__type-icon,
@@ -101,8 +112,13 @@
     opacity: 0;
   }
 
+  [class*='icon-'] + .password-toggle {
+    margin-right: @spacing4x;
+  }
+
   .password-toggle {
     cursor: pointer;
+    transition: .3s;
 
     &:active:before {
       background-image: svg-load("../assets/images/icons/icon-eye.svg", fill: #0d47a1);
