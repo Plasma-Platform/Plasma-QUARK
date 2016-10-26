@@ -118,6 +118,10 @@
   padding-left: 18px;
   padding-right: 18px;
 }
+.button_height_medium.button_width_auto.button_loading,
+.button_height_medium.button_width_full.button_loading {
+  line-height: 0;
+}
 .button_height_large {
   font-size: 16px;
   height: 60px;
@@ -133,6 +137,10 @@
   line-height: 56px;
   padding-left: 28px;
   padding-right: 28px;
+}
+.button_height_large.button_width_auto.button_loading,
+.button_height_large.button_width_full.button_loading {
+  line-height: 0;
 }
 .button_rounded_all {
   border-radius: 3px;
