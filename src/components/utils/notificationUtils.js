@@ -1,11 +1,11 @@
 import React      from 'react';
 import classnames from 'classnames';
 
-import Notifications from 'ui-toolkit/lib/notifications';
+import Notifications from '../notifications';
 
 let notificationTimeout;
 
-export function prepareNotification(notification, handleHide) {
+export function prepareNotification (notification, handleHide) {
   if (notification) {
     const NotificationComponent = Notifications[notification.code];
     const notificationClassnames = classnames({
@@ -28,11 +28,11 @@ export function prepareNotification(notification, handleHide) {
   return null;
 }
 
-export function delay(func) {
+export function delay (func) {
   notificationTimeout = setTimeout(func, 200);
 }
 
-export function clearDelay(func) {
+export function clearDelay (func) {
   clearTimeout(notificationTimeout);
   func();
 }
