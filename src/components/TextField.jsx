@@ -71,7 +71,7 @@ export default class TextField extends Component {
       this.comp.input.showNotification();
     } else {
       this.comp.input.hideNotification();
-    }
+    };
   }
 
   focus = () => {
@@ -164,6 +164,12 @@ export default class TextField extends Component {
     });
   }
 
+  resetValidationStatus = () => {
+    this.setState({
+      isValid: undefined
+    });
+  }
+
   _activateAnimation = () => {
     this.setState({
       animated: true
@@ -178,17 +184,18 @@ export default class TextField extends Component {
     return (
       <DecoratedTextField
         {...this.props}
-        ref             = {comp => this.comp = comp}
-        value           = {this.state.value}
-        filled          = {this.state.filled}
-        focused         = {this.state.focused}
-        isValid         = {this.state.isValid}
-        animated        = {this.state.animated}
-        onFocus         = {this.onFocus}
-        onBlur          = {this.onBlur}
-        onChange        = {this.onChange}
-        changeFieldType = {this.changeFieldType}
-        notification    = { {code: this.props.notificationType || 'N2B', text: this.state.notificationText} }
+        ref                     = {comp => this.comp = comp}
+        value                   = {this.state.value}
+        filled                  = {this.state.filled}
+        focused                 = {this.state.focused}
+        isValid                 = {this.props.isValid || this.state.isValid}
+        animated                = {this.state.animated}
+        onFocus                 = {this.onFocus}
+        onBlur                  = {this.onBlur}
+        onChange                = {this.onChange}
+        changeFieldType         = {this.changeFieldType}
+        resetValidationStatus   = {this.resetValidationStatus}
+        notification            = { {code: this.props.notificationType || 'N2B', text: this.state.notificationText} }
       />
     );
   }

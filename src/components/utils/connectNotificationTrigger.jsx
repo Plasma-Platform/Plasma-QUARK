@@ -88,13 +88,14 @@ export default function connectNotificationTrigger (Component, props) {
           this.targetNode.removeChild(this.popup);
         }
         this.popup = null;
-
+        this.props.resetValidationStatus();
         this.setState({notification: null});
       }
     };
 
     handleClosePopover = (e) => {
-      if (this.state.notification) {
+      let clickTarget = e.target.getAttribute('class');
+      if (clickTarget === 'TMUI__Notification__closeBlock__closeArea' && this.state.notification) {
         e.stopPropagation();
 
         if (isMouseOutOfComponent({
@@ -103,10 +104,10 @@ export default function connectNotificationTrigger (Component, props) {
           pageY     : e.pageY
         })) {
           this.hideNotification();
-          props.onHide();
         }
       }
     };
+
     handleResize = () => {
       if (this.notification) {
         const targetCoords = this.getTargetCoords();
