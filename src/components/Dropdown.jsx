@@ -135,8 +135,12 @@ export default class Dropdown extends React.Component {
     return this.state.value;
   }
 
-  getOptionByValue (optionValue) {
-
+  getOptionByValue (value) {
+    return (
+      this.props.options.filter((option) => {
+        return option.value = value;
+      })[0]
+    );
   }
 
   renderLabel () {
