@@ -2048,21 +2048,21 @@
     left: 75%;
   }
 }
-.gravatar {
+.avatar {
   display: inline-block;
   position: relative;
 }
-.gravatar *,
-.gravatar *::before,
-.gravatar *::after {
+.avatar *,
+.avatar *::before,
+.avatar *::after {
   box-sizing: border-box;
 }
-.gravatar__image {
+.avatar__image {
   position: absolute;
   left: 0;
   top: 0;
 }
-.gravatar_round {
+.avatar_round {
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
