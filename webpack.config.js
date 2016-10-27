@@ -35,7 +35,7 @@ module.exports = {
       },
       { test: /\.jsx$/, loader: 'babel', exclude: [/node_modules/, /public/] },
       { test: /\.js$/, loader: 'babel', exclude: [/node_modules/, /public/] },
-      { test: /\.svg/, loader: 'file-loader' }
+      { test: /\.svg/, loader: 'url-loader' }
     ]
   },
   postcss: function () {
