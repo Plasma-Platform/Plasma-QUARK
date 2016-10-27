@@ -188,7 +188,7 @@ export default class TextField extends Component {
         value                   = {this.state.value}
         filled                  = {this.state.filled}
         focused                 = {this.state.focused}
-        isValid                 = {this.props.isValid || this.state.isValid}
+        isValid                 = {this.state.isValid}
         animated                = {this.state.animated}
         onFocus                 = {this.onFocus}
         onBlur                  = {this.onBlur}
