@@ -214,7 +214,7 @@ export default class Dropdown extends React.Component {
     const addClassName        = this.props.className ? ` ${this.props.className}` : '';
     const containerClassName  = `dropdown${openedClassName}${typeClassName}${disabledClassName}${addClassName}`;
 
-    const selectedOption = this.getOptionByValue(this.state.value);
+    const selectedOptionLabel = this.getOptionByValue(this.state.value).label || '';
 
     return (
       <div
@@ -237,7 +237,7 @@ export default class Dropdown extends React.Component {
           onKeyDown  = {this.handleButtonKeyDown}
           ref        = {ref => { this.button = ref; }}
         >
-          {selectedOption.Label}
+          {selectedOptionLabel}
         </button>
 
         {this.props.type === 3 &&
