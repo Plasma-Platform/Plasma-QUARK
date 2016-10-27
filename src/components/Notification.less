@@ -1,0 +1,139 @@
+@import '../assets/styles/mixins.less';
+@import '../assets/styles/palette.less';
+
+@close-cross: url('./Notification/close-cross.svg');
+
+.notification {
+  position: absolute;
+  border-radius: 3px;
+  box-shadow: 0px 5px 10px 0px @hint-shadow-default;
+  font-size: 14px;
+  font-family: PT_Sans;
+  color: #ffffff;
+  z-index: 1000;
+
+  &__text {
+    width: 100%;
+    z-index: 1000;
+  }
+
+  &__closeBlock {
+    cursor: pointer;
+    margin-left: 20px;
+    align-self: flex-start;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    background: @close-cross no-repeat;
+
+    &__closeArea {
+      cursor: pointer;
+      position: absolute;
+      width: 40px;
+      height: 40px;
+
+      left: -15px;
+      top: -15px;
+    }
+  }
+
+  &__container {
+    padding: 0 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+  }
+
+  &--left-arrow {
+    &:after {
+      .common-pseudo-for-hint();
+      box-shadow: 4px 0px 10px 0px;
+      margin-top: -10px;
+      top: 50%;
+      right: -6px;
+    }
+  }
+
+  &--right-arrow {
+    &:before {
+      box-shadow: -2px 2px 10px 0px;
+      .common-pseudo-for-hint();
+      margin-top: -10px;
+      top: 50%;
+      left: -6px;
+    }
+  }
+
+  &--top-arrow {
+    &:before {
+      box-shadow: 3px 5px 10px 0px;
+      .common-pseudo-for-hint();
+      margin-left: -8px;
+      bottom: -8px;
+      left: 50%;
+    }
+  }
+
+  &--bottom-arrow {
+    &:after {
+      box-shadow: -1px 1px 10px 0px;
+      .common-pseudo-for-hint();
+      margin-left: -8px;
+      top: -8px;
+      left: 50%;
+    }
+  }
+
+  &--default {
+    background-color: @hint-grey;
+    &:before, &:after {
+      background-color: @hint-grey;
+      color: @hint-shadow-default;
+    }
+    .notification__container {
+      background-color: @hint-grey;
+    }
+  }
+
+  &--success {
+    box-shadow: 0px 5px 10px 0px @hint-shadow-success;
+    &:before, &:after {
+      background-color: @hint-green;
+      color: @hint-shadow-success;
+    }
+    .notification__container {
+      background-color: @hint-green;
+    }
+  }
+
+  &--error {
+    box-shadow: 0px 5px 10px 0px @hint-shadow-error;
+    &:before, &:after {
+      background-color: @hint-red;
+      color: @hint-shadow-error;
+    }
+    .notification__container {
+      background-color: @hint-red;
+    }
+  }
+
+  &--small {
+    .notification__container {
+      height: 40px;
+    }
+  }
+
+  &--large {
+    .notification__container {
+      padding: 20px;
+    }
+    min-height: 20px;
+    justify-content: space-between;
+  }
+
+  &--large &__text {
+    width: calc(~"100% - 30px");
+  }
+}

@@ -68,6 +68,12 @@
         color: #eceff1;
       }
     }
+
+    &[type='password']{
+      & ~ .text-field__label {
+        max-width: calc(~'100% - 100px');
+      }
+    }
   }
 
   &__label {
@@ -79,7 +85,7 @@
     top: 21px;
     transition-duration: .3s;
     white-space: nowrap;
-    max-width: calc(~'100% - 100px');
+    max-width: calc(~'100% - 80px');
     overflow: hidden;
     text-overflow: ellipsis;
   }

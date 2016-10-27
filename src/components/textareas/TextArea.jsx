@@ -1,5 +1,4 @@
-import React, {Component, PropTypes}  from 'react';
-import N2B                            from 'ui-toolkit/lib/notifications/N2B';
+import {Component}  from 'react';
 import TextareaStateless              from './TextAreaStateless.jsx';
 import {connectNotificationTextField} from '../utils';
 
@@ -7,17 +6,17 @@ import './TextArea.less';
 
 export default class TextArea extends Component {
 
-  constructor(props, context) {
+  constructor (props, context) {
     super(props, context);
 
     this.state = {
-      value: props.value || '',
-      limitCounter: 0,
-      fieldFilled: !!props.value,
-      inFocus: false,
-      isValid: null,
-      notificationtext: this.props.notificationText || ''
-    }
+      value            : props.value || '',
+      limitCounter     : 0,
+      fieldFilled      : !!props.value,
+      inFocus          : false,
+      isValid          : null,
+      notificationtext : this.props.notificationText || ''
+    };
   }
 
   getValue = () => {
@@ -27,8 +26,8 @@ export default class TextArea extends Component {
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.value !== this.props.value) {
       this.setState({
-        value: nextProps.value,
-        fieldFilled: true
+        value       : nextProps.value,
+        fieldFilled : true
       });
     }
   }
@@ -51,10 +50,10 @@ export default class TextArea extends Component {
 
   onFocus = (e) => {
     this.setState({
-      isValid: null,
-      notificationText: '',
-      fieldFilled: true,
-      inFocus: true
+      isValid          : null,
+      notificationText : '',
+      fieldFilled      : true,
+      inFocus          : true
     });
   }
 
@@ -87,8 +86,8 @@ export default class TextArea extends Component {
 
   handleValidation = (data) => {
     this.setState({
-      isValid: data.status,
-      notificationText: data.message
+      isValid          : data.status,
+      notificationText : data.message
     });
   }
 
@@ -101,8 +100,8 @@ export default class TextArea extends Component {
       return;
     }
 
-    let currentValue = this.props.maxLength - (textareaElement ? textareaElement.value.length : 0),
-      currentMaxValue = Math.max(0, currentValue);
+    let currentValue = this.props.maxLength - (textareaElement ? textareaElement.value.length : 0);
+    let currentMaxValue = Math.max(0, currentValue);
 
     this.setState({
       limitCounter: currentMaxValue
@@ -111,28 +110,28 @@ export default class TextArea extends Component {
 
   component = this.component || connectNotificationTextField(TextareaStateless);
 
-  render() {
+  render () {
     const DecoratedTextAreaField = this.component;
 
     return (
       <DecoratedTextAreaField
-        ref={ comp => this.comp = comp }
-        id={this.props.id}
-        fieldType={this.props.fieldType}
-        type={this.props.type}
-        label={this.props.label}
-        className={this.props.className}
-        disabled={this.props.disabled}
-        onChange={this.onChange}
-        maxLength={this.props.maxLength}
-        limitCounter={this.state.limitCounter}
-        value={this.state.value}
-        isValid={this.state.isValid}
-        fieldFilled={this.state.fieldFilled}
-        onFocus={this.onFocus}
-        inFocus={this.state.inFocus}
-        onBlur={this.onBlur}
-        notification={ {code: 'N2B', text: this.state.notificationText} }
+        ref          = { comp => this.comp = comp }
+        id           = {this.props.id}
+        fieldType    = {this.props.fieldType}
+        type         = {this.props.type}
+        label        = {this.props.label}
+        className    = {this.props.className}
+        disabled     = {this.props.disabled}
+        onChange     = {this.onChange}
+        maxLength    = {this.props.maxLength}
+        limitCounter = {this.state.limitCounter}
+        value        = {this.state.value}
+        isValid      = {this.state.isValid}
+        fieldFilled  = {this.state.fieldFilled}
+        onFocus      = {this.onFocus}
+        inFocus      = {this.state.inFocus}
+        onBlur       = {this.onBlur}
+        notification = { {code: 'N2B', text: this.state.notificationText} }
       />
     );
   }
