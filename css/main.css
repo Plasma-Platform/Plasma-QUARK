@@ -460,20 +460,20 @@
   background: -webkit-linear-gradient(top, #455a64 0%, #546e7a 100%);
   background: linear-gradient(to bottom, #455a64 0%, #546e7a 100%);
 }
-.dropdown_state_open .dropdown__button {
+.dropdown_open .dropdown__button {
   color: #fff;
 }
-.dropdown_state_open .dropdown__button .dropdown__arrow {
+.dropdown_open .dropdown__button .dropdown__arrow {
   margin-top: 0;
   -webkit-transform: rotate(135deg);
   transform: rotate(135deg);
 }
-.dropdown_state_open.dropdown_content-pos_bottom .dropdown__button {
+.dropdown_open.dropdown_content-pos_bottom .dropdown__button {
   background: -webkit-linear-gradient(top, #455a64 0%, #546e7a 100%);
   background: linear-gradient(to bottom, #455a64 0%, #546e7a 100%);
   box-shadow: 0 1px 0 0 #546e7a;
 }
-.dropdown_state_open.dropdown_content-pos_top .dropdown__button {
+.dropdown_open.dropdown_content-pos_top .dropdown__button {
   background: -webkit-linear-gradient(top, #546e7a 0%, #455a64 100%);
   background: linear-gradient(to bottom, #546e7a 0%, #455a64 100%);
   box-shadow: 0 -1px 0 0 #546e7a;
@@ -519,7 +519,7 @@
   transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), -webkit-transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   z-index: 9999;
 }
-.dropdown_state_open .dropdown__content {
+.dropdown_open .dropdown__content {
   opacity: 1;
   -webkit-transform: scaleY(1);
   transform: scaleY(1);
@@ -626,10 +626,10 @@
 .dropdown__option.icon:not(.dropdown__option_selected):hover::before {
   margin-top: 9px;
 }
-.dropdown_state_open.dropdown_content-pos_bottom .dropdown__button {
+.dropdown_open.dropdown_content-pos_bottom .dropdown__button {
   border-radius: 3px 3px 0 0;
 }
-.dropdown_state_open.dropdown_content-pos_top .dropdown__button {
+.dropdown_open.dropdown_content-pos_top .dropdown__button {
   border-radius: 0 0 3px 3px;
 }
 .dropdown_type_1 {
@@ -727,7 +727,7 @@
   top: 11px;
   z-index: 1;
 }
-.dropdown_type_3.dropdown_state_open .dropdown__label {
+.dropdown_type_3.dropdown_open .dropdown__label {
   color: #fff;
 }
 .dropdown_type_3 .dropdown__button {
