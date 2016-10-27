@@ -4,8 +4,8 @@ import querystring from 'query-string';
 import isRetina from 'is-retina';
 
 const URL = '//gravatar.com/';
-const DEFAULT = 'http://cdnwptm.templatemonster.com/wp-content/uploads/2016/10/onepixel.png'; //default image
-const COLORS = [ //array colors
+const DEFAULT = 'http://cdnwptm.templatemonster.com/wp-content/uploads/2016/10/onepixel.png'; // default image
+const COLORS = [ // array colors
   '#1A76D2',
   '#546E7A',
   '#E64A19',
@@ -26,20 +26,20 @@ class GravatarApi {
    * @returns {Promise.<T>}
    */
   getProfile = (atts = {}) => {
-    return fetchJSONP(URL + `${ md5(atts.email) }.json`, {
+    return fetchJSONP(URL + `${md5(atts.email)}.json`, {
       timeout: 1000
     }).then(response => {
       return response.json();
     }).then(response => {
       let data = response.entry[0];
       return {
-        status: 1,
-        color: this._getColor(data.displayName),
-        initial: this._prepareInitials(data.displayName),
-        displayName: data.displayName,
-        size: this._getSize(atts.size),
-        avatar: this._getGravatarSrc(data.thumbnailUrl, atts)
-      }
+        status      : 1,
+        color       : this._getColor(data.displayName),
+        initial     : this._prepareInitials(data.displayName),
+        displayName : data.displayName,
+        size        : this._getSize(atts.size),
+        avatar      : this._getGravatarSrc(data.thumbnailUrl, atts)
+      };
     }).catch(response => {
       return {
         status: 0
@@ -73,9 +73,9 @@ class GravatarApi {
    */
   _getGravatarSrc = (cleanURL, atts) => {
     const query = querystring.stringify({
-      s: this._getSize(atts.size),
-      r: atts.rating,
-      d: DEFAULT,
+      s : this._getSize(atts.size),
+      r : atts.rating,
+      d : DEFAULT
     });
     return `${cleanURL}?${query}`;
   };
@@ -114,4 +114,4 @@ class GravatarApi {
 
 }
 
-export default new GravatarApi;
+export default new GravatarApi();
