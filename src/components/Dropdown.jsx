@@ -200,61 +200,69 @@ export default class Dropdown extends React.Component {
   }
 
   renderLabel = () => {
-    return <span className="dropdown__label">{this.props.label}</span>;
+    return (
+      <span className="dropdown__label">{this.props.label}</span>
+    );
   }
 
   renderButton = (selectedOption) => {
-    return <button
-      className  = {`dropdown__button${selectedOption.icon ? ' icon icon-' + selectedOption.icon : ''}`}
-      type       = "button"
-      aria-label = {this.props.label}
-      value      = {selectedOption.value}
-      onClick    = {this.toggle}
-      disabled   = {this.props.disabled}
-    >
-      {selectedOption.label}
-      <span className="dropdown__arrow"></span>
-    </button>;
+    return (
+      <button
+        className  = {`dropdown__button${selectedOption.icon ? ' icon icon-' + selectedOption.icon : ''}`}
+        type       = "button"
+        aria-label = {this.props.label}
+        value      = {selectedOption.value}
+        onClick    = {this.toggle}
+        disabled   = {this.props.disabled}
+      >
+        {selectedOption.label}
+        <span className="dropdown__arrow"></span>
+      </button>
+    );
   }
 
   renderFilterInput = () => {
-    return <input
-      className   = "dropdown__filter-input"
-      type        = "search"
-      placeholder = {this.props.filterHint ? this.props.filterHint : ''}
-      value       = {this.state.filterQuery}
-      tabIndex    = {this.state.open ? 0 : -1}
-      onChange    = {this.filterOptions}
-      onBlur      = {this.handleFilterBlur}
-      onKeyDown   = {this.handleFilterKeyDown}
-      ref         = {(ref) => this.filterInput = ref}
-    />;
+    return (
+      <input
+        className   = "dropdown__filter-input"
+        type        = "search"
+        placeholder = {this.props.filterHint ? this.props.filterHint : ''}
+        value       = {this.state.filterQuery}
+        tabIndex    = {this.state.open ? 0 : -1}
+        onChange    = {this.filterOptions}
+        onBlur      = {this.handleFilterBlur}
+        onKeyDown   = {this.handleFilterKeyDown}
+        ref         = {(ref) => this.filterInput = ref}
+      />
+    );
   }
 
   renderOptions = (filterRegExp) => {
-    return this.props.options.filter((option) => {
-      return option.label.toLowerCase().indexOf(filterRegExp) === 0;
-    }).map((option, optionIndex) => {
-      const selectedClassName = option.value === this.state.value ? ' dropdown__option_selected' : '';
-      const disabledClassName = option.disabled ? ' dropdown__option_disabled' : '';
-      const iconClassName   = option.icon ? ` icon icon-${option.icon}` : '';
-      const optionClassName   = `dropdown__option${selectedClassName}${disabledClassName}${iconClassName}`;
+    return (
+      this.props.options.filter((option) => {
+        return option.label.toLowerCase().indexOf(filterRegExp) === 0;
+      }).map((option, optionIndex) => {
+        const selectedClassName = option.value === this.state.value ? ' dropdown__option_selected' : '';
+        const disabledClassName = option.disabled ? ' dropdown__option_disabled' : '';
+        const iconClassName   = option.icon ? ` icon icon-${option.icon}` : '';
+        const optionClassName   = `dropdown__option${selectedClassName}${disabledClassName}${iconClassName}`;
 
-      return (
-        <li
-          className  = {optionClassName}
-          aria-label = {option.label}
-          tabIndex   = {option.disabled || this.state.open === false ? -1 : 0}
-          role       = "option"
-          onClick    = {() => { this.handleOptionClick(option); }}
-          onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
-          key        = {optionIndex}
-          ref        = {ref => { this[`option${optionIndex}`] = ref; }}
-        >
-          {option.label}
-        </li>
-      );
-    });
+        return (
+          <li
+            className  = {optionClassName}
+            aria-label = {option.label}
+            tabIndex   = {option.disabled || this.state.open === false ? -1 : 0}
+            role       = "option"
+            onClick    = {() => { this.handleOptionClick(option); }}
+            onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
+            key        = {optionIndex}
+            ref        = {ref => { this[`option${optionIndex}`] = ref; }}
+          >
+            {option.label}
+          </li>
+        );
+      })
+    );
   }
 
   componentDidMount () {
