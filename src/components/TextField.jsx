@@ -18,7 +18,7 @@ export default class TextField extends Component {
   }
 
   static defaultProps = {
-    notificationAlt: {status:false}
+    notificationAlt: {status: false}
   };
 
   constructor (props, context) {

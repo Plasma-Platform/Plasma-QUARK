@@ -94,7 +94,7 @@ export default function connectNotificationTrigger (Component, props) {
     };
 
     handleClosePopover = (e) => {
-      if (this.props.popover && this.state.notification) {
+      if (this.state.notification) {
         e.stopPropagation();
 
         if (isMouseOutOfComponent({

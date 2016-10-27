@@ -36,15 +36,12 @@ export default class Popup extends React.Component {
   }
 
   renderContent = () => {
-    const popupClassName = `popup${this.props.className ? ' ' + this.props.className : ''}`;
-
+    const popupClassName          = `popup${this.props.className ? ' ' + this.props.className : ''}`;
     const contentBgClassName      = ` popup__content_bg_${this.props.bg}`;
     const contentPaddingClassName = ` popup__content_padding_${this.props.padding}`;
     const contentClassName        = `popup__content popup__content_animate_show${contentPaddingClassName}${contentBgClassName}`;
-
-    const closeBtnClassName = `popup__close-btn popup__close-btn_bg_${this.props.bg}`;
-
-    const closeCrossClassName = `popup__close-cross popup__close-cross_bg_${this.props.bg}`;
+    const closeBtnClassName       = `popup__close-btn popup__close-btn_bg_${this.props.bg}`;
+    const closeCrossClassName     = `popup__close-cross popup__close-cross_bg_${this.props.bg}`;
 
     return (
       <div

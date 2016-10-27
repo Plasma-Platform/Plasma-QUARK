@@ -1,4 +1,4 @@
-import React, {Component, PropTypes}  from 'react';
+import React, {Component}  from 'react';
 import classnames                     from 'classnames';
 
 import '../TextField.less';
@@ -13,12 +13,7 @@ export default class TextField extends Component {
     disabled    : React.PropTypes.bool
   }
 
-  constructor(props, context) {
-    super(props, context);
-  }
-
-  render() {
-
+  render () {
     const inputWrapClassname = classnames(`text-field text-field_${this.props.sizeType}`, this.props.className, {
       'text-field_filled'   : this.props.filled,
       'text-field_focused'  : this.props.focused,
@@ -30,14 +25,14 @@ export default class TextField extends Component {
     const inputClassname = 'text-field__input';
     const labelClassname = 'text-field__label';
     const iconClassname = classnames('text-field__type-icon', 'icon', {
-      'icon-letter'     : this.props.type === 'email',
-      'icon-magnifier'  : this.props.type === 'search',
-      'icon-key'        : this.props.type === 'password'
+      'icon-letter'    : this.props.type === 'email',
+      'icon-magnifier' : this.props.type === 'search',
+      'icon-key'       : this.props.type === 'password'
     });
     const isPassword = this.props.type === 'password';
     const iconNotificationClassname = classnames('text-field__notification-icon', 'icon', {
-      'icon-alert'                : this.props.isValid !== null && !this.props.isValid,
-      'icon-check_circle'         : this.props.isValid
+      'icon-alert'        : this.props.isValid !== null && !this.props.isValid,
+      'icon-check_circle' : this.props.isValid
     });
 
     const hint = this.props.placeholder || this.props.label;
@@ -65,18 +60,17 @@ export default class TextField extends Component {
           onKeyUp     = {this.props.onKeyUp}
           onKeyDown   = {this.props.onKeyDown}
         />
-        {isPassword ?
-            <div>
+        {isPassword
+          ? <div>
+              <span className     = { iconNotificationClassname }/>
               <span
                   className     = 'text-field__notification-icon icon password-toggle icon-eye'
                   onMouseDown   = {isPassword ? this.props.changeFieldType.bind(this, 'text') : null}
                   onMouseUp     = {isPassword ? this.props.changeFieldType.bind(this, 'password') : null}
                   onMouseLeave  = {isPassword ? this.props.changeFieldType.bind(this, 'password') : null}
               />
-              <span className     = { iconNotificationClassname }/>
             </div>
-        :
-            <span className     = { iconNotificationClassname } />
+          : <span className     = { iconNotificationClassname } />
 
         }
 
