@@ -37,27 +37,29 @@ export default class Dropdown extends React.Component {
   constructor (props) {
     super(props);
 
-    this.open                     = this.open.bind(this);
-    this.close                    = this.close.bind(this);
-    this.toggle                   = this.toggle.bind(this);
-    this.handleFilterInput        = this.handleFilterInput.bind(this);
-    this.handleFilterBlur         = this.handleFilterBlur.bind(this);
-    this.handleFilterKeyDown      = this.handleFilterKeyDown.bind(this);
-    this.handleOptionClick        = this.handleOptionClick.bind(this);
-    this.handleOptionKeyDown      = this.handleOptionKeyDown.bind(this);
-    this.handleDropdownKeyDown    = this.handleDropdownKeyDown.bind(this);
-    this.handleDropdownBlur       = this.handleDropdownBlur.bind(this);
-    this.getValue                 = this.getValue.bind(this);
-    this.getOptionByValue         = this.getOptionByValue.bind(this);
-    this.calculateContentPosition = this.calculateContentPosition.bind(this);
-    this.renderLabel              = this.renderLabel.bind(this);
-    this.renderContent            = this.renderContent.bind(this);
-    this.renderOptions            = this.renderOptions.bind(this);
+    this.open                  = this.open.bind(this);
+    this.close                 = this.close.bind(this);
+    this.toggle                = this.toggle.bind(this);
+    this.handleFilterInput     = this.handleFilterInput.bind(this);
+    this.handleFilterBlur      = this.handleFilterBlur.bind(this);
+    this.handleFilterKeyDown   = this.handleFilterKeyDown.bind(this);
+    this.handleOptionClick     = this.handleOptionClick.bind(this);
+    this.handleOptionKeyDown   = this.handleOptionKeyDown.bind(this);
+    this.handleDropdownKeyDown = this.handleDropdownKeyDown.bind(this);
+    this.handleDropdownBlur    = this.handleDropdownBlur.bind(this);
+    this.getValue              = this.getValue.bind(this);
+    this.getOptionByValue      = this.getOptionByValue.bind(this);
+    this.setContentPosition    = this.setContentPosition.bind(this);
+    this.renderLabel           = this.renderLabel.bind(this);
+    this.renderContent         = this.renderContent.bind(this);
+    this.renderOptions         = this.renderOptions.bind(this);
 
     this.contentPosition = 'bottom';
   }
 
   open () {
+    this.setContentPosition();
+
     this.setState({
       open: true
     }, () => {
@@ -230,10 +232,6 @@ export default class Dropdown extends React.Component {
         );
       })
     );
-  }
-
-  componentDidMount () {
-    this.setContentPosition();
   }
 
   render () {
