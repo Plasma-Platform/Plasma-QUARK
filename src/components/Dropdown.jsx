@@ -53,6 +53,8 @@ export default class Dropdown extends React.Component {
     this.renderLabel              = this.renderLabel.bind(this);
     this.renderContent            = this.renderContent.bind(this);
     this.renderOptions            = this.renderOptions.bind(this);
+
+    this.contentPosition = 'bottom';
   }
 
   open () {
@@ -148,7 +150,7 @@ export default class Dropdown extends React.Component {
     })[0];
   }
 
-  calculateContentPosition () {
+  setContentPosition () {
     const documentHeight = Math.max(
       document.body.scrollHeight,
       document.documentElement.scrollHeight,
@@ -163,9 +165,9 @@ export default class Dropdown extends React.Component {
     const contentHeight         = this.content.offsetHeight;
 
     if (contentHeight > containerBottomOffset && containerTopOffset > containerBottomOffset) {
-      return 'top';
+      this.contentPosition = 'top';
     } else {
-      return 'bottom';
+      this.contentPosition = 'bottom';
     }
   }
 
@@ -230,11 +232,15 @@ export default class Dropdown extends React.Component {
     );
   }
 
+  componentDidMount () {
+    this.setContentPosition();
+  }
+
   render () {
     const typeClassName       = ` dropdown_type_${this.props.type}`;
     const disabledClassName   = this.props.disabled ? ` dropdown_disabled` : '';
-    const contentPos          = this.calculateContentPosition();
-    const contentPosClassName = ` dropdown_content-position_${contentPos}`;
+    const contentPosition     = this.contentPosition;
+    const contentPosClassName = ` dropdown_content-position_${contentPosition}`;
     const openedClassName     = this.state.open ? ` dropdown_open` : ' dropdown_closed';
     const addClassName        = this.props.className ? ` ${this.props.className}` : '';
     const containerClassName  = `dropdown${typeClassName}${disabledClassName}${contentPosClassName}${openedClassName}${addClassName}`;
