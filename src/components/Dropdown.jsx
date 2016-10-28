@@ -141,10 +141,10 @@ export default class Dropdown extends React.Component {
         className = "dropdown__content"
         ref       = {ref => { this.content = ref; }}
       >
-        {this.props.showFilter &&
-          <div className="dropdown__search-box">
+        {this.props.type === 3 &&
+          <div className="dropdown__filter-box">
             <input
-              className    = "dropdown__search-input"
+              className    = "dropdown__filter-input"
               type         = "search"
               value        = {this.state.filterQuery}
               placeholder  = {this.props.filterText || null}
