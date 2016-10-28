@@ -30,8 +30,8 @@ export default class Dropdown extends React.Component {
   }
 
   state = {
-    open        : this.props.defaultOpen || false,
-    filterQuery : this.props.defaultFilterQuery || '',
+    open        : this.props.defaultOpen,
+    filterQuery : this.props.defaultFilterQuery,
     value       : this.props.options[0] ? this.props.options[0].value : this.props.defaultValue
   }
 
@@ -254,9 +254,9 @@ export default class Dropdown extends React.Component {
 
   render () {
     const filterRegExp   = this.state.filterQuery.toLowerCase();
-    const selectedOption = this.getOptionByValue(this.state.value || this.props.value);
+    const selectedOption = this.getOptionByValue(this.state.value);
 
-    const openClassName     = `${this.state.open ? ' dropdown_state_open' : ''}`;
+    const openClassName     = `${this.state.open ? ' dropdown_open' : ''}`;
     const disabledClassName   = `${this.props.disabled ? ' dropdown_disabled' : ''}`;
     const addClassName       = `${this.props.className ? ' ' + this.props.className : ''}`;
     const typeClassName     = ` dropdown_type_${this.props.type}`;
