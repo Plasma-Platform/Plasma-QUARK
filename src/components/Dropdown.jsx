@@ -94,7 +94,11 @@ export default class Dropdown extends React.Component {
   }
 
   handleFilterKeyDown (event) {
+    const keyCode = event.keyCode;
 
+    if (keyCode === 40 && this.option0) {
+      this.option0.focus();
+    }
   }
 
   handleOptionClick (option) {
@@ -111,10 +115,14 @@ export default class Dropdown extends React.Component {
 
     if (keyCode === 13) {
       this[`option${optionIndex}`].click();
-    } else if (keyCode === 40) {
+    } else if (keyCode === 40 && this[`option${optionIndex + 1}`]) {
       this[`option${optionIndex + 1}`].focus();
     } else if (keyCode === 38) {
-      this[`option${optionIndex - 1}`].focus();
+      if (this[`option${optionIndex - 1}`]) {
+        this[`option${optionIndex - 1}`].focus();
+      } else if (this.props.type === 3) {
+        this.filterInput.focus();
+      }
     }
   }
 
