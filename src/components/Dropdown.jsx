@@ -37,20 +37,20 @@ export default class Dropdown extends React.Component {
   constructor (props) {
     super(props);
 
-    this.open                = this.open.bind(this);
-    this.close               = this.close.bind(this);
-    this.toggle              = this.toggle.bind(this);
-    this.handleButtonKeyDown = this.handleButtonKeyDown.bind(this);
-    this.handleFilterInput   = this.handleFilterInput.bind(this);
-    this.handleFilterBlur    = this.handleFilterBlur.bind(this);
-    this.handleFilterKeyDown = this.handleFilterKeyDown.bind(this);
-    this.handleOptionClick   = this.handleOptionClick.bind(this);
-    this.handleOptionKeyDown = this.handleOptionKeyDown.bind(this);
-    this.handleDropdownBlur  = this.handleDropdownBlur.bind(this);
-    this.getValue            = this.getValue.bind(this);
-    this.getOptionByValue    = this.getOptionByValue.bind(this);
-    this.renderLabel         = this.renderLabel.bind(this);
-    this.renderOptions       = this.renderOptions.bind(this);
+    this.open                  = this.open.bind(this);
+    this.close                 = this.close.bind(this);
+    this.toggle                = this.toggle.bind(this);
+    this.handleFilterInput     = this.handleFilterInput.bind(this);
+    this.handleFilterBlur      = this.handleFilterBlur.bind(this);
+    this.handleFilterKeyDown   = this.handleFilterKeyDown.bind(this);
+    this.handleOptionClick     = this.handleOptionClick.bind(this);
+    this.handleOptionKeyDown   = this.handleOptionKeyDown.bind(this);
+    this.handleDropdownKeyDown = this.handleDropdownKeyDown.bind(this);
+    this.handleDropdownBlur    = this.handleDropdownBlur.bind(this);
+    this.getValue              = this.getValue.bind(this);
+    this.getOptionByValue      = this.getOptionByValue.bind(this);
+    this.renderLabel           = this.renderLabel.bind(this);
+    this.renderOptions         = this.renderOptions.bind(this);
   }
 
   open () {
@@ -75,10 +75,6 @@ export default class Dropdown extends React.Component {
 
   toggle () {
     this.state.open ? this.close() : this.open();
-  }
-
-  handleButtonKeyDown (event) {
-
   }
 
   handleFilterInput () {
@@ -126,6 +122,14 @@ export default class Dropdown extends React.Component {
     }
   }
 
+  handleDropdownKeyDown (event) {
+    const keyCode = event.keyCode;
+
+    if (keyCode === 27) {
+      this.close();
+    }
+  }
+
   handleDropdownBlur (event) {
     if (this.container.contains(event.relatedTarget) === false && this.container !== event.relatedTarget && this.open) {
       this.close();
@@ -157,15 +161,15 @@ export default class Dropdown extends React.Component {
         {this.props.type === 3 &&
           <div className="dropdown__filter-box">
             <input
-              className    = "dropdown__filter-input"
-              type         = "search"
-              value        = {this.state.filterQuery}
-              placeholder  = {this.props.filterText || null}
-              tabIndex     = {this.state.open ? '0' : '-1'}
-              onChange     = {this.handleFilterInput}
-              onBlur       = {this.handleFilterBlur}
-              onKeyDown    = {this.handleFilterKeyDown}
-              ref          = {ref => { this.filterInput = ref; }}
+              className   = "dropdown__filter-input"
+              type        = "search"
+              value       = {this.state.filterQuery}
+              placeholder = {this.props.filterText || null}
+              tabIndex    = {this.state.open ? '0' : '-1'}
+              onChange    = {this.handleFilterInput}
+              onBlur      = {this.handleFilterBlur}
+              onKeyDown   = {this.handleFilterKeyDown}
+              ref         = {ref => { this.filterInput = ref; }}
             />
           </div>
         }
@@ -234,7 +238,6 @@ export default class Dropdown extends React.Component {
           type       = "button"
           aria-label = {this.props.label}
           onClick    = {this.toggle}
-          onKeyDown  = {this.handleButtonKeyDown}
           ref        = {ref => { this.button = ref; }}
         >
           {selectedOptionLabel}
