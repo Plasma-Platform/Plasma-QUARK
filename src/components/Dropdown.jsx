@@ -138,13 +138,9 @@ export default class Dropdown extends React.Component {
   }
 
   renderContent () {
-    const contentPos          = 'bottom';
-    const contentPosClassName = `dropdown__content_position_${contentPos}`;
-    const contentClassName    = `dropdown__content ${contentPosClassName}`;
-
     return (
       <div
-        className = {contentClassName}
+        className = "dropdown__content"
         ref       = {ref => { this.content = ref; }}
       >
         {this.props.showFilter &&
@@ -196,14 +192,17 @@ export default class Dropdown extends React.Component {
   }
 
   render () {
-    const openedClassName     = this.state.open      ? ` dropdown_open`           : '';
     const typeClassName       = ` dropdown_type_${this.props.type}`;
-    const disabledClassName   = this.props.disabled  ? ` dropdown_disabled`       : '';
+    const disabledClassName   = this.props.disabled ? ` dropdown_disabled` : '';
+    const contentPos          = 'bottom';
+    const contentPosClassName = `dropdown_position_${contentPos}`;
+    const openedClassName     = this.state.open ? ` dropdown_open` : '';
     const addClassName        = this.props.className ? ` ${this.props.className}` : '';
-    const containerClassName  = `dropdown${openedClassName}${typeClassName}${disabledClassName}${addClassName}`;
+    const containerClassName  = `dropdown${typeClassName}${disabledClassName}${contentPosClassName}${openedClassName}${addClassName}`;
 
     const selectedOption      = this.getOptionByValue(this.state.value);
     const selectedOptionLabel = selectedOption ? selectedOption.label : this.props.options.length ? this.props.options[0].label : '';
+    const selectedOptionIcon  = selectedOption ? selectedOption.icon : '';
 
     return (
       <div
@@ -219,7 +218,7 @@ export default class Dropdown extends React.Component {
         }
 
         <button
-          className  = "dropdown__button"
+          className  = {`dropdown__button${this.props.type === 3 ? 'icon icon-' + selectedOptionIcon + '' : ''}`}
           type       = "button"
           aria-label = {this.props.label}
           onClick    = {this.toggle}

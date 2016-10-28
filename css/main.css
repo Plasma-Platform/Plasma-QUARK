@@ -468,12 +468,12 @@
   -webkit-transform: rotate(135deg);
   transform: rotate(135deg);
 }
-.dropdown_open.dropdown_content-pos_bottom .dropdown__button {
+.dropdown_open .dropdown_content-pos_bottom .dropdown__button {
   background: -webkit-linear-gradient(top, #455a64 0%, #546e7a 100%);
   background: linear-gradient(to bottom, #455a64 0%, #546e7a 100%);
   box-shadow: 0 1px 0 0 #546e7a;
 }
-.dropdown_open.dropdown_content-pos_top .dropdown__button {
+.dropdown_open .dropdown_content-pos_top .dropdown__button {
   background: -webkit-linear-gradient(top, #546e7a 0%, #455a64 100%);
   background: linear-gradient(to bottom, #546e7a 0%, #455a64 100%);
   box-shadow: 0 -1px 0 0 #546e7a;
