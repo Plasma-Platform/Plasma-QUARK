@@ -3,7 +3,7 @@ import React from 'react';
 import './Dropdown.less';
 
 export default class Dropdown extends React.Component {
-  static PropTypes = {
+  static propTypes = {
     defaultOpen        : React.PropTypes.bool,
     type               : React.PropTypes.oneOf([1, 2, 3]).isRequired,
     className          : React.PropTypes.string,
@@ -23,10 +23,16 @@ export default class Dropdown extends React.Component {
     onChange           : React.PropTypes.func
   }
 
+  static defaultProps = {
+    defaultOpen        : false,
+    defaultFilterQuery : '',
+    defaultValue       : ''
+  }
+
   state = {
     open        : this.props.defaultOpen || false,
     filterQuery : this.props.defaultFilterQuery || '',
-    value       : this.props.defaultValue && this.props.defaultValue.length > 0 ? this.props.defaultValue : this.props.options[0].value
+    value       : this.props.options ? this.props.options[0].value : this.props.defaultValue
   }
 
   constructor (props) {
