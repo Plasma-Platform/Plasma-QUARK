@@ -128,7 +128,6 @@
     background: #546e7a;
     border-radius: 0 0 3px 3px;
     box-shadow: 0 5px 10px 0 rgba(207, 216, 220, .2);
-    display: none;
     left: 0;
     overflow: hidden;
     position: absolute;
@@ -139,19 +138,17 @@
       animation: showDropdownContent .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
     }
 
-    .dropdown_close & {
+    .dropdown_closed & {
       animation: hideDropdownContent .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
     }
 
     @keyframes showDropdownContent {
       0% {
-        display: block;
         opacity: 0;
         transform: scaleY(0);
       }
 
       100% {
-        display: block;
         opacity: 1;
         transform: scaleY(1);
       }
@@ -166,7 +163,6 @@
       0% {
         opacity: 0;
         transform: scaleY(0);
-        display: none;
       }
     }
   }
