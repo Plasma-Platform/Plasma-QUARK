@@ -516,7 +516,7 @@
   -webkit-transform: scaleY(1);
   transform: scaleY(1);
 }
-.dropdown__filter {
+.dropdown__filter-box {
   padding: 20px;
 }
 .dropdown__filter-input {
