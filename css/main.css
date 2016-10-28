@@ -1005,7 +1005,7 @@
 }
 /* colors */
 /* --- Hints --- */
-/* --- Spacings --- */
+/* spacings */
 /* easings */
 .icon-letter:before {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='16' viewBox='0 0 20 16' xmlns='http://www.w3.org/2000/svg' fill='%23b0bec5'%3E%3Cpath d='M18 0H2C.9 0 .01.9.01 2L0 14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V2l8 5 8-5v2z'/%3E%3C/svg%3E");
@@ -1619,7 +1619,7 @@
 }
 /* colors */
 /* --- Hints --- */
-/* --- Spacings --- */
+/* spacings */
 /* easings */
 .TextArea {
   display: block;
@@ -2261,4 +2261,5 @@
   border-bottom-right-radius: 50%;
   border-bottom-left-radius: 50%;
   overflow: hidden;
+  vertical-align: middle;
 }

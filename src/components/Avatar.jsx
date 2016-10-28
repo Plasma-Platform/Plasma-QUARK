@@ -1,7 +1,6 @@
 import React from 'react';
 import gravatarAPI from './utils/gravatarAPI.js';
 import Base64 from 'js-base64';
-console.log(Base64);
 import './Avatar.less';
 
 export default class Avatar extends React.Component {
