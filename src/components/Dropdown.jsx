@@ -144,6 +144,7 @@ export default class Dropdown extends React.Component {
               type         = "search"
               value        = {this.state.filterQuery}
               placeholder  = {this.props.filterText || null}
+              tabIndex     = {this.state.open ? '0' : '-1'}
               onChange     = {this.handleFilterInput}
               onBlur       = {this.handleFilterBlur}
               onKeyDown    = {this.handleFilterKeyDown}
