@@ -4,26 +4,29 @@ import './Dropdown.less';
 
 export default class Dropdown extends React.Component {
   static PropTypes = {
-    type          : React.PropTypes.oneOf([1, 2, 3]).isRequired,
-    label         : React.PropTypes.string.isRequired,
-    options       : React.PropTypes.array.isRequired,
-    className     : React.PropTypes.string,
-    id            : React.PropTypes.string,
-    open          : React.PropTypes.bool,
-    disabled      : React.PropTypes.bool,
-    showFilter    : React.PropTypes.bool,
-    filterQuery   : React.PropTypes.string,
-    filterHint    : React.PropTypes.string,
-    noResultsText : React.PropTypes.string,
-    optionsToShow : React.PropTypes.number,
-    value         : React.PropTypes.string,
-    onChange      : React.PropTypes.func
+    defaultOpen        : React.PropTypes.bool,
+    type               : React.PropTypes.oneOf([1, 2, 3]).isRequired,
+    className          : React.PropTypes.string,
+    id                 : React.PropTypes.string,
+    disabled           : React.PropTypes.bool,
+    label              : React.PropTypes.string,
+    showFilter         : React.PropTypes.bool,
+    filterQuery        : React.PropTypes.string,
+    filterText         : React.PropTypes.string,
+    defaultFilterQuery : React.PropTypes.string,
+    noResultsText      : React.PropTypes.string,
+    options            : React.PropTypes.array.isRequired,
+    optionsToShow      : React.PropTypes.number,
+    defaultValue       : React.PropTypes.string,
+    onOpen             : React.PropTypes.func,
+    onClose            : React.PropTypes.func,
+    onChange           : React.PropTypes.func
   }
 
   state = {
-    open        : this.props.open ? this.props.open : false,
-    filterQuery : this.props.filterQuery ? this.props.filterQuery : '',
-    value       : this.props.value && this.props.value.length > 0 ? this.props.value : this.props.options[0].value
+    open        : this.props.defaultOpen || false,
+    filterQuery : this.props.defaultFilterQuery || '',
+    value       : this.props.defaultValue && this.props.defaultValue.length > 0 ? this.props.defaultValue : this.props.options[0].value
   }
 
   constructor (props) {
