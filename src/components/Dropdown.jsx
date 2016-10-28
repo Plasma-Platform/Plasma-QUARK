@@ -224,6 +224,7 @@ export default class Dropdown extends React.Component {
           ref        = {ref => { this.button = ref; }}
         >
           {selectedOptionLabel}
+          <span className="dropdown__arrow"></span>
         </button>
 
         {this.props.type === 3 &&
