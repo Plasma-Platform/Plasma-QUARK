@@ -75,11 +75,7 @@ export default class Dropdown extends React.Component {
   }
 
   toggle () {
-    this.setState({
-      open: !this.state.open
-    }, () => {
-      this.props.onToggle ? this.props.onToggle() : null;
-    });
+    this.state.open ? this.close() : this.open();
   }
 
   handleButtonKeyDown (event) {
