@@ -52,7 +52,6 @@ export default class Dropdown extends React.Component {
 
     this.renderLabel       = this.renderLabel.bind(this);
     this.renderOptions     = this.renderOptions.bind(this);
-    this.renderFilterInput = this.renderFilterInput.bind(this);
   }
 
   open () {
