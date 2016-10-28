@@ -129,64 +129,43 @@
     border-radius: 0 0 3px 3px;
     box-shadow: 0 5px 10px 0 rgba(207, 216, 220, .2);
     left: 0;
+    opacity: 0;
     overflow: hidden;
     position: absolute;
     right: 0;
+    transform: scaleY(0);
     transform-origin: 0 0;
+    transition: transform .5s cubic-bezier(.68, -.55, .265, 1.55), opacity .5s cubic-bezier(.68, -.55, .265, 1.55);
 
     .dropdown_open & {
-      animation: showDropdownContent .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
-    }
-
-    .dropdown_closed & {
-      animation: hideDropdownContent .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
-    }
-
-    @keyframes showDropdownContent {
-      0% {
-        opacity: 0;
-        transform: scaleY(0);
-      }
-
-      100% {
-        opacity: 1;
-        transform: scaleY(1);
-      }
-    }
-
-    @keyframes hideDropdownContent {
-      100% {
-        opacity: 1;
-        transform: scaleY(1);
-      }
-
-      0% {
-        opacity: 0;
-        transform: scaleY(0);
-      }
+      opacity: 1;
+      transform: scaleY(1);
     }
   }
 
-  &__filter-input {
-    background-color: #eceff1;
-    border: 0;
-    border-radius: 3px;
-    box-shadow: 0 1px 0 0 #cfd8dc;
-    color: #243238;
-    display: block;
-    font-size: 14px;
-    height: 40px;
-    line-height: 21px;
-    margin: 20px;
-    padding: 0 20px;
-    width: calc(~"100% - 40px");
+  &__filter {
+    padding: 20px;
 
-    &::placeholder {
-      color: #90a4ae;
-    }
+    &-input {
+      background-color: #eceff1;
+      border: 0;
+      border-radius: 3px;
+      box-shadow: 0 1px 0 0 #cfd8dc;
+      color: #243238;
+      display: block;
+      font-size: 14px;
+      height: 40px;
+      line-height: 21px;
+      padding: 0 20px;
+      width: 100%;
 
-    &:focus {
-      outline: none;
+      &::placeholder {
+        color: #90a4ae;
+      }
+
+      &:focus {
+        outline: none;
+      }
     }
   }
 
