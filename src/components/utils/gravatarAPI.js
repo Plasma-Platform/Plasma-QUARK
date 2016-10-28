@@ -4,7 +4,7 @@ import querystring from 'query-string';
 import isRetina from 'is-retina';
 
 const URL = '//gravatar.com/';
-const DEFAULT = 'http://cdnwptm.templatemonster.com/wp-content/uploads/2016/10/onepixel.png'; // default image
+const DEFAULT = 'https://cdn2wp-templatemonster.netdna-ssl.com/wp-content/uploads/2016/10/onepixel.png'; // default image
 const COLORS = [ // array colors
   '#1A76D2',
   '#546E7A',
@@ -34,8 +34,8 @@ class GravatarApi {
       let data = response.entry[0];
       return {
         status      : 1,
-        color       : this._getColor(data.displayName),
-        initial     : this._prepareInitials(data.displayName),
+        color       : this.getColor(data.displayName),
+        initial     : this.prepareInitials(data.displayName),
         displayName : data.displayName,
         size        : this._getSize(atts.size),
         avatar      : this._getGravatarSrc(data.thumbnailUrl, atts)
@@ -87,7 +87,7 @@ class GravatarApi {
    * @returns {string}
    * @private
    */
-  _prepareInitials = (name) => {
+  prepareInitials = (name) => {
     if (name) {
       const parts = name.split(' ');
       let result = '';
@@ -107,9 +107,13 @@ class GravatarApi {
    * @returns {string}
    * @private
    */
-  _getColor = (name) => {
-    let literal = name[0].toUpperCase();
-    return COLORS[Math.floor(literal.charCodeAt(0) / 10)];
+  getColor = (name = false) => {
+    if (name) {
+      let literal = name[0].toUpperCase();
+      return COLORS[Math.floor(literal.charCodeAt(0) / 10)];
+    } else {
+      return COLORS[0];
+    }
   }
 
 }

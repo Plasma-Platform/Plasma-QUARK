@@ -6,6 +6,7 @@ export default class Avatar extends React.Component {
   static PropTypes = {
     email     : React.PropTypes.string,
     src       : React.PropTypes.string,
+    name      : React.PropTypes.string,
     size      : React.PropTypes.number,
     className : React.PropTypes.string,
     rating    : React.PropTypes.string
@@ -15,7 +16,8 @@ export default class Avatar extends React.Component {
     size      : 60,
     rating    : 'g',
     className : '',
-    src       : ''
+    src       : '',
+    name      : ''
   };
 
   constructor (props) {
@@ -58,14 +60,15 @@ export default class Avatar extends React.Component {
 
     SVG.appendChild(TEXT);
 
-    return `data:image/svg+xml;base64,${window.btoa(SVG.outerHTML)}`;
+    const svgString = encodeURIComponent(SVG.outerHTML.toString());
+    return `data:image/svg+xml;base64,${window.btoa(svgString)}`;
   };
 
-  _getSimpleImageBlock = () => {
+  _getSimpleImageBlock = (src = '') => {
     return (
       <div className={`avatar ${this.props.className}`}>
         <img
-          src={this.props.src}
+          src={src}
           height={this.state.size}
           width={this.state.size}
         />
@@ -94,26 +97,40 @@ export default class Avatar extends React.Component {
     );
   };
 
-  componentWillMount () {
-    let srcExist = !!this.props.src;
-    if (!srcExist) {
-      gravatarAPI.getProfile(this.props).then(data => {
+  _setGravatarInfo = (props) => {
+    let srcExist = !!props.src;
+    let emailExist = !!props.email;
+    if (!srcExist && emailExist) {
+      gravatarAPI.getProfile(props).then(data => {
         this.setState(data);
       });
     }
+  };
+
+  componentWillReceiveProps (newProps) {
+    this._setGravatarInfo(newProps);
+  }
+
+  componentDidMount () {
+    this._setGravatarInfo(this.props);
   }
 
   render () {
     let html = '';
     let srcExist = !!this.props.src;
     if (srcExist) {
-      html = this._getSimpleImageBlock();
+      html = this._getSimpleImageBlock(this.props.src);
+    } else if (this.state.status) {
+      html = this._getGravatarBlock();
     } else {
-      // if user not have account on gravatar nothing do
-      if (!this.state.status) {
+      const nameExist = !!this.props.name;
+      const emailExist = !!this.props.email;
+      if (!nameExist && !emailExist) {
         return false;
       }
-      html = this._getGravatarBlock();
+      const initials = gravatarAPI.prepareInitials(nameExist ? this.props.name : this.props.email);
+      const color = gravatarAPI.getColor(initials);
+      html = this._getSimpleImageBlock(this._getTextAvatar(initials, color));
     }
     return html;
   }
