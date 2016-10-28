@@ -502,7 +502,11 @@
 }
 .dropdown__content {
   background: #546e7a;
-  display: none;
+  left: 0;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
   -webkit-transform: scaleY(0);
   transform: scaleY(0);
   -webkit-transition: opacity 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), -webkit-transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -512,7 +516,6 @@
   z-index: 9999;
 }
 .dropdown_open .dropdown__content {
-  display: block;
   opacity: 1;
   -webkit-transform: scaleY(1);
   transform: scaleY(1);

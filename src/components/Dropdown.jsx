@@ -176,7 +176,7 @@ export default class Dropdown extends React.Component {
             tabIndex   = {option.disabled || this.state.open === false ? -1 : 0}
             aria-label = {option.label}
             role       = "option"
-            hidden     = {option.label.toLowerCase().indexOf(filterQuery) === 0}
+            hidden     = {option.label.toLowerCase().indexOf(filterQuery) === 0 && filterQuery.length > 0}
             onClick    = {() => { this.handleOptionClick(option); }}
             onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, index); }}
             key        = {index}

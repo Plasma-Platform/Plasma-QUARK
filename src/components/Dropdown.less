@@ -134,13 +134,16 @@
 
   &__content {
     background: #546e7a;
-    display: none;
+    left: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
     transform: scaleY(0);
     transition: transform .5s cubic-bezier(.68, -.55, .265, 1.55), opacity .5s cubic-bezier(.68, -.55, .265, 1.55);
     z-index: 9999;
 
     .dropdown_open & {
-      display: block;
       opacity: 1;
       transform: scaleY(1);
     }
