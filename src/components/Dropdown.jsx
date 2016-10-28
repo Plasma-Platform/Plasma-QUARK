@@ -49,9 +49,8 @@ export default class Dropdown extends React.Component {
     this.handleDropdownBlur  = this.handleDropdownBlur.bind(this);
     this.getValue            = this.getValue.bind(this);
     this.getOptionByValue    = this.getOptionByValue.bind(this);
-
-    this.renderLabel       = this.renderLabel.bind(this);
-    this.renderOptions     = this.renderOptions.bind(this);
+    this.renderLabel         = this.renderLabel.bind(this);
+    this.renderOptions       = this.renderOptions.bind(this);
   }
 
   open () {
@@ -83,8 +82,10 @@ export default class Dropdown extends React.Component {
   }
 
   handleFilterInput () {
+    const filterValue = this.filterInput.value;
+
     this.setState({
-      filterQuery: this.filterInput.value.trim()
+      filterQuery: filterValue.trim()
     });
   }
 
@@ -105,8 +106,16 @@ export default class Dropdown extends React.Component {
     });
   }
 
-  handleOptionKeyDown (event) {
+  handleOptionKeyDown (event, option, optionIndex) {
+    const keyCode = event.keyCode;
 
+    if (keyCode === 13) {
+      this[`option${optionIndex}`].click();
+    } else if (keyCode === 40) {
+      this[`option${optionIndex + 1}`].focus();
+    } else if (keyCode === 38) {
+      this[`option${optionIndex - 1}`].focus();
+    }
   }
 
   handleDropdownBlur (event) {
@@ -115,7 +124,7 @@ export default class Dropdown extends React.Component {
     }
   }
 
-  getValue = () => {
+  getValue () {
     return this.state.value;
   }
 
