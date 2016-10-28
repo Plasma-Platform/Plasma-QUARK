@@ -166,7 +166,13 @@ export default class Dropdown extends React.Component {
     const containerBottomOffset = documentHeight - containerTopOffset - containerHeight;
     const contentHeight         = this.content.offsetHeight;
 
-    if (contentHeight > containerBottomOffset && containerTopOffset > containerBottomOffset) {
+    console.log('documentHeight', documentHeight);
+    console.log('containerHeight', containerHeight);
+    console.log('containerTopOffset', containerTopOffset);
+    console.log('containerBottomOffset', containerBottomOffset);
+    console.log('contentHeight', contentHeight);
+
+    if ((contentHeight > containerBottomOffset) && (containerTopOffset > containerBottomOffset)) {
       this.contentPosition = 'top';
     } else {
       this.contentPosition = 'bottom';
@@ -237,8 +243,7 @@ export default class Dropdown extends React.Component {
   render () {
     const typeClassName       = ` dropdown_type_${this.props.type}`;
     const disabledClassName   = this.props.disabled ? ` dropdown_disabled` : '';
-    const contentPosition     = this.contentPosition;
-    const contentPosClassName = ` dropdown_content-position_${contentPosition}`;
+    const contentPosClassName = ` dropdown_content-position_${this.contentPosition}`;
     const openedClassName     = this.state.open ? ` dropdown_open` : ' dropdown_closed';
     const addClassName        = this.props.className ? ` ${this.props.className}` : '';
     const containerClassName  = `dropdown${typeClassName}${disabledClassName}${contentPosClassName}${openedClassName}${addClassName}`;
