@@ -1,5 +1,7 @@
 import React from 'react';
 import gravatarAPI from './utils/gravatarAPI.js';
+import Base64 from 'js-base64';
+console.log(Base64);
 import './Avatar.less';
 
 export default class Avatar extends React.Component {
@@ -59,9 +61,8 @@ export default class Avatar extends React.Component {
     TEXT.innerHTML = name;
 
     SVG.appendChild(TEXT);
-
-    const svgString = encodeURIComponent(SVG.outerHTML.toString());
-    return `data:image/svg+xml;base64,${window.btoa(svgString)}`;
+    const svgString =  SVG.outerHTML.toString();
+    return `data:image/svg+xml;base64,${Base64.Base64.encodeURI(svgString)}`;
   };
 
   _getSimpleImageBlock = (src = '') => {

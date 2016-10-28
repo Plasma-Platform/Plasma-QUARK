@@ -110,7 +110,7 @@ class GravatarApi {
   getColor = (name = false) => {
     if (name) {
       let literal = name[0].toUpperCase();
-      return COLORS[Math.floor(literal.charCodeAt(0) / 10)];
+      return COLORS[literal.charCodeAt(0).toString()[0]];
     } else {
       return COLORS[0];
     }
