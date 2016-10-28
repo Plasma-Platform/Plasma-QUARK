@@ -216,7 +216,7 @@ export default class Dropdown extends React.Component {
         }
 
         <button
-          className  = {`dropdown__button${this.props.type === 3 ? 'icon icon-' + selectedOptionIcon + '' : ''}`}
+          className  = {`dropdown__button${this.props.type === 3 ? ' icon icon-' + selectedOptionIcon + '' : ''}`}
           type       = "button"
           aria-label = {this.props.label}
           onClick    = {this.toggle}
