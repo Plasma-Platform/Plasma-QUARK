@@ -193,7 +193,7 @@ export default class Dropdown extends React.Component {
     const typeClassName       = ` dropdown_type_${this.props.type}`;
     const disabledClassName   = this.props.disabled ? ` dropdown_disabled` : '';
     const contentPos          = 'bottom';
-    const contentPosClassName = `dropdown_position_${contentPos}`;
+    const contentPosClassName = ` dropdown_position_${contentPos}`;
     const openedClassName     = this.state.open ? ` dropdown_open` : '';
     const addClassName        = this.props.className ? ` ${this.props.className}` : '';
     const containerClassName  = `dropdown${typeClassName}${disabledClassName}${contentPosClassName}${openedClassName}${addClassName}`;
