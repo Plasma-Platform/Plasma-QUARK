@@ -84,21 +84,8 @@
 
     .dropdown_open & {
       color: #fff;
-
-      .dropdown__arrow {
-        margin-top: 0;
-        transform: rotate(135deg);
-      }
-    }
-
-    .dropdown_open.dropdown_content-position_bottom & {
       background: linear-gradient(to bottom, #455a64 0%, #546e7a 100%);
       box-shadow: 0 1px 0 0 #546e7a;
-    }
-
-    .dropdown_open.dropdown_content-position_top & {
-      background: linear-gradient(to bottom, #546e7a 0%, #455a64 100%);
-      box-shadow: 0 -1px 0 0 #546e7a;
     }
 
     .dropdown_disabled & {
@@ -130,34 +117,57 @@
     top: 50%;
     transform: rotate(315deg);
     width: 8px;
+
+    .dropdown_open & {
+      margin-top: 0;
+      transform: rotate(135deg);
+    }
   }
 
   &__content {
     background: #546e7a;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 5px 10px 0 rgba(207, 216, 220, .2);
+    display: none;
     left: 0;
-    opacity: 0;
     overflow: hidden;
     position: absolute;
     right: 0;
-    transform: scaleY(0);
-    transition: transform .5s cubic-bezier(.68, -.55, .265, 1.55), opacity .5s cubic-bezier(.68, -.55, .265, 1.55);
-    z-index: 9999;
+    transform-origin: 0 0;
 
     .dropdown_open & {
-      opacity: 1;
-      transform: scaleY(1);
+      animation: showDropdownContent .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
     }
 
-    .dropdown_content-position_bottom & {
-      border-radius: 0 0 3px 3px;
-      box-shadow: 0 5px 10px 0 rgba(207, 216, 220, .2);
-      transform-origin: 0 0;
+    .dropdown_close & {
+      animation: hideDropdownContent .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
     }
 
-    .dropdown_content-position_top & {
-      border-radius: 3px 3px 0 0;
-      box-shadow: 0 5px -10px 0 rgba(207, 216, 220, .2);
-      transform-origin: 100% 100%;
+    @keyframes showDropdownContent {
+      0% {
+        display: block;
+        opacity: 0;
+        transform: scaleY(0);
+      }
+
+      100% {
+        display: block;
+        opacity: 1;
+        transform: scaleY(1);
+      }
+    }
+
+    @keyframes hideDropdownContent {
+      100% {
+        opacity: 1;
+        transform: scaleY(1);
+      }
+
+      0% {
+        opacity: 0;
+        transform: scaleY(0);
+        display: none;
+      }
     }
   }
 
