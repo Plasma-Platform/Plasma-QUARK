@@ -678,9 +678,6 @@
 .dropdown_type_1 .dropdown__option:first-child {
   border-top-width: 0;
 }
-.dropdown_type_1 .dropdown__option_selected {
-  display: none;
-}
 .dropdown_type_2.dropdown_disabled:before {
   height: 40px;
 }
@@ -708,9 +705,6 @@
 }
 .dropdown_type_2 .dropdown__option:first-child {
   border-top-width: 0;
-}
-.dropdown_type_2 .dropdown__option_selected {
-  display: none;
 }
 .dropdown_type_3.dropdown_disabled:before {
   top: 0;
