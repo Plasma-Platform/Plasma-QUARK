@@ -297,10 +297,12 @@
       font-size: 14px;
       line-height: 40px;
 
-      &:hover,
-      &:focus,
-      &:active {
-        border-radius: 3px;
+      :not(.dropdown_open) & {
+        &:hover,
+        &:focus,
+        &:active {
+          border-radius: 3px;
+        }
       }
 
       &:active {
