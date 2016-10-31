@@ -91,9 +91,6 @@ export default class Dropdown extends React.Component {
     const keyCode = event.keyCode;
 
     if (keyCode === 40 && this.props.type !== 3 && this.option0) {
-      console.log('keyCode', keyCode);
-      console.log('this.props.type', this.props.type);
-      console.log('this.option0', this.option0);
       this.option0.focus();
     }
   }
@@ -227,12 +224,12 @@ export default class Dropdown extends React.Component {
 
   renderOptions () {
     const filterQuery = this.state.filterQuery.toLowerCase();
-    let enabledOptionIndex = -1;
+    let enabledOptionIndex  = -1;
     let disabledOptionIndex = 0;
 
     return (
       this.props.options.map((option) => {
-        const isSelectedOption = this.props.type === 3 && option.value === this.state.value;
+        const isSelectedOption = this.props.type !== 3 && option.value === this.state.value;
 
         let optionIndex;
 
