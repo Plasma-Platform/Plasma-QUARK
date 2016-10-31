@@ -94,6 +94,7 @@ export default class Dropdown extends React.Component {
       console.log('keyCode', keyCode);
       console.log('this.props.type', this.props.type);
       console.log('this.option0', this.option0);
+      this.button.blur();
       this.option0.focus();
     }
   }
@@ -152,7 +153,7 @@ export default class Dropdown extends React.Component {
   }
 
   handleDropdownBlur (event) {
-    if (this.container.contains(event.relatedTarget) === false && this.container !== event.relatedTarget && this.open) {
+    if (event.target !== this.button && this.container.contains(event.relatedTarget) === false && this.container !== event.relatedTarget && this.open) {
       this.close();
     }
   }
