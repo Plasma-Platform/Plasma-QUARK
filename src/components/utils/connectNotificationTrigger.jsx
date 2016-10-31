@@ -61,9 +61,7 @@ export default function connectNotificationTrigger (Component, props) {
       if (!this.popup) {
         this.targetNode = ReactDOM.findDOMNode(this.target);
 
-        let preparedNotification = this.props.popover
-          ? preparePopover(this.props.popover, this.hideNotification)
-          : prepareNotification(this.props.notification, this.hideNotification);
+        let preparedNotification =  prepareNotification(this.props.notification, this.hideNotification);
 
         this.notification = React.cloneElement(preparedNotification, {
           ref: c => this.notification = c
@@ -81,21 +79,29 @@ export default function connectNotificationTrigger (Component, props) {
       }
     };
 
-    hideNotification = () => {
+    removeNotification = () => {
       if (this.popup) {
         ReactDOM.unmountComponentAtNode(this.popup);
         if (this.targetNode) {
           this.targetNode.removeChild(this.popup);
         }
         this.popup = null;
-        this.props.resetValidationStatus();
         this.setState({notification: null});
+      }
+    };
+
+    hideNotification = () => {
+      if (this.popup) {
+        let closeClassname = `animated-tooltip_close_${this.notification.props.position}`;
+        let popupNode = this.popup.childNodes[0];
+        popupNode.classList.add(closeClassname);
+        popupNode.addEventListener('animationend', this.removeNotification);
       }
     };
 
     handleClosePopover = (e) => {
       let clickTarget = e.target.getAttribute('class');
-      if (clickTarget === 'TMUI__Notification__closeBlock__closeArea' && this.state.notification) {
+      if (clickTarget === 'notification__closeBlock__closeArea' && this.state.notification) {
         e.stopPropagation();
 
         if (isMouseOutOfComponent({
@@ -104,6 +110,10 @@ export default function connectNotificationTrigger (Component, props) {
           pageY     : e.pageY
         })) {
           this.hideNotification();
+          this.props.resetValidationStatus();
+          if (typeof this.props.onHide === 'function') {
+            this.props.onHide();
+          }
         }
       }
     };
@@ -192,14 +202,14 @@ export default function connectNotificationTrigger (Component, props) {
       switch (this.notification.props.position) {
         case 'left':
           coords.top = (height / 2) - (notification.offsetHeight / 2);
-          coords.left = notification.offsetWidth - 20;
+          coords.left = -(notification.offsetWidth + 20);
           break;
         case 'right':
           coords.top = (height / 2) - (notification.offsetHeight / 2);
           coords.left = width + 20;
           break;
         case 'top':
-          coords.top = height * -1;
+          coords.top = -(notification.offsetHeight + 20);
           coords.left = (width / 2) - (notification.offsetWidth / 2);
           break;
         default:

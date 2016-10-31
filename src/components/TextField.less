@@ -223,66 +223,6 @@
   }
 }
 
-.animatedLeftToRight {
-  animation: animationLeftToRight .25s @easeInOutQuint both;
-}
-
-.animatedRightToLeft {
-  animation: animationRightToLeft .25s @easeInOutQuint both;
-}
-
-.animatedTopToBottom {
-  animation: animationTopToBottom .25s @easeInOutQuint both;
-}
-
-.animatedBottomToTop {
-  animation: animationBottomToTop .25s @easeInOutQuint both;
-}
-
-@keyframes animationLeftToRight {
-  0% {
-    opacity: 0;
-    transform: translateX(-40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes animationRightToLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes animationTopToBottom {
-  0% {
-    opacity: 0;
-    transform: translateY(-40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes animationBottomToTop {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @keyframes showSuccessField {
   0% {
     background: #eceff1;

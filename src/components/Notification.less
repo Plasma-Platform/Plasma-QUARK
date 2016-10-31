@@ -1,8 +1,6 @@
 @import '../assets/styles/mixins.less';
 @import '../assets/styles/palette.less';
 
-@close-cross: url('./Notification/close-cross.svg');
-
 .notification {
   position: absolute;
   border-radius: 3px;
@@ -24,7 +22,7 @@
     position: relative;
     width: 10px;
     height: 10px;
-    background: @close-cross no-repeat;
+    background: url('./Notification/close-cross.svg') no-repeat;
 
     &__closeArea {
       cursor: pointer;

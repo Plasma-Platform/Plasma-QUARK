@@ -66,12 +66,12 @@ export default class TextField extends Component {
     }
   }
 
-  componentDidUpdate = () => {
-    if (this.state.isValid === false) {
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.isValid !== false && this.state.isValid === false) {
       this.comp.input.showNotification();
-    } else {
+    } else if (this.state.isValid === true && prevState.isValid !== true) {
       this.comp.input.hideNotification();
-    };
+    }
   }
 
   focus = () => {
