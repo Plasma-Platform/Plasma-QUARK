@@ -90,6 +90,8 @@ export default class Dropdown extends React.Component {
   handleButtonKeyDown (event) {
     const keyCode = event.keyCode;
 
+    this.button.classList.add('test');
+
     if (keyCode === 40 && this.props.type !== 3 && this.option0) {
       this.option0.focus();
     }
