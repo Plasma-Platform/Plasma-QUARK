@@ -660,9 +660,9 @@
   font-size: 14px;
   line-height: 40px;
 }
-:not(.dropdown_open) .dropdown_type_1 .dropdown__button:hover,
-:not(.dropdown_open) .dropdown_type_1 .dropdown__button:focus,
-:not(.dropdown_open) .dropdown_type_1 .dropdown__button:active {
+.dropdown:not(.dropdown_open) .dropdown_type_1 .dropdown__button:hover,
+.dropdown:not(.dropdown_open) .dropdown_type_1 .dropdown__button:focus,
+.dropdown:not(.dropdown_open) .dropdown_type_1 .dropdown__button:active {
   border-radius: 3px;
 }
 .dropdown_type_1 .dropdown__button:active {
