@@ -673,6 +673,10 @@
 .dropdown_type_1.dropdown_content-position_bottom .dropdown__content {
   top: 40px;
 }
+.dropdown_type_1.dropdown_content-position_bottom-fixed .dropdown__options {
+  max-height: 600px;
+  overflow-y: auto;
+}
 .dropdown_type_1.dropdown_content-position_top .dropdown__content {
   bottom: 40px;
 }
@@ -700,6 +704,10 @@
 }
 .dropdown_type_2.dropdown_content-position_bottom .dropdown__content {
   top: 67px;
+}
+.dropdown_type_2.dropdown_content-position_bottom-fixed .dropdown__options {
+  max-height: 600px;
+  overflow-y: auto;
 }
 .dropdown_type_2.dropdown_content-position_top .dropdown__content {
   bottom: 40px;
