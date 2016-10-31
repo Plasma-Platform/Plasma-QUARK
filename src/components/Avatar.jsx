@@ -24,7 +24,7 @@ export default class Avatar extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      status      : 0,
+      status      : null,
       color       : '',
       initial     : '',
       displayName : '',
@@ -126,7 +126,7 @@ export default class Avatar extends React.Component {
     } else {
       const nameExist = !!this.props.name;
       const emailExist = !!this.props.email;
-      if (!nameExist && !emailExist) {
+      if ((!nameExist && !emailExist) || this.state.status === null) {
         return false;
       }
       const initials = gravatarAPI.prepareInitials(nameExist ? this.props.name : this.props.email);
