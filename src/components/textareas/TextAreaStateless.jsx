@@ -1,52 +1,47 @@
 import React, {Component, PropTypes}  from 'react';
-import classnames                        from 'classnames';
-import Textarea                         from 'react-textarea-autosize';
+import classnames from 'classnames';
+import Textarea from 'react-textarea-autosize';
 
 import './TextArea.less';
 
-export default class TextArea extends Component {
+export default class TextAreaStateless extends Component {
 
   static propTypes = {
-    id: React.PropTypes.string.isRequired,
-    fieldType: React.PropTypes.oneOf(['TA1', 'TA2', 'TA3', 'TA4', 'TA5', 'TA6', 'TA7', 'TA8']).isRequired,
-    placeholder: React.PropTypes.string,
-    className: React.PropTypes.string,
-    value: React.PropTypes.string,
-    disabled: React.PropTypes.bool,
-    fieldFilled: React.PropTypes.bool,
-    limitCounter: React.PropTypes.number,
-    onBlur: React.PropTypes.func,
-    onFocus: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    onValidate: React.PropTypes.func,
-    label: React.PropTypes.string
+    id           : PropTypes.string.isRequired,
+    fieldType    : PropTypes.oneOf(['TA1', 'TA2', 'TA3', 'TA4', 'TA5', 'TA6', 'TA7', 'TA8']).isRequired,
+    placeholder  : PropTypes.string,
+    className    : PropTypes.string,
+    value        : PropTypes.string,
+    disabled     : PropTypes.bool,
+    fieldFilled  : PropTypes.bool,
+    limitCounter : PropTypes.number,
+    onBlur       : PropTypes.func,
+    onFocus      : PropTypes.func,
+    onChange     : PropTypes.func,
+    onValidate   : PropTypes.func,
+    label        : PropTypes.string
   };
 
-  constructor(props, context) {
-    super(props, context);
-  }
-
-
-  render() {
+  render () {
     const textAreaWrapClassname = classnames(`TextArea_wrapper TextArea_${this.props.fieldType}`, this.props.className, {
-      'TextArea_fieldFilled': this.props.fieldFilled,
-      'TextArea_inFocus': this.props.inFocus,
-      'TextArea_valid': this.props.isValid,
-      'TextArea_invalid': (this.props.isValid !== null) && !this.props.isValid
+      'TextArea_fieldFilled' : this.props.fieldFilled,
+      'TextArea_inFocus'     : this.props.inFocus,
+      'TextArea_valid'       : this.props.isValid,
+      'TextArea_invalid'     : (this.props.isValid !== null) && !this.props.isValid
     });
 
     const textAreaClassname = 'TextArea TextArea__input';
     const labelClassname = 'TextArea__label';
 
     const iconClassname = classnames('TextArea__type-icon', 'icon', {
-      'icon-letter': this.props.type === 'email',
-      'icon-magnifier': this.props.type === 'search',
-      'icon-eye': this.props.type === 'password'
+      'icon-letter'    : this.props.type === 'email',
+      'icon-magnifier' : this.props.type === 'search',
+      'icon-eye'       : this.props.type === 'password'
     });
 
     const iconNotificationClassname = classnames('TextArea__notification-icon', 'icon', {
-      'icon-alert': this.props.isValid !== null && !this.props.isValid,
-      'icon-check_circle': this.props.isValid
+      'icon-alert'        : this.props.isValid !== null && !this.props.isValid,
+      'icon-check_circle' : this.props.isValid
     });
 
     return (

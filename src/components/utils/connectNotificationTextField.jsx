@@ -5,13 +5,9 @@ import {connectNotificationTrigger} from './';
 export default function connectNotificationTextField(Component) {
   return class TextFieldNotification extends React.Component {
     static propTypes = {
-      notification: PropTypes.object.isRequired,
-      onBlur: PropTypes.func,
-      onChange: PropTypes.func
-    }
-
-    constructor(props, context) {
-      super(props, context);
+      notification : PropTypes.object.isRequired,
+      onBlur       : PropTypes.func,
+      onChange     : PropTypes.func
     }
 
     handleChange = (event) => {
@@ -38,7 +34,7 @@ export default function connectNotificationTextField(Component) {
 
     component = this.component || connectNotificationTrigger(Component);
 
-    render() {
+    render () {
       const TextFieldComponent = this.component;
 
       return (

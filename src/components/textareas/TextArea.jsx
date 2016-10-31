@@ -1,5 +1,5 @@
-import {Component}  from 'react';
-import TextareaStateless              from './TextAreaStateless.jsx';
+import React, {Component}  from 'react';
+import TextAreaStateless  from './TextAreaStateless.jsx';
 import {connectNotificationTextField} from '../utils';
 
 import './TextArea.less';
@@ -108,7 +108,7 @@ export default class TextArea extends Component {
     });
   }
 
-  component = this.component || connectNotificationTextField(TextareaStateless);
+  component = this.component || connectNotificationTextField(TextAreaStateless);
 
   render () {
     const DecoratedTextAreaField = this.component;
