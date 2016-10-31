@@ -213,7 +213,7 @@ export default class Dropdown extends React.Component {
 
   renderOptions () {
     const filterQuery = this.state.filterQuery.toLowerCase();
-    let optionIndex = 0;
+    let optionIndex = -1;
 
     return (
       this.props.options.map((option) => {
