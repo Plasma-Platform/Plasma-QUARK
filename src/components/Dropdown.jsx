@@ -229,11 +229,11 @@ export default class Dropdown extends React.Component {
 
     return (
       this.props.options.map((option) => {
-        const isSelectedOption = this.props.type !== 3 && option.value === this.state.value;
+        const isSelectedOption  = this.props.type !== 3 && option.value === this.state.value;
+        const isRespondToSearch = filterQuery.length > 0 ? option.label.toLowerCase().indexOf(filterQuery) === 0 : true;
+        const isVisible         = isSelectedOption !== true && isRespondToSearch === true;
 
-        let optionIndex;
-
-        if (isSelectedOption !== true) {
+        if (isVisible) {
           if (option.disabled !== true) {
             enabledOptionIndex++;
           } else {
@@ -241,18 +241,15 @@ export default class Dropdown extends React.Component {
           }
         }
 
-        optionIndex = option.disabled ? disabledOptionIndex : enabledOptionIndex;
+        let optionIndex = option.disabled ? disabledOptionIndex : enabledOptionIndex;
 
         return (
-          isSelectedOption ? (
-            null
-          ) : (
+          isVisible ? (
             <li
               className  = {`dropdown__option${this.state.value === option.value ? ' dropdown__option_selected' : ''}`}
               tabIndex   = {option.disabled || this.state.open === false ? -1 : 0}
               aria-label = {option.label}
               role       = "option"
-              hidden     = {option.label.toLowerCase().indexOf(filterQuery) === 0 && filterQuery.length > 0}
               onClick    = {() => { this.handleOptionClick(option); }}
               onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
               key        = {option.value}
@@ -260,6 +257,8 @@ export default class Dropdown extends React.Component {
             >
               {option.label}
             </li>
+          ) : (
+            null
           )
         );
       })
