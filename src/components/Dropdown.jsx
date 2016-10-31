@@ -67,6 +67,8 @@ export default class Dropdown extends React.Component {
       if (this.props.type === 3) {
         this.filterInput.value = '';
         this.filterInput.focus();
+      } else {
+        this.button.focus();
       }
       this.props.onOpen ? this.props.onOpen() : null;
     });
