@@ -297,17 +297,19 @@
       font-size: 14px;
       line-height: 40px;
 
-      .dropdown:not(.dropdown_open) & {
+      &:active {
+        line-height: 38px;
+        padding-top: 2px;
+      }
+    }
+
+    .dropdown:not(.dropdown_open)& {
+      .dropdown__button {
         &:hover,
         &:focus,
         &:active {
           border-radius: 3px;
         }
-      }
-
-      &:active {
-        line-height: 38px;
-        padding-top: 2px;
       }
     }
 
