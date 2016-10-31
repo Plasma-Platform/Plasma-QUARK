@@ -166,7 +166,6 @@ export default class Dropdown extends React.Component {
     const containerBottomOffset = documentHeight - containerTopOffset - containerHeight;
     const contentHeight         = this.content.offsetHeight;
 
-    console.log('documentHeight', documentHeight);
     console.log('containerHeight', containerHeight);
     console.log('containerTopOffset', containerTopOffset);
     console.log('containerBottomOffset', containerBottomOffset);

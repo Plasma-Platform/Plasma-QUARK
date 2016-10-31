@@ -457,6 +457,8 @@
   background: linear-gradient(to bottom, #455a64 0%, #546e7a 100%);
 }
 .dropdown_open .dropdown__button {
+  background: -webkit-linear-gradient(top, #455a64 0%, #546e7a 100%);
+  background: linear-gradient(to bottom, #455a64 0%, #546e7a 100%);
   color: #fff;
 }
 .dropdown_open.dropdown_content-position_bottom .dropdown__button {
