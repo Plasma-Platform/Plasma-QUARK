@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import classnames                      from 'classnames';
 
+import '../assets/styles/animations.less';
 import './Notification.less';
 
 export default class Notification extends Component {
@@ -34,14 +35,14 @@ export default class Notification extends Component {
   }
 
   render () {
-    console.log('notification render');
     const classes = classnames({
-      'notification'                                 : true,
-      [`notification--${this.props.size}`]           : true,
-      [`notification--${this.props.status}`]         : true,
-      [`notification--${this.props.position}`]       : true,
-      [`notification--${this.props.position}-arrow`] : true,
-      [this.props.className]                         : this.props.className
+      'notification'                                   : true,
+      [`notification--${this.props.size}`]             : true,
+      [`notification--${this.props.status}`]           : true,
+      [`notification--${this.props.position}`]         : true,
+      [`notification--${this.props.position}-arrow`]   : true,
+      [`animated-tooltip_open_${this.props.position}`] : true,
+      [this.props.className]                           : this.props.className
     });
 
     const parameters = {
