@@ -178,6 +178,11 @@ export default class Dropdown extends React.Component {
     const buttonBottomOffset = documentHeight - buttonTopOffset - buttonHeight;
     const contentHeight      = this.content.offsetHeight;
 
+    console.log('buttonHeight', buttonHeight);
+    console.log('buttonTopOffset', buttonTopOffset);
+    console.log('buttonBottomOffset', buttonBottomOffset);
+    console.log('contentHeight', contentHeight);
+
     if (contentHeight > buttonBottomOffset) {
       if (buttonTopOffset > contentHeight) {
         this.contentPosition = 'top';
