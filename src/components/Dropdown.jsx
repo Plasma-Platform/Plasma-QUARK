@@ -222,7 +222,7 @@ export default class Dropdown extends React.Component {
     return (
       this.props.options.map((option, index) => {
         return (
-          this.type === 3 && option.value === this.state.value ? (
+          this.props.type === 3 && option.value === this.state.value ? (
             null
           ) : (
             <li
