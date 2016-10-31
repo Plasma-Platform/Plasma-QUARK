@@ -165,6 +165,7 @@ export default class Dropdown extends React.Component {
   }
 
   setContentPosition () {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
     const documentHeight = Math.max(
       document.body.scrollHeight,
       document.documentElement.scrollHeight,
@@ -174,7 +175,7 @@ export default class Dropdown extends React.Component {
       document.documentElement.clientHeight
     );
     const buttonHeight       = this.button.offsetHeight;
-    const buttonTopOffset    = this.button.getBoundingClientRect().top;
+    const buttonTopOffset    = this.button.getBoundingClientRect().top + scrollTop;
     const buttonBottomOffset = documentHeight - buttonTopOffset - buttonHeight;
     const contentHeight      = this.content.offsetHeight;
 
