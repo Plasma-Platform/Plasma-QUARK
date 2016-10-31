@@ -530,11 +530,11 @@
   transform-origin: 100% 100%;
 }
 .dropdown_open.dropdown_content-position_bottom .dropdown__content {
-  border-radius: 0 0 3px 3px;
+  border-radius: 3px 3px 0 0;
   box-shadow: 0 5px 10px 0 rgba(36, 50, 56, 0.2);
 }
 .dropdown_open.dropdown_content-position_top .dropdown__content {
-  border-radius: 3px 3px 0 0;
+  border-radius: 0 0 3px 3px;
   box-shadow: 0 -5px 10px 0 rgba(36, 50, 56, 0.2);
 }
 .dropdown__filter-box {
