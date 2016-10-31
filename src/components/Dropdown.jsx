@@ -167,11 +167,6 @@ export default class Dropdown extends React.Component {
     const containerBottomOffset = documentHeight - containerTopOffset - containerHeight;
     const contentHeight         = this.content.offsetHeight;
 
-    console.log('containerHeight', containerHeight);
-    console.log('containerTopOffset', containerTopOffset);
-    console.log('containerBottomOffset', containerBottomOffset);
-    console.log('contentHeight', contentHeight);
-
     if ((contentHeight > containerBottomOffset) && (containerTopOffset > containerBottomOffset)) {
       this.contentPosition = 'top';
     } else {
@@ -218,11 +213,16 @@ export default class Dropdown extends React.Component {
 
   renderOptions () {
     const filterQuery = this.state.filterQuery.toLowerCase();
+    let optionIndex = 0;
 
     return (
-      this.props.options.map((option, index) => {
+      this.props.options.map((option) => {
+        const isSelectedOption = this.props.type === 3 && option.value === this.state.value;
+        if (isSelectedOption !== true && option.disabled !== true) {
+          optionIndex++;
+        }
         return (
-          this.props.type === 3 && option.value === this.state.value ? (
+          isSelectedOption ? (
             null
           ) : (
             <li
@@ -232,9 +232,9 @@ export default class Dropdown extends React.Component {
               role       = "option"
               hidden     = {option.label.toLowerCase().indexOf(filterQuery) === 0 && filterQuery.length > 0}
               onClick    = {() => { this.handleOptionClick(option); }}
-              onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, index); }}
-              key        = {index}
-              ref        = {ref => { this[`option${index}`] = ref; }}
+              onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
+              key        = {optionIndex}
+              ref        = {ref => { this[`option${optionIndex}`] = ref; }}
             >
               {option.label}
             </li>
