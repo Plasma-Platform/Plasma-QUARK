@@ -40,6 +40,7 @@ export default class Dropdown extends React.Component {
     this.open                  = this.open.bind(this);
     this.close                 = this.close.bind(this);
     this.toggle                = this.toggle.bind(this);
+    this.handleButtonKeyDown   = this.handleButtonKeyDown.bind(this);
     this.handleFilterInput     = this.handleFilterInput.bind(this);
     this.handleFilterBlur      = this.handleFilterBlur.bind(this);
     this.handleFilterKeyDown   = this.handleFilterKeyDown.bind(this);
@@ -82,6 +83,14 @@ export default class Dropdown extends React.Component {
 
   toggle () {
     this.state.open ? this.close() : this.open();
+  }
+
+  handleButtonKeyDown (event) {
+    const keyCode = event.keyCode;
+
+    if (keyCode === 40 && this.props.type === 3 && this.option0) {
+      this.option0.focus();
+    }
   }
 
   handleFilterInput () {
@@ -213,14 +222,25 @@ export default class Dropdown extends React.Component {
 
   renderOptions () {
     const filterQuery = this.state.filterQuery.toLowerCase();
-    let optionIndex = -1;
+    let enabledOptionIndex = -1;
+    let disabledOptionIndex = 0;
 
     return (
       this.props.options.map((option) => {
         const isSelectedOption = this.props.type === 3 && option.value === this.state.value;
-        if (isSelectedOption !== true && option.disabled !== true) {
-          optionIndex++;
+
+        let optionIndex;
+
+        if (isSelectedOption !== true) {
+          if (option.disabled !== true) {
+            enabledOptionIndex++;
+          } else {
+            disabledOptionIndex--;
+          }
         }
+
+        optionIndex = option.disabled ? disabledOptionIndex : enabledOptionIndex;
+
         return (
           isSelectedOption ? (
             null
@@ -233,7 +253,7 @@ export default class Dropdown extends React.Component {
               hidden     = {option.label.toLowerCase().indexOf(filterQuery) === 0 && filterQuery.length > 0}
               onClick    = {() => { this.handleOptionClick(option); }}
               onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
-              key        = {optionIndex}
+              key        = {option.value}
               ref        = {ref => { this[`option${optionIndex}`] = ref; }}
             >
               {option.label}
@@ -274,6 +294,7 @@ export default class Dropdown extends React.Component {
           type       = "button"
           aria-label = {this.props.label}
           onClick    = {this.toggle}
+          onKeyDown  = {this.handleButtonKeyDown}
           ref        = {ref => { this.button = ref; }}
         >
           {selectedOptionLabel}
