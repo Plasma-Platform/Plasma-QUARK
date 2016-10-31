@@ -71,6 +71,7 @@ export default class Avatar extends React.Component {
           src={src}
           height={this.state.size}
           width={this.state.size}
+          alt={this.props.email}
         />
       </div>
     );
