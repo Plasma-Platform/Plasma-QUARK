@@ -75,6 +75,7 @@ export default class Dropdown extends React.Component {
     this.setState({
       open: false
     }, () => {
+      this.button.blur();
       this.props.onClose ? this.props.onClose() : null;
     });
   }
