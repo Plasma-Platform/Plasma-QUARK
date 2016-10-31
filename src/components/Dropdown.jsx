@@ -222,19 +222,23 @@ export default class Dropdown extends React.Component {
     return (
       this.props.options.map((option, index) => {
         return (
-          <li
-            className  = {`dropdown__option${this.state.value === option.value ? ' dropdown__option_selected' : ''}`}
-            tabIndex   = {option.disabled || this.state.open === false ? -1 : 0}
-            aria-label = {option.label}
-            role       = "option"
-            hidden     = {option.label.toLowerCase().indexOf(filterQuery) === 0 && filterQuery.length > 0}
-            onClick    = {() => { this.handleOptionClick(option); }}
-            onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, index); }}
-            key        = {index}
-            ref        = {ref => { this[`option${index}`] = ref; }}
-          >
-            {option.label}
-          </li>
+          this.type === 3 && option.value === this.state.value ? (
+            null
+          ) : (
+            <li
+              className  = {`dropdown__option${this.state.value === option.value ? ' dropdown__option_selected' : ''}`}
+              tabIndex   = {option.disabled || this.state.open === false ? -1 : 0}
+              aria-label = {option.label}
+              role       = "option"
+              hidden     = {option.label.toLowerCase().indexOf(filterQuery) === 0 && filterQuery.length > 0}
+              onClick    = {() => { this.handleOptionClick(option); }}
+              onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, index); }}
+              key        = {index}
+              ref        = {ref => { this[`option${index}`] = ref; }}
+            >
+              {option.label}
+            </li>
+          )
         );
       })
     );
