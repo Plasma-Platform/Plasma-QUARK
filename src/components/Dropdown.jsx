@@ -62,10 +62,10 @@ export default class Dropdown extends React.Component {
     this.setContentPosition();
 
     this.setState({
-      open: true
+      open        : true,
+      filterQuery : ''
     }, () => {
       if (this.props.type === 3) {
-        this.filterInput.value = '';
         this.filterInput.focus();
       } else {
         this.button.focus();
@@ -197,6 +197,7 @@ export default class Dropdown extends React.Component {
   }
 
   renderContent () {
+    console.log(this.renderOptions());
     return (
       <div
         className = "dropdown__content"
