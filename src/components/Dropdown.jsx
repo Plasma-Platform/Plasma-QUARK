@@ -4,8 +4,9 @@ import './Dropdown.less';
 
 export default class Dropdown extends React.Component {
   static propTypes = {
-    defaultOpen        : React.PropTypes.bool,
     type               : React.PropTypes.oneOf([1, 2, 3]).isRequired,
+    options            : React.PropTypes.array.isRequired,
+    defaultOpen        : React.PropTypes.bool,
     className          : React.PropTypes.string,
     id                 : React.PropTypes.string,
     disabled           : React.PropTypes.bool,
@@ -14,8 +15,6 @@ export default class Dropdown extends React.Component {
     filterText         : React.PropTypes.string,
     defaultFilterQuery : React.PropTypes.string,
     noResultsText      : React.PropTypes.string,
-    options            : React.PropTypes.array.isRequired,
-    optionsToShow      : React.PropTypes.number,
     defaultValue       : React.PropTypes.string,
     onOpen             : React.PropTypes.func,
     onClose            : React.PropTypes.func,
@@ -25,7 +24,8 @@ export default class Dropdown extends React.Component {
   static defaultProps = {
     defaultOpen        : false,
     defaultFilterQuery : '',
-    defaultValue       : ''
+    defaultValue       : '',
+    noResultsText      : 'No results match'
   }
 
   state = {
@@ -197,7 +197,6 @@ export default class Dropdown extends React.Component {
   }
 
   renderContent () {
-    console.log(this.renderOptions());
     return (
       <div
         className = "dropdown__content"
