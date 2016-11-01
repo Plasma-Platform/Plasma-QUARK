@@ -60,10 +60,6 @@ export default class Dropdown extends React.Component {
 
   open () {
     this.setContentPosition();
-
-    this.container.classList.remove('dropdown_animate_hide');
-    this.container.classList.add('dropdown_animate_show');
-
     this.setState({
       open        : true,
       filterQuery : ''
@@ -78,9 +74,6 @@ export default class Dropdown extends React.Component {
   }
 
   close () {
-    this.container.classList.remove('dropdown_animate_show');
-    this.container.classList.add('dropdown_animate_hide');
-
     this.setState({
       open: false
     }, () => {
@@ -311,9 +304,7 @@ export default class Dropdown extends React.Component {
           this.renderLabel()
         }
 
-        {this.state.open &&
-          this.renderContent()
-        }
+        {this.renderContent()}
       </div>
     );
   }
