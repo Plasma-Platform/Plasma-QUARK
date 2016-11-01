@@ -1036,8 +1036,8 @@
 [class*='animated-tooltip'] {
   -webkit-animation-duration: .5s;
   animation-duration: .5s;
-  -webkit-animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
-  animation-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
+  -webkit-animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
