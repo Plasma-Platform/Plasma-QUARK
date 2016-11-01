@@ -24,6 +24,7 @@ export default class N2A extends Component {
         status='error'
         size='small'
         position='left'
+        maxWidth={this.props.maxWidth}
       />
     );
   }

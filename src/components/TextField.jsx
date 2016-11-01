@@ -195,7 +195,12 @@ export default class TextField extends Component {
         onChange                = {this.onChange}
         changeFieldType         = {this.changeFieldType}
         resetValidationStatus   = {this.resetValidationStatus}
-        notification            = { {code: this.props.notificationType || 'N2B', text: this.state.notificationText} }
+        notification            = {
+          { code     : this.props.notificationType || 'N2B',
+            text     : this.state.notificationText,
+            maxWidth : this.props.notificationMaxWidth
+          }
+        }
       />
     );
   }

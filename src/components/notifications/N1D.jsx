@@ -24,6 +24,7 @@ export default class N1D extends Component {
         status='default'
         size='small'
         position='top'
+        maxWidth={this.props.maxWidth}
       />
     );
   }
