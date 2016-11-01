@@ -27,7 +27,7 @@
 
 /****************** Tooltip'n'Popovers animation *****************/
 [class *= 'animated-tooltip'] {
-  animation-duration: .25s;
+  animation-duration: .5s;
   animation-timing-function: @easeInOutQuint;
   animation-fill-mode: both;
 }
@@ -73,71 +73,71 @@
 @keyframes animation-tooltip_right {
   0% {
     opacity: 0;
-    transform: translateX(-40px);
+    transform: translateX(-40px * 2) scale(.8);
   }
   100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
   }
 }
 
 @keyframes animation-tooltip_right_reverse {
   100% {
     opacity: 0;
-    transform: translateX(-40px);
+    transform: scale(.8) translateX(-40px * 2);
   }
 }
 
 @keyframes animation-tooltip_left {
   0% {
     opacity: 0;
-    transform: translateX(40px);
+    transform: scale(.8) translateX(40px * 2);
   }
   100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: scale(1) translateX(0);
   }
 }
 
 @keyframes animation-tooltip_left_reverse {
   100% {
     opacity: 0;
-    transform: translateX(40px);
+    transform: scale(.8) translateX(40px * 2);
   }
 }
 
 @keyframes animation-tooltip_bottom {
   0% {
     opacity: 0;
-    transform: translateY(-40px);
+    transform: scale(.8) translateY(-40px * 2);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) translateY(0);
   }
 }
 
 @keyframes animation-tooltip_bottom_reverse {
   100% {
     opacity: 0;
-    transform: translateY(-40px);
+    transform: scale(.8) translateY(-40px * 2);
   }
 }
 
 @keyframes animation-tooltip_top {
   0% {
     opacity: 0;
-    transform: translateY(40px);
+    transform: scale(.8) translateY(40px * 2);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) translateY(0);
   }
 }
 
 @keyframes animation-tooltip_top_reverse {
   100% {
     opacity: 0;
-    transform: translateY(40px);
+    transform: scale(.8) translateY(40px * 2);
   }
 }
