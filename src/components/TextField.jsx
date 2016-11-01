@@ -66,10 +66,10 @@ export default class TextField extends Component {
     }
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevState.isValid !== false && this.state.isValid === false) {
+  componentDidUpdate = () => {
+    if (this.state.isValid === false) {
       this.comp.input.showNotification();
-    } else if (this.state.isValid === true && prevState.isValid !== true) {
+    } else {
       this.comp.input.hideNotification();
     }
   }
