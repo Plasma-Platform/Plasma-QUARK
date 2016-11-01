@@ -9,7 +9,7 @@ export default class DD1 extends React.Component {
     this.getValue = this.getValue.bind(this);
   }
 
-  getValue = () => {
+  getValue () {
     return this.dropdown.getValue();
   }
 
@@ -17,7 +17,7 @@ export default class DD1 extends React.Component {
     return (
       <Dropdown
         {...this.props}
-        ref  = {(ref) => { this.dropdown = ref; }}
+        ref  = {ref => { this.dropdown = ref; }}
         type = {1}
       />
     );
