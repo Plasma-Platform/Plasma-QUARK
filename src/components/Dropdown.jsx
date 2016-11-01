@@ -244,7 +244,7 @@ export default class Dropdown extends React.Component {
     return (
       this.props.options.map((option) => {
         const isSelectedOption  = this.props.type !== 3 && option.value === this.state.value;
-        const isRespondToSearch = filterQuery.length > 0 ? option.label.toLowerCase().test(filterRegExp) : true;
+        const isRespondToSearch = filterQuery.length > 0 ? filterRegExp.test(option.label.toLowerCase()) : true;
         const isVisible         = isSelectedOption !== true && isRespondToSearch === true;
 
         if (isVisible) {
