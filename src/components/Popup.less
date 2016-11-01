@@ -41,6 +41,16 @@
     vertical-align: middle;
 
     &_padding {
+      &_none {
+        &.dropdown__content_bg_transparent {
+          padding: 40px;
+        }
+
+        &.dropdown__content_bg_fill {
+          padding: 0;
+        }
+      }
+
       &_medium {
         padding: 40px;
       }
@@ -59,14 +69,15 @@
       &_fill {
         background-color: #fff;
 
+        &.popup__content_padding_none,
         &.popup__content_padding_medium {
           margin: 40px;
-          max-width: calc(~"100vw - 80px");
+          max-width: calc(~"100% - 80px");
         }
 
         &.popup__content_padding_large {
-          margin: 0 80px;
-          max-width: calc(~"100vw - 160px");
+          margin: 80px;
+          max-width: calc(~"100% - 160px");
         }
       }
     }
