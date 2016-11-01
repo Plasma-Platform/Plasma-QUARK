@@ -1240,6 +1240,7 @@
 .notification__text {
   width: 100%;
   z-index: 1000;
+  white-space: nowrap;
 }
 .notification__closeBlock {
   cursor: pointer;
@@ -1372,6 +1373,7 @@
 }
 .notification--large .notification__text {
   width: calc(100% - 30px);
+  white-space: normal;
 }
 /* colors */
 /* --- Hints --- */
