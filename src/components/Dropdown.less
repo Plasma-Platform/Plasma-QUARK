@@ -89,13 +89,11 @@
     .dropdown_open.dropdown_content-position_bottom & {
       border-radius: 3px 3px 0 0;
       box-shadow: 0 -5px 10px 0 rgba(36,50,56,.2);
-      transform-origin: 0 0;
     }
 
     .dropdown_open.dropdown_content-position_top & {
       border-radius: 0 0 3px 3px;
       box-shadow: 0 5px 10px 0 rgba(36,50,56,.2);
-      transform-origin: 100% 100%;
     }
 
     .dropdown_disabled & {
@@ -150,22 +148,25 @@
       transform: scaleY(1);
     }
 
+    .dropdown_open.dropdown_content-position_bottom &,
+    .dropdown_open.dropdown_content-position_bottom-fixed & {
+      border-radius: 0 0 3px 3px;
+      box-shadow: 0 5px 10px 0 rgba(36,50,56,.2);
+      top: 100%;
+    }
+
+    .dropdown_open.dropdown_content-position_top & {
+      border-radius: 3px 3px 0 0;
+      box-shadow: 0 -5px 10px 0 rgba(36,50,56,.2);
+      bottom: 100%;
+    }
+
     .dropdown_content-position_bottom & {
       transform-origin: 0 0;
     }
 
     .dropdown_content-position_top & {
       transform-origin: 100% 100%;
-    }
-
-    .dropdown_open.dropdown_content-position_bottom & {
-      border-radius: 0 0 3px 3px;
-      box-shadow: 0 5px 10px 0 rgba(36,50,56,.2);
-    }
-
-    .dropdown_open.dropdown_content-position_top & {
-      border-radius: 3px 3px 0 0;
-      box-shadow: 0 -5px 10px 0 rgba(36,50,56,.2);
     }
   }
 
@@ -315,23 +316,10 @@
       }
     }
 
-    &.dropdown_content-position_bottom {
-      .dropdown__content {
-        top: 40px;
-      }
-    }
-
     &.dropdown_content-position_bottom-fixed {
       .dropdown__options {
         max-height: 600px;
         overflow-y: auto;
-        top: 40px;
-      }
-    }
-
-    &.dropdown_content-position_top {
-      .dropdown__content {
-        bottom: 40px;
       }
     }
 
@@ -369,23 +357,10 @@
       }
     }
 
-    &.dropdown_content-position_bottom {
-      .dropdown__content {
-        top: 67px;
-      }
-    }
-
     &.dropdown_content-position_bottom-fixed {
       .dropdown__options {
         max-height: 600px;
         overflow-y: auto;
-        top: 67px;
-      }
-    }
-
-    &.dropdown_content-position_top {
-      .dropdown__content {
-        bottom: 40px;
       }
     }
 
@@ -439,18 +414,6 @@
       &:active {
         line-height: 18px;
         padding-top: 32px;
-      }
-    }
-
-    &.dropdown_content-position_bottom {
-      .dropdown__content {
-        top: 60px;
-      }
-    }
-
-    &.dropdown_content-position_top {
-      .dropdown__content {
-        bottom: 60px;
       }
     }
 
