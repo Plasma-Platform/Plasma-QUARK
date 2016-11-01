@@ -237,6 +237,9 @@ export default class Dropdown extends React.Component {
     const filterQuery  = this.state.filterQuery.toLowerCase();
     const filterRegExp = new RegExp('\\b' + filterQuery, 'gi');
 
+    let activeOptionIndex   = -1;
+    let disabledOptionIndex = 0;
+
     return (
       this.props.options.filter((option) => {
         const isSelectedOption  = this.props.type !== 3 && option.value === this.state.value;
@@ -244,10 +247,24 @@ export default class Dropdown extends React.Component {
         const isVisible         = isSelectedOption !== true && isRespondToSearch === true;
 
         return isVisible;
-      }).map((option, optionIndex) => {
+      }).map((option, index) => {
+        const selectedClassName = this.state.value === option.value ? ' dropdown__option_selected' : '';
+        const iconClassName     = option.icon && option.icon.length > 0 ? ` icon icon-${option.icon}` : '';
+        const className         = `dropdown__option${selectedClassName}${iconClassName}`;
+
+        let optionIndex;
+
+        if (option.disabled) {
+          disabledOptionIndex--;
+          optionIndex = disabledOptionIndex;
+        } else {
+          activeOptionIndex++;
+          optionIndex = activeOptionIndex;
+        }
+
         return (
           <li
-            className  = {`dropdown__option${this.state.value === option.value ? ' dropdown__option_selected' : ''}`}
+            className  = {className}
             tabIndex   = {option.disabled || this.state.open === false ? -1 : 0}
             aria-label = {option.label}
             role       = "option"
