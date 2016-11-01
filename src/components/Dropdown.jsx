@@ -12,7 +12,7 @@ export default class Dropdown extends React.Component {
     disabled           : React.PropTypes.bool,
     label              : React.PropTypes.string,
     filterQuery        : React.PropTypes.string,
-    filterText         : React.PropTypes.string,
+    filterHint         : React.PropTypes.string,
     defaultFilterQuery : React.PropTypes.string,
     noResultsText      : React.PropTypes.string,
     defaultValue       : React.PropTypes.string,
@@ -208,7 +208,7 @@ export default class Dropdown extends React.Component {
               className   = "dropdown__filter-input"
               type        = "search"
               value       = {this.state.filterQuery}
-              placeholder = {this.props.filterText || null}
+              placeholder = {this.props.filterHint || null}
               tabIndex    = {this.state.open ? '0' : '-1'}
               onChange    = {this.handleFilterInput}
               onBlur      = {this.handleFilterBlur}
