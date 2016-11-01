@@ -239,42 +239,27 @@ export default class Dropdown extends React.Component {
     const filterQuery  = this.state.filterQuery.toLowerCase();
     const filterRegExp = new RegExp('\\b' + filterQuery, 'gi');
 
-    let enabledOptionIndex  = -1;
-    let disabledOptionIndex = 0;
-
     return (
-      this.props.options.map((option) => {
+      this.props.options.filter((option) => {
         const isSelectedOption  = this.props.type !== 3 && option.value === this.state.value;
         const isRespondToSearch = filterQuery.length > 0 ? filterRegExp.test(option.label.toLowerCase()) : true;
         const isVisible         = isSelectedOption !== true && isRespondToSearch === true;
 
-        if (isVisible) {
-          if (option.disabled !== true) {
-            enabledOptionIndex++;
-          } else {
-            disabledOptionIndex--;
-          }
-        }
-
-        let optionIndex = option.disabled ? disabledOptionIndex : enabledOptionIndex;
-
+        return isVisible;
+      }).map((option, optionIndex) => {
         return (
-          isVisible ? (
-            <li
-              className  = {`dropdown__option${this.state.value === option.value ? ' dropdown__option_selected' : ''}`}
-              tabIndex   = {option.disabled || this.state.open === false ? -1 : 0}
-              aria-label = {option.label}
-              role       = "option"
-              onClick    = {() => { this.handleOptionClick(option); }}
-              onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
-              key        = {option.value}
-              ref        = {ref => { this[`option${optionIndex}`] = ref; }}
-            >
-              {option.label}
-            </li>
-          ) : (
-            null
-          )
+          <li
+            className  = {`dropdown__option${this.state.value === option.value ? ' dropdown__option_selected' : ''}`}
+            tabIndex   = {option.disabled || this.state.open === false ? -1 : 0}
+            aria-label = {option.label}
+            role       = "option"
+            onClick    = {() => { this.handleOptionClick(option); }}
+            onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
+            key        = {option.value}
+            ref        = {ref => { this[`option${optionIndex}`] = ref; }}
+          >
+            {option.label}
+          </li>
         );
       })
     );
