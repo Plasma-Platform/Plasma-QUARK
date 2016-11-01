@@ -221,7 +221,14 @@ export default class Dropdown extends React.Component {
           className = "dropdown__options"
           ref       = {ref => { this.optionsList = ref; }}
         >
-          {this.renderOptions()}
+          {this.renderOptions().length === 0 && this.props.type === 3 ? (
+            <li className="dropdown__option dropdown__no-results">
+              {`${this.props.noResultsText} "${this.state.filterQuery}"`}
+            </li>
+            ) : (
+              this.renderOptions()
+            )
+          }
         </ul>
       </div>
     );
