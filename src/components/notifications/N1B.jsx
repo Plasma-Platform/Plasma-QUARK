@@ -24,6 +24,7 @@ export default class N1B extends Component {
         status='default'
         size='small'
         position='right'
+        maxWidth={this.props.maxWidth}
       />
     );
   }

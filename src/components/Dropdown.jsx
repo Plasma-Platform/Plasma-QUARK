@@ -3,75 +3,168 @@ import React from 'react';
 import './Dropdown.less';
 
 export default class Dropdown extends React.Component {
-  static PropTypes = {
-    type          : React.PropTypes.oneOf([1, 2, 3]).isRequired,
-    label         : React.PropTypes.string.isRequired,
-    options       : React.PropTypes.array.isRequired,
-    className     : React.PropTypes.string,
-    id            : React.PropTypes.string,
-    open          : React.PropTypes.bool,
-    disabled      : React.PropTypes.bool,
-    showFilter    : React.PropTypes.bool,
-    filterQuery   : React.PropTypes.string,
-    filterHint    : React.PropTypes.string,
-    noResultsText : React.PropTypes.string,
-    optionsToShow : React.PropTypes.number,
-    value         : React.PropTypes.string,
-    onChange      : React.PropTypes.func
+  static propTypes = {
+    type               : React.PropTypes.oneOf([1, 2, 3]).isRequired,
+    options            : React.PropTypes.array.isRequired,
+    defaultOpen        : React.PropTypes.bool,
+    className          : React.PropTypes.string,
+    id                 : React.PropTypes.string,
+    disabled           : React.PropTypes.bool,
+    label              : React.PropTypes.string,
+    filterQuery        : React.PropTypes.string,
+    filterHint         : React.PropTypes.string,
+    defaultFilterQuery : React.PropTypes.string,
+    noResultsText      : React.PropTypes.string,
+    defaultValue       : React.PropTypes.string,
+    onOpen             : React.PropTypes.func,
+    onClose            : React.PropTypes.func,
+    onChange           : React.PropTypes.func
+  }
+
+  static defaultProps = {
+    defaultOpen        : false,
+    defaultFilterQuery : '',
+    defaultValue       : '',
+    noResultsText      : 'No results match'
   }
 
   state = {
-    open        : this.props.open ? this.props.open : false,
-    filterQuery : this.props.filterQuery ? this.props.filterQuery : '',
-    value       : this.props.value && this.props.value.length > 0 ? this.props.value : this.props.options[0].value
+    open        : this.props.defaultOpen,
+    filterQuery : this.props.defaultFilterQuery,
+    value       : this.props.options[0] ? this.props.options[0].value : this.props.defaultValue
   }
 
   constructor (props) {
     super(props);
 
-    this.renderLabel       = this.renderLabel.bind(this);
-    this.renderButton      = this.renderButton.bind(this);
-    this.renderOptions     = this.renderOptions.bind(this);
-    this.renderFilterInput = this.renderFilterInput.bind(this);
+    this.open                  = this.open.bind(this);
+    this.close                 = this.close.bind(this);
+    this.toggle                = this.toggle.bind(this);
+    this.handleButtonKeyDown   = this.handleButtonKeyDown.bind(this);
+    this.handleFilterInput     = this.handleFilterInput.bind(this);
+    this.handleFilterBlur      = this.handleFilterBlur.bind(this);
+    this.handleFilterKeyDown   = this.handleFilterKeyDown.bind(this);
+    this.handleOptionClick     = this.handleOptionClick.bind(this);
+    this.handleOptionKeyDown   = this.handleOptionKeyDown.bind(this);
+    this.handleDropdownKeyDown = this.handleDropdownKeyDown.bind(this);
+    this.handleDropdownBlur    = this.handleDropdownBlur.bind(this);
+    this.getValue              = this.getValue.bind(this);
+    this.getOptionByValue      = this.getOptionByValue.bind(this);
+    this.setContentPosition    = this.setContentPosition.bind(this);
+    this.renderLabel           = this.renderLabel.bind(this);
+    this.renderContent         = this.renderContent.bind(this);
+    this.renderOptions         = this.renderOptions.bind(this);
 
-    this.handleDocumentClick = this.handleDocumentClick.bind(this);
-    this.handleDropdownBlur  = this.handleDropdownBlur.bind(this);
-    this.handleDropdownKeyUp = this.handleDropdownKeyUp.bind(this);
-    this.setContentPos       = this.setContentPos.bind(this);
-    this.setValue            = this.setValue.bind(this);
-    this.getValue            = this.getValue.bind(this);
-    this.open                = this.open.bind(this);
-    this.close               = this.close.bind(this);
-    this.toggle              = this.toggle.bind(this);
-    this.filterOptions       = this.filterOptions.bind(this);
-    this.handleFilterBlur    = this.handleFilterBlur.bind(this);
-    this.handleFilterKeyDown = this.handleFilterKeyDown.bind(this);
-    this.handleOptionClick   = this.handleOptionClick.bind(this);
-    this.handleOptionKeyDown = this.handleOptionKeyDown.bind(this);
-    this.getOptionByValue    = this.getOptionByValue.bind(this);
-
-    this.contentPos   = 'bottom';
+    this.contentPosition = 'bottom';
   }
 
-  handleDocumentClick = (event) => {
-    if (this.container.contains(event.target) === false && this.container !== event.target && this.state.open) {
+  open () {
+    this.setContentPosition();
+    this.setState({
+      open        : true,
+      filterQuery : ''
+    }, () => {
+      if (this.props.type === 3) {
+        this.filterInput.focus();
+      } else {
+        this.button.focus();
+      }
+      this.props.onOpen ? this.props.onOpen() : null;
+    });
+  }
+
+  close () {
+    this.setState({
+      open: false
+    }, () => {
+      this.button.blur();
+      this.props.onClose ? this.props.onClose() : null;
+    });
+  }
+
+  toggle () {
+    this.state.open ? this.close() : this.open();
+  }
+
+  handleButtonKeyDown (event) {
+    const keyCode = event.keyCode;
+
+    if (keyCode === 40 && this.props.type !== 3 && this.option0) {
+      this.option0.focus();
+    }
+  }
+
+  handleFilterInput () {
+    const filterValue = this.filterInput.value;
+
+    this.setState({
+      filterQuery: filterValue.trim()
+    });
+  }
+
+  handleFilterBlur () {
+    this.filterInput.value = this.filterInput.value.trim();
+  }
+
+  handleFilterKeyDown (event) {
+    const keyCode = event.keyCode;
+
+    if (keyCode === 40 && this.option0) {
+      this.option0.focus();
+    }
+  }
+
+  handleOptionClick (option) {
+    this.setState({
+      open  : false,
+      value : option.value
+    }, () => {
+      this.props.onChange ? this.props.onChange() : null;
+    });
+  }
+
+  handleOptionKeyDown (event, option, optionIndex) {
+    const keyCode = event.keyCode;
+
+    if (keyCode === 13) {
+      this[`option${optionIndex}`].click();
+    } else if (keyCode === 40 && this[`option${optionIndex + 1}`]) {
+      this[`option${optionIndex + 1}`].focus();
+    } else if (keyCode === 38) {
+      if (this[`option${optionIndex - 1}`]) {
+        this[`option${optionIndex - 1}`].focus();
+      } else if (this.props.type === 3) {
+        this.filterInput.focus();
+      }
+    }
+  }
+
+  handleDropdownKeyDown (event) {
+    const keyCode = event.keyCode;
+
+    if (keyCode === 27) {
       this.close();
     }
   }
 
-  handleDropdownBlur = (event) => {
+  handleDropdownBlur (event) {
     if (this.container.contains(event.relatedTarget) === false && this.container !== event.relatedTarget && this.open) {
       this.close();
     }
   }
 
-  handleDropdownKeyUp = (event) => {
-    if (event.keyCode === 27 && this.state.open) {
-      this.close();
-    }
+  getValue () {
+    return this.state.value;
   }
 
-  setContentPos = () => {
+  getOptionByValue (optionValue) {
+    return this.props.options.filter((option) => {
+      return option.value === optionValue;
+    })[0];
+  }
+
+  setContentPosition () {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
     const documentHeight = Math.max(
       document.body.scrollHeight,
       document.documentElement.scrollHeight,
@@ -80,182 +173,104 @@ export default class Dropdown extends React.Component {
       document.body.clientHeight,
       document.documentElement.clientHeight
     );
-    const contentHeight    = this.content.offsetHeight;
-    const contentTopOffset = this.content.getBoundingClientRect().top + pageYOffset;
+    const buttonHeight       = this.button.offsetHeight;
+    const buttonTopOffset    = this.button.getBoundingClientRect().top + scrollTop;
+    const buttonBottomOffset = documentHeight - buttonTopOffset - buttonHeight;
+    const contentHeight      = this.content.offsetHeight;
 
-    if (contentTopOffset + contentHeight - documentHeight > 0 && contentTopOffset > documentHeight - contentTopOffset) {
-      this.contentPos = 'top';
+    if (contentHeight > buttonBottomOffset) {
+      if (buttonTopOffset > contentHeight) {
+        this.contentPosition = 'top';
+      } else {
+        this.contentPosition = 'bottom-fixed';
+      }
     } else {
-      this.contentPos = 'bottom';
+      this.contentPosition = 'bottom';
     }
   }
 
-  setValue = (newValue) => {
-    this.setState({
-      open  : false,
-      value : newValue
-    }, () => {
-      if (this.props.onChange) {
-        this.props.onChange(newValue);
-      }
-    });
-  }
-
-  getValue = () => {
-    return this.state.value;
-  }
-
-  open = () => {
-    this.setContentPos();
-
-    this.setState({
-      open        : true,
-      filterQuery : ''
-    }, () => {
-      this.filterInput.focus();
-    });
-  }
-
-  close = () => {
-    this.setState({
-      open: false
-    });
-  }
-
-  toggle = () => {
-    if (this.state.open === true) {
-      this.close();
-    } else {
-      this.open();
-    }
-  }
-
-  filterOptions = () => {
-    if (this.contentPos === 'bottom') {
-      this.setContentPos();
-    }
-
-    this.setState({
-      filterQuery: this.filterInput.value
-    });
-  }
-
-  handleFilterBlur = (event) => {
-    this.filterInput.value = this.filterInput.value.trim();
-    this.filterOptions();
-  }
-
-  handleFilterKeyDown= (event) => {
-    const firstOptionIndex = this.props.options.findIndex((option, index) => {
-      return option.disabled !== true;
-    });
-
-    if (event.keyCode === 40) {
-      event.preventDefault();
-      this[`option${firstOptionIndex}`].focus();
-    }
-  }
-
-  handleOptionClick = (option) => {
-    if (option.disabled !== true) {
-      this.setValue(option.value);
-    }
-  }
-
-  handleOptionKeyDown = (event, option, optionIndex) => {
-    event.preventDefault();
-
-    const keyCode = event.keyCode;
-    const prevOptions = [];
-
-    const nextOptionIndex = this.props.options.findIndex((option, index) => {
-      return index > optionIndex && option.disabled !== true;
-    });
-
-    this.props.options.forEach((option, index) => {
-      if (index < optionIndex && option.disabled !== true) {
-        prevOptions.push(index);
-      }
-    });
-
-    const prevOptionIndex = prevOptions.slice(-1)[0];
-
-    if (keyCode === 13) {
-      this.setValue(option.value);
-    } else if (keyCode === 40 && nextOptionIndex > 0 && nextOptionIndex < this.props.options.length) {
-      this[`option${nextOptionIndex}`].focus();
-    } else if (keyCode === 38) {
-      if (prevOptionIndex >= 0) {
-        this[`option${prevOptionIndex}`].focus();
-      } else if (this.props.showFilter) {
-        this.filterInput.focus();
-      }
-    }
-  }
-
-  getOptionByValue = (optionValue) => {
-    return this.props.options.filter((option) => {
-      return option.value === optionValue;
-    })[0];
-  }
-
-  renderLabel = () => {
+  renderLabel () {
     return (
       <span className="dropdown__label">{this.props.label}</span>
     );
   }
 
-  renderButton = (selectedOption) => {
+  renderContent () {
     return (
-      <button
-        className  = {`dropdown__button${selectedOption.icon ? ' icon icon-' + selectedOption.icon : ''}`}
-        type       = "button"
-        aria-label = {this.props.label}
-        value      = {selectedOption.value}
-        onClick    = {this.toggle}
-        disabled   = {this.props.disabled}
+      <div
+        className = "dropdown__content"
+        ref       = {ref => { this.content = ref; }}
       >
-        {selectedOption.label}
-        <span className="dropdown__arrow"></span>
-      </button>
+        {this.props.type === 3 &&
+          <div className="dropdown__filter-box">
+            <input
+              className   = "dropdown__filter-input"
+              type        = "search"
+              value       = {this.state.filterQuery}
+              placeholder = {this.props.filterHint || null}
+              tabIndex    = {this.state.open ? '0' : '-1'}
+              onChange    = {this.handleFilterInput}
+              onBlur      = {this.handleFilterBlur}
+              onKeyDown   = {this.handleFilterKeyDown}
+              ref         = {ref => { this.filterInput = ref; }}
+            />
+          </div>
+        }
+        <ul
+          className = "dropdown__options"
+          ref       = {ref => { this.optionsList = ref; }}
+        >
+          {this.renderOptions().length === 0 && this.props.type === 3 ? (
+            <li className="dropdown__option dropdown__no-results">
+              {`${this.props.noResultsText} "${this.state.filterQuery}"`}
+            </li>
+            ) : (
+              this.renderOptions()
+            )
+          }
+        </ul>
+      </div>
     );
   }
 
-  renderFilterInput = () => {
-    return (
-      <input
-        className   = "dropdown__filter-input"
-        type        = "search"
-        placeholder = {this.props.filterHint ? this.props.filterHint : ''}
-        value       = {this.state.filterQuery}
-        tabIndex    = {this.state.open ? 0 : -1}
-        onChange    = {this.filterOptions}
-        onBlur      = {this.handleFilterBlur}
-        onKeyDown   = {this.handleFilterKeyDown}
-        ref         = {(ref) => this.filterInput = ref}
-      />
-    );
-  }
+  renderOptions () {
+    const filterQuery  = this.state.filterQuery.toLowerCase();
+    const filterRegExp = new RegExp('\\b' + filterQuery, 'gi');
 
-  renderOptions = (filterRegExp) => {
+    let activeOptionIndex   = -1;
+    let disabledOptionIndex = 0;
+
     return (
       this.props.options.filter((option) => {
-        return option.label.toLowerCase().indexOf(filterRegExp) === 0;
-      }).map((option, optionIndex) => {
-        const selectedClassName = option.value === this.state.value ? ' dropdown__option_selected' : '';
-        const disabledClassName = option.disabled ? ' dropdown__option_disabled' : '';
-        const iconClassName   = option.icon ? ` icon icon-${option.icon}` : '';
-        const optionClassName   = `dropdown__option${selectedClassName}${disabledClassName}${iconClassName}`;
+        const isSelectedOption  = this.props.type !== 3 && option.value === this.state.value;
+        const isRespondToSearch = filterQuery.length > 0 ? filterRegExp.test(option.label.toLowerCase()) : true;
+        const isVisible         = isSelectedOption !== true && isRespondToSearch === true;
+
+        return isVisible;
+      }).map((option, index) => {
+        const selectedClassName = this.state.value === option.value ? ' dropdown__option_selected' : '';
+        const iconClassName     = this.props.type === 3 && option.icon && option.icon.length > 0 ? ` icon icon-${option.icon}` : '';
+        const className         = `dropdown__option${selectedClassName}${iconClassName}`;
+
+        let optionIndex;
+
+        if (option.disabled) {
+          disabledOptionIndex--;
+          optionIndex = disabledOptionIndex;
+        } else {
+          activeOptionIndex++;
+          optionIndex = activeOptionIndex;
+        }
 
         return (
           <li
-            className  = {optionClassName}
-            aria-label = {option.label}
+            className  = {className}
             tabIndex   = {option.disabled || this.state.open === false ? -1 : 0}
+            aria-label = {option.label}
             role       = "option"
             onClick    = {() => { this.handleOptionClick(option); }}
             onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
-            key        = {optionIndex}
+            key        = {option.value}
             ref        = {ref => { this[`option${optionIndex}`] = ref; }}
           >
             {option.label}
@@ -265,69 +280,51 @@ export default class Dropdown extends React.Component {
     );
   }
 
-  componentDidMount () {
-    window.addEventListener('click', this.handleDocumentClick);
-    this.setContentPos();
-  }
-
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      open        : nextProps.open ? nextProps.open : this.state.open,
-      filterQuery : nextProps.filterQuery ? nextProps.filterQuery : this.state.filterQuery,
-      value       : nextProps.value ? nextProps.value : this.state.value
-    });
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('click', this.handleDocumentClick);
-  }
-
   render () {
-    const filterRegExp   = this.state.filterQuery.toLowerCase();
-    const selectedOption = this.getOptionByValue(this.state.value || this.props.value);
+    const typeClassName       = ` dropdown_type_${this.props.type}`;
+    const disabledClassName   = this.props.disabled ? ` dropdown_disabled` : '';
+    const contentPosClassName = ` dropdown_content-position_${this.contentPosition}`;
+    const openedClassName     = this.state.open ? ` dropdown_open` : ' dropdown_closed';
+    const addClassName        = this.props.className ? ` ${this.props.className}` : '';
+    const containerClassName  = `dropdown${typeClassName}${disabledClassName}${contentPosClassName}${openedClassName}${addClassName}`;
 
-    const openClassName     = `${this.state.open ? ' dropdown_state_open' : ''}`;
-    const disabledClassName   = `${this.props.disabled ? ' dropdown_disabled' : ''}`;
-    const contentPosClassName = ` dropdown_content-pos_${this.contentPos}`;
-    const addClassName       = `${this.props.className ? ' ' + this.props.className : ''}`;
-    const typeClassName     = ` dropdown_type_${this.props.type}`;
+    const selectedOption      = this.getOptionByValue(this.state.value);
+    const selectedOptionLabel = selectedOption ? selectedOption.label : this.props.options.length ? this.props.options[0].label : '';
 
-    const options     = this.renderOptions(filterRegExp);
-    const isNoResults = this.props.showFilter && options.length === 0 && filterRegExp.length > 0 && this.props.noResultsText;
+    const selectedOptionIcon  = selectedOption && selectedOption.icon ? selectedOption.icon : this.props.options.length && this.props.options[0].icon ? this.props.options[0].icon : '';
+
+    const buttonIconClassName = selectedOptionIcon.length > 0 && this.props.type === 3 ? ` icon icon-${selectedOptionIcon}` : '';
 
     return (
       <div
-        className = {`dropdown${typeClassName}${contentPosClassName}${openClassName}${disabledClassName}${addClassName}`}
+        className = {containerClassName}
         id        = {this.props.id || null}
         tabIndex  = "-1"
-        role      = "listbox"
+        onKeyDown = {this.handleDropdownKeyDown}
         onBlur    = {this.handleDropdownBlur}
-        onKeyDown = {this.handleDropdownKeyUp}
-        ref       = {container => this.container = container}
+        ref       = {ref => { this.container = ref; }}
       >
+        {(this.props.type === 1 || this.props.type === 2) &&
+          this.renderLabel()
+        }
 
-        {(this.props.type === 1 || this.props.type === 2) ? this.renderLabel() : null}
-        {this.renderButton(selectedOption)}
-        {(this.props.type === 3) ? this.renderLabel() : null}
-
-        <div
-          className = "dropdown__content"
-          ref       = {(ref) => { this.content = ref; }}
+        <button
+          className  = {`dropdown__button${buttonIconClassName}`}
+          type       = "button"
+          aria-label = {this.props.label}
+          onClick    = {this.toggle}
+          onKeyDown  = {this.handleButtonKeyDown}
+          ref        = {ref => { this.button = ref; }}
         >
-          {this.props.showFilter ? this.renderFilterInput() : null}
-          <ul
-            className = "dropdown__options"
-            role      = "list"
-          >
-            {isNoResults
-              ? <li className="dropdown__option dropdown__no-results">
-                  {`${this.props.noResultsText} "${this.state.filterQuery}"`}
-                </li>
-              : options
-            }
-          </ul>
-        </div>
+          {selectedOptionLabel}
+          <span className="dropdown__arrow"></span>
+        </button>
 
+        {this.props.type === 3 &&
+          this.renderLabel()
+        }
+
+        {this.renderContent()}
       </div>
     );
   }

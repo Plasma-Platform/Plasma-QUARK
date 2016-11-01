@@ -24,6 +24,7 @@ export default class N2C extends Component {
         position='bottom'
         status='error'
         size='small'
+        maxWidth={this.props.maxWidth}
       />
     );
   }

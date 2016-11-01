@@ -24,6 +24,7 @@ export default class N1C extends Component {
         status='default'
         size='small'
         position='bottom'
+        maxWidth={this.props.maxWidth}
       />
     );
   }

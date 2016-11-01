@@ -24,6 +24,7 @@ export default class N2D extends Component {
         status='error'
         size='small'
         position='top'
+        maxWidth={this.props.maxWidth}
       />
     );
   }

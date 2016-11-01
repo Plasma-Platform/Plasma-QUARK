@@ -1,9 +1,26 @@
 import React, {Component}  from 'react';
 import classnames                     from 'classnames';
+import {connectNotificationTrigger} from '../utils/.';
 
 import '../TextField.less';
 
+export class EyePasswordIndicator extends Component {
+  render () {
+    return (
+      <span
+        {...this.props}
+        className = 'text-field__notification-icon icon password-toggle icon-eye'
+      />
+    );
+  }
+}
+
 export default class TextField extends Component {
+  constructor () {
+    super();
+    this.showTooltip = this.showTooltip.bind(this);
+    this.hidePasswordAndTooltip = this.hidePasswordAndTooltip.bind(this);
+  }
 
   static propTypes = {
     id          : React.PropTypes.string,
@@ -11,6 +28,15 @@ export default class TextField extends Component {
     placeholder : React.PropTypes.string,
     value       : React.PropTypes.string,
     disabled    : React.PropTypes.bool
+  }
+
+  showTooltip () {
+    this.icon.showNotification();
+  }
+
+  hidePasswordAndTooltip () {
+    this.icon.hideNotification();
+    this.props.changeFieldType('password');
   }
 
   render () {
@@ -36,6 +62,7 @@ export default class TextField extends Component {
     });
 
     const hint = this.props.placeholder || this.props.label;
+    const EyePasswordIndicatorWrapper = connectNotificationTrigger(EyePasswordIndicator);
 
     return (
       <div
@@ -63,11 +90,14 @@ export default class TextField extends Component {
         {isPassword
           ? <div>
               <span className     = { iconNotificationClassname }/>
-              <span
-                  className     = 'text-field__notification-icon icon password-toggle icon-eye'
-                  onMouseDown   = {isPassword ? this.props.changeFieldType.bind(this, 'text') : null}
-                  onMouseUp     = {isPassword ? this.props.changeFieldType.bind(this, 'password') : null}
-                  onMouseLeave  = {isPassword ? this.props.changeFieldType.bind(this, 'password') : null}
+              <EyePasswordIndicatorWrapper
+                ref             = {c => this.icon = c}
+                notification    = {{code: this.props.eyeNotificationCode || 'N1C', text: this.props.eyeNotificationText || 'Hold to show password'}}
+                notificationAlt = {{ status: false }}
+                onMouseOver     = {this.showTooltip}
+                onMouseLeave    = {this.hidePasswordAndTooltip}
+                onMouseDown     = {this.props.changeFieldType.bind(this, 'text')}
+                onMouseUp       = {this.props.changeFieldType.bind(this, 'password')}
               />
             </div>
           : <span className     = { iconNotificationClassname } />

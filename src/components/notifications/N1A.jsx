@@ -15,16 +15,16 @@ export default class N1A extends Component {
     this.notification.setPosition(coords);
   }
 
-  render() {
+  render () {
     return (
       <Notification
-
         ref={c => this.notification = c}
         className={this.props.className}
         position='left'
         text={this.props.text}
         status='default'
         size='small'
+        maxWidth={this.props.maxWidth}
       />
     );
   }

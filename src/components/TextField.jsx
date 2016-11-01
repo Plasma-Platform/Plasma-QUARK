@@ -66,10 +66,10 @@ export default class TextField extends Component {
     }
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevState.isValid !== false && this.state.isValid === false) {
+  componentDidUpdate = () => {
+    if (this.state.isValid === false) {
       this.comp.input.showNotification();
-    } else if (this.state.isValid === true && prevState.isValid !== true) {
+    } else {
       this.comp.input.hideNotification();
     }
   }
@@ -195,7 +195,12 @@ export default class TextField extends Component {
         onChange                = {this.onChange}
         changeFieldType         = {this.changeFieldType}
         resetValidationStatus   = {this.resetValidationStatus}
-        notification            = { {code: this.props.notificationType || 'N2B', text: this.state.notificationText} }
+        notification            = {
+          { code     : this.props.notificationType || 'N2B',
+            text     : this.state.notificationText,
+            maxWidth : this.props.notificationMaxWidth
+          }
+        }
       />
     );
   }

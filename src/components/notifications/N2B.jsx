@@ -24,6 +24,7 @@ export default class N2B extends Component {
         status='error'
         size='small'
         position='right'
+        maxWidth={this.props.maxWidth}
       />
     );
   }

@@ -3,19 +3,19 @@ import Notification from '../Notification.jsx';
 
 export default class N3D extends Component {
   static propTypes = {
-    text: PropTypes.string.isRequired,
-    className: PropTypes.string
+    text      : PropTypes.string.isRequired,
+    className : PropTypes.string
   }
 
   static defaultProps = {
     position: 'top'
   }
 
-  setPosition(coords) {
+  setPosition (coords) {
     this.notification.setPosition(coords);
   }
 
-  render() {
+  render () {
     return (
       <Notification
         ref={c => this.notification = c}
@@ -24,6 +24,7 @@ export default class N3D extends Component {
         status='success'
         size='small'
         position='top'
+        maxWidth={this.props.maxWidth}
       />
     );
   }

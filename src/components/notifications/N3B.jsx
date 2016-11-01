@@ -24,6 +24,7 @@ export default class N3B extends Component {
         status='success'
         size='small'
         position='right'
+        maxWidth={this.props.maxWidth}
       />
     );
   }

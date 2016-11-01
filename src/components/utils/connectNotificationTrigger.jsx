@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import ReactDOM           from 'react-dom';
 
-import {prepareNotification, preparePopover, isMouseOutOfComponent} from './';
+import {prepareNotification, isMouseOutOfComponent} from './';
 
 export default function connectNotificationTrigger (Component, props) {
   return class NotificationTrigger extends React.Component {
@@ -100,7 +100,7 @@ export default function connectNotificationTrigger (Component, props) {
     };
 
     handleClosePopover = (e) => {
-      let clickTarget = e.target.getAttribute('class');
+      const clickTarget = e.target.getAttribute('class');
       if (clickTarget === 'notification__closeBlock__closeArea' && this.state.notification) {
         e.stopPropagation();
 

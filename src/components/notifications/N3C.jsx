@@ -24,6 +24,7 @@ export default class N3C extends Component {
         status='success'
         size='small'
         position='bottom'
+        maxWidth={this.props.maxWidth}
       />
     );
   }
