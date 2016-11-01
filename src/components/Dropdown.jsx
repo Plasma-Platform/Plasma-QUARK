@@ -290,7 +290,8 @@ export default class Dropdown extends React.Component {
 
     const selectedOption      = this.getOptionByValue(this.state.value);
     const selectedOptionLabel = selectedOption ? selectedOption.label : this.props.options.length ? this.props.options[0].label : '';
-    const selectedOptionIcon  = selectedOption ? selectedOption.icon : '';
+
+    const selectedOptionIcon  = selectedOption && selectedOption.icon ? selectedOption.icon : this.props.options.length && this.props.options[0].icon ? this.props.options[0].icon : '';
 
     return (
       <div
