@@ -561,7 +561,21 @@
   color: #90a4ae;
 }
 .dropdown__filter-input:focus {
+  border: 1px solid #90caf9;
+  box-shadow: none;
   outline: none;
+}
+.dropdown__filter-input:focus::-webkit-input-placeholder {
+  color: #bbdefb;
+}
+.dropdown__filter-input:focus::-moz-placeholder {
+  color: #bbdefb;
+}
+.dropdown__filter-input:focus:-ms-input-placeholder {
+  color: #bbdefb;
+}
+.dropdown__filter-input:focus::placeholder {
+  color: #bbdefb;
 }
 .dropdown__options {
   margin: 0;
