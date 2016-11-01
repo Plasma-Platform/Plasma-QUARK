@@ -119,7 +119,7 @@ export default class Dropdown extends React.Component {
       open  : false,
       value : option.value
     }, () => {
-      this.props.onChange ? this.props.onChange() : null;
+      this.props.onChange ? this.props.onChange(this.state.value) : null;
     });
   }
 
