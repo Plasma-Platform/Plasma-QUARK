@@ -2039,6 +2039,12 @@
   line-height: 1;
   vertical-align: middle;
 }
+.popup__content_padding_none.dropdown__content_bg_transparent {
+  padding: 40px;
+}
+.popup__content_padding_none.dropdown__content_bg_fill {
+  padding: 0;
+}
 .popup__content_padding_medium {
   padding: 40px;
 }
@@ -2052,13 +2058,14 @@
 .popup__content_bg_fill {
   background-color: #fff;
 }
+.popup__content_bg_fill.popup__content_padding_none,
 .popup__content_bg_fill.popup__content_padding_medium {
   margin: 40px;
-  max-width: calc(100vw - 80px);
+  max-width: calc(100% - 80px);
 }
 .popup__content_bg_fill.popup__content_padding_large {
-  margin: 0 80px;
-  max-width: calc(100vw - 160px);
+  margin: 80px;
+  max-width: calc(100% - 160px);
 }
 .popup__content_animate_show {
   -webkit-animation-name: showPopupContent;
