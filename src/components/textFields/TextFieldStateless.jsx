@@ -31,11 +31,15 @@ export default class TextField extends Component {
   }
 
   showTooltip () {
-    this.icon.showNotification();
+    setTimeout(() => {
+      this.icon.showNotification();
+    }, 200);
   }
 
   hidePasswordAndTooltip () {
-    this.icon.hideNotification();
+    setTimeout(() => {
+      this.icon.hideNotification();
+    }, 100);
     this.props.changeFieldType('password');
   }
 
