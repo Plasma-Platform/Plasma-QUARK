@@ -12,6 +12,7 @@
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   touch-action: manipulation;
+  text-align: center;
 
   *,
   *::before,
@@ -43,8 +44,46 @@
     padding-top: 1px;
   }
 
-  &.icon {
-    text-align: center;
+  &__icon {
+    display: inline-block;
+    height: 20px;
+    position: relative;
+    vertical-align: top;
+    width: 20px;
+
+    .button_width_auto &,
+    .button_width_full & {
+      margin-right: 10px;
+    }
+
+    .button_height_medium & {
+      margin-top: 10px;
+    }
+
+    .button_height_medium:disabled & {
+      margin-top: 8px;
+    }
+
+    .button_height_large & {
+      margin-top: 20px;
+    }
+
+    .button_height_large:disabled & {
+      margin-top: 18px;
+    }
+
+    &::before {
+      content: "";
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+
+      .button_loading & {
+        display: none;
+      }
+    }
 
     &-facebook::before {
       background-image: svg-load("../assets/images/icons/icon-facebook.svg", fill: #fff);
@@ -64,41 +103,6 @@
 
     &-vk::before {
       background-image: svg-load("../assets/images/icons/icon-vk.svg", fill: #fff);
-    }
-
-    &::before {
-      content: "";
-      display: inline-block;
-      height: 20px;
-      vertical-align: top;
-      width: 20px;
-    }
-
-    &.button_width_auto,
-    &.button_width_full {
-      &::before {
-        margin-right: 10px;
-      }
-    }
-
-    &.button_height_medium {
-      &::before {
-        margin-top: 10px;
-      }
-
-      &:disabled::before {
-        margin-top: 8px;
-      }
-    }
-
-    &.button_height_large {
-      &::before {
-        margin-top: 20px;
-      }
-
-      &:disabled::before {
-        margin-top: 18px;
-      }
     }
   }
 
@@ -315,9 +319,5 @@
 
   &_loading {
     font-size: 0;
-
-    &.icon::before {
-      display: none;
-    }
   }
 }

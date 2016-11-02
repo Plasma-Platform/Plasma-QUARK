@@ -25,18 +25,19 @@ export default class Button extends React.Component {
     const heightClassName  = ` button_height_${heightType}`;
     const roundClassName   = ` button_rounded_${roundedType}`;
     const bgClassName      = this.props.disabled ? '' : ` button_bg_${bgType}`;
-    const iconClassName    = icon ? ` icon icon-${icon}` : '';
     const loadingClassName = isLoading ? ' button_loading' : '';
     const addClassName     = className ? ` ${className}` : '';
-    const fullClassName    = `button${widthClassName}${heightClassName}${roundClassName}${bgClassName}${iconClassName}${loadingClassName}${addClassName}`;
+    const buttonClassName  = `button${widthClassName}${heightClassName}${roundClassName}${bgClassName}${iconClassName}${loadingClassName}${addClassName}`;
+    const iconClassName    = icon ? ` button__icon icon icon-${icon}` : '';
 
     if (type === 'link') {
       return (
         <a
           {...props}
-          className = {fullClassName}
+          className = {buttonClassName}
           ref       = {ref => { this.button = ref; }}
         >
+          <i className={iconClassName}></i>
           {this.props.children}
         </a>
       );
@@ -44,9 +45,10 @@ export default class Button extends React.Component {
       return (
         <span
           {...props}
-          className = {fullClassName}
+          className = {buttonClassName}
           ref       = {ref => { this.button = ref; }}
         >
+          <i className={iconClassName}></i>
           {this.props.children}
         </span>
       );
@@ -55,9 +57,10 @@ export default class Button extends React.Component {
         <button
           {...props}
           type      = {type}
-          className = {fullClassName}
+          className = {buttonClassName}
           ref       = {ref => { this.button = ref; }}
         >
+          <i className={iconClassName}></i>
           {this.props.children}
         </button>
       );
