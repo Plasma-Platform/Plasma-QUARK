@@ -248,9 +248,9 @@ export default class Dropdown extends React.Component {
 
         return isVisible;
       }).map((option, index) => {
-        const selectedClassName = this.state.value === option.value ? ' dropdown__option_selected' : '';
-        const iconClassName     = this.props.type === 3 && option.icon && option.icon.length > 0 ? ` dropdown__icon icon icon-${option.icon}` : '';
-        const className         = `dropdown__option${selectedClassName}${iconClassName}`;
+        const selectedClassName   = this.state.value === option.value ? ' dropdown__option_selected' : '';
+        const optionClassName     = `dropdown__option${selectedClassName}`;
+        const optionIconClassName = this.props.type === 3 && option.icon && option.icon.length > 0 ? ` dropdown__icon icon icon-${option.icon}` : '';
 
         let optionIndex;
 
@@ -264,7 +264,7 @@ export default class Dropdown extends React.Component {
 
         return (
           <li
-            className  = {className}
+            className  = {optionClassName}
             tabIndex   = {option.disabled || this.state.open === false ? -1 : 0}
             aria-label = {option.label}
             role       = "option"
@@ -273,6 +273,9 @@ export default class Dropdown extends React.Component {
             key        = {option.value}
             ref        = {ref => { this[`option${optionIndex}`] = ref; }}
           >
+            {optionIconClassName.length > 0 &&
+              <i className={optionIconClassName}></i>
+            }
             {option.label}
           </li>
         );
@@ -309,13 +312,16 @@ export default class Dropdown extends React.Component {
         }
 
         <button
-          className  = {`dropdown__button${buttonIconClassName}`}
+          className  = "dropdown__button"
           type       = "button"
           aria-label = {this.props.label}
           onClick    = {this.toggle}
           onKeyDown  = {this.handleButtonKeyDown}
           ref        = {ref => { this.button = ref; }}
         >
+          {buttonIconClassName.length > 0 &&
+            <i className={buttonIconClassName}></i>
+          }
           {selectedOptionLabel}
           <span className="dropdown__arrow"></span>
         </button>
