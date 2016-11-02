@@ -616,7 +616,7 @@
   font-size: 14px;
   line-height: 40px;
   overflow: hidden;
-  padding: 0 20px;
+  padding-right: 20px;
   position: relative;
   -webkit-text-decoration-skip: objects;
   text-overflow: ellipsis;
@@ -624,6 +624,9 @@
   -ms-touch-action: manipulation;
   touch-action: manipulation;
   white-space: nowrap;
+}
+.dropdown__option:not(.dropdown__icon) {
+  padding-left: 20px;
 }
 .dropdown__option:not(:last-child) {
   border-bottom: 1px solid #455a64;
@@ -1701,13 +1704,13 @@
   position: relative;
 }
 .icon:before {
-  background-position: center;
-  background-repeat: no-repeat;
+  /* background-position: center;*/
+  /* background-repeat: no-repeat;*/
   content: '';
-  display: block;
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
+  /*display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;*/
 }
 /* colors */
 /* --- Hints --- */

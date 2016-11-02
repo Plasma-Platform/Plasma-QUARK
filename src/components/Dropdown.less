@@ -240,13 +240,17 @@
     font-size: 14px;
     line-height: 40px;
     overflow: hidden;
-    padding: 0 20px;
+    padding-right: 20px;
     position: relative;
     -webkit-text-decoration-skip: objects;
     text-overflow: ellipsis;
     top: 0;
     touch-action: manipulation;
     white-space: nowrap;
+
+    &:not(.dropdown__icon) {
+      padding-left: 20px;
+    }
 
     &:not(:last-child) {
       border-bottom: 1px solid #455a64;
