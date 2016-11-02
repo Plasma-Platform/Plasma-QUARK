@@ -24,14 +24,13 @@ export default class Dropdown extends React.Component {
   static defaultProps = {
     defaultOpen        : false,
     defaultFilterQuery : '',
-    defaultValue       : '',
     noResultsText      : 'No results match'
   }
 
   state = {
     open        : this.props.defaultOpen,
     filterQuery : this.props.defaultFilterQuery,
-    value       : this.props.options[0] ? this.props.options[0].value : this.props.defaultValue
+    value       : this.props.defaultValue ? this.props.defaultValue : this.props.options[0] ? this.props.options[0].value : ''
   }
 
   constructor (props) {
