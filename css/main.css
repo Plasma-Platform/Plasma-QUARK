@@ -1706,13 +1706,13 @@
   position: relative;
 }
 .icon:before {
-  /* background-position: center;*/
-  /* background-repeat: no-repeat;*/
+  background-position: center;
+  background-repeat: no-repeat;
   content: '';
-  /*display: block;
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;*/
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
 }
 /* colors */
 /* --- Hints --- */
