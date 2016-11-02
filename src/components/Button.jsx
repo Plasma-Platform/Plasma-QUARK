@@ -25,7 +25,7 @@ export default class Button extends React.Component {
     const heightClassName  = ` button_height_${heightType}`;
     const roundClassName   = ` button_rounded_${roundedType}`;
     const bgClassName      = this.props.disabled ? '' : ` button_bg_${bgType}`;
-    const iconClassName    = icon ? ` icon icon-${icon}` : '';
+    const iconClassName    = icon ? ` button__icon icon icon-${icon}` : '';
     const loadingClassName = isLoading ? ' button_loading' : '';
     const addClassName     = className ? ` ${className}` : '';
     const fullClassName    = `button${widthClassName}${heightClassName}${roundClassName}${bgClassName}${iconClassName}${loadingClassName}${addClassName}`;

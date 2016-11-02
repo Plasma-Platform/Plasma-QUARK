@@ -249,7 +249,7 @@ export default class Dropdown extends React.Component {
         return isVisible;
       }).map((option, index) => {
         const selectedClassName = this.state.value === option.value ? ' dropdown__option_selected' : '';
-        const iconClassName     = this.props.type === 3 && option.icon && option.icon.length > 0 ? ` icon icon-${option.icon}` : '';
+        const iconClassName     = this.props.type === 3 && option.icon && option.icon.length > 0 ? ` dropdown__icon icon icon-${option.icon}` : '';
         const className         = `dropdown__option${selectedClassName}${iconClassName}`;
 
         let optionIndex;
@@ -293,7 +293,7 @@ export default class Dropdown extends React.Component {
 
     const selectedOptionIcon  = selectedOption && selectedOption.icon ? selectedOption.icon : this.props.options.length && this.props.options[0].icon ? this.props.options[0].icon : '';
 
-    const buttonIconClassName = selectedOptionIcon.length > 0 && this.props.type === 3 ? ` icon icon-${selectedOptionIcon}` : '';
+    const buttonIconClassName = selectedOptionIcon.length > 0 && this.props.type === 3 ? ` dropdown__icon icon icon-${selectedOptionIcon}` : '';
 
     return (
       <div
