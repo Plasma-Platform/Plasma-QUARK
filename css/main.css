@@ -754,11 +754,8 @@
   overflow-y: auto;
 }
 .dropdown_type_3 .dropdown__option_selected {
-  background-color: #2196f3;
-  border-bottom-color: #2196f3;
-  line-height: 20px;
-  padding-top: 11px;
-  top: -1px;
+  background-color: #1976d2;
+  border-bottom-color: #1976d2;
 }
 .dropdown_type_3 .dropdown__option.dropdown__no-results {
   pointer-events: none;
