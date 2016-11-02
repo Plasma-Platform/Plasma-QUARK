@@ -28,7 +28,7 @@ export default class Button extends React.Component {
     const loadingClassName = isLoading ? ' button_loading' : '';
     const addClassName     = className ? ` ${className}` : '';
     const buttonClassName  = `button${widthClassName}${heightClassName}${roundClassName}${bgClassName}${loadingClassName}${addClassName}`;
-    const iconClassName    = icon ? ` button__icon icon icon-${icon}` : '';
+    const iconClassName    = icon ? ` button__icon button__icon-${icon} icon icon-${icon}` : '';
 
     if (type === 'link') {
       return (

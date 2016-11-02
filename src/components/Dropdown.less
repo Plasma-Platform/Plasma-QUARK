@@ -207,9 +207,9 @@
     color: #fff;
     cursor: pointer;
     font-size: 14px;
-    line-height: 40px;
+    line-height: 20px;
     overflow: hidden;
-    padding: 0 20px;
+    padding: 10px 20px;
     position: relative;
     -webkit-text-decoration-skip: objects;
     text-overflow: ellipsis;
@@ -224,24 +224,24 @@
     &:hover,
     &:focus,
     &:active {
-      bottom: 0;
       outline: none;
-      top: -1px;
+      top: 1px;
+      margin-top: -2px;
     }
 
     &:hover,
     &:focus {
       background-color: #2196f3;
       border-bottom-color: #2196f3;
-      line-height: 38px;
-      padding-top: 2px;
+      padding-top: 11px;
+      padding-bottom: 11px;
     }
 
     &:active {
       background-color: #1976d2;
       border-bottom-color: #1976d2;
-      line-height: 36px;
-      padding-top: 4px;
+      padding-top: 12px;
+      padding-bottom: 10px;
     }
 
     &_disabled {
@@ -427,9 +427,8 @@
       &_selected {
         background-color: #2196f3;
         border-bottom-color: #2196f3;
-        bottom: 0;
-        line-height: 38px;
-        padding-top: 2px;
+        line-height: 20px;
+        padding-top: 11px;
         top: -1px;
       }
 
