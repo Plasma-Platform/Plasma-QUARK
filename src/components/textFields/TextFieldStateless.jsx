@@ -102,6 +102,8 @@ export default class TextField extends Component {
                 onMouseLeave    = {this.hidePasswordAndTooltip}
                 onMouseDown     = {this.props.changeFieldType.bind(this, 'text')}
                 onMouseUp       = {this.props.changeFieldType.bind(this, 'password')}
+                onTouchStart    = {this.showTooltip}
+                onTouchEnd      = {this.hidePasswordAndTooltip}
               />
             </div>
           : <span className     = { iconNotificationClassname } />
