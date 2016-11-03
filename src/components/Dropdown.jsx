@@ -58,31 +58,37 @@ export default class Dropdown extends React.Component {
   }
 
   open () {
+    this.props.onBeforeOpen();
     this.setContentPosition();
     this.setState({
       open        : true,
       filterQuery : ''
     }, () => {
-      console.log('dgdgfdgdggd');
       if (this.props.type === 3) {
         this.filterInput.focus();
       } else {
         this.button.focus();
       }
-      // this.props.onOpen ? this.props.onOpen() : null;
+      if (this.props.onOpen) {
+        this.props.onOpen();
+      }
     });
   }
 
   close () {
+    this.props.onBeforeClose();
     this.setState({
       open: false
     }, () => {
       this.button.blur();
-      // this.props.onClose ? this.props.onClose() : null;
+      if (this.props.onClose) {
+        this.props.onClose();
+      }
     });
   }
 
   toggle () {
+    this.props.onToggle();
     this.state.open === true ? this.close() : this.open();
   }
 
