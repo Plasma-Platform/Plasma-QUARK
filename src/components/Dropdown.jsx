@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './Dropdown.less';
-
 export default class Dropdown extends React.Component {
   static propTypes = {
     type               : React.PropTypes.oneOf([1, 2, 3]).isRequired,
@@ -58,7 +56,6 @@ export default class Dropdown extends React.Component {
   }
 
   open () {
-    this.props.onBeforeOpen();
     this.setContentPosition();
     this.setState({
       open        : true,
@@ -76,7 +73,6 @@ export default class Dropdown extends React.Component {
   }
 
   close () {
-    this.props.onBeforeClose();
     this.setState({
       open: false
     }, () => {
@@ -88,7 +84,6 @@ export default class Dropdown extends React.Component {
   }
 
   toggle () {
-    this.props.onToggle();
     this.state.open === true ? this.close() : this.open();
   }
 
@@ -154,7 +149,7 @@ export default class Dropdown extends React.Component {
   }
 
   handleDropdownBlur (event) {
-    if (this.container.contains(event.relatedTarget) === false && this.container !== event.relatedTarget && this.open) {
+    if (this.container.contains(event.target) === false && this.container !== event.target && this.open) {
       this.close();
     }
   }
@@ -289,6 +284,14 @@ export default class Dropdown extends React.Component {
     );
   }
 
+  componentDidMount () {
+    window.addEventListener('click', this.handleDropdownBlur);
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('click', this.handleDropdownBlur);
+  }
+
   render () {
     const typeClassName       = ` dropdown_type_${this.props.type}`;
     const disabledClassName   = this.props.disabled ? ` dropdown_disabled` : '';
@@ -310,7 +313,6 @@ export default class Dropdown extends React.Component {
         id        = {this.props.id || null}
         tabIndex  = "-1"
         onKeyDown = {this.handleDropdownKeyDown}
-        onBlur    = {this.handleDropdownBlur}
         ref       = {ref => { this.container = ref; }}
       >
         {(this.props.type === 1 || this.props.type === 2) &&
