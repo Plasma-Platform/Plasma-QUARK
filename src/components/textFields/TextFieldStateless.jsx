@@ -102,7 +102,7 @@ export default class TextField extends Component {
                 onMouseLeave    = {this.hidePasswordAndTooltip}
                 onMouseDown     = {this.props.changeFieldType.bind(this, 'text')}
                 onMouseUp       = {this.props.changeFieldType.bind(this, 'password')}
-                onTouchStart    = {this.showTooltip}
+                onTouchStart    = {this.props.changeFieldType.bind(this, 'text')}
                 onTouchEnd      = {this.hidePasswordAndTooltip}
               />
             </div>
