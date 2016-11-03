@@ -63,12 +63,13 @@ export default class Dropdown extends React.Component {
       open        : true,
       filterQuery : ''
     }, () => {
+      console.log('dgdgfdgdggd');
       if (this.props.type === 3) {
         this.filterInput.focus();
       } else {
         this.button.focus();
       }
-      this.props.onOpen ? this.props.onOpen() : null;
+      // this.props.onOpen ? this.props.onOpen() : null;
     });
   }
 
@@ -77,12 +78,12 @@ export default class Dropdown extends React.Component {
       open: false
     }, () => {
       this.button.blur();
-      this.props.onClose ? this.props.onClose() : null;
+      // this.props.onClose ? this.props.onClose() : null;
     });
   }
 
   toggle () {
-    this.state.open ? this.close() : this.open();
+    this.state.open === true ? this.close() : this.open();
   }
 
   handleButtonKeyDown (event) {
