@@ -28,8 +28,8 @@ export default class Element extends React.Component {
 
         <TextFields.F4
           label='Enter your email'
-          eyeTooltipText="asdasdasdds"
-          notificationText='dfkhnvkjdfnjk djkfdfjkndfkjgndfkj dfjgkndfkjgndfkjgndfjkg dfgkjndfkjgndf gjk'
+          eyeTooltipText="Test text"
+          notificationText='Test text Test text Test text Test text Test text'
           notificationType='N2F'
           maxWidth="300"
           onBlur={() => null}
