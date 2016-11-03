@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './Dropdown.less';
+
 export default class Dropdown extends React.Component {
   static propTypes = {
     type               : React.PropTypes.oneOf([1, 2, 3]).isRequired,
