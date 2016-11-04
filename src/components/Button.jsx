@@ -38,7 +38,7 @@ export default class Button extends React.Component {
           className = {buttonClassName}
           ref       = {ref => { this.button = ref; }}
         >
-          {this.isLoading !== true && iconClassName.length > 0 &&
+          {isLoading !== true && iconClassName.length > 0 &&
             <i className={iconClassName}></i>
           }
           {this.props.children}
@@ -51,7 +51,7 @@ export default class Button extends React.Component {
           className = {buttonClassName}
           ref       = {ref => { this.button = ref; }}
         >
-          {this.isLoading !== true && iconClassName.length > 0 &&
+          {isLoading !== true && iconClassName.length > 0 &&
             <i className={iconClassName}></i>
           }
           {this.props.children}
@@ -65,7 +65,7 @@ export default class Button extends React.Component {
           className = {buttonClassName}
           ref       = {ref => { this.button = ref; }}
         >
-          {this.isLoading !== true && iconClassName.length > 0 &&
+          {isLoading !== true && iconClassName.length > 0 &&
             <i className={iconClassName}></i>
           }
           {this.props.children}
