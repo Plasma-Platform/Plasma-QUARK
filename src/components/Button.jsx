@@ -15,7 +15,8 @@ export default class Button extends React.Component {
   }
 
   static defaultProps = {
-    type: 'button'
+    type      : 'button',
+    isLoading : false
   }
 
   render () {
@@ -37,7 +38,9 @@ export default class Button extends React.Component {
           className = {buttonClassName}
           ref       = {ref => { this.button = ref; }}
         >
-          <i className={iconClassName}></i>
+          {this.isLoading !== true && iconClassName.length > 0 &&
+            <i className={iconClassName}></i>
+          }
           {this.props.children}
         </a>
       );
@@ -48,7 +51,9 @@ export default class Button extends React.Component {
           className = {buttonClassName}
           ref       = {ref => { this.button = ref; }}
         >
-          <i className={iconClassName}></i>
+          {this.isLoading !== true && iconClassName.length > 0 &&
+            <i className={iconClassName}></i>
+          }
           {this.props.children}
         </span>
       );
@@ -60,7 +65,9 @@ export default class Button extends React.Component {
           className = {buttonClassName}
           ref       = {ref => { this.button = ref; }}
         >
-          <i className={iconClassName}></i>
+          {this.isLoading !== true && iconClassName.length > 0 &&
+            <i className={iconClassName}></i>
+          }
           {this.props.children}
         </button>
       );
