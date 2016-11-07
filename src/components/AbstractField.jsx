@@ -56,6 +56,10 @@ export default class InputElement extends Component {
         });
       }
     }, false);
+
+    if (this.props.limitCounter ) {
+      this.refreshInputCounter();
+    }
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -113,7 +117,7 @@ export default class InputElement extends Component {
       isValid : null
     });
 
-    this.zeroingInputCounter();
+    this.refreshInputCounter();
   }
 
   onFocus = (event) => {
@@ -179,7 +183,7 @@ export default class InputElement extends Component {
 
   // приводим к нулю, возможные отрицательные значения, которые появляются в счетчике
   // при монтировании компонента с заполненным значением, превышающим установвленный лимит
-  zeroingInputCounter = () => {
+  refreshInputCounter = () => {
     let textareaElement = this.comp.input.target.input;
 
     if (textareaElement.value === 0) {

@@ -1,7 +1,5 @@
 import React, {Component, PropTypes}  from 'react';
-
-import TextArea from '../TextArea111.jsx';
-import InputElement from '../InputElement.jsx';
+import InputElement from '../AbstractField.jsx';
 
 export default class TA4 extends Component {
   static propTypes = {
@@ -24,7 +22,7 @@ export default class TA4 extends Component {
         ref={input => this.input = input}
         componentType='textarea'
         sizeType='TA4'
-        type={ this.props.type }
+        type={ this.props.type || 'search'}
         id={ this.props.id }
         value={ this.props.value }
         disabled={ this.props.disabled }

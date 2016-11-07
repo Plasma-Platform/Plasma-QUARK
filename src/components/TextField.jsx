@@ -47,7 +47,7 @@ export default class TextField extends Component {
   }
 
   render () {
-    const inputWrapClassname = classnames(`abstract-field text-field text-field_${this.props.sizeType}`, this.props.className, {
+    const inputWrapClassname = classnames(`abstract-field text-field text-field_${this.props.sizeType.toLowerCase()}`, this.props.className, {
       'text-field_filled'   : this.props.filled,
       'text-field_focused'  : this.props.focused,
       'text-field_valid'    : this.props.isValid,

@@ -19,6 +19,7 @@ export default class TextAreaDemo extends React.Component {
             />
             <TextAreas.TA2
               label='Text area type = TA2'
+              type = 'search'
               notificationText='dfkhnvkjdfnjk djkfdfjkndfkjgndfkj dfjgkndfkjgndfkjgndfjkg dfgkjndfkjgndf gjk'
               notificationType='N2F'
             />
@@ -42,6 +43,8 @@ export default class TextAreaDemo extends React.Component {
               label='Text area type = TA6'
               notificationText='dfkhnvkjdfnjk djkfdfjkndfkjgndfkj dfjgkndfkjgndfkjgndfjkg dfgkjndfkjgndf gjk'
               notificationType='N2F'
+              value = "lorem dfkhnvkjdfnjk djkfdfjkndfkjgndfkj"
+              maxLength = {10}
             />
             <TextAreas.TA7
               label='Text area type = TA7'

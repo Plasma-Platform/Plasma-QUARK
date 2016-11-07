@@ -1,5 +1,5 @@
 import React, {Component, PropTypes}  from 'react';
-import InputElement from '../InputElement.jsx';
+import InputElement from '../AbstractField.jsx';
 
 export default class TA7 extends Component {
   static propTypes = {

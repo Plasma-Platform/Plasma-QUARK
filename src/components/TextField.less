@@ -1,81 +1,10 @@
 @import "../assets/styles/variables";
 
 .text-field {
-  //position: relative;
-
-  //&__input {
-  //  background: #eceff1;
-  //  border: 1px solid transparent;
-  //  border-radius: 3px;
-  //  box-shadow: inset 0 1px 0 0 #cfd8dc;
-  //  color: @basic;
-  //  font-size: 14px;
-  //  font-weight: 400;
-  //  height: @spacing4x;
-  //  line-height: 1.2;
-  //  outline: none;
-  //  padding: 0 @spacing4x 0 @spacing2x;
-  //  transition: .3s;
-  //  width: 100%;
-  //  -webkit-appearance: none;
-  //
-  //  &::placeholder {
-  //    color: #90a4ae;
-  //  }
-  //
-  //  &:focus {
-  //    background: #fff;
-  //    border-color: #90caf9;
-  //    box-shadow: none;
-  //
-  //    &::placeholder {
-  //      color: #bbdefb;
-  //    }
-  //  }
-  //
-  //  &:disabled {
-  //    background: #fff;
-  //    border-color: #eceff1;
-  //    box-shadow: none;
-  //    color: #eceff1;
-  //    cursor: not-allowed;
-  //    user-select: none;
-  //
-  //    &::placeholder,
-  //    & ~ [class*="__label"] {
-  //      color: #eceff1;
-  //      user-select: none;
-  //    }
-  //  }
-  //
-  //  &[type='password']{
-  //    & ~ .text-field__label {
-  //      max-width: calc(~'100% - 100px');
-  //    }
-  //  }
-  //}
 
   & &__label {
     max-width: calc(~'100% - 80px');
   }
-
-  //&__type-icon,
-  //&__notification-icon {
-  //  height: 20px;
-  //  position: absolute !important;
-  //  width: 20px;
-  //}
-
-  //&__type-icon {
-  //  left: 20px;
-  //  top: 11px;
-  //}
-
-  //&__notification-icon {
-  //  right: 20px;
-  //  top: 9px;
-  //  transition: opacity .25s @easeInOutCubic;
-  //}
 
   &__notification-icon:not(.password-toggle) {
     opacity: 0;
@@ -94,48 +23,14 @@
     }
   }
 
-  //&_focused {
-  //  .text-field__label {
-  //    color: #bbdefb;
-  //  }
-  //
-  //  .icon {
-  //    &-letter:before {
-  //      background-image: svg-load("../assets/images/icons/icon-letter.svg", fill: #90caf9);
-  //    }
-  //    &-key:before {
-  //      background-image: svg-load("../assets/images/icons/icon-key.svg", fill: #90caf9);
-  //    }
-  //    &-magnifier:before {
-  //      background-image: svg-load("../assets/images/icons/icon-magnifier.svg", fill: #90caf9);
-  //    }
-  //  }
-  //}
-
-  //&_disabled {
-  //  .text-field__type-icon {
-  //    &.icon {
-  //      &-letter:before {
-  //        background-image: svg-load("../assets/images/icons/icon-letter.svg", fill: #eceff1);
-  //      }
-  //      &-key:before {
-  //        background-image: svg-load("../assets/images/icons/icon-key.svg", fill: #eceff1);
-  //      }
-  //      &-magnifier:before {
-  //        background-image: svg-load("../assets/images/icons/icon-magnifier.svg", fill: #eceff1);
-  //      }
-  //    }
-  //  }
-  //}
-
   &_filled {
     .text-field__label {
       top: 12px;
     }
   }
 
-  &_F3,
-  &_F4 {
+  &_f3,
+  &_f4 {
     &.text-field_filled {
       .text-field__input {
         padding-top: 20px;
@@ -153,8 +48,8 @@
     }
   }
 
-  &_F2,
-  &_F4 {
+  &_f2,
+  &_f4 {
     .text-field__input {
       padding-left: 50px;
     }
@@ -163,29 +58,4 @@
       padding-left: 30px;
     }
   }
-
-  //&_valid,
-  //&_invalid {
-  //  .text-field__notification-icon {
-  //    opacity: 1;
-  //  }
-  //
-  //  &.animated {
-  //    .text-field__input {
-  //      border-color: transparent;
-  //    }
-  //  }
-  //}
-
-  //&_valid.animated {
-  //  .text-field__input {
-  //    animation: showSuccessField .25s @easeInOutCubic both, hideSuccessField .25s @easeInOutCubic .75s forwards;
-  //  }
-  //}
-  //
-  //&_invalid.animated {
-  //  .text-field__input {
-  //    animation: showErrorField .25s @easeInOutCubic both, hideErrorField .25s @easeInOutCubic .75s forwards;
-  //  }
-  //}
 }

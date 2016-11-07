@@ -1,5 +1,5 @@
 import React, {Component, PropTypes}  from 'react';
-import TextField                        from '../InputElement.jsx';
+import TextField                        from '../AbstractField.jsx';
 
 export default class F4 extends Component {
   static propTypes = {

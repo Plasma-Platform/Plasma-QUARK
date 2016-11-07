@@ -24,7 +24,7 @@ export default class TextArea extends Component {
   };
 
   render () {
-    const textAreaWrapClassname = classnames(`abstract-field text-area text-area_${this.props.sizeType}`, this.props.className, {
+    const textAreaWrapClassname = classnames(`abstract-field text-area text-area_${this.props.sizeType.toLowerCase()}`, this.props.className, {
       'text-area_filled'   : this.props.filled,
       'text-area_focused'  : this.props.focused,
       'text-area_valid'    : this.props.isValid,
