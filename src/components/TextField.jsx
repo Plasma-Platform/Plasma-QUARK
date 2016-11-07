@@ -60,8 +60,7 @@ export default class TextField extends Component {
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.value !== this.props.value) {
       this.setState({
-        value  : nextProps.value,
-        filled : true
+        value: nextProps.value
       });
     }
   }
