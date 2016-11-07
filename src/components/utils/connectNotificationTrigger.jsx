@@ -157,9 +157,7 @@ export default function connectNotificationTrigger (Component, props) {
 
           if (windowWidth > this.lastWidth) {
             this.lastWidth = 0;
-          }
-
-          if (this.lastWidth !== 0) {
+          }else if (this.lastWidth !== 0) {
             this.rerenderNotice(this.props.notificationAlt.type);
           }
           break;
@@ -167,9 +165,7 @@ export default function connectNotificationTrigger (Component, props) {
           if (rightOffSet <= 0 && this.lastWidth === 0) {
             this.lastWidth = windowWidth + ((rightOffSet * -1) * 2);
             this.originalCode = this.props.notification.code;
-          }
-
-          if (windowWidth > this.lastWidth) {
+          } else if (windowWidth > this.lastWidth) {
             this.lastWidth = 0;
           }
 
