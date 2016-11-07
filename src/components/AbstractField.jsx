@@ -200,7 +200,6 @@ export default class InputElement extends Component {
 
   render () {
     const DecoratedTextField = this.component;
-    console.log(window.aaa = this)
 
     return (
       <DecoratedTextField
