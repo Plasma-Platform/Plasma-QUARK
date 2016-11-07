@@ -3,11 +3,12 @@
 
 .notification {
   position: absolute;
+  pointer-events: none;
   border-radius: 3px;
   box-shadow: 0px 5px 10px 0px @hint-shadow-default;
   font-size: 14px;
   font-family: PT_Sans;
-  color: #ffffff;
+  color: #fff;
   z-index: 1000;
 
   &__text {
@@ -18,6 +19,7 @@
 
   &__closeBlock {
     cursor: pointer;
+    pointer-events: auto;
     margin-left: 20px;
     align-self: flex-start;
     position: relative;
