@@ -19,16 +19,11 @@ export default class TA3 extends Component {
   render () {
     return (
       <InputElement
-        id={ this.props.id }
+        {...this.props}
         ref={input => this.input = input}
         componentType='textarea'
         sizeType='TA3'
-        value={ this.props.value }
-        disabled={ this.props.disabled }
-        label={ this.props.label }
         className={ this.props.className || ''}
-        onValidate={ this.props.onValidate }
-        notificationText={this.props.notificationText}
       />
     );
   }

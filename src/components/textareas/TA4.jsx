@@ -19,17 +19,12 @@ export default class TA4 extends Component {
   render () {
     return (
       <InputElement
+        {...this.props}
         ref={input => this.input = input}
         componentType='textarea'
         sizeType='TA4'
         type={ this.props.type || 'search'}
-        id={ this.props.id }
-        value={ this.props.value }
-        disabled={ this.props.disabled }
-        label={ this.props.label }
         className={ this.props.className || ''}
-        onValidate={ this.props.onValidate }
-        notificationText={this.props.notificationText}
       />
     );
   }

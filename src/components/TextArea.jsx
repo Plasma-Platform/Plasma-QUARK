@@ -15,6 +15,7 @@ export default class TextArea extends Component {
     value        : PropTypes.string,
     disabled     : PropTypes.bool,
     filled       : PropTypes.bool,
+    animated     : PropTypes.bool,
     limitCounter : PropTypes.number,
     onBlur       : PropTypes.func,
     onFocus      : PropTypes.func,

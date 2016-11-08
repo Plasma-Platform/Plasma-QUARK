@@ -20,18 +20,13 @@ export default class TA6 extends Component {
   render () {
     return (
       <InputElement
+        {...this.props}
         ref={input => this.input = input}
         componentType='textarea'
         sizeType='TA6'
         type={ this.props.type || 'search'}
-        id={ this.props.id }
-        value={ this.props.value }
-        disabled={ this.props.disabled }
-        label={ this.props.label }
         className={ this.props.className || ''}
-        onValidate={ this.props.onValidate }
         maxLength={ this.props.maxLength || 2000 }
-        notificationText={this.props.notificationText}
       />
     );
   }

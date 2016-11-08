@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import TextField from './TextField.jsx';
 import TextArea from './TextArea.jsx';
@@ -7,12 +7,16 @@ import {connectNotificationTextField} from './utils';
 export default class InputElement extends Component {
 
   static propTypes = {
-    id            : React.PropTypes.string,
-    componentType : React.PropTypes.oneOf(['textfield', 'textarea']),
-    sizeType      : React.PropTypes.string.isRequired,
-    placeholder   : React.PropTypes.string,
-    value         : React.PropTypes.string,
-    disabled      : React.PropTypes.bool
+    id               : PropTypes.string,
+    componentType    : PropTypes.oneOf(['textfield', 'textarea']),
+    sizeType         : PropTypes.string.isRequired,
+    placeholder      : PropTypes.string,
+    value            : PropTypes.string,
+    disabled         : PropTypes.bool,
+    filled           : PropTypes.bool,
+    focused          : PropTypes.bool,
+    notificationText : PropTypes.string,
+    maxLength        : PropTypes.number
   }
 
   static defaultProps = {
@@ -28,8 +32,8 @@ export default class InputElement extends Component {
       focused          : !!props.focused,
       isValid          : null,
       animated         : false,
-      notificationText : this.props.notificationText || '',
-      limitCounter     : this.props.maxLength
+      notificationText : props.notificationText || '',
+      limitCounter     : props.maxLength
     };
 
     this.oldValue = '';
@@ -57,7 +61,7 @@ export default class InputElement extends Component {
       }
     }, false);
 
-    if (this.props.limitCounter ) {
+    if (this.props.limitCounter) {
       this.refreshInputCounter();
     }
   }
