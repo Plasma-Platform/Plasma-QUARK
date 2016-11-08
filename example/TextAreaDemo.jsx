@@ -16,6 +16,7 @@ export default class TextAreaDemo extends React.Component {
               className="spacing-outer-bottom-20"
               label='Text area type = TA2'
               type = 'search'
+              customIcon = 'icon-man'
             />
             <TextAreas.TA3
               className="spacing-outer-bottom-20"
