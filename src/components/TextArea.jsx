@@ -36,12 +36,12 @@ export default class TextArea extends Component {
 
     const textAreaClassname = 'text-area__input';
     const labelClassname = 'text-area__label';
-
+    const customIcon = this.props.customIcon;
     const iconClassname = classnames('text-area__type-icon', 'icon', {
-      'icon-letter'           : this.props.type === 'email',
-      'icon-magnifier'        : this.props.type === 'search',
-      'icon-eye'              : this.props.type === 'password',
-      [this.props.customIcon] : this.props.customIcon
+      'icon-letter'    : !customIcon && this.props.type === 'email',
+      'icon-magnifier' : !customIcon && this.props.type === 'search',
+      'icon-key'       : !customIcon && this.props.type === 'password',
+      [customIcon]     : customIcon
     });
 
     const iconNotificationClassname = classnames('text-area__notification-icon', 'icon', {

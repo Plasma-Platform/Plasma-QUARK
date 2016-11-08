@@ -1534,7 +1534,7 @@
   height: 20px;
   width: 20px;
   position: absolute !important;
-  z-index: 100;
+  z-index: 5;
 }
 .abstract-field [class*="__type-icon"]:before,
 .abstract-field [class*="__notification-icon"]:before {

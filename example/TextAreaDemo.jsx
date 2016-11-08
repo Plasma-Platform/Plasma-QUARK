@@ -2,10 +2,6 @@ import React from 'react';
 import TextAreas from '../lib/textareas';
 
 export default class TextAreaDemo extends React.Component {
-  constructor (props, context) {
-    super(props, context);
-  }
-
   render () {
     return (
       <article>
@@ -32,7 +28,7 @@ export default class TextAreaDemo extends React.Component {
             <TextAreas.TA5
               className="spacing-outer-bottom-20"
               label='Text area type = TA5'
-              maxLength="300"
+              maxLength={300}
             />
             <TextAreas.TA6
               className="spacing-outer-bottom-20"
