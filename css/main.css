@@ -1750,10 +1750,9 @@
 .text-area .text-area__label {
   height: 40px;
   position: absolute;
-  top: 1px;
+  top: 2px;
   left: 22px;
   background: transparent;
-  box-shadow: inset 0 1px 0 0 #cfd8dc;
   width: calc(100% - 50px);
   text-align: left;
   padding-top: 19px;
@@ -1776,12 +1775,6 @@
 }
 .text-area_filled.text-area_focused .text-area__label {
   background: #fff;
-}
-.text-area_focused:after,
-.text-area_disabled:after,
-.text-area_focused .text-area__label,
-.text-area_disabled .text-area__label {
-  box-shadow: none;
 }
 .text-area_focused:after,
 .text-area_disabled:after {
@@ -1828,16 +1821,16 @@
   opacity: 1;
 }
 .text-area_valid.animated .text-area__label {
-  -webkit-animation: showSuccessField 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.15s forwards, hideSuccessField 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.75s both;
-  animation: showSuccessField 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.15s forwards, hideSuccessField 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.75s both;
+  -webkit-animation: showSuccessBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.15s forwards, hideSuccessBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.75s both;
+  animation: showSuccessBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.15s forwards, hideSuccessBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.75s both;
 }
 .text-area_valid.animated:after {
   -webkit-animation: showSuccessBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.15s forwards, hideSuccessBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.75s both;
   animation: showSuccessBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.15s forwards, hideSuccessBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.75s both;
 }
 .text-area_invalid.animated .text-area__label {
-  -webkit-animation: showErrorField 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.15s forwards, hideErrorField 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.75s both;
-  animation: showErrorField 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.15s forwards, hideErrorField 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.75s both;
+  -webkit-animation: showErrorBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.15s forwards, hideErrorBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.75s both;
+  animation: showErrorBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.15s forwards, hideErrorBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.75s both;
 }
 .text-area_invalid.animated:after {
   -webkit-animation: showErrorBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.15s forwards, hideErrorBackground 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0.75s both;
