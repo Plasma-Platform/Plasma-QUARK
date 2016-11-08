@@ -1,4 +1,4 @@
-import React, {Component}  from 'react';
+import React, {Component, PropTypes}  from 'react';
 import classnames from 'classnames';
 import {connectNotificationTrigger} from './utils';
 
@@ -23,23 +23,28 @@ export default class TextField extends Component {
     super();
     this.showTooltip = this.showTooltip.bind(this);
     this.hidePasswordAndTooltip = this.hidePasswordAndTooltip.bind(this);
+    this.showTimer = null;
   }
 
   static propTypes = {
-    id          : React.PropTypes.string,
-    sizeType    : React.PropTypes.oneOf(['F1', 'F2', 'F3', 'F4']).isRequired,
-    placeholder : React.PropTypes.string,
-    value       : React.PropTypes.string,
-    disabled    : React.PropTypes.bool
+    id          : PropTypes.string,
+    sizeType    : PropTypes.oneOf(['F1', 'F2', 'F3', 'F4']).isRequired,
+    placeholder : PropTypes.string,
+    value       : PropTypes.string,
+    disabled    : PropTypes.bool,
+    customIcon  : PropTypes.string
   }
 
   showTooltip () {
-    setTimeout(() => {
+    this.showTimer = setTimeout(() => {
       this.icon.showNotification();
     }, 200);
   }
 
   hidePasswordAndTooltip () {
+    if (this.showTimer !== null) {
+      clearTimeout(this.showTimer);
+    }
     setTimeout(() => {
       this.icon.hideNotification();
     }, 100);
@@ -58,9 +63,10 @@ export default class TextField extends Component {
     const inputClassname = 'text-field__input';
     const labelClassname = 'text-field__label';
     const iconClassname = classnames('text-field__type-icon', 'icon', {
-      'icon-letter'    : this.props.type === 'email',
-      'icon-magnifier' : this.props.type === 'search',
-      'icon-key'       : this.props.type === 'password'
+      'icon-letter'           : this.props.type === 'email',
+      'icon-magnifier'        : this.props.type === 'search',
+      'icon-key'              : this.props.type === 'password',
+      [this.props.customIcon] : this.props.customIcon
     });
     const isPassword = this.props.type === 'password';
     const iconNotificationClassname = classnames('text-field__notification-icon', 'icon', {

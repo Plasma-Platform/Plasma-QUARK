@@ -20,7 +20,8 @@ export default class TextArea extends Component {
     onFocus      : PropTypes.func,
     onChange     : PropTypes.func,
     onValidate   : PropTypes.func,
-    label        : PropTypes.string
+    label        : PropTypes.string,
+    customIcon   : PropTypes.string
   };
 
   render () {
@@ -37,9 +38,10 @@ export default class TextArea extends Component {
     const labelClassname = 'text-area__label';
 
     const iconClassname = classnames('text-area__type-icon', 'icon', {
-      'icon-letter'    : this.props.type === 'email',
-      'icon-magnifier' : this.props.type === 'search',
-      'icon-eye'       : this.props.type === 'password'
+      'icon-letter'           : this.props.type === 'email',
+      'icon-magnifier'        : this.props.type === 'search',
+      'icon-eye'              : this.props.type === 'password',
+      [this.props.customIcon] : this.props.customIcon
     });
 
     const iconNotificationClassname = classnames('text-area__notification-icon', 'icon', {
