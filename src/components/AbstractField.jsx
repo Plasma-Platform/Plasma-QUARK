@@ -23,18 +23,18 @@ export default class InputElement extends Component {
     notificationAlt: {status: false}
   };
 
+  state = {
+    value            : this.props.value || '',
+    filled           : this.props.filled || !!this.props.value || false,
+    focused          : !!this.props.focused,
+    isValid          : null,
+    animated         : false,
+    notificationText : this.props.notificationText || '',
+    limitCounter     : this.props.maxLength
+  };
+
   constructor (props, context) {
     super(props, context);
-
-    this.state = {
-      value            : props.value || '',
-      filled           : props.filled || !!this.props.value || false,
-      focused          : !!props.focused,
-      isValid          : null,
-      animated         : false,
-      notificationText : props.notificationText || '',
-      limitCounter     : props.maxLength
-    };
 
     this.oldValue = '';
     this.inputElement = null;
