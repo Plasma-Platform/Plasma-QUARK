@@ -30,7 +30,7 @@ export default class InputElement extends Component {
     isValid          : null,
     animated         : false,
     notificationText : this.props.notificationText || '',
-    limitCounter     : this.props.maxLength
+    maxLength        : this.props.maxLength
   };
 
   constructor (props, context) {
@@ -61,7 +61,7 @@ export default class InputElement extends Component {
       }
     }, false);
 
-    if (this.props.limitCounter) {
+    if (this.props.maxLength) {
       this.refreshInputCounter();
     }
   }
@@ -198,7 +198,7 @@ export default class InputElement extends Component {
     let currentMaxValue = Math.max(0, currentValue);
 
     this.setState({
-      limitCounter: currentMaxValue
+      maxLength: currentMaxValue
     });
   }
 
@@ -212,7 +212,7 @@ export default class InputElement extends Component {
         value                 = {this.state.value}
         filled                = {this.state.filled}
         focused               = {this.state.focused}
-        limitCounter          = {this.state.limitCounter}
+        maxLength             = {this.state.maxLength}
         isValid               = {this.state.isValid}
         animated              = {this.state.animated}
         onFocus               = {this.onFocus}
