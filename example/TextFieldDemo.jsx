@@ -14,7 +14,7 @@ export default class TextAreaDemo extends React.Component {
   render () {
     return (
       <article>
-        <h2> Text Fields demo page </h2>
+        <h2> Text Field demo page </h2>
         <div className="flex">
           <div className="half-width spacing-right-20">
             <TextFields.F1
