@@ -174,6 +174,22 @@
         }
       }
     }
+
+    [class *= "__notification-icon"] {
+      pointer-events: none;
+
+      &.icon {
+        &-eye:before {
+          background-image: svg-load("../assets/images/icons/icon-eye.svg", fill: #eceff1);
+        }
+        &-alert:before {
+          background-image: svg-load("../assets/images/icons/icon-alert.svg", fill: #eceff1);
+        }
+        &-check_circle:before {
+          background-image: svg-load("../assets/images/icons/icon-check-circle.svg", fill: #eceff1);
+        }
+      }
+    }
   }
 
   &[class *= "_valid"].animated {
