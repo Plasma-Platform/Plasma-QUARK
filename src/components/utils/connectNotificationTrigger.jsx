@@ -101,19 +101,22 @@ export default function connectNotificationTrigger (Component, props) {
 
     handleClosePopover = (e) => {
       const clickTarget = e.target.getAttribute('class');
-      if (clickTarget === 'notification__closeBlock__closeArea' && this.state.notification) {
-        e.stopPropagation();
+      let matchedClasses = ['notification', 'notification__container', 'notification__text'];
 
-        if (isMouseOutOfComponent({
-          container : this.state.notification,
-          pageX     : e.pageX,
-          pageY     : e.pageY
-        })) {
-          this.hideNotification();
-          this.props.resetValidationStatus();
-          if (typeof this.props.onHide === 'function') {
-            this.props.onHide();
-          }
+      if (matchedClasses.indexOf(clickTarget) !== -1) {
+        return;
+      }
+      e.stopPropagation();
+
+      if (isMouseOutOfComponent({
+        container : this.state.notification,
+        pageX     : e.pageX,
+        pageY     : e.pageY
+      })) {
+        this.hideNotification();
+        this.props.resetValidationStatus();
+        if (typeof this.props.onHide === 'function') {
+          this.props.onHide();
         }
       }
     };
