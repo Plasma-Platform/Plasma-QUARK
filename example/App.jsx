@@ -7,7 +7,7 @@ import './main.less';
 export default class App extends React.Component {
   render () {
     return (
-      <article>
+      <article className="page-container">
         <div className="flex align-center space-between">
           <h1 className="TMUI__TypographyHeader--2">QUARK Components Demo App</h1>
           <ul className="flex align-center demo-menu">
