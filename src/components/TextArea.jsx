@@ -8,21 +8,21 @@ import './TextArea.less';
 export default class TextArea extends Component {
 
   static propTypes = {
-    id           : PropTypes.string,
-    sizeType     : PropTypes.oneOf(['TA1', 'TA2', 'TA3', 'TA4', 'TA5', 'TA6', 'TA7', 'TA8']).isRequired,
-    placeholder  : PropTypes.string,
-    className    : PropTypes.string,
-    value        : PropTypes.string,
-    disabled     : PropTypes.bool,
-    filled       : PropTypes.bool,
-    animated     : PropTypes.bool,
-    limitCounter : PropTypes.number,
-    onBlur       : PropTypes.func,
-    onFocus      : PropTypes.func,
-    onChange     : PropTypes.func,
-    onValidate   : PropTypes.func,
-    label        : PropTypes.string,
-    customIcon   : PropTypes.string
+    id          : PropTypes.string,
+    sizeType    : PropTypes.oneOf(['TA1', 'TA2', 'TA3', 'TA4', 'TA5', 'TA6', 'TA7', 'TA8']).isRequired,
+    placeholder : PropTypes.string,
+    className   : PropTypes.string,
+    value       : PropTypes.string,
+    disabled    : PropTypes.bool,
+    filled      : PropTypes.bool,
+    animated    : PropTypes.bool,
+    maxLength   : PropTypes.number,
+    onBlur      : PropTypes.func,
+    onFocus     : PropTypes.func,
+    onChange    : PropTypes.func,
+    onValidate  : PropTypes.func,
+    label       : PropTypes.string,
+    customIcon  : PropTypes.string
   };
 
   render () {
@@ -76,7 +76,7 @@ export default class TextArea extends Component {
           className={labelClassname}
           htmlFor={this.props.id}
         >
-          { this.props.label }
+          { this.props.label || this.props.placeholder}
         </label>
 
         <span className={ iconNotificationClassname }/>
@@ -87,7 +87,7 @@ export default class TextArea extends Component {
           ? 'text-area__limit--active'
           : ''}`}
         >
-          {this.props.limitCounter}
+          {this.props.maxLength}
         </div>
           : null
         }
