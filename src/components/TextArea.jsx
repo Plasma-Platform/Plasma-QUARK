@@ -8,21 +8,21 @@ import './TextArea.less';
 export default class TextArea extends Component {
 
   static propTypes = {
-    id          : PropTypes.string,
-    sizeType    : PropTypes.oneOf(['TA1', 'TA2', 'TA3', 'TA4', 'TA5', 'TA6', 'TA7', 'TA8']).isRequired,
-    placeholder : PropTypes.string,
-    className   : PropTypes.string,
-    value       : PropTypes.string,
-    disabled    : PropTypes.bool,
-    filled      : PropTypes.bool,
-    animated    : PropTypes.bool,
-    maxLength   : PropTypes.number,
-    onBlur      : PropTypes.func,
-    onFocus     : PropTypes.func,
-    onChange    : PropTypes.func,
-    onValidate  : PropTypes.func,
-    label       : PropTypes.string,
-    customIcon  : PropTypes.string
+    id           : PropTypes.string,
+    sizeType     : PropTypes.oneOf(['TA1', 'TA2', 'TA3', 'TA4', 'TA5', 'TA6', 'TA7', 'TA8']).isRequired,
+    placeholder  : PropTypes.string,
+    className    : PropTypes.string,
+    value        : PropTypes.string,
+    disabled     : PropTypes.bool,
+    filled       : PropTypes.bool,
+    animated     : PropTypes.bool,
+    limitCounter : PropTypes.number,
+    onBlur       : PropTypes.func,
+    onFocus      : PropTypes.func,
+    onChange     : PropTypes.func,
+    onValidate   : PropTypes.func,
+    label        : PropTypes.string,
+    customIcon   : PropTypes.string
   };
 
   render () {
@@ -57,7 +57,7 @@ export default class TextArea extends Component {
         onBlur={this.props.onBlur}
       >
         {['TA2', 'TA4', 'TA6', 'TA8'].indexOf(this.props.sizeType) >= 0 &&
-          <span className={ iconClassname }/>
+        <span className={ iconClassname }/>
         }
 
         <Textarea
@@ -87,7 +87,7 @@ export default class TextArea extends Component {
           ? 'text-area__limit--active'
           : ''}`}
         >
-          {this.props.maxLength}
+          {this.props.limitCounter}
         </div>
           : null
         }

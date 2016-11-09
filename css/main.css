@@ -1425,6 +1425,16 @@
 .abstract-field {
   position: relative;
 }
+.abstract-field ::-ms-clear,
+.abstract-field ::-ms-reveal {
+  display: none;
+}
+.abstract-field ::-webkit-search-decoration,
+.abstract-field ::-webkit-search-cancel-button,
+.abstract-field ::-webkit-search-results-button,
+.abstract-field ::-webkit-search-results-decoration {
+  display: none;
+}
 .abstract-field [class*="__input"] {
   background: #eceff1;
   border: 1px solid transparent;

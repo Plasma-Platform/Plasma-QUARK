@@ -30,6 +30,18 @@
 .abstract-field {
   position: relative;
 
+  ::-ms-clear,
+  ::-ms-reveal {
+    display: none;
+  }
+
+  ::-webkit-search-decoration,
+  ::-webkit-search-cancel-button,
+  ::-webkit-search-results-button,
+  ::-webkit-search-results-decoration {
+    display: none;
+  }
+
   [class *= "__input"] {
     background: #eceff1;
     border: 1px solid transparent;
