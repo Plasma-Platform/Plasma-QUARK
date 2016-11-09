@@ -28,8 +28,7 @@ export default class Avatar extends React.Component {
     name      : React.PropTypes.string,
     size      : React.PropTypes.number,
     className : React.PropTypes.string,
-    rating    : React.PropTypes.string,
-    testData  : React.PropTypes.object
+    rating    : React.PropTypes.string
   };
 
   static defaultProps = {
