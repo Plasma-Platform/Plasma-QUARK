@@ -557,6 +557,7 @@
   line-height: 21px;
   padding: 0 20px;
   width: 100%;
+  -webkit-appearance: none;
 }
 .dropdown__filter-input::-webkit-input-placeholder {
   color: #90a4ae;
