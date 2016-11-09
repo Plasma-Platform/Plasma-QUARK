@@ -1,5 +1,5 @@
 import React from 'react';
-import TextAreas from '../lib/textareas';
+import TextAreas from '../../../lib/textareas';
 
 export default class TextAreaDemo extends React.Component {
   render () {

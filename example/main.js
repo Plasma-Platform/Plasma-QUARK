@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
 import App from './App.jsx';
-import TextAreaDemo from './TextAreaDemo.jsx';
-import TextFieldDemo from './TextFieldDemo.jsx';
+import TextAreaDemo from './src/pages/TextAreaDemo.jsx';
+import TextFieldDemo from './src/pages/TextFieldDemo.jsx';
 
 ReactDOM.render((
   <Router history={hashHistory}>
