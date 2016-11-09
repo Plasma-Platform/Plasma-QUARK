@@ -5,7 +5,7 @@ export default class TextAreaDemo extends React.Component {
   render () {
     return (
       <section>
-        <h1 className="TMUI__TypographyHeader--4"> Text Area demo page </h1>
+        <h1 className="TMUI__TypographyHeader--4"> Text Areas </h1>
         <div className="flex">
           <div className="half-width spacing-right-20">
             <TextAreas.TA1
