@@ -4,8 +4,8 @@ import TextAreas from '../lib/textareas';
 export default class TextAreaDemo extends React.Component {
   render () {
     return (
-      <article>
-        <h2> Text Area demo page </h2>
+      <section>
+        <h1 className="TMUI__TypographyHeader--4"> Text Area demo page </h1>
         <div className="flex">
           <div className="half-width spacing-right-20">
             <TextAreas.TA1
@@ -90,7 +90,7 @@ export default class TextAreaDemo extends React.Component {
             />
           </div>
         </div>
-      </article>
+      </section>
     );
   }
 }
