@@ -100,13 +100,30 @@ export default function connectNotificationTrigger (Component, props) {
     };
 
     handleClosePopover = (e) => {
-      const clickTarget = e.target.getAttribute('class');
-      let matchedClasses = ['notification', 'notification__container', 'notification__text'];
+      let clickedTargetClasses = e.target.getAttribute('class');
+      const isAnyNotification = document.getElementsByClassName('notification').length;
 
-      if (matchedClasses.indexOf(clickTarget) !== -1) {
+      /** elements which cause no close effect when they are clicked **/
+      let matchedClasses = ['notification', 'notification__container', 'notification__text', 'password-toggle'];
+
+      if (clickedTargetClasses !== null) {
+        /** splitting classes by space symbol **/
+        clickedTargetClasses = clickedTargetClasses.split(' ');
+
+        /** checks if any match of classes in targeted element and template classes **/
+        for (let i = 0; i < clickedTargetClasses.length; i++) {
+          if (matchedClasses.indexOf(clickedTargetClasses[i]) >= 0) {
+            return;
+          }
+        }
+      }
+
+      /** if no notification on page - do nothing **/
+      if (isAnyNotification === 0) {
         return;
       }
-      e.stopPropagation();
+
+      e.stopPropagation(isAnyNotification);
 
       if (isMouseOutOfComponent({
         container : this.state.notification,
