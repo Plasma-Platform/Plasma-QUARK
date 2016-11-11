@@ -1,7 +1,7 @@
-import F1 from './types/F1.jsx';
-import F2 from './types/F2.jsx';
-import F3 from './types/F3.jsx';
-import F4 from './types/F4.jsx';
+import F1 from './F1.jsx';
+import F2 from './F2.jsx';
+import F3 from './F3.jsx';
+import F4 from './F4.jsx';
 
 module.exports = {
   F1,
