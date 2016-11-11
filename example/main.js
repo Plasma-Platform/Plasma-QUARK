@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TextFields from '../lib/textFields';
+import Typography from '../lib/typography';
 
-import 'ui-toolkit/css/main.css';
 import '../css/main.css';
 
 export default class Element extends React.Component {
@@ -40,6 +40,19 @@ export default class Element extends React.Component {
           type='password'
           value=''
         />
+
+        <Typography.H0 >Text<a href="#">111</a><a href="#" className="error-link">111</a><a href="#" className="success-link">111</a></Typography.H0>
+        <Typography.H1 >Text</Typography.H1>
+        <Typography.H2 >Text</Typography.H2>
+        <Typography.H3 >Text</Typography.H3><br/>
+        ----
+        <Typography.T1 type="default">Text <a href="#">111</a><Typography.T1 type="error"><a href="">fdsfsdfsdfsd</a></Typography.T1></Typography.T1><br/>
+        <Typography.T4 type="secondary">Text <a href="#">111</a></Typography.T4><br/>
+        <Typography.T2 type="error">Text <a href="#">111</a></Typography.T2><br/>
+        <Typography.T3 type="success">Text <a href="#">111</a></Typography.T3><br/>
+
+        <Typography.T5 type="default">Text</Typography.T5><br/>
+        <Typography.T6 type="default">Text</Typography.T6>
       </div>
     );
   }
