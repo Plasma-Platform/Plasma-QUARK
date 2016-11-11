@@ -10,6 +10,37 @@
     opacity: 0;
   }
 
+  &__input {
+    &::placeholder {
+      color: #90a4ae;
+    }
+
+    &:focus {
+      background: #fff;
+      border-color: #90caf9;
+      box-shadow: none;
+
+      &::placeholder {
+        color: #bbdefb;
+      }
+    }
+
+    &:disabled {
+      background: #fff;
+      border-color: #eceff1;
+      box-shadow: none;
+      color: #eceff1;
+      cursor: not-allowed;
+      user-select: none;
+
+      &::placeholder,
+      & ~ [class*="__label"] {
+        color: #eceff1;
+        user-select: none;
+      }
+    }
+  }
+
   [class*='icon-'] + .password-toggle {
     margin-right: @spacing4x;
   }
@@ -26,6 +57,27 @@
   &_filled {
     .text-field__label {
       top: 12px;
+    }
+  }
+
+  &.animated {
+    .text-field__input {
+      animation-timing-function: @easeInOutCubic ;
+      animation-delay: .15s, .75s;
+      animation-duration: .25s;
+      animation-fill-mode: both;
+    }
+  }
+
+  &_valid.animated {
+    .text-field__input {
+      animation-name: showSuccessField, hideSuccessField !important;
+    }
+  }
+
+  &_invalid.animated {
+    .text-field__input {
+      animation-name: showErrorField, hideErrorField !important;
     }
   }
 

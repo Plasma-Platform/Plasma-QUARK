@@ -26,7 +26,7 @@ export default class TextArea extends Component {
   };
 
   render () {
-    const textAreaWrapClassname = classnames(`abstract-field text-area text-area_${this.props.sizeType.toLowerCase()}`, this.props.className, {
+    const textAreaWrapClassname = classnames(`abstract-field field-style text-area text-area_${this.props.sizeType.toLowerCase()}`, this.props.className, {
       'text-area_filled'   : this.props.filled,
       'text-area_focused'  : this.props.focused,
       'text-area_valid'    : this.props.isValid,
@@ -51,7 +51,7 @@ export default class TextArea extends Component {
     });
 
     return (
-      <div
+      <label
         className={textAreaWrapClassname}
         onFocus={this.props.onFocus}
         onBlur={this.props.onBlur}
@@ -72,26 +72,26 @@ export default class TextArea extends Component {
           value={this.props.value}
         />
 
-        <label
+        <span
           className={labelClassname}
           htmlFor={this.props.id}
         >
           { this.props.label || this.props.placeholder}
-        </label>
+        </span>
 
         <span className={ iconNotificationClassname }/>
 
         {this.props.maxLength
-          ? <div className={`text-area__limit
+          ? <span className={`text-area__limit
                         ${!this.props.disabled && (this.props.value || this.props.filled)
           ? 'text-area__limit--active'
           : ''}`}
         >
           {this.props.limitCounter}
-        </div>
+        </span>
           : null
         }
-      </div>
+      </label>
     );
   }
 }

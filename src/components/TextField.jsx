@@ -60,7 +60,7 @@ export default class TextField extends Component {
       'text-field_invalid'  : (this.props.isValid !== null) && !this.props.isValid,
       'animated'            : this.props.animated
     });
-    const inputClassname = 'text-field__input';
+    const inputClassname = 'text-field__input field-style';
     const labelClassname = 'text-field__label';
     const customIcon = this.props.customIcon;
     const iconClassname = classnames('text-field__type-icon', 'icon', {

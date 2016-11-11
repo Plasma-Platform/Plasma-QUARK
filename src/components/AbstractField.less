@@ -27,6 +27,13 @@
   }
 }
 
+.field-style {
+  background: #eceff1;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 0 0 #cfd8dc;
+}
+
 .abstract-field {
   position: relative;
 
@@ -43,10 +50,6 @@
   }
 
   [class *= "__input"] {
-    background: #eceff1;
-    border: 1px solid transparent;
-    border-radius: 3px;
-    box-shadow: inset 0 1px 0 0 #cfd8dc;
     color: @basic;
     font-family: 'PT_Sans', sans-serif;
     font-size: 14px;
@@ -63,34 +66,6 @@
     -webkit-appearance: none;
     box-sizing: border-box;
 
-    &::placeholder {
-      color: #90a4ae;
-    }
-
-    &:focus {
-      background: #fff;
-      border-color: #90caf9;
-      box-shadow: none;
-
-      &::placeholder {
-        color: #bbdefb;
-      }
-    }
-
-    &:disabled {
-      background: #fff;
-      border-color: #eceff1;
-      box-shadow: none;
-      color: #eceff1;
-      cursor: not-allowed;
-      user-select: none;
-
-      &::placeholder,
-      & ~ [class*="__label"] {
-        color: #eceff1;
-        user-select: none;
-      }
-    }
 
     &[type='password']{
       & ~ .text-field__label {
@@ -201,18 +176,6 @@
           background-image: svg-load("../assets/images/icons/icon-check-circle.svg", fill: #eceff1);
         }
       }
-    }
-  }
-
-  &[class *= "_valid"].animated {
-    [class *= "__input"] {
-      animation: showSuccessField .25s @easeInOutCubic both, hideSuccessField .25s @easeInOutCubic .75s forwards;
-    }
-  }
-
-  &[class *= "_invalid"].animated {
-    [class *= "__input"] {
-      animation: showErrorField .25s @easeInOutCubic both, hideErrorField .25s @easeInOutCubic .75s forwards;
     }
   }
 

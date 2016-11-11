@@ -1,39 +1,30 @@
 @import "../assets/styles/variables";
 
 .text-area {
-  &:after {
-    content: '';
-    display: block;
-    position: absolute;
-    bottom: 1px;
-    left: 1px;
-    width: calc(~'100% - 17px');
-    height: 20px;
-    border-bottom-left-radius: 3px;
-    background: #eceff1;
-    transition: background .3s;
-  }
+  display: block;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  transition: .3s;
+  overflow: hidden;
 
   & &__input {
     display: block;
+    overflow: auto;
     resize: none;
-    padding-top: @spacing2x;
-    padding-right: 50px;
-    padding-bottom: @spacing2x;
+    border: none;
+    background: none;
+    padding-right: calc(~'50px + 17px');
+    width: calc(~'100% + 17px');
+    padding-left: 0;
     min-height: 125px;
   }
 
   & &__label {
-    height: 40px;
     position: absolute;
-    top: 2px;
-    left: 22px;
-    background: transparent;
-    width: calc(~'100% - 50px');
-    text-align: left;
-    padding-top: 19px;
-    box-sizing: border-box;
-    transition: background .3s .1s, font-size .3s;
+    top: 19px;
+    left: 20px;
+    transition: font-size .3s;
   }
 
   & &__notification-icon {
@@ -42,29 +33,28 @@
   }
 
   &_filled {
-    .text-area__input {
-      padding-top: @spacing4x;
-    }
-
-    .text-area__label {
-      transition: background .3s 0s, font-size .3s;
-      background: #eceff1;
-      left: 21px;
-    }
-
-    &.text-area_focused .text-area__label {
-      background: #fff;
-    }
+    padding-top: 40px;
   }
-
-  &_focused,
-  &_disabled {
-    &:after {
-      background: #fff;
-    }
+  
+  &_focused {
+    background: #fff;
+    border-color: #90caf9;
+    box-shadow: none;
   }
 
   &_disabled {
+    background: #fff;
+    border-color: #eceff1;
+    box-shadow: none;
+    color: #eceff1;
+    cursor: not-allowed;
+    user-select: none;
+
+    [class*="__label"] {
+      color: #eceff1;
+      user-select: none;
+    }
+
     .text-area__limit {
       color: #eceff1;
     }
@@ -74,17 +64,14 @@
   &_ta4,
   &_ta6,
   &_ta8 {
+    padding-left: 50px;
+
     .text-area__type-icon,
     .text-area__notification-icon {
       top: 21px;
     }
 
-    .text-area__input {
-      padding-left: 50px;
-    }
-
     .text-area__label {
-      width: calc(~"100% - 90px");
       left: 52px;
     }
   }
@@ -106,22 +93,19 @@
     }
   }
 
-  &_valid.animated {
-    .text-area__label {
-      animation: showSuccessBackground .25s @easeInOutCubic .15s forwards, hideSuccessBackground .25s @easeInOutCubic .75s both;
-    }
-
-    &:after {
-      animation: showSuccessBackground .25s @easeInOutCubic .15s forwards, hideSuccessBackground .25s @easeInOutCubic .75s both;
-    }
+  &.animated {
+    animation-timing-function: @easeInOutCubic ;
+    animation-delay: .15s, .75s;
+    animation-duration: .25s;
+    animation-fill-mode: both;
   }
+
+  &_valid.animated {
+    animation-name: showSuccessField, hideSuccessField;
+  }
+
   &_invalid.animated {
-    .text-area__label {
-      animation: showErrorBackground .25s @easeInOutCubic .15s forwards, hideErrorBackground .25s @easeInOutCubic .75s both;
-    }
-    &:after {
-      animation: showErrorBackground .25s @easeInOutCubic .15s forwards, hideErrorBackground .25s @easeInOutCubic .75s both;
-    }
+    animation-name: showErrorField, hideErrorField;
   }
 
   &__limit {
@@ -131,7 +115,7 @@
     font-style: normal;
     font-weight: normal;
     position: absolute;
-    right: 10px;
+    right: 20px;
     text-align: right;
     z-index: 50;
   }
@@ -141,43 +125,5 @@
     .text-area__limit {
       font-size: 13px;
     }
-  }
-}
-
-/***--- Animation keyframes ---***/
-
-@keyframes showSuccessBackground {
-  0% {
-    background: @light-grey;
-  }
-  100% {
-    background: @light-green;
-  }
-}
-
-@keyframes hideSuccessBackground {
-  0% {
-    background: @light-green;
-  }
-  100% {
-    background: @light-grey;
-  }
-}
-
-@keyframes showErrorBackground {
-  0% {
-    background: @light-grey;
-  }
-  100% {
-    background: @warning-light;
-  }
-}
-
-@keyframes hideErrorBackground {
-  0% {
-    background: @warning-light;
-  }
-  100% {
-    background: @light-grey;
   }
 }
