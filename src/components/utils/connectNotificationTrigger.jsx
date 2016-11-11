@@ -104,7 +104,7 @@ export default function connectNotificationTrigger (Component, props) {
       const isAnyNotification = document.getElementsByClassName('notification').length;
 
       /** elements which cause no close effect when they are clicked **/
-      let matchedClasses = ['notification', 'notification__container', 'notification__text', 'password-toggle'];
+      let matchedClasses = ['abstract-field', 'text-area__input', 'text-field__input', 'notification', 'notification__container', 'notification__text', 'password-toggle'];
 
       if (clickedTargetClasses !== null) {
         /** splitting classes by space symbol **/
