@@ -125,15 +125,17 @@ export default class InputElement extends Component {
   }
 
   onFocus = (event) => {
-    if (typeof this.props.onFocus === 'function') {
-      this.props.onFocus(event);
-    }
+    if (!this.state.focused) {
+      if (typeof this.props.onFocus === 'function') {
+        this.props.onFocus(event);
+      }
 
-    this.oldValue = this.state.value;
-    this.setState({
-      focused : true,
-      filled  : !!event.target.value
-    });
+      this.oldValue = this.state.value;
+      this.setState({
+        focused : true,
+        filled  : !!event.target.value
+      });
+    }
   }
 
   onBlur = (event) => {

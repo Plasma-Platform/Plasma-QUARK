@@ -1,6 +1,7 @@
 import React, {Component, PropTypes}  from 'react';
 import classnames from 'classnames';
 import Textarea from 'react-textarea-autosize';
+import {mouseTracker} from './utils';
 
 import './AbstractField.less';
 import './TextArea.less';
@@ -25,14 +26,30 @@ export default class TextArea extends Component {
     customIcon   : PropTypes.string
   };
 
+  blurHandler = (event) => {
+    let target = mouseTracker.position.target;
+    if (!target.classList.contains('text-area')) {
+      this.props.onBlur(event);
+    } else {
+      event.preventDefault();
+      this.input.focus(event);
+    }
+  };
+
+  focus = (event) => {
+    this.props.onFocus(event);
+    this.input.focus(event);
+  };
+
   render () {
-    const textAreaWrapClassname = classnames(`abstract-field field-style text-area text-area_${this.props.sizeType.toLowerCase()}`, this.props.className, {
-      'text-area_filled'   : this.props.filled,
-      'text-area_focused'  : this.props.focused,
-      'text-area_valid'    : this.props.isValid,
-      'text-area_disabled' : this.props.disabled,
-      'text-area_invalid'  : (this.props.isValid !== null) && !this.props.isValid,
-      'animated'           : this.props.animated
+    const textAreaWrapClassname = classnames(`text-area text-area_${this.props.sizeType.toLowerCase()}`, this.props.className, {
+      'abstract-field field-style' : true,
+      'text-area_filled'           : this.props.filled,
+      'text-area_focused'          : this.props.focused,
+      'text-area_valid'            : this.props.isValid,
+      'text-area_disabled'         : this.props.disabled,
+      'text-area_invalid'          : (this.props.isValid !== null) && !this.props.isValid,
+      'animated'                   : this.props.animated
     });
 
     const textAreaClassname = 'text-area__input';
@@ -51,10 +68,9 @@ export default class TextArea extends Component {
     });
 
     return (
-      <label
+      <div
         className={textAreaWrapClassname}
-        onFocus={this.props.onFocus}
-        onBlur={this.props.onBlur}
+        onClick={this.focus}
       >
         {['TA2', 'TA4', 'TA6', 'TA8'].indexOf(this.props.sizeType) >= 0 &&
         <span className={ iconClassname }/>
@@ -66,18 +82,20 @@ export default class TextArea extends Component {
           className={textAreaClassname}
           disabled={this.props.disabled}
           onChange={this.props.onChange}
+          onFocus={this.props.onFocus}
+          onBlur={this.blurHandler}
           maxLength={this.props.maxLength}
           minRows={3}
           maxRows={15}
           value={this.props.value}
         />
 
-        <span
+        <label
           className={labelClassname}
           htmlFor={this.props.id}
         >
           { this.props.label || this.props.placeholder}
-        </span>
+        </label>
 
         <span className={ iconNotificationClassname }/>
 
@@ -91,7 +109,7 @@ export default class TextArea extends Component {
         </span>
           : null
         }
-      </label>
+      </div>
     );
   }
 }
