@@ -1,0 +1,151 @@
+@import "../assets/styles/variables";
+
+.text-area {
+  display: block;
+  padding-top: 20px;
+  padding-right: 50px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  transition: .3s;
+  cursor: text;
+
+  & &__input {
+    display: block;
+    overflow: auto;
+    resize: none;
+    border: none;
+    line-height: 21px;
+    background: none;
+    width: calc(~'100% + 17px');
+    padding-left: 0;
+    min-height: 85px;
+  }
+
+  &__trim {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  & &__label {
+    position: absolute;
+    top: 19px;
+    left: 20px;
+    transition: font-size .3s;
+  }
+
+  & &__notification-icon {
+    opacity: 0;
+    top: 20px;
+  }
+
+  &_filled {
+    padding-top: 40px;
+    .text-area__input {
+      min-height: 65px;
+    }
+  }
+  
+  &_focused {
+    background: #fff !important;
+    border-color: #90caf9;
+    box-shadow: none;
+  }
+
+  &_disabled {
+    background: #fff;
+    border-color: #eceff1;
+    box-shadow: none;
+    color: #eceff1;
+    cursor: not-allowed;
+    user-select: none;
+
+    [class*="__label"] {
+      color: #eceff1;
+      user-select: none;
+    }
+
+    .text-area__input {
+      cursor: not-allowed;
+    }
+
+    .text-area__limit {
+      color: #eceff1;
+    }
+  }
+
+  &_ta2,
+  &_ta4,
+  &_ta6,
+  &_ta8 {
+    padding-left: 50px;
+
+    .text-area__type-icon,
+    .text-area__notification-icon {
+      top: 21px;
+    }
+
+    .text-area__label {
+      left: 50px;
+    }
+  }
+
+  &_ta3,
+  &_ta4,
+  &_ta7,
+  &_ta8 {
+    .text-area__input,
+    .text-area__label {
+      font-size: 16px;
+    }
+
+    .text-area__input {
+      min-height: 95px;
+      line-height: 24px;
+    }
+
+    &.text-area_filled .text-area__input {
+      min-height: 75px;
+    }
+  }
+
+  &_valid,
+  &_invalid {
+    .text-area__notification-icon {
+      opacity: 1;
+    }
+  }
+
+  &.animated {
+    animation-timing-function: @easeInOutCubic ;
+    animation-delay: .15s, .75s;
+    animation-duration: .25s;
+    animation-fill-mode: both;
+  }
+
+  &_valid.animated {
+    animation-name: showSuccessField, hideSuccessField;
+  }
+
+  &_invalid.animated {
+    animation-name: showErrorField, hideErrorField;
+  }
+
+  &__limit {
+    bottom: 10px;
+    color: @secodary;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: normal;
+    position: absolute;
+    right: 20px;
+    text-align: right;
+    z-index: 50;
+  }
+
+  &_ta7,
+  &_ta8 {
+    .text-area__limit {
+      font-size: 13px;
+    }
+  }
+}
