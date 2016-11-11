@@ -9,3 +9,30 @@
     position: absolute;
     z-index: -1;
 }
+
+/* --- Typography --- */
+
+.typo-link() {
+    color: @typo-link;
+    text-decoration: none;
+
+    &:hover {
+        color: @typo-link-hover;
+    }
+}
+
+.typo-success() {
+    color: @typo-success;
+
+    &:hover {
+        color: @typo-success-hover;
+    }
+}
+
+.typo-error() {
+    color: @typo-error;
+
+    &:hover {
+        color: @typo-error-hover;
+    }
+}
