@@ -21,7 +21,7 @@ export default class TextAreaDemo extends React.Component {
     return (
       <section>
         <h1 className="TMUI__TypographyHeader--4"> Text Fields </h1>
-        <div className="flex">
+        <div className="flex spacing-outer-bottom-20">
           <form className="half-width spacing-right-20">
             <TextFields.F1
               className="spacing-outer-bottom-20"
@@ -92,6 +92,7 @@ export default class TextAreaDemo extends React.Component {
             />
           </div>
         </div>
+        <a target="_blank" href="http://confluence.devoffice.com/display/DEVDOC/Text+Field">Text Field in Confluence</a>
       </section>
     );
   }
