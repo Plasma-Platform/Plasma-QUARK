@@ -1777,6 +1777,7 @@
   -webkit-transition: .3s;
   transition: .3s;
   overflow: hidden;
+  cursor: text;
 }
 .text-area .text-area__input {
   display: block;
@@ -1825,6 +1826,9 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+.text-area_disabled .text-area__input {
+  cursor: not-allowed;
 }
 .text-area_disabled .text-area__limit {
   color: #eceff1;
