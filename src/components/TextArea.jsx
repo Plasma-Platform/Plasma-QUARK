@@ -67,48 +67,50 @@ export default class TextArea extends Component {
       'icon-check_circle' : this.props.isValid
     });
 
+    const limitClassnames = classnames('text-area__limit', {
+      'text-area__limit--active': !this.props.disabled && (this.props.value || this.props.filled)
+    });
+
     return (
       <div
+        ref={ref => this.textarea = ref}
         className={textAreaWrapClassname}
         onClick={this.focus}
       >
-        {['TA2', 'TA4', 'TA6', 'TA8'].indexOf(this.props.sizeType) >= 0 &&
-        <span className={ iconClassname }/>
-        }
+        <div className="text-area__trim">
+          {['TA2', 'TA4', 'TA6', 'TA8'].indexOf(this.props.sizeType) >= 0 &&
+          <span className={ iconClassname }/>
+          }
 
-        <Textarea
-          ref={ textareaInput => this.input = textareaInput }
-          id={this.props.id}
-          className={textAreaClassname}
-          disabled={this.props.disabled}
-          onChange={this.props.onChange}
-          onFocus={this.props.onFocus}
-          onBlur={this.blurHandler}
-          maxLength={this.props.maxLength}
-          minRows={3}
-          maxRows={15}
-          value={this.props.value}
-        />
+          <Textarea
+            ref={ ref => this.input = ref }
+            id={this.props.id}
+            className={textAreaClassname}
+            disabled={this.props.disabled}
+            onChange={this.props.onChange}
+            onFocus={this.focus}
+            onBlur={this.blurHandler}
+            maxLength={this.props.maxLength}
+            minRows={3}
+            maxRows={15}
+            value={this.props.value}
+          />
 
-        <label
-          className={labelClassname}
-          htmlFor={this.props.id}
-        >
-          { this.props.label || this.props.placeholder}
-        </label>
+          <label
+            className={labelClassname}
+            htmlFor={this.props.id}
+          >
+            { this.props.label || this.props.placeholder}
+          </label>
 
-        <span className={ iconNotificationClassname }/>
+          <span className={ iconNotificationClassname }/>
 
-        {this.props.maxLength
-          ? <span className={`text-area__limit
-                        ${!this.props.disabled && (this.props.value || this.props.filled)
-          ? 'text-area__limit--active'
-          : ''}`}
-        >
-          {this.props.limitCounter}
-        </span>
-          : null
-        }
+          {this.props.maxLength &&
+            <span className={limitClassnames}>
+              {this.props.limitCounter}
+            </span>
+          }
+        </div>
       </div>
     );
   }

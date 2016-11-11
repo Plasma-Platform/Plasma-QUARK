@@ -2,6 +2,11 @@ import React from 'react';
 import TextAreas from '../../../lib/textareas';
 
 export default class TextAreaDemo extends React.Component {
+
+  handleBlur = () => {
+    this.ta1.input.setValidationStatus(false, 'Test notification');
+  };
+
   render () {
     return (
       <section>
@@ -9,8 +14,10 @@ export default class TextAreaDemo extends React.Component {
         <div className="flex spacing-outer-bottom-20">
           <div className="half-width spacing-right-20">
             <TextAreas.TA1
+              ref={ref => this.ta1 = ref }
               className="spacing-outer-bottom-20"
               label='Text area type = TA1'
+              onBlur={this.handleBlur}
             />
             <TextAreas.TA2
               className="spacing-outer-bottom-20"

@@ -1735,12 +1735,12 @@
   animation-fill-mode: both;
 }
 .text-field_valid.animated .text-field__input {
-  -webkit-animation-name: showSuccessField, hideSuccessField !important;
-  animation-name: showSuccessField, hideSuccessField !important;
+  -webkit-animation-name: showSuccessField, hideSuccessField;
+  animation-name: showSuccessField, hideSuccessField;
 }
 .text-field_invalid.animated .text-field__input {
-  -webkit-animation-name: showErrorField, hideErrorField !important;
-  animation-name: showErrorField, hideErrorField !important;
+  -webkit-animation-name: showErrorField, hideErrorField;
+  animation-name: showErrorField, hideErrorField;
 }
 .text-field_f3.text-field_filled .text-field__input,
 .text-field_f4.text-field_filled .text-field__input {
@@ -1772,11 +1772,11 @@
 .text-area {
   display: block;
   padding-top: 20px;
+  padding-right: 50px;
   padding-left: 20px;
   padding-bottom: 20px;
   -webkit-transition: .3s;
   transition: .3s;
-  overflow: hidden;
   cursor: text;
 }
 .text-area .text-area__input {
@@ -1784,11 +1784,15 @@
   overflow: auto;
   resize: none;
   border: none;
+  line-height: 21px;
   background: none;
-  padding-right: calc(50px + 17px);
   width: calc(100% + 17px);
   padding-left: 0;
-  min-height: 125px;
+  min-height: 85px;
+}
+.text-area__trim {
+  width: 100%;
+  overflow: hidden;
 }
 .text-area .text-area__label {
   position: absolute;
@@ -1804,8 +1808,11 @@
 .text-area_filled {
   padding-top: 40px;
 }
+.text-area_filled .text-area__input {
+  min-height: 65px;
+}
 .text-area_focused {
-  background: #fff;
+  background: #fff !important;
   border-color: #90caf9;
   box-shadow: none;
 }
@@ -1864,6 +1871,19 @@
 .text-area_ta7 .text-area__label,
 .text-area_ta8 .text-area__label {
   font-size: 16px;
+}
+.text-area_ta3 .text-area__input,
+.text-area_ta4 .text-area__input,
+.text-area_ta7 .text-area__input,
+.text-area_ta8 .text-area__input {
+  min-height: 95px;
+  line-height: 24px;
+}
+.text-area_ta3.text-area_filled .text-area__input,
+.text-area_ta4.text-area_filled .text-area__input,
+.text-area_ta7.text-area_filled .text-area__input,
+.text-area_ta8.text-area_filled .text-area__input {
+  min-height: 75px;
 }
 .text-area_valid .text-area__notification-icon,
 .text-area_invalid .text-area__notification-icon {

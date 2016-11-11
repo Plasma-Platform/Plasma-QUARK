@@ -15,7 +15,11 @@ export default class TA2 extends Component {
 
   getValue = () => {
     return this.input.getValue();
-  }
+  };
+
+  focus = (event) => {
+    this.input.focus(event);
+  };
 
   render () {
     return (

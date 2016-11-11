@@ -45,7 +45,8 @@ export default class InputElement extends Component {
 
   componentDidMount = () => {
     this.inputElement = this.comp.input.target.input;
-    this.inputDOMElement = ReactDOM.findDOMNode(this.inputElement);
+    this.animationTarget = (this.props.componentType === 'textarea') ? this.comp.input.target.textarea : this.inputElement;
+    this.inputDOMElement = ReactDOM.findDOMNode(this.animationTarget);
     if (this.props.autofocus) {
       this.focus();
     }
@@ -83,12 +84,12 @@ export default class InputElement extends Component {
     }
   }
 
-  focus = () => {
+  focus = (event) => {
     this.setState({
       filled  : true,
       focused : true
     });
-    this.inputElement.focus();
+    this.inputElement.focus(event);
   }
 
   setValidationStatus = (status, notificationText) => {
