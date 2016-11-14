@@ -11,7 +11,12 @@ export class EyePasswordIndicator extends Component {
   render () {
     return (
       <span
-        {...this.props}
+        onMouseOver     = {this.props.onMouseOver}
+        onMouseLeave    = {this.props.onMouseLeave}
+        onMouseDown     = {this.props.onMouseDown}
+        onMouseUp       = {this.props.onMouseUp}
+        onTouchStart    = {this.props.onTouchStart}
+        onTouchEnd      = {this.props.onTouchEnd}
         className = 'text-field__notification-icon icon password-toggle icon-eye'
       />
     );
