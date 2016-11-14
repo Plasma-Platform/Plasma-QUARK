@@ -90,26 +90,39 @@ export default function connectNotificationTrigger (Component, props) {
       }
     };
 
-    hideNotification = () => {
+    hideNotification = (e) => {
       if (this.popup) {
         let closeClassname = `animated-tooltip_close_${this.notification.props.position}`;
         let popupNode = this.popup.childNodes[0];
-        popupNode.classList.add(closeClassname);
-        popupNode.addEventListener('animationend', this.removeNotification);
+        let relativityCheck;
+        let changeEvent;
+        let detectEnterAction;
+
+        if (e !== undefined) {
+          relativityCheck = popupNode.contains(e.target);
+          changeEvent = (e.type === 'change');
+          /** need this stuff for not closing uncloseable tooltips if something was typed in another input and Enter pressed **/
+          detectEnterAction = !!((e.clientX === 0) && (e.clientY === 0));
+        }
+
+        if (relativityCheck ||
+            changeEvent ||
+            (this.props.closeOnCLickOutside && (detectEnterAction === false))
+        ) {
+          popupNode.classList.add(closeClassname);
+          popupNode.addEventListener('animationend', this.removeNotification);
+        }
       }
     };
 
     handleClosePopover = (e) => {
-      let clickedTargetClasses = e.target.getAttribute('class');
+      let clickedTargetClasses = e.target.classList;
       const isAnyNotification = document.getElementsByClassName('notification').length;
 
       /** elements which cause no close effect when they are clicked **/
       let matchedClasses = ['abstract-field', 'text-area__input', 'text-field__input', 'notification', 'notification__container', 'notification__text', 'password-toggle'];
 
       if (clickedTargetClasses !== null) {
-        /** splitting classes by space symbol **/
-        clickedTargetClasses = clickedTargetClasses.split(' ');
-
         /** checks if any match of classes in targeted element and template classes **/
         for (let i = 0; i < clickedTargetClasses.length; i++) {
           if (matchedClasses.indexOf(clickedTargetClasses[i]) >= 0) {
@@ -123,17 +136,20 @@ export default function connectNotificationTrigger (Component, props) {
         return;
       }
 
-      e.stopPropagation(isAnyNotification);
+      if ((clickedTargetClasses.contains('notification__closeBlock__closeArea') && this.props.closeOnCLickOutside === false) ||
+        this.props.closeOnCLickOutside === true) {
+        e.stopPropagation();
 
-      if (isMouseOutOfComponent({
-        container : this.state.notification,
-        pageX     : e.pageX,
-        pageY     : e.pageY
-      })) {
-        this.hideNotification();
-        this.props.resetValidationStatus();
-        if (typeof this.props.onHide === 'function') {
-          this.props.onHide();
+        if (isMouseOutOfComponent({
+          container : this.state.notification,
+          pageX     : e.pageX,
+          pageY     : e.pageY
+        })) {
+          this.hideNotification(e);
+          this.props.resetValidationStatus();
+          if (typeof this.props.onHide === 'function') {
+            this.props.onHide();
+          }
         }
       }
     };
@@ -177,7 +193,7 @@ export default function connectNotificationTrigger (Component, props) {
 
           if (windowWidth > this.lastWidth) {
             this.lastWidth = 0;
-          }else if (this.lastWidth !== 0) {
+          } else if (this.lastWidth !== 0) {
             this.rerenderNotice(this.props.notificationAlt.type);
           }
           break;
@@ -211,6 +227,7 @@ export default function connectNotificationTrigger (Component, props) {
         this.notification.setPosition(notificationCoords);
       }
     };
+
     calcNotificationCoords (targetCoords) {
       let coords = {};
       const {width, height} = targetCoords;

@@ -27,12 +27,13 @@ export default class TextField extends Component {
   }
 
   static propTypes = {
-    id          : PropTypes.string,
-    sizeType    : PropTypes.oneOf(['F1', 'F2', 'F3', 'F4']).isRequired,
-    placeholder : PropTypes.string,
-    value       : PropTypes.string,
-    disabled    : PropTypes.bool,
-    customIcon  : PropTypes.string
+    id                  : PropTypes.string,
+    sizeType            : PropTypes.oneOf(['F1', 'F2', 'F3', 'F4']).isRequired,
+    closeOnCLickOutside : PropTypes.bool.isRequired,
+    placeholder         : PropTypes.string,
+    value               : PropTypes.string,
+    disabled            : PropTypes.bool,
+    customIcon          : PropTypes.string
   }
 
   showTooltip () {
@@ -105,15 +106,16 @@ export default class TextField extends Component {
           ? <div>
               <span className     = { iconNotificationClassname }/>
               <EyePasswordIndicatorWrapper
-                ref             = {c => this.icon = c}
-                notification    = {{code: this.props.eyeNotificationCode || 'N1C', text: this.props.eyeNotificationText || 'Hold to show password'}}
-                notificationAlt = {{ status: false }}
-                onMouseOver     = {this.showTooltip}
-                onMouseLeave    = {this.hidePasswordAndTooltip}
-                onMouseDown     = {this.props.changeFieldType.bind(this, 'text')}
-                onMouseUp       = {this.props.changeFieldType.bind(this, 'password')}
-                onTouchStart    = {this.showTooltip}
-                onTouchEnd      = {this.hidePasswordAndTooltip}
+                ref                 = {c => this.icon = c}
+                notification        = {{code: this.props.eyeNotificationCode || 'N1C', text: this.props.eyeNotificationText || 'Hold to show password'}}
+                notificationAlt     = {{ status: false }}
+                onMouseOver         = {this.showTooltip}
+                onMouseLeave        = {this.hidePasswordAndTooltip}
+                onMouseDown         = {this.props.changeFieldType.bind(this, 'text')}
+                onMouseUp           = {this.props.changeFieldType.bind(this, 'password')}
+                onTouchStart        = {this.showTooltip}
+                onTouchEnd          = {this.hidePasswordAndTooltip}
+                closeOnCLickOutside = {this.props.closeOnCLickOutside}
               />
             </div>
           : <span className     = { iconNotificationClassname } />

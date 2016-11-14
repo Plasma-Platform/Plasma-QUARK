@@ -24,6 +24,7 @@ export default class TextAreaDemo extends React.Component {
         <div className="flex spacing-outer-bottom-20">
           <form className="half-width spacing-right-20">
             <TextFields.F1
+              closeOnCLickOutside={false}
               className="spacing-outer-bottom-20"
               label='Text field type = F1'
               notificationText='The most important notification in the world'
@@ -31,6 +32,7 @@ export default class TextAreaDemo extends React.Component {
               ref={ref => this.components.push(ref)}
             />
             <TextFields.F2
+              closeOnCLickOutside={true}
               className="spacing-outer-bottom-20"
               label='Text field type = F2'
               type = 'search'
@@ -40,6 +42,7 @@ export default class TextAreaDemo extends React.Component {
               ref={ref => this.components.push(ref)}
             />
             <TextFields.F3
+              closeOnCLickOutside={true}
               className="spacing-outer-bottom-20"
               label='Text field type = F3'
               notificationText='The most important notification in the world'
@@ -47,6 +50,7 @@ export default class TextAreaDemo extends React.Component {
               ref={ref => this.components.push(ref)}
             />
             <TextFields.F4
+              closeOnCLickOutside={false}
               className="spacing-outer-bottom-20"
               label='Enter your password (Field type F4)'
               eyeTooltipText="asdasdasdds"
