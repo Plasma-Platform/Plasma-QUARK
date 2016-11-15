@@ -7,6 +7,15 @@
 	font-weight: 600;
 	color: @typo-default;
 
+	&--dark{
+		color: @typo-dark-default;
+
+		a {
+			font-weight: 600;
+			.typo-dark-link();
+		}
+	}
+
 	&--0 {
 		font-size: 50px;
 		line-height: 105px;

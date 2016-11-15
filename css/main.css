@@ -1210,7 +1210,8 @@
   }
 }
 /* --- Hints --- */
-/* --- Typography --- */
+/* --- Typography Light--- */
+/* --- Typography Dark--- */
 /* colors */
 /* --- Hints --- */
 /* --- Typography Light --- */
@@ -2359,12 +2360,24 @@
 /* --- Typography Light --- */
 /* --- Typography Dark --- */
 /* --- Hints --- */
-/* --- Typography --- */
+/* --- Typography Light--- */
+/* --- Typography Dark--- */
 .TMUI__TypographyHeader {
   display: inline-block;
   margin: 0;
   font-weight: 600;
   color: #243238;
+}
+.TMUI__TypographyHeader--dark {
+  color: #FFFFFF;
+}
+.TMUI__TypographyHeader--dark a {
+  font-weight: 600;
+  color: #90CAF9;
+  text-decoration: none;
+}
+.TMUI__TypographyHeader--dark a:hover {
+  color: #BBDEFB;
 }
 .TMUI__TypographyHeader--0 {
   font-size: 50px;
@@ -2397,7 +2410,8 @@
 /* --- Typography Light --- */
 /* --- Typography Dark --- */
 /* --- Hints --- */
-/* --- Typography --- */
+/* --- Typography Light--- */
+/* --- Typography Dark--- */
 .TMUI__TypographyText {
   display: inline-block;
   color: #243238;
@@ -2454,4 +2468,35 @@
 }
 .TMUI__TypographyText--secondary {
   color: #90A4AE;
+}
+.TMUI__TypographyText--dark {
+  color: #FFFFFF;
+}
+.TMUI__TypographyText--dark a {
+  color: #90CAF9;
+  text-decoration: none;
+}
+.TMUI__TypographyText--dark a:hover {
+  color: #BBDEFB;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--success {
+  color: #76D48F;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--success a {
+  color: #76D48F;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--success a:hover {
+  color: #A8E4BB;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--error {
+  color: #FF8A65;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--error a {
+  color: #FF8A65;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--error a:hover {
+  color: #FFCCBC;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--secondary {
+  color: #B0BEC5;
 }

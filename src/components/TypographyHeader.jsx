@@ -6,15 +6,17 @@ import './TypographyHeader.less';
 export default class TypographyHeader extends Component {
   static propTypes = {
     size      : PropTypes.oneOf([0, 1, 2, 3]).isRequired,
+    themeType : PropTypes.string,
     children  : PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
     className : PropTypes.string
   };
 
   render () {
     const typoClass = classnames({
-      'TMUI__TypographyHeader'                       : true,
-      [`TMUI__TypographyHeader--${this.props.size}`] : true,
-      [this.props.className]                         : this.props.className
+      'TMUI__TypographyHeader'                                     : true,
+      [`TMUI__TypographyText--${this.props.themeType || 'light'}`] : true,
+      [`TMUI__TypographyHeader--${this.props.size}`]               : true,
+      [this.props.className]                                       : this.props.className
     });
 
     switch (this.props.size) {

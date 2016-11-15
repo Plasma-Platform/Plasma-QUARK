@@ -10,7 +10,7 @@
     z-index: -1;
 }
 
-/* --- Typography --- */
+/* --- Typography Light--- */
 
 .typo-link() {
     color: @typo-link;
@@ -34,5 +34,32 @@
 
     &:hover {
         color: @typo-error-hover;
+    }
+}
+
+/* --- Typography Dark--- */
+
+.typo-dark-link() {
+    color: @typo-dark-link;
+    text-decoration: none;
+
+    &:hover {
+        color: @typo-dark-link-hover;
+    }
+}
+
+.typo-dark-success() {
+    color: @typo-dark-success;
+
+    &:hover {
+        color: @typo-dark-success-hover;
+    }
+}
+
+.typo-dark-error() {
+    color: @typo-dark-error;
+
+    &:hover {
+        color: @typo-dark-error-hover;
     }
 }

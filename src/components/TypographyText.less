@@ -58,4 +58,34 @@
 		color: @typo-secondary;
 	}
 
+	&--dark {
+		color: @typo-dark-default;
+
+		a {
+			.typo-dark-link();
+		}
+	}
+
+	&--dark& {
+
+		&--success {
+			color: @typo-dark-success;
+			a {
+				.typo-dark-success();
+			}
+		}
+
+		&--error {
+			color: @typo-dark-error;
+			a {
+				.typo-dark-error();
+			}
+		}
+
+		&--secondary {
+			color: @typo-dark-secondary;
+		}
+
+	}
+
 }
