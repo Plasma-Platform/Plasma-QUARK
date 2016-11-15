@@ -7,7 +7,7 @@ import './Notification.less';
 export default class Notification extends Component {
   static propTypes = {
     className          : PropTypes.string,
-    text               : PropTypes.string.isRequired,
+    text               : PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
     size               : PropTypes.string.isRequired,
     maxWidth           : PropTypes.string,
     onHideNotification : PropTypes.func,

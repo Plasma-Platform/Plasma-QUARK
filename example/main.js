@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TextFields from '../lib/textFields';
 import Typography from '../lib/typography';
+import Notifications from '../lib/notifications';
 
 import '../css/main.css';
 
@@ -39,6 +40,13 @@ export default class Element extends React.Component {
           ref="email"
           type='password'
           value=''
+        />
+
+        <Notifications.N1J
+          className='facebook-notification'
+          text='sdfsdf'
+          width='100%'
+          typographyCode='T3'
         />
 
         <Typography.H0 >Text<a href="#">111</a><a href="#" className="error-link">111</a><a href="#" className="success-link">111</a></Typography.H0>
