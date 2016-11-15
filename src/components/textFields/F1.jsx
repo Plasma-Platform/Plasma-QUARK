@@ -1,30 +1,23 @@
-import React, {Component, PropTypes}  from 'react';
-import TextField            from '../AbstractField.jsx';
+import React, {Component, PropTypes} from 'react';
+import TextField from '../AbstractField.jsx';
 
 export default class F1 extends Component {
   static propTypes = {
-    sizeType : React.PropTypes.string,
-    onChange : React.PropTypes.func
-  }
+    sizeType : PropTypes.string,
+    onChange : PropTypes.func
+  };
 
-  constructor(props, context) {
-    super(props, context);
-  }
-
-  get value() {
+  get value () {
     return this.getValue();
-  }
-
-  set value(val) {
-  }
+  };
 
   getValue = () => {
     return this.input.getValue();
-  }
+  };
 
   focus = () => {
     this.input.focus();
-  }
+  };
 
   render () {
     return (
