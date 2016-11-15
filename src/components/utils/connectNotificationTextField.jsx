@@ -11,7 +11,9 @@ export default function connectNotificationTextField (Component) {
     }
 
     handleChange = (event) => {
-      if (this.props.onChange) this.props.onChange(event);
+      if (this.props.onChange) {
+        this.props.onChange(event);
+      }
       this.input.hideNotification(event);
     }
 
