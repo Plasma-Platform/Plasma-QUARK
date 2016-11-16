@@ -41,7 +41,8 @@ export default class TextField extends Component {
   };
 
   static defaultProps = {
-    type: 'text'
+    type     : 'text',
+    sizeType : 'F1'
   };
 
   showTooltip () {
