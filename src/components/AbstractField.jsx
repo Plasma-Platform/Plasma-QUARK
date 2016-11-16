@@ -9,7 +9,7 @@ export default class AbstractField extends Component {
   static propTypes = {
     id               : PropTypes.string,
     componentType    : PropTypes.oneOf(['textfield', 'textarea']),
-    sizeType         : PropTypes.string.isRequired,
+    sizeType         : PropTypes.string,
     placeholder      : PropTypes.string,
     value            : PropTypes.string,
     disabled         : PropTypes.bool,
