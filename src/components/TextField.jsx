@@ -38,7 +38,11 @@ export default class TextField extends Component {
     value       : PropTypes.string,
     disabled    : PropTypes.bool,
     customIcon  : PropTypes.string
-  }
+  };
+
+  static defaultProps = {
+    type: 'text'
+  };
 
   showTooltip () {
     this.showTimer = setTimeout(() => {
@@ -94,7 +98,7 @@ export default class TextField extends Component {
         <input
           ref         = { input => this.input = input }
           id          = {this.props.id}
-          type        = {this.props.type || 'text'}
+          type        = {this.props.type}
           value       = {this.props.value}
           autoFocus   = {this.props.autoFocus}
           placeholder = {['F1', 'F2'].indexOf(this.props.sizeType) >= 0 ? hint : ''}

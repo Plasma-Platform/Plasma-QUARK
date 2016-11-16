@@ -1,5 +1,5 @@
 import React, {Component, PropTypes}  from 'react';
-import TextField                        from '../AbstractField.jsx';
+import AbstractField from '../AbstractField.jsx';
 
 export default class F3 extends Component {
   static propTypes = {
@@ -28,7 +28,7 @@ export default class F3 extends Component {
 
   render () {
     return (
-      <TextField
+      <AbstractField
         {...this.props}
         ref={input => this.input = input}
         componentType='textfield'

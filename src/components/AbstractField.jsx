@@ -4,7 +4,7 @@ import TextField from './TextField.jsx';
 import TextArea from './TextArea.jsx';
 import {connectNotificationTextField} from './utils';
 
-export default class InputElement extends Component {
+export default class AbstractField extends Component {
 
   static propTypes = {
     id               : PropTypes.string,
