@@ -1,9 +1,9 @@
 /* global expect:false, test:false, it:false, describe:false, jest:false, beforeEach:false */
 
 import React from 'react';
-import {shallow, mount} from 'enzyme';
+import {shallow, mount, render} from 'enzyme';
 import TextFields from '../src/components/textFields';
-import ControlledComponent from '../src/components/AbstractField.jsx';
+import AbstractField from '../src/components/AbstractField.jsx';
 
 describe('1 TextField high level components [F1, F2, F3, F4] testing', () => {
   let PROPS = {
@@ -108,7 +108,7 @@ describe('2 Controlled component (AbstractField) testing', () => {
     focus = jest.fn();
     blur = jest.fn();
     change = jest.fn();
-    testNode = mount(<ControlledComponent onFocus={focus} onBlur={blur} onChange={change}/>);
+    testNode = mount(<AbstractField onFocus={focus} onBlur={blur} onChange={change}/>);
     input = testNode.find('input').first();
   });
 
@@ -178,6 +178,52 @@ describe('2 Controlled component (AbstractField) testing', () => {
     it('2.3.4 cleans field\'s value, cause state.filled=false', () => {
       input.simulate('change', {target: {value: ''}});
       expect(testNode.state('filled')).toEqual(false);
+    });
+  });
+
+  describe('2.4 Functions ', () => {
+    it('2.4.1 receives the value of input', () => {
+      testNode.setProps({'value': 'test'});
+      let value = testNode.node.getValue();
+      expect(value).toEqual('test');
+    });
+
+    it('2.4.2 sets up validation status to invalid and starts animation', () => {
+      testNode.node.setValidationStatus(false, 'Error');
+      expect(testNode.state('isValid')).toEqual(false);
+      expect(testNode.state('animated')).toEqual(true);
+    });
+
+    it('2.4.3 changes field type', () => {
+      let newType = 'email';
+      testNode.node.changeFieldType(newType);
+      expect(input.node.type).toEqual(newType);
+    });
+
+    it('2.4.4 animates field', () => {
+      testNode.node.activateAnimation();
+      expect(testNode.state('animated')).toEqual(true);
+      let wrapperClasses = testNode.find('.abstract-field').props().className;
+      expect(wrapperClasses).toMatch('animated');
+    });
+
+    it('2.4.5 resets validation status', () => {
+      testNode.node.resetValidationStatus();
+      expect(testNode.state('isValid')).toEqual(undefined);
+      let wrapperClasses = testNode.find('.abstract-field').props().className;
+      expect(wrapperClasses).not.toMatch(/valid |invalid /);
+    });
+
+    it('2.4.6 trims string on blur', () => {
+      let testNode = render(<AbstractField />);
+      let input = testNode.find('input').first();
+      let newVal = '   spaces';
+      input.simulate('focus');
+      input.node.value = newVal;
+      console.log(input.node.value);
+      input.simulate('change');
+      console.log(input.node.value);
+      expect(input.node.value).toEqual(newVal.trim());
     });
   });
 });
