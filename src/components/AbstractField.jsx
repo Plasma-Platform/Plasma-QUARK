@@ -17,10 +17,11 @@ export default class AbstractField extends Component {
     focused          : PropTypes.bool,
     notificationText : PropTypes.string,
     maxLength        : PropTypes.number
-  }
+  };
 
   static defaultProps = {
-    notificationAlt: {status: false}
+    notificationAlt  : {status: false},
+    notificationType : 'N2B'
   };
 
   state = {
@@ -41,7 +42,7 @@ export default class AbstractField extends Component {
     this.inputDOMElement = null;
     this.textComponent = (props.componentType === 'textarea') ? TextArea : TextField;
     this.component = connectNotificationTextField(this.textComponent);
-  }
+  };
 
   componentDidMount = () => {
     this.inputElement = this.comp.input.target.input;
@@ -65,7 +66,7 @@ export default class AbstractField extends Component {
     if (this.props.limitCounter) {
       this.refreshInputCounter();
     }
-  }
+  };
 
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.value !== this.props.value) {
@@ -74,7 +75,7 @@ export default class AbstractField extends Component {
         filled : true
       });
     }
-  }
+  };
 
   componentDidUpdate = () => {
     if (this.state.isValid === false) {
@@ -82,7 +83,7 @@ export default class AbstractField extends Component {
     } else {
       this.comp.input.hideNotification();
     }
-  }
+  };
 
   focus = (event) => {
     this.setState({
@@ -90,7 +91,7 @@ export default class AbstractField extends Component {
       focused : true
     });
     this.inputElement.focus(event);
-  }
+  };
 
   setValidationStatus = (status, notificationText) => {
     this.handleValidation({
@@ -98,19 +99,19 @@ export default class AbstractField extends Component {
       message : notificationText
     });
     this.activateAnimation();
-  }
+  };
 
   getValidationStatus = () => {
     return this.state.isValid;
-  }
+  };
 
   getValue = () => {
     return this.state.value;
-  }
+  };
 
   changeFieldType = (newType = 'text') => {
     this.inputDOMElement.setAttribute('type', newType);
-  }
+  };
 
   onChange = (event) => {
     if (typeof this.props.onChange === 'function') {
@@ -123,7 +124,7 @@ export default class AbstractField extends Component {
     });
 
     this.refreshInputCounter();
-  }
+  };
 
   onFocus = (event) => {
     if (!this.state.focused) {
@@ -137,7 +138,7 @@ export default class AbstractField extends Component {
         filled  : !!event.target.value
       });
     }
-  }
+  };
 
   onBlur = (event) => {
     if (typeof this.props.onBlur === 'function') {
@@ -167,26 +168,26 @@ export default class AbstractField extends Component {
       this.props.onValidate();
       this.activateAnimation();
     }
-  }
+  };
 
   handleValidation = (data) => {
     this.setState({
       isValid          : data.status,
       notificationText : data.message
     });
-  }
+  };
 
   resetValidationStatus = () => {
     this.setState({
       isValid: undefined
     });
-  }
+  };
 
   activateAnimation = () => {
     this.setState({
       animated: true
     });
-  }
+  };
 
   // приводим к нулю, возможные отрицательные значения, которые появляются в счетчике
   // при монтировании компонента с заполненным значением, превышающим установвленный лимит
@@ -203,7 +204,7 @@ export default class AbstractField extends Component {
     this.setState({
       limitCounter: currentMaxValue
     });
-  }
+  };
 
   render () {
     const DecoratedTextField = this.component;
@@ -224,10 +225,10 @@ export default class AbstractField extends Component {
         changeFieldType       = {this.changeFieldType}
         resetValidationStatus = {this.resetValidationStatus}
         notification          = {
-        { code     : this.props.notificationType || 'N2B',
-          text     : this.state.notificationText,
-          maxWidth : this.props.notificationMaxWidth
-        }
+          { code     : this.props.notificationType,
+            text     : this.state.notificationText,
+            maxWidth : this.props.notificationMaxWidth
+          }
         }
       />
     );
