@@ -90,7 +90,7 @@ export default function connectNotificationTrigger (Component, props) {
       }
     };
 
-    hideNotification = (e) => {
+    hideNotification = (e, forceClose = false) => {
       if (this.popup) {
         let closeClassname = `animated-tooltip_close_${this.notification.props.position}`;
         let popupNode = this.popup.childNodes[0];
@@ -105,7 +105,8 @@ export default function connectNotificationTrigger (Component, props) {
           detectEnterAction = !!((e.clientX === 0) && (e.clientY === 0));
         }
 
-        if (relativityCheck ||
+        if (forceClose ||
+            relativityCheck ||
             changeEvent ||
             (this.props.closeOnCLickOutside && (detectEnterAction === false))
         ) {

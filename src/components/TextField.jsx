@@ -42,12 +42,12 @@ export default class TextField extends Component {
     }, 200);
   }
 
-  hidePasswordAndTooltip () {
+  hidePasswordAndTooltip (e) {
     if (this.showTimer !== null) {
       clearTimeout(this.showTimer);
     }
     setTimeout(() => {
-      this.icon.hideNotification();
+      this.icon.hideNotification(e, true);
     }, 100);
     this.props.changeFieldType('password');
   }
