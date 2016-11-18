@@ -74,8 +74,8 @@ export default function connectNotificationTrigger (Component, props) {
           if (this.props.notificationAlt.status) {
             this.calcSidePosition();
           }
+          this.handleResize();
         }, 100);
-        this.handleResize();
       }
     };
 
