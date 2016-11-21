@@ -6,7 +6,6 @@ export default class T4 extends Component {
   static propTypes = {
     type      : PropTypes.string,
     themeType : PropTypes.string,
-    children  : PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
     className : PropTypes.string
   }
 

@@ -7,7 +7,6 @@ export default class TypographyHeader extends Component {
   static propTypes = {
     size      : PropTypes.oneOf([0, 1, 2, 3]).isRequired,
     themeType : PropTypes.string,
-    children  : PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
     className : PropTypes.string
   };
 

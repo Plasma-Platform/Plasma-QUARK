@@ -4,7 +4,6 @@ import TypographyHeader from '../TypographyHeader.jsx';
 
 export default class H1 extends Component {
   static propTypes = {
-    children  : PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
     themeType : PropTypes.string,
     className : PropTypes.string
   }

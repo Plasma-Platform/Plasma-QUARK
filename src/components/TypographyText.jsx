@@ -8,7 +8,6 @@ export default class TypographyText extends Component {
     type      : PropTypes.oneOf(['default', 'secondary', 'success', 'error']).isRequired,
     themeType : PropTypes.string,
     size      : PropTypes.oneOf([1, 2, 3, 4, 5, 6]).isRequired,
-    children  : PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
     className : PropTypes.string
   };
 
