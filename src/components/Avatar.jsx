@@ -6,20 +6,6 @@ import isRetina from 'is-retina';
 import Base64 from 'js-base64';
 import Underscore from 'underscore';
 import './Avatar.less';
-const URL = 'https://gravatar.com/';
-const DEFAULT = 'https://cdn2wp-templatemonster.netdna-ssl.com/wp-content/uploads/2016/10/onepixel.png'; // default image
-const COLORS = [ // array colors
-  '#1A76D2',
-  '#546E7A',
-  '#E64A19',
-  '#0B8738',
-  '#FFA001',
-  '#996969',
-  '#42A5F5',
-  '#243238',
-  '#006023',
-  '#FF6F00'
-];
 
 export default class Avatar extends React.Component {
   static PropTypes = {
@@ -41,6 +27,20 @@ export default class Avatar extends React.Component {
 
   constructor (props) {
     super(props);
+    this.url = 'https://gravatar.com/';
+    this.default = 'https://cdn2wp-templatemonster.netdna-ssl.com/wp-content/uploads/2016/10/onepixel.png';
+    this.colors = [ // array colors
+      '#1A76D2',
+      '#546E7A',
+      '#E64A19',
+      '#0B8738',
+      '#FFA001',
+      '#996969',
+      '#42A5F5',
+      '#243238',
+      '#006023',
+      '#FF6F00'
+    ];
     this.state = {
       status      : null,
       color       : '',
@@ -58,7 +58,7 @@ export default class Avatar extends React.Component {
    * @returns {Promise.<T>}
    */
   getProfile = Underscore.memoize((atts = {}) => {
-    return fetchJSONP(`${URL}${md5(atts.email)}.json`).then((response) => {
+    return fetchJSONP(`${this.url}${md5(atts.email)}.json`).then((response) => {
       return response.json();
     }).then((response) => {
       let data = response.entry[0];
@@ -75,6 +75,8 @@ export default class Avatar extends React.Component {
         status: 0
       };
     });
+  }, (input) => {
+    return JSON.stringify(input);
   });
 
   /**
@@ -105,7 +107,7 @@ export default class Avatar extends React.Component {
     const query = querystring.stringify({
       s : this.getSize(atts.size),
       r : atts.rating,
-      d : DEFAULT
+      d : this.default
     });
     return `${cleanURL}?${query}`;
   };
@@ -138,12 +140,12 @@ export default class Avatar extends React.Component {
    * @private
    */
   getColor = (name = '') => {
-    let nameExist = !!name;
+    const nameExist = !!name;
     if (nameExist) {
-      let literal = name[0].toUpperCase();
-      return COLORS[literal.charCodeAt(0).toString()[0]];
+      const literal = name[0].toUpperCase();
+      return this.colors[literal.charCodeAt(0).toString()[0]];
     } else {
-      return COLORS[0];
+      return this.colors[0];
     }
   };
 
@@ -154,7 +156,7 @@ export default class Avatar extends React.Component {
    * @returns {string}
    * @private
    */
-  getTextAvatar = (name, bg = '#ffffff') => {
+  getTextAvatar = (name, bg = '#1A76D2') => {
     const SVG = document.createElement('svg');
     SVG.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
     SVG.setAttribute('pointer-events', 'none');
@@ -213,8 +215,8 @@ export default class Avatar extends React.Component {
   };
 
   setGravatarInfo = (props) => {
-    let srcExist = !!props.src;
-    let emailExist = !!props.email;
+    const srcExist = !!props.src;
+    const emailExist = !!props.email;
     if (!srcExist && emailExist) {
       this.getProfile(props).then(data => {
         this.setState(data);

@@ -1,7 +1,7 @@
 /* global expect:false, test:false, it:false, describe:false */
 
 import React from 'react';
-import {shallow} from 'enzyme';
+import {shallow, mount} from 'enzyme';
 import Avatar from '../src/components/Avatar';
 const avatar = shallow(<Avatar email="shaggrath@mail.ru"/>);
 let params = {
@@ -15,6 +15,17 @@ describe('Functional methods test:', () => {
     try {
       const data = await avatar.instance().getProfile(params);
       expect(data.status).toEqual(1);
+    } catch (object) {
+      throw object;
+    }
+  });
+
+  it('Method: getProfile(), Promise is work normal with unreal email', async function() {
+    let localParams = Object.assign({}, params);
+    localParams.email = 'fackeEmail@faceDomain.com';
+    try {
+      const data = await avatar.instance().getProfile(localParams);
+      expect(data.status).toEqual(0);
     } catch (object) {
       throw object;
     }
@@ -56,6 +67,10 @@ describe('Functional methods test:', () => {
       {
         name  : 'СС',
         color : '#546E7A'
+      },
+      {
+        name  : '',
+        color : '#1A76D2'
       }
     ];
     testData.forEach((element) => {
@@ -67,21 +82,21 @@ describe('Functional methods test:', () => {
 });
 
 test('Avatar with src', () => {
-  const tree = shallow(
+  const tree = mount(
     <Avatar src="https://secure.gravatar.com/avatar/8bd2cedcb98c7a43c4f206e312568529"/>
   ).html();
   expect(tree).toMatchSnapshot();
 });
 
 test('Avatar with name', () => {
-  const tree = shallow(
+  const tree = mount(
     <Avatar name="Steven Reed"/>
   ).html();
   expect(tree).toMatchSnapshot();
 });
 
 test('Avatar with email', () => {
-  const component = shallow(
+  const component = mount(
     <Avatar email={params.email}/>
   );
   component.setState({
@@ -95,13 +110,37 @@ test('Avatar with email', () => {
   const tree = component.html();
   expect(tree).toMatchSnapshot();
 });
+
 test('Avatar with email but without gravatar', () => {
-  const component = shallow(
+  const component = mount(
     <Avatar email={params.email}/>
   );
   component.setState({
     status: 0
   });
+  const tree = component.html();
+  expect(tree).toMatchSnapshot();
+});
+
+test('Avatar without anything', () => {
+  const component = mount(
+    <Avatar/>
+  );
+  component.setState({
+    status: 0
+  });
+  const tree = component.html();
+  expect(tree).toMatchSnapshot();
+});
+
+test('Avatar with set props', () => {
+  const component = shallow(
+    <Avatar/>
+  );
+  component.setProps({
+    email: params.email
+  });
+
   const tree = component.html();
   expect(tree).toMatchSnapshot();
 });
