@@ -3,10 +3,10 @@ import Notification from '../Notification.jsx';
 
 export default class N3F extends Component {
   static propTypes = {
-    text: PropTypes.string.isRequired,
-    onHideNotification: PropTypes.func.isRequired,
-    maxWidth: PropTypes.string,
-    className: PropTypes.string
+    text               : PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
+    onHideNotification : PropTypes.func.isRequired,
+    maxWidth           : PropTypes.string,
+    className          : PropTypes.string
   }
 
   static defaultProps = {
