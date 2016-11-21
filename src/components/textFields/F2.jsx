@@ -7,11 +7,7 @@ export default class F2 extends Component {
     onChange : React.PropTypes.func
   }
 
-  constructor(props, context) {
-    super(props, context);
-  }
-
-  get value() {
+  get value () {
     return this.getValue();
   }
 

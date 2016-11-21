@@ -27,7 +27,7 @@ export default class TextArea extends Component {
   };
 
   static defaultProps = {
-    sizeType : 'TA1'
+    sizeType: 'TA1'
   };
 
   blurHandler = (event) => {

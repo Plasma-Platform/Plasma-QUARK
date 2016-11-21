@@ -5,26 +5,19 @@ export default class F4 extends Component {
   static propTypes = {
     sizeType : React.PropTypes.string,
     onChange : React.PropTypes.func
-  }
+  };
 
-  constructor(props, context) {
-    super(props, context);
-  }
-
-  get value() {
+  get value () {
     return this.getValue();
-  }
-
-  set value(val) {
-  }
+  };
 
   getValue = () => {
     return this.input.getValue();
-  }
+  };
 
   focus = () => {
     this.input.focus();
-  }
+  };
 
   render () {
     return (

@@ -24,11 +24,12 @@ export class EyePasswordIndicator extends Component {
 }
 
 export default class TextField extends Component {
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
     this.showTooltip = this.showTooltip.bind(this);
     this.hidePasswordAndTooltip = this.hidePasswordAndTooltip.bind(this);
     this.showTimer = null;
+    this.changeFieldType = this.props.changeFieldType;
   }
 
   static propTypes = {
@@ -45,21 +46,21 @@ export default class TextField extends Component {
     sizeType : 'F1'
   };
 
-  showTooltip () {
+  showTooltip (callback) {
     this.showTimer = setTimeout(() => {
-      this.icon.showNotification();
+      callback && callback();
     }, 200);
-  }
+  };
 
-  hidePasswordAndTooltip () {
+  hidePasswordAndTooltip (callback) {
     if (this.showTimer !== null) {
       clearTimeout(this.showTimer);
     }
     setTimeout(() => {
-      this.icon.hideNotification();
+      callback && callback();
     }, 100);
-    this.props.changeFieldType('password');
-  }
+    this.changeFieldType && this.changeFieldType('password');
+  };
 
   render () {
     const inputWrapClassname = classnames(`abstract-field text-field text-field_${this.props.sizeType.toLowerCase()}`, this.props.className, {
@@ -118,12 +119,12 @@ export default class TextField extends Component {
                 ref             = {c => this.icon = c}
                 notification    = {{code: this.props.eyeNotificationCode || 'N1C', text: this.props.eyeNotificationText || 'Hold to show password'}}
                 notificationAlt = {{ status: false }}
-                onMouseOver     = {this.showTooltip}
-                onMouseLeave    = {this.hidePasswordAndTooltip}
-                onMouseDown     = {this.props.changeFieldType.bind(this, 'text')}
-                onMouseUp       = {this.props.changeFieldType.bind(this, 'password')}
-                onTouchStart    = {this.showTooltip}
-                onTouchEnd      = {this.hidePasswordAndTooltip}
+                onMouseOver     = {() => { this.showTooltip(this.icon.showNotification()); }}
+                onMouseLeave    = {() => { this.hidePasswordAndTooltip(this.icon.hideNotification()); }}
+                onMouseDown     = {this.changeFieldType && this.changeFieldType.bind(this, 'text')}
+                onMouseUp       = {this.changeFieldType && this.changeFieldType.bind(this, 'password')}
+                onTouchStart    = {() => { this.showTooltip(this.icon.showNotification()); }}
+                onTouchEnd      = {() => { this.hidePasswordAndTooltip(this.icon.hideNotification()); }}
               />
             </div>
           : <span className     = { iconNotificationClassname } />
