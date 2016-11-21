@@ -47,7 +47,7 @@ export default class TextField extends Component {
       clearTimeout(this.showTimer);
     }
     setTimeout(() => {
-      this.icon.hideNotification(e, true);
+      this.icon.hideNotification(e.persist(), true);
     }, 100);
     this.props.changeFieldType('password');
   }
