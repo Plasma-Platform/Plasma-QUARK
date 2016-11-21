@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 
 import {connectNotificationTrigger} from './';
 
-export default function connectNotificationTextField(Component) {
+export default function connectNotificationTextField (Component) {
   return class TextFieldNotification extends React.Component {
     static propTypes = {
       notification : PropTypes.object.isRequired,
@@ -11,9 +11,10 @@ export default function connectNotificationTextField(Component) {
     }
 
     handleChange = (event) => {
-      if (this.props.onChange) this.props.onChange(event);
-
-      this.input.hideNotification();
+      if (this.props.onChange) {
+        this.props.onChange(event);
+      }
+      this.input.hideNotification(event);
     }
 
     handleBlur = (event) => {

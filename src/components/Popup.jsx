@@ -28,11 +28,24 @@ export default class Popup extends React.Component {
 
   hideContent () {
     this.content.removeEventListener('animationend', this.hideContent);
+    document.body.style.removeProperty('overflow');
     this.props.onRequestClose();
   }
 
   componentWillReceiveProps (nextProps) {
-    document.body.style.overflow = nextProps.open === true ? 'hidden' : null;
+    if (nextProps.open) {
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  componentDidMount () {
+    if (this.props.open) {
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  componentWillUnmount () {
+    document.body.style.removeProperty('overflow');
   }
 
   renderContent () {

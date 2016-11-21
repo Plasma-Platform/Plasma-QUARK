@@ -1,48 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TextFields from '../lib/textFields';
+import { Router, Route, hashHistory } from 'react-router';
+import App from './App.jsx';
+import TextAreaDemo from './src/pages/TextAreaDemo.jsx';
+import TextFieldDemo from './src/pages/TextFieldDemo.jsx';
 
-import 'ui-toolkit/css/main.css';
-import '../css/main.css';
-
-export default class Element extends React.Component {
-  constructor (props, context) {
-    super(props, context);
-    this.validate = this.validate.bind(this);
-    this.showTooltip = this.showTooltip.bind(this);
-  }
-
-  showTooltip (ref) {
-    let innerRef = ref.input;
-
-    innerRef.setValidationStatus(false, innerRef.props.notificationText);
-  }
-
-  validate () {
-    this.showTooltip(this.refs.email);
-  }
-
-  render () {
-    return (
-      <div className="half-width">
-
-        <TextFields.F4
-          label='Enter your email'
-          eyeTooltipText="Test text"
-          notificationText='Test text Test text Test text Test text Test text'
-          notificationType='N2F'
-          maxWidth="300"
-          onBlur={() => null}
-          onChange={() => null}
-          onKeyDown={this.validate}
-          validate={this.validate}
-          ref="email"
-          type='password'
-          value=''
-        />
-      </div>
-    );
-  }
-}
-
-ReactDOM.render(<Element />, document.getElementById('app'));
+ReactDOM.render((
+  <Router history={hashHistory}>
+    <Route path="/" component={App}>
+      <Route path="textarea" component={TextAreaDemo}/>
+      <Route path="textfield" component={TextFieldDemo}/>
+    </Route>
+  </Router>
+), document.getElementById('app'));
