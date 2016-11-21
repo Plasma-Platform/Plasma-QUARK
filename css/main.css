@@ -991,6 +991,8 @@
 }
 /* colors */
 /* --- Hints --- */
+/* --- Typography Light --- */
+/* --- Typography Dark --- */
 /* spacings */
 /* easings */
 /* Custom animations */
@@ -1212,8 +1214,12 @@
   }
 }
 /* --- Hints --- */
+/* --- Typography Light--- */
+/* --- Typography Dark--- */
 /* colors */
 /* --- Hints --- */
+/* --- Typography Light --- */
+/* --- Typography Dark --- */
 .notification {
   position: absolute;
   border-radius: 3px;
@@ -1366,6 +1372,153 @@
 }
 /* colors */
 /* --- Hints --- */
+/* --- Typography Light --- */
+/* --- Typography Dark --- */
+/* --- Hints --- */
+/* --- Typography Light--- */
+/* --- Typography Dark--- */
+.TMUI__TypographyHeader {
+  display: inline-block;
+  margin: 0;
+  font-weight: 600;
+  color: #243238;
+}
+.TMUI__TypographyHeader--dark {
+  color: #FFFFFF;
+}
+.TMUI__TypographyHeader--dark a {
+  font-weight: 600;
+  color: #90CAF9;
+  text-decoration: none;
+}
+.TMUI__TypographyHeader--dark a:hover {
+  color: #BBDEFB;
+}
+.TMUI__TypographyHeader--0 {
+  font-size: 50px;
+  line-height: 105px;
+}
+.TMUI__TypographyHeader--1 {
+  font-size: 40px;
+  line-height: 52px;
+}
+.TMUI__TypographyHeader--2 {
+  font-size: 30px;
+  line-height: 39px;
+}
+.TMUI__TypographyHeader--3 {
+  font-size: 20px;
+  line-height: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.TMUI__TypographyHeader a {
+  font-weight: 600;
+  color: #2196F3;
+  text-decoration: none;
+}
+.TMUI__TypographyHeader a:hover {
+  color: #0D47A1;
+}
+/* colors */
+/* --- Hints --- */
+/* --- Typography Light --- */
+/* --- Typography Dark --- */
+/* --- Hints --- */
+/* --- Typography Light--- */
+/* --- Typography Dark--- */
+.TMUI__TypographyText {
+  display: inline-block;
+  color: #243238;
+  margin: 0;
+}
+.TMUI__TypographyText a {
+  color: #2196F3;
+  text-decoration: none;
+}
+.TMUI__TypographyText a:hover {
+  color: #0D47A1;
+}
+.TMUI__TypographyText--1 {
+  font-size: 16px;
+  line-height: 24px;
+}
+.TMUI__TypographyText--2 {
+  font-size: 15px;
+  line-height: 22px;
+}
+.TMUI__TypographyText--3 {
+  font-size: 14px;
+  line-height: 21px;
+}
+.TMUI__TypographyText--4 {
+  font-size: 13px;
+  line-height: 20px;
+}
+.TMUI__TypographyText--5 {
+  font-size: 12px;
+  line-height: 18px;
+}
+.TMUI__TypographyText--6 {
+  font-size: 11px;
+  line-height: 16px;
+}
+.TMUI__TypographyText--success {
+  color: #1AB744;
+}
+.TMUI__TypographyText--success a {
+  color: #1AB744;
+}
+.TMUI__TypographyText--success a:hover {
+  color: #0B8738;
+}
+.TMUI__TypographyText--error {
+  color: #F4511E;
+}
+.TMUI__TypographyText--error a {
+  color: #F4511E;
+}
+.TMUI__TypographyText--error a:hover {
+  color: #BF360C;
+}
+.TMUI__TypographyText--secondary {
+  color: #90A4AE;
+}
+.TMUI__TypographyText--dark {
+  color: #FFFFFF;
+}
+.TMUI__TypographyText--dark a {
+  color: #90CAF9;
+  text-decoration: none;
+}
+.TMUI__TypographyText--dark a:hover {
+  color: #BBDEFB;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--success {
+  color: #76D48F;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--success a {
+  color: #76D48F;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--success a:hover {
+  color: #A8E4BB;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--error {
+  color: #FF8A65;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--error a {
+  color: #FF8A65;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--error a:hover {
+  color: #FFCCBC;
+}
+.TMUI__TypographyText--dark.TMUI__TypographyText--secondary {
+  color: #B0BEC5;
+}
+/* colors */
+/* --- Hints --- */
+/* --- Typography Light --- */
+/* --- Typography Dark --- */
 .notification_large {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1401,6 +1554,8 @@
 }
 /* colors */
 /* --- Hints --- */
+/* --- Typography Light --- */
+/* --- Typography Dark --- */
 /* spacings */
 /* easings */
 .icon-letter:before {
@@ -1641,6 +1796,8 @@
 }
 /* colors */
 /* --- Hints --- */
+/* --- Typography Light --- */
+/* --- Typography Dark --- */
 /* spacings */
 /* easings */
 .text-field .text-field__label {
