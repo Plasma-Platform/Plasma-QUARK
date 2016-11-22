@@ -88,3 +88,16 @@ describe('2 Snapshot testing', () => {
     expect(component).toMatchSnapshot();
   });
 });
+
+describe('3 Presentational TextArea testing', () => {
+  let callback;
+  beforeEach(() => {
+    callback = jest.fn();
+  });
+
+  it('3.1 simulates focus using focus() method', () => {
+    let component = mount(<TextAreaPresent onFocus={callback} />);
+    component.node.focus();
+    expect(callback).toBeCalled();
+  });
+});
