@@ -9,9 +9,13 @@ import './TextField.less';
 
 export class EyePasswordIndicator extends Component {
   render () {
+    const usedProps = Object.assign({}, this.props);
+    /** removing all the unused props so as not ot get warning in console **/
+    ['notification', 'notificationAlt', 'handleHideNotification', 'closeOnCLickOutside']
+      .map(e => delete usedProps[e]);
     return (
       <span
-        {...this.props}
+        {...usedProps}
         className = 'text-field__notification-icon icon password-toggle icon-eye'
       />
     );
