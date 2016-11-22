@@ -1,14 +1,14 @@
 import React, {Component, PropTypes} from 'react';
 import classnames from 'classnames';
 
-import Typography from 'ui-toolkit/lib/typography';
+import Typography from './typography/index';
 
 import './LargeNotification.less';
 
 export default class LargeNotification extends Component {
   static propTypes = {
     className      : PropTypes.string,
-    text           : PropTypes.string.isRequired,
+    text           : PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
     typographyCode : PropTypes.oneOf([
       'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'H3']).isRequired,
     width: PropTypes.string
