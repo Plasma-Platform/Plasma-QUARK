@@ -1,7 +1,6 @@
 import React from 'react';
 import md5 from 'md5';
 import fetchJSONP from 'fetch-jsonp';
-import querystring from 'query-string';
 import isRetina from 'is-retina';
 import Base64 from 'js-base64';
 import Underscore from 'underscore';
@@ -104,11 +103,7 @@ export default class Avatar extends React.Component {
    * @private
    */
   getGravatarSrc = (cleanURL, atts) => {
-    const query = querystring.stringify({
-      s : this.getSize(atts.size),
-      r : atts.rating,
-      d : this.default
-    });
+    const query = `a=${this.getSize(atts.size)}&r=${atts.rating}&d=${this.default}`;
     return `${cleanURL}?${query}`;
   };
 
@@ -215,9 +210,7 @@ export default class Avatar extends React.Component {
   };
 
   setGravatarInfo = (props) => {
-    const srcExist = !!props.src;
-    const emailExist = !!props.email;
-    if (!srcExist && emailExist) {
+    if (!props.src && !!props.email) {
       this.getProfile(props).then(data => {
         this.setState(data);
       });
