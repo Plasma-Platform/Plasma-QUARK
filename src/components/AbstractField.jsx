@@ -87,8 +87,7 @@ export default class AbstractField extends Component {
 
   focus = (event) => {
     this.setState({
-      filled  : true,
-      focused : true
+      focused: true
     });
     this.inputElement.focus(event);
   };
