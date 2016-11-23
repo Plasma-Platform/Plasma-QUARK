@@ -86,8 +86,7 @@ export default class InputElement extends Component {
 
   focus = (event) => {
     this.setState({
-      filled  : true,
-      focused : true
+      focused: true
     });
     this.inputElement.focus(event);
   }
