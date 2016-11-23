@@ -1,10 +1,9 @@
-/* global expect:false, test:false, it:false, describe:false, jest:false, beforeEach:false */
+/* global expect:false, it:false, describe:false, jest:false, beforeEach:false */
 
 import React from 'react';
 import {shallow, mount} from 'enzyme';
 import TextField from '../src/components/textFields';
 import TextFieldPresent from '../src/components/TextField.jsx';
-import AbstractField from '../src/components/AbstractField.jsx';
 
 describe('1 TextField high level components [F1, F2, F3, F4] testing', () => {
   let PROPS = {
@@ -98,132 +97,6 @@ describe('1 TextField high level components [F1, F2, F3, F4] testing', () => {
         node.find('input').simulate('change');
         expect(callback).toBeCalled();
       });
-    });
-  });
-});
-
-describe('2 AbstractField testing', () => {
-  let testNode;
-  let input;
-  let callback;
-
-  beforeEach(() => {
-    callback = jest.fn();
-    testNode = mount(<AbstractField onFocus={callback} onBlur={callback} onChange={callback}/>);
-    input = testNode.find('input').first();
-  });
-
-  describe('2.1 Focus testing', () => {
-    it('2.1.1 defines onFocus callback presence', () => {
-      expect(testNode.props().onFocus).toBeDefined();
-    });
-
-    it('2.1.2 calls onFocus callback', () => {
-      input.simulate('focus');
-      expect(callback).toBeCalled();
-    });
-
-    it('2.1.3 checks that onFocus added "text-field_focused" class into wrapping element', () => {
-      input.simulate('focus');
-      let classes = testNode.find('.abstract-field').first().props().className;
-      expect(classes).toMatch('_focused');
-    });
-
-    it('2.1.4 checks that onFocus made state.focused = true', () => {
-      input.simulate('focus');
-      expect(testNode.state('focused')).toEqual(true);
-    });
-  });
-
-  describe('2.2 Blur testing', () => {
-    it('2.2.1 defines onBlur callback presence', () => {
-      expect(testNode.props().onBlur).toBeDefined();
-    });
-
-    it('2.2.2 calls onBlur callback', () => {
-      input.simulate('blur');
-      expect(callback).toBeCalled();
-    });
-
-    it('2.2.3 checks that onBlur removed "text-field_focused" class from wrapping element', () => {
-      input.simulate('focus');
-      input.simulate('blur');
-      let classes = testNode.find('.abstract-field').first().props().className;
-      expect(classes).not.toMatch('_focused');
-    });
-
-    it('2.2.4 checks that onBlur made state.focused = false', () => {
-      input.simulate('focus');
-      input.simulate('blur');
-      expect(testNode.state('focused')).toEqual(false);
-    });
-  });
-
-  describe('2.3 Change testing', () => {
-    it('2.3.1 defines onChange callback presence', () => {
-      expect(testNode.props().onChange).toBeDefined();
-    });
-
-    it('2.3.2 calls onChange callback', () => {
-      let newVal = '777';
-      input.simulate('change', {target: {value: newVal}});
-      expect(input.props().value).toMatch(newVal);
-    });
-
-    it('2.3.3 changes field\'s value with non-empty string, cause state.filled=true', () => {
-      let newVal = '7';
-      input.simulate('change', {target: {value: newVal}});
-      expect(testNode.state('filled')).toEqual(true);
-    });
-
-    it('2.3.4 cleans field\'s value, cause state.filled=false', () => {
-      input.simulate('change', {target: {value: ''}});
-      expect(testNode.state('filled')).toEqual(false);
-    });
-  });
-
-  describe('2.4 Functions ', () => {
-    it('2.4.1 receives the value of input', () => {
-      testNode.setProps({'value': 'test'});
-      let value = testNode.node.getValue();
-      expect(value).toEqual('test');
-    });
-
-    it('2.4.2 sets up validation status to invalid and starts animation', () => {
-      testNode.node.setValidationStatus(false, 'Error');
-      expect(testNode.state('isValid')).toEqual(false);
-      expect(testNode.state('animated')).toEqual(true);
-    });
-
-    it('2.4.3 changes field type', () => {
-      let newType = 'email';
-      testNode.node.changeFieldType(newType);
-      expect(input.node.type).toEqual(newType);
-    });
-
-    it('2.4.4 animates field', () => {
-      testNode.node.activateAnimation();
-      expect(testNode.state('animated')).toEqual(true);
-      let wrapperClasses = testNode.find('.abstract-field').props().className;
-      expect(wrapperClasses).toMatch('animated');
-    });
-
-    it('2.4.5 resets validation status', () => {
-      testNode.node.resetValidationStatus();
-      expect(testNode.state('isValid')).toEqual(undefined);
-      let wrapperClasses = testNode.find('.abstract-field').props().className;
-      expect(wrapperClasses).not.toMatch(/valid |invalid /);
-    });
-
-    it('2.4.6 trims string on blur', () => {
-      let testNode = mount(<AbstractField />);
-      let input = testNode.find('input');
-      let newVal = '   spaces';
-      input.simulate('focus');
-      input.node.value = newVal;
-      input.simulate('change', {target: {value: newVal}});
-      input.simulate('blur');
-      expect(input.node.value).toEqual(newVal.trim());
     });
   });
 });

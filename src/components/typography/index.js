@@ -10,14 +10,14 @@ import T5 from './T5.jsx';
 import T6 from './T6.jsx';
 
 export default {
-    H0,
-    H1,
-    H2,
-    H3,
-    T1,
-    T2,
-    T3,
-    T4,
-    T5,
-    T6
+  H0,
+  H1,
+  H2,
+  H3,
+  T1,
+  T2,
+  T3,
+  T4,
+  T5,
+  T6
 };
