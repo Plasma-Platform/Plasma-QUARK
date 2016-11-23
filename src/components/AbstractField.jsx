@@ -70,7 +70,8 @@ export default class InputElement extends Component {
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.value !== this.props.value) {
       this.setState({
-        value: nextProps.value
+        value  : nextProps.value,
+        filled : true
       });
     }
   }
