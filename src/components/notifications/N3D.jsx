@@ -3,7 +3,7 @@ import Notification from '../Notification.jsx';
 
 export default class N3D extends Component {
   static propTypes = {
-    text      : PropTypes.string.isRequired,
+    text      : PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
     className : PropTypes.string
   }
 

@@ -3,8 +3,8 @@ import Notification from '../Notification.jsx';
 
 export default class N1A extends Component {
   static propTypes = {
-    text: PropTypes.string.isRequired,
-    className: PropTypes.string
+    text      : PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
+    className : PropTypes.string
   }
 
   static defaultProps = {
