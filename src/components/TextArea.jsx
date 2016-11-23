@@ -32,7 +32,7 @@ export default class TextArea extends Component {
 
   blurHandler = (event) => {
     let target = mouseTracker.position.target;
-    if (target && (target.classList.indexOf('text-area') < 0)) {
+    if (target && (!target.classList.contains('text-area'))) {
       this.props.onBlur(event);
     } else {
       event.preventDefault();
