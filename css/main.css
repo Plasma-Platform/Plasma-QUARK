@@ -669,11 +669,13 @@
   -ms-flex: 1;
   flex: 1;
   font-size: 14px;
-  line-height: 40px;
+  line-height: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .dropdown_type_1 .dropdown__button:active {
-  line-height: 38px;
-  padding-top: 2px;
+  padding-bottom: 9px;
+  padding-top: 11px;
 }
 .dropdown:not(.dropdown_open).dropdown_type_1 .dropdown__button:hover,
 .dropdown:not(.dropdown_open).dropdown_type_1 .dropdown__button:focus,
@@ -702,12 +704,14 @@
 .dropdown_type_2 .dropdown__button {
   border-radius: 3px;
   font-size: 14px;
-  line-height: 40px;
+  line-height: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
   width: 100%;
 }
 .dropdown_type_2 .dropdown__button:active {
-  line-height: 38px;
-  padding-top: 2px;
+  padding-top: 11px;
+  padding-bottom: 9px;
 }
 .dropdown_type_2.dropdown_content-position_top .dropdown__content {
   bottom: 40px;
@@ -748,8 +752,8 @@
   color: #fff;
 }
 .dropdown_type_3 .dropdown__button:active {
-  line-height: 18px;
-  padding-top: 32px;
+  padding-bottom: 9px;
+  padding-top: 31px;
 }
 .dropdown_type_3.dropdown_content-position_top .dropdown__content {
   bottom: 100%;
@@ -782,8 +786,8 @@
   padding-bottom: 10px;
 }
 .dropdown_type_4 .dropdown__button:active {
-  padding-top: 11px;
   padding-bottom: 9px;
+  padding-top: 11px;
 }
 .dropdown:not(.dropdown_open).dropdown_type_4 .dropdown__button:hover,
 .dropdown:not(.dropdown_open).dropdown_type_4 .dropdown__button:focus,
