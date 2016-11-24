@@ -5,7 +5,9 @@ jest.mock('../src/components/utils/mouseTracker', () => {
   return {
     position: {
       target: {
-        classList: ['not-text-area']
+        classList: {
+          contains: () => false
+        }
       }
     }
   };

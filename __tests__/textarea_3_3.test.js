@@ -5,7 +5,9 @@ jest.mock('../src/components/utils/mouseTracker', () => {
   return {
     position: {
       target: {
-        classList: ['text-area']
+        classList: {
+          contains: () => true
+        }
       }
     }
   };
@@ -13,7 +15,7 @@ jest.mock('../src/components/utils/mouseTracker', () => {
 import TextAreaMocked from '../src/components/TextArea.jsx';
 
 describe('Textarea test which heeds mocked module', () => {
-  it('3.2 simulates blur on textarea (cursor IN it)', () => {
+  it('3.3 simulates blur on textarea (cursor IN it)', () => {
     let component = mount(<TextAreaMocked />);
     component.node.input.focus = jest.fn(component.node.input.focus);
     component.find('textarea').first().simulate('blur');
