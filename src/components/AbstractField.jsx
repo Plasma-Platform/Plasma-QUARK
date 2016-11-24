@@ -74,6 +74,11 @@ export default class InputElement extends Component {
         filled : true
       });
     }
+    if (nextProps.value === '') {
+      this.setState({
+        filled : false
+      });
+    }
   }
 
   componentDidUpdate = () => {
@@ -122,6 +127,8 @@ export default class InputElement extends Component {
     });
 
     this.refreshInputCounter();
+
+    console.log('onChange');
   }
 
   onFocus = (event) => {
@@ -136,6 +143,8 @@ export default class InputElement extends Component {
         filled  : !!event.target.value
       });
     }
+
+    console.log('onFocus')
   }
 
   onBlur = (event) => {
