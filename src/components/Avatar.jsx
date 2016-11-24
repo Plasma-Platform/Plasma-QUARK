@@ -24,31 +24,32 @@ export default class Avatar extends React.Component {
     name      : ''
   };
 
+  state = {
+    status      : null,
+    color       : '',
+    initial     : '',
+    displayName : '',
+    size        : this.props.size,
+    avatar      : ''
+  };
+
   constructor (props) {
     super(props);
     this.componentIsMounted = false;
     this.url = 'https://gravatar.com/';
     this.default = 'https://cdn2wp-templatemonster.netdna-ssl.com/wp-content/uploads/2016/10/onepixel.png';
     this.colors = [ // array colors
-      '#1A76D2',
-      '#546E7A',
-      '#E64A19',
-      '#0B8738',
-      '#FFA001',
+      '#1a76d2',
+      '#546e7a',
+      '#e64a19',
+      '#0b8738',
+      '#ffa001',
       '#996969',
-      '#42A5F5',
+      '#42a5f5',
       '#243238',
       '#006023',
-      '#FF6F00'
+      '#ff6f00'
     ];
-    this.state = {
-      status      : null,
-      color       : '',
-      initial     : '',
-      displayName : '',
-      size        : this.props.size,
-      avatar      : ''
-    };
   }
 
   /**
@@ -68,11 +69,11 @@ export default class Avatar extends React.Component {
         initial     : this.prepareInitials(data.displayName),
         displayName : data.displayName,
         size        : this.getSize(atts.size),
-        avatar      : this.getGravatarSrc(data.thumbnailUrl, atts)
+        avatar      : `${data.thumbnailUrl}?a=${this.getSize(atts.size)}&r=${atts.rating}&d=${this.default}`
       };
     }).catch(() => {
       return {
-        status : 0
+        status: 0
       };
     });
   }, (input) => {
@@ -93,19 +94,6 @@ export default class Avatar extends React.Component {
       modernBrowser = 'srcset' in document.createElement('img');
     }
     return !modernBrowser && isRetina() ? size * 2 : size;
-  };
-
-  /**
-   * Generate src for gravatar with query params
-   *
-   * @param {String} cleanURL
-   * @param {Object} atts
-   * @returns {string}
-   * @private
-   */
-  getGravatarSrc = (cleanURL, atts) => {
-    const query = `a=${this.getSize(atts.size)}&r=${atts.rating}&d=${this.default}`;
-    return `${cleanURL}?${query}`;
   };
 
   /**
