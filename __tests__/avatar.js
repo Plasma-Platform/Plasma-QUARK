@@ -134,11 +134,11 @@ test('Avatar without anything', () => {
 });
 
 test('Avatar with set props', () => {
-  const component = shallow(
+  const component = mount(
     <Avatar/>
   );
   component.setProps({
-    email: params.email
+    name: params.name
   });
 
   const tree = component.html();

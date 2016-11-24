@@ -26,6 +26,7 @@ export default class Avatar extends React.Component {
 
   constructor (props) {
     super(props);
+    this.componentIsMounted = false;
     this.url = 'https://gravatar.com/';
     this.default = 'https://cdn2wp-templatemonster.netdna-ssl.com/wp-content/uploads/2016/10/onepixel.png';
     this.colors = [ // array colors
@@ -71,7 +72,7 @@ export default class Avatar extends React.Component {
       };
     }).catch(() => {
       return {
-        status: 0
+        status : 0
       };
     });
   }, (input) => {
@@ -212,22 +213,29 @@ export default class Avatar extends React.Component {
   setGravatarInfo = (props) => {
     if (!props.src && !!props.email) {
       this.getProfile(props).then(data => {
-        this.setState(data);
+        if (this.componentIsMounted) {
+          this.setState(data);
+        }
       });
     }
   };
+
+  componentWillUnmount () {
+    this.componentIsMounted = false;
+  }
 
   componentWillReceiveProps (newProps) {
     this.setGravatarInfo(newProps);
   }
 
   componentDidMount () {
+    this.componentIsMounted = true;
     this.setGravatarInfo(this.props);
   }
 
   render () {
     let html = '';
-    let srcExist = !!this.props.src;
+    const srcExist = !!this.props.src;
     if (srcExist) {
       html = this.getSimpleImageBlock(this.props.src);
     } else if (this.state.status) {
@@ -235,7 +243,7 @@ export default class Avatar extends React.Component {
     } else {
       const nameExist = !!this.props.name;
       const emailExist = !!this.props.email;
-      if ((!nameExist && !emailExist) && this.state.status === null) {
+      if ((!nameExist && !emailExist) || (emailExist && this.state.status === null)) {
         return false;
       }
       const initials = this.prepareInitials(nameExist ? this.props.name : this.props.email);
