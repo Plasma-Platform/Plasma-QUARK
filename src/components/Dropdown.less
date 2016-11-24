@@ -223,27 +223,29 @@
       border-bottom: 1px solid #455a64;
     }
 
-    &:hover,
-    &:focus,
-    &:active {
-      outline: none;
-      top: 1px;
-      margin-top: -2px;
+    &:not(&_selected):hover,
+    &:not(&_selected):focus,
+    &:not(&_selected):active {
+      outline-style: solid;
+      outline-width: 1px;
+      outline-color: #2196f3;
     }
 
     &:hover,
     &:focus {
       background-color: #2196f3;
       border-bottom-color: #2196f3;
-      padding-top: 11px;
-      padding-bottom: 11px;
     }
 
     &:active {
       background-color: #1976d2;
       border-bottom-color: #1976d2;
-      padding-top: 12px;
-      padding-bottom: 10px;
+      padding-top: 11px;
+      padding-bottom: 9px;
+    }
+
+    &_selected {
+      outline: none;
     }
 
     &_disabled {

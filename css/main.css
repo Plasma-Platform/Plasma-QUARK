@@ -614,25 +614,26 @@
 .dropdown__option:not(:last-child) {
   border-bottom: 1px solid #455a64;
 }
-.dropdown__option:hover,
-.dropdown__option:focus,
-.dropdown__option:active {
-  outline: none;
-  top: 1px;
-  margin-top: -2px;
+.dropdown__option:not(.dropdown__option_selected):hover,
+.dropdown__option:not(.dropdown__option_selected):focus,
+.dropdown__option:not(.dropdown__option_selected):active {
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: #2196f3;
 }
 .dropdown__option:hover,
 .dropdown__option:focus {
   background-color: #2196f3;
   border-bottom-color: #2196f3;
-  padding-top: 11px;
-  padding-bottom: 11px;
 }
 .dropdown__option:active {
   background-color: #1976d2;
   border-bottom-color: #1976d2;
-  padding-top: 12px;
-  padding-bottom: 10px;
+  padding-top: 11px;
+  padding-bottom: 9px;
+}
+.dropdown__option_selected {
+  outline: none;
 }
 .dropdown__option_disabled {
   color: #78909c;
