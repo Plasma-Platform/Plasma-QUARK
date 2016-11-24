@@ -16,9 +16,9 @@ export default class Popup extends React.Component {
   constructor (props) {
     super(props);
 
-    this.handlePopupKeyDown = this.handlePopupKeyDown.bind(this);
-    this.animateClose       = this.animateClose.bind(this);
-    this.close              = this.close.bind(this);
+    this.closePopupOnEsc = this.closePopupOnEsc.bind(this);
+    this.animateClose    = this.animateClose.bind(this);
+    this.close           = this.close.bind(this);
   }
 
   close () {
@@ -32,8 +32,8 @@ export default class Popup extends React.Component {
     this.content.addEventListener('animationend', this.close);
   }
 
-  handlePopupKeyDown (event) {
-    if (event.keyCode === 27) {
+  closePopupOnEsc (event) {
+    if (event.keyCode === 27 && this.props.open) {
       this.animateClose();
     }
   }
@@ -41,6 +41,8 @@ export default class Popup extends React.Component {
   componentWillReceiveProps (nextProps) {
     if (nextProps.open) {
       document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.removeProperty('overflow');
     }
   }
 
@@ -48,10 +50,12 @@ export default class Popup extends React.Component {
     if (this.props.open) {
       document.body.style.overflow = 'hidden';
     }
+    document.addEventListener('keydown', this.closePopupOnEsc);
   }
 
   componentWillUnmount () {
     document.body.style.removeProperty('overflow');
+    document.removeEventListener('keydown', this.closePopupOnEsc);
   }
 
   renderContent () {
@@ -66,8 +70,6 @@ export default class Popup extends React.Component {
       <div
         className = {popupClassName}
         id        = {this.props.id ? this.props.id : null}
-        tabIndex  = "0"
-        onKeyDown = {this.handlePopupKeyDown}
         role      = "dialog"
         ref       = {ref => { this.container = ref; }}
       >
