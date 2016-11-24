@@ -11,6 +11,7 @@ export default class Dropdown extends React.Component {
     id                 : React.PropTypes.string,
     disabled           : React.PropTypes.bool,
     label              : React.PropTypes.string,
+    showFilter         : React.PropTypes.bool,
     filterQuery        : React.PropTypes.string,
     filterHint         : React.PropTypes.string,
     defaultFilterQuery : React.PropTypes.string,
@@ -23,6 +24,7 @@ export default class Dropdown extends React.Component {
 
   static defaultProps = {
     defaultOpen        : false,
+    showFilter         : false,
     defaultFilterQuery : '',
     noResultsText      : 'No results match'
   }
@@ -36,8 +38,6 @@ export default class Dropdown extends React.Component {
   constructor (props) {
     super(props);
 
-    this.open                  = this.open.bind(this);
-    this.close                 = this.close.bind(this);
     this.toggle                = this.toggle.bind(this);
     this.handleButtonKeyDown   = this.handleButtonKeyDown.bind(this);
     this.handleFilterInput     = this.handleFilterInput.bind(this);
@@ -47,23 +47,18 @@ export default class Dropdown extends React.Component {
     this.handleOptionKeyDown   = this.handleOptionKeyDown.bind(this);
     this.handleDropdownKeyDown = this.handleDropdownKeyDown.bind(this);
     this.handleDropdownBlur    = this.handleDropdownBlur.bind(this);
-    this.getValue              = this.getValue.bind(this);
-    this.getOptionByValue      = this.getOptionByValue.bind(this);
-    this.setContentPosition    = this.setContentPosition.bind(this);
-    this.renderLabel           = this.renderLabel.bind(this);
-    this.renderContent         = this.renderContent.bind(this);
-    this.renderOptions         = this.renderOptions.bind(this);
 
     this.contentPosition = 'bottom';
   }
 
   open () {
     this.setContentPosition();
+
     this.setState({
       open        : true,
       filterQuery : ''
     }, () => {
-      if (this.props.type === 3) {
+      if (this.props.showFilter) {
         this.filterInput.focus();
       } else {
         this.button.focus();
@@ -136,7 +131,7 @@ export default class Dropdown extends React.Component {
     } else if (keyCode === 38) {
       if (this[`option${optionIndex - 1}`]) {
         this[`option${optionIndex - 1}`].focus();
-      } else if (this.props.type === 3) {
+      } else if (this.props.showFilter) {
         this.filterInput.focus();
       }
     }
@@ -192,50 +187,6 @@ export default class Dropdown extends React.Component {
     }
   }
 
-  renderLabel () {
-    return (
-      <span className="dropdown__label">{this.props.label}</span>
-    );
-  }
-
-  renderContent () {
-    return (
-      <div
-        className = "dropdown__content"
-        ref       = {ref => { this.content = ref; }}
-      >
-        {this.props.type === 3 &&
-          <div className="dropdown__filter-box">
-            <input
-              className   = "dropdown__filter-input"
-              type        = "search"
-              value       = {this.state.filterQuery}
-              placeholder = {this.props.filterHint || null}
-              tabIndex    = {this.state.open ? '0' : '-1'}
-              onChange    = {this.handleFilterInput}
-              onBlur      = {this.handleFilterBlur}
-              onKeyDown   = {this.handleFilterKeyDown}
-              ref         = {ref => { this.filterInput = ref; }}
-            />
-          </div>
-        }
-        <ul
-          className = "dropdown__options"
-          ref       = {ref => { this.optionsList = ref; }}
-        >
-          {this.renderOptions().length === 0 && this.props.type === 3 ? (
-            <li className="dropdown__option dropdown__no-results">
-              {`${this.props.noResultsText} "${this.state.filterQuery}"`}
-            </li>
-            ) : (
-              this.renderOptions()
-            )
-          }
-        </ul>
-      </div>
-    );
-  }
-
   renderOptions () {
     const filterQuery  = this.state.filterQuery.toLowerCase();
     const filterRegExp = new RegExp('\\b' + filterQuery, 'gi');
@@ -253,7 +204,7 @@ export default class Dropdown extends React.Component {
       }).map((option, index) => {
         const selectedClassName   = this.state.value === option.value ? ' dropdown__option_selected' : '';
         const optionClassName     = `dropdown__option${selectedClassName}`;
-        const optionIconClassName = this.props.type === 3 && option.icon && option.icon.length > 0 ? ` dropdown__icon icon icon-${option.icon}` : '';
+        const optionIconClassName = option.icon && option.icon.length > 0 ? ` dropdown__icon icon icon-${option.icon}` : '';
 
         let optionIndex;
 
@@ -307,7 +258,7 @@ export default class Dropdown extends React.Component {
 
     const selectedOptionIcon  = selectedOption && selectedOption.icon ? selectedOption.icon : this.props.options.length && this.props.options[0].icon ? this.props.options[0].icon : '';
 
-    const buttonIconClassName = selectedOptionIcon.length > 0 && this.props.type === 3 ? ` dropdown__icon icon icon-${selectedOptionIcon}` : '';
+    const buttonIconClassName = selectedOptionIcon.length > 0 ? ` dropdown__icon icon icon-${selectedOptionIcon}` : '';
 
     return (
       <div
@@ -318,7 +269,7 @@ export default class Dropdown extends React.Component {
         ref       = {ref => { this.container = ref; }}
       >
         {(this.props.type === 1 || this.props.type === 2) &&
-          this.renderLabel()
+          <span className="dropdown__label">{this.props.label}</span>
         }
 
         <button
@@ -337,10 +288,42 @@ export default class Dropdown extends React.Component {
         </button>
 
         {this.props.type === 3 &&
-          this.renderLabel()
+          <span className="dropdown__label">{this.props.label}</span>
         }
 
-        {this.renderContent()}
+        <div
+          className = "dropdown__content"
+          ref       = {ref => { this.content = ref; }}
+        >
+          {this.props.showFilter &&
+            <div className="dropdown__filter-box">
+              <input
+                className   = "dropdown__filter-input"
+                type        = "search"
+                value       = {this.state.filterQuery}
+                placeholder = {this.props.filterHint || null}
+                tabIndex    = {this.state.open ? '0' : '-1'}
+                onChange    = {this.handleFilterInput}
+                onBlur      = {this.handleFilterBlur}
+                onKeyDown   = {this.handleFilterKeyDown}
+                ref         = {ref => { this.filterInput = ref; }}
+              />
+            </div>
+          }
+          <ul
+            className = "dropdown__options"
+            ref       = {ref => { this.optionsList = ref; }}
+          >
+            {this.renderOptions().length === 0 && this.props.showFilter ? (
+              <li className="dropdown__option dropdown__no-results">
+                {`${this.props.noResultsText} "${this.state.filterQuery}"`}
+              </li>
+              ) : (
+                this.renderOptions()
+              )
+            }
+          </ul>
+        </div>
       </div>
     );
   }
