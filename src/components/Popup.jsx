@@ -16,7 +16,8 @@ export default class Popup extends React.Component {
   constructor (props) {
     super(props);
 
-    this.animateClose = this.animateClose.bind(this);
+    this.handlePopupKeyDown = this.handlePopupKeyDown.bind(this);
+    this.animateClose       = this.animateClose.bind(this);
   }
 
   close () {
