@@ -393,6 +393,7 @@
   /* dropdown_type_1 */
   /* type 2 */
   /* type 3 */
+  /* type 4 */
 }
 .dropdown *,
 .dropdown *::before,
@@ -764,6 +765,40 @@
 }
 .dropdown_type_3 .dropdown__option.dropdown__no-results {
   pointer-events: none;
+}
+.dropdown_type_4 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.dropdown_type_4.dropdown_disabled:before {
+  top: 0;
+}
+.dropdown_type_4 .dropdown__button {
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.dropdown_type_4 .dropdown__button:active {
+  padding-top: 11px;
+  padding-bottom: 9px;
+}
+.dropdown:not(.dropdown_open).dropdown_type_4 .dropdown__button:hover,
+.dropdown:not(.dropdown_open).dropdown_type_4 .dropdown__button:focus,
+.dropdown:not(.dropdown_open).dropdown_type_4 .dropdown__button:active {
+  border-radius: 3px;
+}
+.dropdown_type_4.dropdown_content-position_top .dropdown__content {
+  bottom: 100%;
+}
+.dropdown_type_4.dropdown_content-position_bottom-fixed .dropdown__options {
+  max-height: 600px;
+  overflow-y: auto;
+}
+.dropdown_type_4 .dropdown__option:first-child {
+  border-top-width: 0;
 }
 .radio {
   box-sizing: border-box;
@@ -1929,6 +1964,8 @@
 }
 /* colors */
 /* --- Hints --- */
+/* --- Typography Light --- */
+/* --- Typography Dark --- */
 /* spacings */
 /* easings */
 .text-area {

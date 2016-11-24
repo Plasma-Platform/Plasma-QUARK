@@ -17,8 +17,9 @@ export default class DD4 extends React.Component {
     return (
       <Dropdown
         {...this.props}
-        ref  = {ref => { this.dropdown = ref; }}
-        type = {4}
+        ref        = {ref => { this.dropdown = ref; }}
+        showFilter = {this.props.showFilter || true}
+        type       = {4}
       />
     );
   }

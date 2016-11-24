@@ -17,8 +17,9 @@ export default class DD3 extends React.Component {
     return (
       <Dropdown
         {...this.props}
-        ref  = {ref => { this.dropdown = ref; }}
-        type = {3}
+        ref        = {ref => { this.dropdown = ref; }}
+        showFilter = {this.props.showFilter || true}
+        type       = {3}
       />
     );
   }
