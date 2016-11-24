@@ -16,20 +16,24 @@ export default class Popup extends React.Component {
   constructor (props) {
     super(props);
 
-    this.renderContent    = this.renderContent.bind(this);
-    this.handleCloseClick = this.handleCloseClick.bind(this);
-    this.hideContent      = this.hideContent.bind(this);
+    this.animateClose = this.animateClose.bind(this);
   }
 
-  handleCloseClick () {
-    this.content.classList.add('popup__content_animate_hide');
-    this.content.addEventListener('animationend', this.hideContent);
-  }
-
-  hideContent () {
-    this.content.removeEventListener('animationend', this.hideContent);
+  close () {
+    this.content.removeEventListener('animationend', this.close);
     document.body.style.removeProperty('overflow');
     this.props.onRequestClose();
+  }
+
+  animateClose () {
+    this.content.classList.add('popup__content_animate_hide');
+    this.content.addEventListener('animationend', this.close);
+  }
+
+  handlePopupKeyDown (event) {
+    if (event.keyCode === 27) {
+      this.animateClose();
+    }
   }
 
   componentWillReceiveProps (nextProps) {
@@ -60,12 +64,14 @@ export default class Popup extends React.Component {
       <div
         className = {popupClassName}
         id        = {this.props.id ? this.props.id : null}
+        tabIndex  = "-1"
+        onKeyDown = {this.handlePopupKeyDown}
         role      = "dialog"
         ref       = {ref => { this.container = ref; }}
       >
         <div
           className = "popup__bg"
-          onClick   = {this.handleCloseClick}
+          onClick   = {this.animateClose}
         >
         </div>
 
@@ -77,7 +83,7 @@ export default class Popup extends React.Component {
             className  = {closeBtnClassName}
             type       = "button"
             aria-label = {this.props.closeText}
-            onClick    = {this.handleCloseClick}
+            onClick    = {this.animateClose}
           >
             <span className={closeCrossClassName}></span>
           </button>
