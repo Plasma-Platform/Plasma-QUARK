@@ -88,7 +88,6 @@
     "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-textarea-autosize": "^4.0.5",
-    "ui-toolkit": "git+ssh://git@templatemonster.git.beanstalkapp.com:/templatemonster/ui-toolkit.git",
     "underscore": "^1.8.3"
   }
 }

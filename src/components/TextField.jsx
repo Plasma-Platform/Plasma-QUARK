@@ -23,8 +23,8 @@ export class EyePasswordIndicator extends Component {
 }
 
 export default class TextField extends Component {
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
     this.showTooltip = this.showTooltip.bind(this);
     this.hidePasswordAndTooltip = this.hidePasswordAndTooltip.bind(this);
     this.showTimer = null;
@@ -40,11 +40,16 @@ export default class TextField extends Component {
     customIcon          : PropTypes.string
   }
 
-  showTooltip () {
+  static defaultProps = {
+    type     : 'text',
+    sizeType : 'F1'
+  };
+
+  showTooltip (callback) {
     this.showTimer = setTimeout(() => {
       this.icon.showNotification();
     }, 200);
-  }
+  };
 
   hidePasswordAndTooltip (e) {
     if (this.showTimer !== null) {
@@ -94,7 +99,7 @@ export default class TextField extends Component {
         <input
           ref         = { input => this.input = input }
           id          = {this.props.id}
-          type        = {this.props.type || 'text'}
+          type        = {this.props.type}
           value       = {this.props.value}
           autoFocus   = {this.props.autoFocus}
           placeholder = {['F1', 'F2'].indexOf(this.props.sizeType) >= 0 ? hint : ''}

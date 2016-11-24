@@ -26,9 +26,13 @@ export default class TextArea extends Component {
     customIcon   : PropTypes.string
   };
 
+  static defaultProps = {
+    sizeType: 'TA1'
+  };
+
   blurHandler = (event) => {
     let target = mouseTracker.position.target;
-    if (!target.classList.contains('text-area')) {
+    if (target && (!target.classList.contains('text-area'))) {
       this.props.onBlur(event);
     } else {
       event.preventDefault();

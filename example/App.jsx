@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import 'ui-toolkit/css/main.css';
 import '../css/main.css';
 import './main.less';
 

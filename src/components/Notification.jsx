@@ -13,26 +13,26 @@ export default class Notification extends Component {
     onHideNotification : PropTypes.func,
     status             : PropTypes.oneOf(['default', 'success', 'error']).isRequired,
     position           : PropTypes.oneOf(['top', 'bottom', 'left', 'right']).isRequired
-  }
+  };
 
   state = {
     top    : 'initial',
     left   : 'initial',
     right  : 'initial',
     bottom : 'initial'
-  }
+  };
 
   componentDidMount () {
     this.getContainerWidth();
-  }
+  };
 
   getContainerWidth = () => {
     if (this.container) this.setState({width: this.container.offsetWidth + 2});
-  }
+  };
 
   setPosition (coords) {
     this.setState(coords);
-  }
+  };
 
   render () {
     const classes = classnames({
@@ -66,7 +66,8 @@ export default class Notification extends Component {
             ? (<div className='notification__closeBlock'>
             <div
               className='notification__closeBlock__closeArea'
-              onTouchTap={this.props.onHideNotification}
+              onClick={this.props.onHideNotification}
+              onTouchEnd={this.props.onHideNotification}
             />
           </div>)
             : null
