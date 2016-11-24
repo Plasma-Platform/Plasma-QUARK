@@ -66,7 +66,7 @@ export default class Popup extends React.Component {
       <div
         className = {popupClassName}
         id        = {this.props.id ? this.props.id : null}
-        tabIndex  = "-1"
+        tabIndex  = "0"
         onKeyDown = {this.handlePopupKeyDown}
         role      = "dialog"
         ref       = {ref => { this.container = ref; }}
