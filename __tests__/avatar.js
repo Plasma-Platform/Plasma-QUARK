@@ -1,15 +1,26 @@
-/* global expect:false, test:false, it:false, describe:false */
+/* global expect:false, test:false, it:false, describe:false, beforeEach:false, afterEach:false */
 
 import React from 'react';
-import {shallow, mount} from 'enzyme';
+import ReactDOM from 'react-dom';
+import {mount} from 'enzyme';
 import Avatar from '../src/components/Avatar';
-const avatar = shallow(<Avatar email="shaggrath@mail.ru"/>);
+let avatar;
 let params = {
   email  : 'stevenreed@templatemonster.me',
   size   : 60,
   name   : 'Tester',
   rating : 'g'
 };
+let container;
+beforeEach(() => {
+  container = document.createElement('div');
+  avatar = mount(<Avatar email="shaggrath@mail.ru" />, {attachTo: container});
+});
+
+afterEach(() => {
+  ReactDOM.unmountComponentAtNode(container);
+});
+
 describe('Functional methods test:', () => {
   it('Method: getProfile(), Promise is work normal', async function() {
     try {
@@ -35,17 +46,12 @@ describe('Functional methods test:', () => {
     expect(typeof avatar.instance().getSize(params.size)).toEqual('number');
   });
 
-  it(`Method: getGravatarSrc(), must return url (string)`, () => {
-    expect(typeof avatar.instance().getGravatarSrc('https://secure.gravatar.com/avatar/8bd2cedcb98c7a43c4f206e312568529', params)).toEqual('string');
-  });
-
   it(`Method: setGravatarInfo(), must return url (string)`, async function() {
     try {
       await avatar.instance().setGravatarInfo(params);
     } catch (object) {
       throw object;
     }
-    expect(typeof avatar.instance().getGravatarSrc('https://secure.gravatar.com/avatar/8bd2cedcb98c7a43c4f206e312568529', params)).toEqual('string');
   });
 
   describe(`Method: prepareInitials(), must return string with length 2`, () => {
@@ -66,11 +72,11 @@ describe('Functional methods test:', () => {
       },
       {
         name  : 'СС',
-        color : '#546E7A'
+        color : '#546e7a'
       },
       {
         name  : '',
-        color : '#1A76D2'
+        color : '#1a76d2'
       }
     ];
     testData.forEach((element) => {
