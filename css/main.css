@@ -791,7 +791,11 @@
   border-radius: 3px;
 }
 .dropdown_type_4.dropdown_content-position_top .dropdown__content {
+  border-bottom-right-radius: 3px;
   bottom: 100%;
+}
+.dropdown_type_4.dropdown_content-position_bottom .dropdown__content {
+  border-top-right-radius: 3px;
 }
 .dropdown_type_4.dropdown_content-position_bottom-fixed .dropdown__options {
   max-height: 600px;
