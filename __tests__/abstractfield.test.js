@@ -1,7 +1,7 @@
 /* global expect:false, it:false, describe:false, jest:false, beforeEach:false */
 
 import React from 'react';
-import {shallow, mount} from 'enzyme';
+import {mount} from 'enzyme';
 import AbstractField from '../src/components/AbstractField.jsx';
 
 describe('AbstractField testing', () => {
@@ -37,10 +37,8 @@ describe('AbstractField testing', () => {
     });
 
     it('1.5 tests autofocus prop', () => {
-      let testNode = mount(<AbstractField autofocus={true} />);
-      testNode.node.focus = jest.fn();
-      testNode.mount();
-      expect(testNode.node.focus).toBeCalled();
+      let testNode = mount(<AbstractField autofocus />);
+      expect(testNode.state().focused).toEqual(true);
     });
   });
 

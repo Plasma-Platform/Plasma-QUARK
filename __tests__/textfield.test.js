@@ -6,7 +6,7 @@ import TextField from '../src/components/textFields';
 import TextFieldPresent from '../src/components/TextField.jsx';
 
 describe('1 TextField high level components [F1, F2, F3, F4] testing', () => {
-  let PROPS = {
+  const PROPS = {
     type: ['email', 'password', 'text', 'search']
   };
 
