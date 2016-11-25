@@ -11,7 +11,7 @@ describe('AbstractField testing', () => {
 
   beforeEach(() => {
     callback = jest.fn();
-    testNode = mount(<AbstractField onFocus={callback} onBlur={callback} onChange={callback}/>);
+    testNode = mount(<AbstractField onFocus={callback} onBlur={callback} onChange={callback} closeOnCLickOutside={true}  />);
     input = testNode.find('input').first();
   });
 
@@ -37,7 +37,7 @@ describe('AbstractField testing', () => {
     });
 
     it('1.5 tests autofocus prop', () => {
-      let testNode = mount(<AbstractField autofocus />);
+      let testNode = mount(<AbstractField autofocus closeOnCLickOutside={true}  />);
       expect(testNode.state().focused).toEqual(true);
     });
   });
@@ -129,7 +129,7 @@ describe('AbstractField testing', () => {
     });
 
     it('4.7 trims string on blur', () => {
-      let testNode = mount(<AbstractField />);
+      let testNode = mount(<AbstractField closeOnCLickOutside={true} />);
       let input = testNode.find('input');
       let newVal = '   spaces';
       input.simulate('focus');
