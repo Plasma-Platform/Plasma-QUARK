@@ -2,7 +2,7 @@ import React from 'react';
 
 import Dropdown from '../Dropdown.jsx';
 
-export default class DD3 extends React.Component {
+export default class DD4 extends React.Component {
   constructor (props) {
     super(props);
 
@@ -19,7 +19,7 @@ export default class DD3 extends React.Component {
         {...this.props}
         ref        = {ref => { this.dropdown = ref; }}
         showFilter = {this.props.showFilter || true}
-        type       = {3}
+        type       = {4}
       />
     );
   }
