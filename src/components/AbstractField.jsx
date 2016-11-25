@@ -4,12 +4,12 @@ import TextField from './TextField.jsx';
 import TextArea from './TextArea.jsx';
 import {connectNotificationTextField} from './utils';
 
-export default class InputElement extends Component {
+export default class AbstractField extends Component {
 
   static propTypes = {
     id               : PropTypes.string,
     componentType    : PropTypes.oneOf(['textfield', 'textarea']),
-    sizeType         : PropTypes.string.isRequired,
+    sizeType         : PropTypes.string,
     placeholder      : PropTypes.string,
     value            : PropTypes.string,
     disabled         : PropTypes.bool,
@@ -17,10 +17,11 @@ export default class InputElement extends Component {
     focused          : PropTypes.bool,
     notificationText : PropTypes.string,
     maxLength        : PropTypes.number
-  }
+  };
 
   static defaultProps = {
-    notificationAlt: {status: false}
+    notificationAlt  : {status: false},
+    notificationType : 'N2B'
   };
 
   state = {
@@ -41,7 +42,7 @@ export default class InputElement extends Component {
     this.inputDOMElement = null;
     this.textComponent = (props.componentType === 'textarea') ? TextArea : TextField;
     this.component = connectNotificationTextField(this.textComponent);
-  }
+  };
 
   componentDidMount = () => {
     this.inputElement = this.comp.input.target.input;
@@ -65,7 +66,7 @@ export default class InputElement extends Component {
     if (this.props.limitCounter) {
       this.refreshInputCounter();
     }
-  }
+  };
 
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.value !== this.props.value) {
@@ -79,7 +80,7 @@ export default class InputElement extends Component {
         filled : false
       });
     }
-  }
+  };
 
   componentDidUpdate = () => {
     if (this.state.isValid === false) {
@@ -87,14 +88,14 @@ export default class InputElement extends Component {
     } else {
       this.comp.input.hideNotification();
     }
-  }
+  };
 
   focus = (event) => {
     this.setState({
       focused: true
     });
     this.inputElement.focus(event);
-  }
+  };
 
   setValidationStatus = (status, notificationText) => {
     this.handleValidation({
@@ -102,19 +103,19 @@ export default class InputElement extends Component {
       message : notificationText
     });
     this.activateAnimation();
-  }
+  };
 
   getValidationStatus = () => {
     return this.state.isValid;
-  }
+  };
 
   getValue = () => {
     return this.state.value;
-  }
+  };
 
   changeFieldType = (newType = 'text') => {
     this.inputDOMElement.setAttribute('type', newType);
-  }
+  };
 
   onChange = (event) => {
     if (typeof this.props.onChange === 'function') {
@@ -127,9 +128,7 @@ export default class InputElement extends Component {
     });
 
     this.refreshInputCounter();
-
-    console.log('onChange');
-  }
+  };
 
   onFocus = (event) => {
     if (!this.state.focused) {
@@ -143,9 +142,7 @@ export default class InputElement extends Component {
         filled  : !!event.target.value
       });
     }
-
-    console.log('onFocus')
-  }
+  };
 
   onBlur = (event) => {
     if (typeof this.props.onBlur === 'function') {
@@ -175,26 +172,26 @@ export default class InputElement extends Component {
       this.props.onValidate();
       this.activateAnimation();
     }
-  }
+  };
 
   handleValidation = (data) => {
     this.setState({
       isValid          : data.status,
       notificationText : data.message
     });
-  }
+  };
 
   resetValidationStatus = () => {
     this.setState({
       isValid: undefined
     });
-  }
+  };
 
   activateAnimation = () => {
     this.setState({
       animated: true
     });
-  }
+  };
 
   // приводим к нулю, возможные отрицательные значения, которые появляются в счетчике
   // при монтировании компонента с заполненным значением, превышающим установвленный лимит
@@ -211,7 +208,7 @@ export default class InputElement extends Component {
     this.setState({
       limitCounter: currentMaxValue
     });
-  }
+  };
 
   render () {
     const DecoratedTextField = this.component;
@@ -232,10 +229,10 @@ export default class InputElement extends Component {
         changeFieldType       = {this.changeFieldType}
         resetValidationStatus = {this.resetValidationStatus}
         notification          = {
-        { code     : this.props.notificationType || 'N2B',
-          text     : this.state.notificationText,
-          maxWidth : this.props.notificationMaxWidth
-        }
+          { code     : this.props.notificationType,
+            text     : this.state.notificationText,
+            maxWidth : this.props.notificationMaxWidth
+          }
         }
       />
     );

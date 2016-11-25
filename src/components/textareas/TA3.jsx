@@ -1,6 +1,5 @@
 import React, {Component, PropTypes}  from 'react';
-
-import InputElement from '../AbstractField.jsx';
+import AbstractField from '../AbstractField.jsx';
 
 export default class TA3 extends Component {
   static propTypes = {
@@ -22,7 +21,7 @@ export default class TA3 extends Component {
 
   render () {
     return (
-      <InputElement
+      <AbstractField
         {...this.props}
         ref={input => this.input = input}
         componentType='textarea'
