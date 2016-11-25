@@ -45,7 +45,7 @@ export default class TextField extends Component {
     sizeType : 'F1'
   };
 
-  showTooltip (callback) {
+  showTooltip () {
     this.showTimer = setTimeout(() => {
       this.icon.showNotification();
     }, 200);
