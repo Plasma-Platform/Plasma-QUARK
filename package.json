@@ -78,6 +78,7 @@
   },
   "dependencies": {
     "autoprefixer": "^6.5.0",
+    "classnames": "^2.2.5",
     "fetch-jsonp": "^1.0.2",
     "is-retina": "^1.0.3",
     "js-base64": "^2.1.9",
