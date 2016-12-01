@@ -1,44 +1,35 @@
-import React from 'react';
-import md5 from 'md5';
-import fetchJSONP from 'fetch-jsonp';
+import React    from 'react';
+import md5      from 'md5';
 import isRetina from 'is-retina';
-import Base64 from 'js-base64';
-import Underscore from 'underscore';
+
 import './Avatar.less';
 
 export default class Avatar extends React.Component {
-  static PropTypes = {
-    email     : React.PropTypes.string,
+  static propTypes = {
     src       : React.PropTypes.string,
+    email     : React.PropTypes.string,
     name      : React.PropTypes.string,
     size      : React.PropTypes.number,
-    className : React.PropTypes.string,
-    rating    : React.PropTypes.string
-  };
+    className : React.PropTypes.string
+  }
 
   static defaultProps = {
-    size      : 60,
-    rating    : 'g',
-    className : '',
-    src       : '',
-    name      : ''
-  };
+    size  : 60,
+    name  : '',
+    email : ''
+  }
 
   state = {
-    status      : null,
-    color       : '',
-    initial     : '',
-    displayName : '',
-    size        : this.props.size,
-    avatar      : ''
-  };
+    avatarSrc         : this.props.src || this.getGravatarUrl(),
+    isAvatarLoadError : false
+  }
 
   constructor (props) {
     super(props);
-    this.componentIsMounted = false;
-    this.url = 'https://gravatar.com/';
-    this.default = 'https://cdn2wp-templatemonster.netdna-ssl.com/wp-content/uploads/2016/10/onepixel.png';
-    this.colors = [ // array colors
+
+    this.handleAvatarLoadError = this.handleAvatarLoadError.bind(this);
+
+    this.bgColors = [
       '#1a76d2',
       '#546e7a',
       '#e64a19',
@@ -50,195 +41,92 @@ export default class Avatar extends React.Component {
       '#006023',
       '#ff6f00'
     ];
+
+    this.avatarClassName = this.props.className ? `avatar ${this.props.className}` : 'avatar';
   }
 
-  /**
-   * Main function
-   *
-   * @param {Object} atts
-   * @returns {Promise.<T>}
-   */
-  getProfile = Underscore.memoize((atts = {}) => {
-    return fetchJSONP(`${this.url}${md5(atts.email)}.json`).then((response) => {
-      return response.json();
-    }).then((response) => {
-      let data = response.entry[0];
-      return {
-        status      : 1,
-        color       : this.getColor(data.displayName),
-        initial     : this.prepareInitials(data.displayName),
-        displayName : data.displayName,
-        size        : this.getSize(atts.size),
-        avatar      : `${data.thumbnailUrl}?a=${this.getSize(atts.size)}&r=${atts.rating}&d=${this.default}`
-      };
-    }).catch(() => {
-      return {
-        status: 0
-      };
-    });
-  }, (input) => {
-    return JSON.stringify(input);
-  });
+  getGravatarUrl () {
+    return `//www.gravatar.com/avatar/${md5(this.props.email)}?s=${isRetina() ? this.props.size * 2 : this.props.size}&d=404`;
+  }
 
-  /**
-   * Generate size for retina display
-   *
-   * @param {number} size
-   * @returns {number}
-   * @private
-   */
-  getSize = (size) => {
-    let modernBrowser = true;  // server-side, we render for modern browsers
-    if (typeof window !== 'undefined') {
-      // this is not NodeJS
-      modernBrowser = 'srcset' in document.createElement('img');
-    }
-    return !modernBrowser && isRetina() ? size * 2 : size;
-  };
-
-  /**
-   * Get initials from gravatar display name
-   *
-   * @param {String} name
-   * @returns {string}
-   * @private
-   */
-  prepareInitials = (name) => {
-    if (name) {
-      const parts = name.split(' ');
-      let result = '';
-      if (parts.length > 1) {
-        result = (parts[0][0] + parts[1][0]).toUpperCase();
-      } else if (parts[0].length > 1) {
-        result = (parts[0][0] + parts[0][1]).toUpperCase();
-      }
-      return result;
-    }
-  };
-
-  /**
-   * Check the color for display name
-   *
-   * @param {String} name
-   * @returns {string}
-   * @private
-   */
-  getColor = (name = '') => {
-    const nameExist = !!name;
-    if (nameExist) {
-      const literal = name[0].toUpperCase();
-      return this.colors[literal.charCodeAt(0).toString()[0]];
-    } else {
-      return this.colors[0];
-    }
-  };
-
-  /**
-   * Returns svg avatar based on name provided
-   * @param {string} name
-   * @param {string} bg
-   * @returns {string}
-   * @private
-   */
-  getTextAvatar = (name, bg = '#1A76D2') => {
-    const SVG = document.createElement('svg');
-    SVG.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    SVG.setAttribute('pointer-events', 'none');
-    SVG.setAttribute('width', this.state.size);
-    SVG.setAttribute('height', this.state.size);
-    SVG.setAttribute('style', 'background-color: ' + bg);
-
-    const TEXT = document.createElement('text');
-    TEXT.setAttribute('text-anchor', 'middle');
-    TEXT.setAttribute('y', '50%');
-    TEXT.setAttribute('x', '50%');
-    TEXT.setAttribute('dy', '0.35em');
-    TEXT.setAttribute('style', `font-family: "PT_Sans",sans-serif; font-size: ${this.props.size * 0.3}px`);
-    TEXT.setAttribute('pointer-events', 'auto');
-    TEXT.setAttribute('fill', 'white');
-
-    TEXT.innerHTML = name;
-
-    SVG.appendChild(TEXT);
-    const svgString = SVG.outerHTML.toString();
-    return `data:image/svg+xml;base64,${Base64.Base64.encodeURI(svgString)}`;
-  };
-
-  getSimpleImageBlock = (src = '') => {
-    return (
-      <div className={`avatar ${this.props.className}`}>
-        <img
-          src={src}
-          height={this.state.size}
-          width={this.state.size}
-          alt="image"
-        />
-      </div>
-    );
-  };
-
-  getGravatarBlock = () => {
-    return (
-      <div className={`avatar ${this.props.className}`}>
-        <img
-          alt="initials"
-          height={this.state.size}
-          width={this.state.size}
-          src={this.getTextAvatar(this.state.initial, this.state.color)}
-          className="avatar__initials"
-        />
-        <img
-          alt="avatar"
-          height={this.state.size}
-          width={this.state.size}
-          src={this.state.avatar}
-          className="avatar__image"
-        />
-      </div>
-    );
-  };
-
-  setGravatarInfo = (props) => {
-    if (!props.src && !!props.email) {
-      this.getProfile(props).then(data => {
-        if (this.componentIsMounted) {
-          this.setState(data);
-        }
+  handleAvatarLoadError () {
+    if (this.state.avatarSrc === this.props.src && this.props.email.length > 0) {
+      this.setState({
+        avatarSrc         : this.getGravatarUrl(),
+        isAvatarLoadError : false
+      });
+    } else if (this.state.avatarSrc === this.getGravatarUrl()) {
+      this.setState({
+        avatarSrc         : '',
+        isAvatarLoadError : true
       });
     }
-  };
-
-  componentWillUnmount () {
-    this.componentIsMounted = false;
   }
 
-  componentWillReceiveProps (newProps) {
-    this.setGravatarInfo(newProps);
+  renderAvatarImgByInitials () {
+    const nameParts   = this.props.name.split(' ');
+    const emailParts  = this.props.email.split('');
+
+    const bgColor     = this.bgColors[Math.floor((Math.random() * 10) + 1)];
+
+    let initials;
+
+    if (nameParts.length > 1) {
+      initials = `${nameParts[0]}${nameParts[1]}`;
+    } else if (emailParts.length > 1) {
+      initials = `${emailParts[0]}${emailParts[1]}`;
+    } else {
+      initials = 'N/A';
+    }
+
+    return (
+      <svg
+        className = {this.avatarClassName}
+        height    = {this.props.size}
+        width     = {this.props.size}
+        viewBox   = {`0 0 ${this.props.size} ${this.props.size}`}
+      >
+        <circle
+          cx          = {this.props.size / 2}
+          cy          = {this.props.size / 2}
+          r           = {(this.props.size / 2)}
+          stroke      = {bgColor}
+          strokeWidth = "0"
+          fill        = {bgColor}
+        />
+        <text
+          x                 = {this.props.size / 2}
+          y                 = {this.props.size / 2}
+          fill              = "#fff"
+          fontSize          = {this.props.size / 3}
+          fontFamily        = "PT Sans, sans-serif"
+          textAnchor        = "middle"
+          dominantBaseline  = "central"
+        >
+          {initials.toUpperCase()}
+        </text>
+      </svg>
+    );
   }
 
-  componentDidMount () {
-    this.componentIsMounted = true;
-    this.setGravatarInfo(this.props);
+  renderAvatarImgBySrc () {
+    return (
+      <img
+        className = {this.avatarClassName}
+        src       = {this.state.avatarSrc}
+        alt       = {this.props.name.length > 0 ? this.props.name : this.props.email}
+        onError   = {this.handleAvatarLoadError}
+      />
+    );
   }
 
   render () {
-    let html = '';
-    const srcExist = !!this.props.src;
-    if (srcExist) {
-      html = this.getSimpleImageBlock(this.props.src);
-    } else if (this.state.status) {
-      html = this.getGravatarBlock();
-    } else {
-      const nameExist = !!this.props.name;
-      const emailExist = !!this.props.email;
-      if ((!nameExist && !emailExist) || (emailExist && this.state.status === null)) {
-        return false;
-      }
-      const initials = this.prepareInitials(nameExist ? this.props.name : this.props.email);
-      const color = this.getColor(initials);
-      html = this.getSimpleImageBlock(this.getTextAvatar(initials, color));
-    }
-    return html;
+    return (
+      this.state.isAvatarLoadError ? (
+        this.renderAvatarImgByInitials()
+      ) : (
+        this.renderAvatarImgBySrc()
+      )
+    );
   }
-
 }
