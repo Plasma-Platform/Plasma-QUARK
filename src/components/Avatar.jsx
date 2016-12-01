@@ -44,7 +44,7 @@ export default class Avatar extends React.Component {
       '#ff6f00'
     ];
 
-    this.avatarClassName = `avatar${this.props.className ? ' ' + this.props.className : ''}${this.props.isRounded ? 'avatar_round' : ''}`;
+    this.avatarClassName = `avatar${this.props.isRounded ? ' avatar_round' : ''}${this.props.className ? ' ' + this.props.className : ''}`;
   }
 
   getGravatarUrl () {
