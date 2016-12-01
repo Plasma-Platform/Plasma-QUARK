@@ -2470,24 +2470,5 @@
   }
 }
 .avatar {
-  display: inline-block;
-  position: relative;
-}
-.avatar *,
-.avatar *::before,
-.avatar *::after {
-  box-sizing: border-box;
-}
-.avatar__image {
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-.avatar_round {
-  border-top-left-radius: 50%;
-  border-top-right-radius: 50%;
-  border-bottom-right-radius: 50%;
-  border-bottom-left-radius: 50%;
-  overflow: hidden;
-  vertical-align: middle;
+  border-radius: 50%;
 }
