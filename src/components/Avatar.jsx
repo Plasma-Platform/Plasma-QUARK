@@ -10,13 +10,15 @@ export default class Avatar extends React.Component {
     email     : React.PropTypes.string,
     name      : React.PropTypes.string,
     size      : React.PropTypes.number,
-    className : React.PropTypes.string
+    className : React.PropTypes.string,
+    isRounded : React.PropTypes.bool
   }
 
   static defaultProps = {
-    size  : 60,
-    name  : '',
-    email : ''
+    size      : 60,
+    name      : '',
+    email     : '',
+    isRounded : false
   }
 
   state = {
@@ -42,11 +44,11 @@ export default class Avatar extends React.Component {
       '#ff6f00'
     ];
 
-    this.avatarClassName = this.props.className ? `avatar ${this.props.className}` : 'avatar';
+    this.avatarClassName = `avatar${this.props.className ? ' ' + this.props.className : ''}${this.props.isRounded ? 'avatar_round' : ''}`;
   }
 
   getGravatarUrl () {
-    return `//www.gravatar.com/avatar/${md5(this.props.email)}?s=${isRetina() ? this.props.size * 2 : this.props.size}&d=404`;
+    return `;// www.gravatar.com/avatar/${md5(this.props.email)}?s=${isRetina() ? this.props.size * 2 : this.props.size}&d=404`;
   }
 
   handleAvatarLoadError () {
