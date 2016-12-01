@@ -71,9 +71,9 @@ export default class Avatar extends React.Component {
 
     let initials;
 
-    if (nameParts.length > 1) {
+    if (nameParts.length > 1 && nameParts[0].length === 1 && nameParts[1].length === 1) {
       initials = `${nameParts[0]}${nameParts[1]}`;
-    } else if (emailParts.length > 1) {
+    } else if (emailParts.length > 1 && emailParts[0].length === 1 && emailParts[1].length === 1) {
       initials = `${emailParts[0]}${emailParts[1]}`;
     } else {
       initials = 'N/A';
