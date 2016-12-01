@@ -82,7 +82,7 @@
     "fetch-jsonp": "^1.0.2",
     "is-retina": "^1.0.3",
     "js-base64": "^2.1.9",
-    "md5": "^2.1.0",
+    "md5": "^2.2.1",
     "postcss-inline-svg": "^2.1.2",
     "query-string": "^4.2.2",
     "react": "^15.3.1",
