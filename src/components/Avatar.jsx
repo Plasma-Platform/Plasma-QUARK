@@ -89,11 +89,11 @@ export default class Avatar extends React.Component {
         viewBox   = {`0 0 ${this.props.size} ${this.props.size}`}
       >
         <rect
-          width        = {this.props.size}
-          height       = {this.props.size}
-          stroke       = {bgColor}
-          stroke-width = "0"
-          fill         = {bgColor}
+          width       = {this.props.size}
+          height      = {this.props.size}
+          stroke      = {bgColor}
+          strokeWidth = "0"
+          fill        = {bgColor}
         />
         <text
           x                 = {this.props.size / 2}
