@@ -23,7 +23,8 @@ export default class Avatar extends React.Component {
 
   state = {
     avatarSrc         : this.props.src || this.getGravatarUrl(),
-    isAvatarLoadError : false
+    isAvatarLoadError : false,
+    avatarBg          : this.bgColors[Math.floor((Math.random() * 10) + 1)]
   }
 
   constructor (props) {
@@ -69,8 +70,6 @@ export default class Avatar extends React.Component {
     const nameParts   = this.props.name.split(' ');
     const emailParts  = this.props.email.split('');
 
-    const bgColor     = this.bgColors[Math.floor((Math.random() * 10) + 1)];
-
     let initials;
 
     if (nameParts.length > 1 && nameParts[0].length === 1 && nameParts[1].length === 1) {
@@ -91,9 +90,9 @@ export default class Avatar extends React.Component {
         <rect
           width       = {this.props.size}
           height      = {this.props.size}
-          stroke      = {bgColor}
+          stroke      = {this.state.avatarBg}
           strokeWidth = "0"
-          fill        = {bgColor}
+          fill        = {this.state.avatarBg}
         />
         <text
           x                 = {this.props.size / 2}
