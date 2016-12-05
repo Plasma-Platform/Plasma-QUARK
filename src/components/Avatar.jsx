@@ -23,8 +23,7 @@ export default class Avatar extends React.Component {
 
   state = {
     avatarSrc         : this.props.src || this.getGravatarUrl(),
-    isAvatarLoadError : false,
-    avatarBg          : this.bgColors[Math.floor((Math.random() * 10) + 1)]
+    isAvatarLoadError : false
   }
 
   constructor (props) {
@@ -45,7 +44,11 @@ export default class Avatar extends React.Component {
       '#ff6f00'
     ];
 
-    this.avatarClassName = `avatar${this.props.isRounded ? ' avatar_round' : ''}${this.props.className ? ' ' + this.props.className : ''}`;
+    this.avatarBg = this.bgColors[Math.floor((Math.random() * 10) + 1)];
+  }
+
+  getAvatarClassName () {
+    return `avatar${this.props.isRounded ? ' avatar_round' : ''}${this.props.className ? ' ' + this.props.className : ''}`;
   }
 
   getGravatarUrl () {
@@ -67,6 +70,8 @@ export default class Avatar extends React.Component {
   }
 
   renderAvatarImgByInitials () {
+    const avatarClassName = this.getAvatarClassName();
+
     const nameParts   = this.props.name.split(' ');
     const emailParts  = this.props.email.split('');
 
@@ -82,7 +87,7 @@ export default class Avatar extends React.Component {
 
     return (
       <svg
-        className = {this.avatarClassName}
+        className = {avatarClassName}
         height    = {this.props.size}
         width     = {this.props.size}
         viewBox   = {`0 0 ${this.props.size} ${this.props.size}`}
@@ -90,9 +95,9 @@ export default class Avatar extends React.Component {
         <rect
           width       = {this.props.size}
           height      = {this.props.size}
-          stroke      = {this.state.avatarBg}
+          stroke      = {this.avatarBg}
           strokeWidth = "0"
-          fill        = {this.state.avatarBg}
+          fill        = {this.avatarBg}
         />
         <text
           x                 = {this.props.size / 2}
@@ -110,9 +115,11 @@ export default class Avatar extends React.Component {
   }
 
   renderAvatarImgBySrc () {
+    const avatarClassName = this.getAvatarClassName();
+
     return (
       <img
-        className = {this.avatarClassName}
+        className = {avatarClassName}
         width     = {this.props.size}
         height    = {this.props.size}
         src       = {this.state.avatarSrc}
