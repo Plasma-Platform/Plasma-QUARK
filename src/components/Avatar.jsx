@@ -114,6 +114,8 @@ export default class Avatar extends React.Component {
     return (
       <img
         className = {this.avatarClassName}
+        width     = {this.props.size}
+        height    = {this.props.size}
         src       = {this.state.avatarSrc}
         alt       = {this.props.name.length > 0 ? this.props.name : this.props.email}
         onError   = {this.handleAvatarLoadError}
