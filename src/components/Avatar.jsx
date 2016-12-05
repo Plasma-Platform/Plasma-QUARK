@@ -48,7 +48,7 @@ export default class Avatar extends React.Component {
   }
 
   getGravatarUrl () {
-    return `;// www.gravatar.com/avatar/${md5(this.props.email)}?s=${isRetina() ? this.props.size * 2 : this.props.size}&d=404`;
+    return `//www.gravatar.com/avatar/${md5(this.props.email)}?s=${isRetina() ? this.props.size * 2 : this.props.size}&d=404`;
   }
 
   handleAvatarLoadError () {
