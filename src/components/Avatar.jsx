@@ -2,8 +2,6 @@ import React    from 'react';
 import md5      from 'md5';
 import isRetina from 'is-retina';
 
-import './Avatar.less';
-
 export default class Avatar extends React.Component {
   static propTypes = {
     src       : React.PropTypes.string,
@@ -56,7 +54,7 @@ export default class Avatar extends React.Component {
   }
 
   handleAvatarLoadError () {
-    if (this.img.src.indexOf(this.props.src) >= 0) {
+    if (this.props.src.length > 0 && this.img.src.indexOf(this.props.src) >= 0) {
       this.img.src = this.getGravatarUrl();
     } else if (this.img.src.indexOf(this.getGravatarUrl()) >= 0) {
       this.setState({
@@ -129,7 +127,7 @@ export default class Avatar extends React.Component {
 
   render () {
     return (
-      this.state.isImgLoaded ? (
+      this.state.isImgLoaded === true ? (
         this.renderAvatarImgBySrc()
       ) : (
         this.renderAvatarImgByInitials()
