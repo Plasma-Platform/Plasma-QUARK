@@ -22,8 +22,7 @@ export default class Avatar extends React.Component {
   }
 
   state = {
-    avatarSrc         : this.props.src || this.getGravatarUrl(),
-    isAvatarLoadError : false
+    isImgLoaded: true
   }
 
   constructor (props) {
@@ -56,15 +55,11 @@ export default class Avatar extends React.Component {
   }
 
   handleAvatarLoadError () {
-    if (this.state.avatarSrc === this.props.src && this.props.email.length > 0) {
+    if (this.img.src === this.props.src) {
+      this.img.src = this.getGravatarUrl();
+    } else if (this.img.src === this.getGravatarUrl()) {
       this.setState({
-        avatarSrc         : this.getGravatarUrl(),
-        isAvatarLoadError : false
-      });
-    } else if (this.state.avatarSrc === this.getGravatarUrl()) {
-      this.setState({
-        avatarSrc         : '',
-        isAvatarLoadError : true
+        isImgLoaded: false
       });
     }
   }
@@ -91,6 +86,7 @@ export default class Avatar extends React.Component {
         height    = {this.props.size}
         width     = {this.props.size}
         viewBox   = {`0 0 ${this.props.size} ${this.props.size}`}
+        ref       = {(ref) => { this.img = ref; }}
       >
         <rect
           width       = {this.props.size}
@@ -122,19 +118,20 @@ export default class Avatar extends React.Component {
         className = {avatarClassName}
         width     = {this.props.size}
         height    = {this.props.size}
-        src       = {this.state.avatarSrc}
+        src       = {this.props.src.length > 0 ? this.props.src : this.getGravatarUrl()}
         alt       = {this.props.name.length > 0 ? this.props.name : this.props.email}
         onError   = {this.handleAvatarLoadError}
+        ref       = {(ref) => { this.img = ref; }}
       />
     );
   }
 
   render () {
     return (
-      this.state.isAvatarLoadError ? (
-        this.renderAvatarImgByInitials()
-      ) : (
+      this.state.isImgLoaded ? (
         this.renderAvatarImgBySrc()
+      ) : (
+        this.renderAvatarImgByInitials()
       )
     );
   }
