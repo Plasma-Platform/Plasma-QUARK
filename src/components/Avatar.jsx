@@ -15,9 +15,10 @@ export default class Avatar extends React.Component {
   }
 
   static defaultProps = {
-    size      : 60,
-    name      : '',
+    src       : '',
     email     : '',
+    name      : '',
+    size      : 60,
     isRounded : false
   }
 
@@ -55,9 +56,9 @@ export default class Avatar extends React.Component {
   }
 
   handleAvatarLoadError () {
-    if (this.img.src === this.props.src) {
+    if (this.img.src.indexOf(this.props.src) >= 0) {
       this.img.src = this.getGravatarUrl();
-    } else if (this.img.src === this.getGravatarUrl()) {
+    } else if (this.img.src.indexOf(this.getGravatarUrl()) >= 0) {
       this.setState({
         isImgLoaded: false
       });
