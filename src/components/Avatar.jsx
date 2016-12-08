@@ -27,6 +27,8 @@ export default class Avatar extends React.Component {
   constructor (props) {
     super(props);
 
+    this.src = this.props.src;
+
     this.handleAvatarLoadError = this.handleAvatarLoadError.bind(this);
 
     this.bgColors = [
@@ -43,6 +45,10 @@ export default class Avatar extends React.Component {
     ];
 
     this.avatarBg = this.bgColors[Math.floor((Math.random() * 10) + 1)];
+  }
+
+  isNewSrc () {
+    return this.props.src.length > 0 && this.props.src || this.src;
   }
 
   getAvatarClassName () {
@@ -66,8 +72,8 @@ export default class Avatar extends React.Component {
   renderAvatarImgByInitials () {
     const avatarClassName = this.getAvatarClassName();
 
-    const nameParts   = this.props.name.split(' ');
-    const emailParts  = this.props.email.split('');
+    const nameParts  = this.props.name.split(' ');
+    const emailParts = this.props.email.split('');
 
     let initials;
 
@@ -76,7 +82,7 @@ export default class Avatar extends React.Component {
     } else if (emailParts.length > 1 && emailParts[0].length === 1 && emailParts[1].length === 1) {
       initials = `${emailParts[0]}${emailParts[1]}`;
     } else {
-      initials = 'N/A';
+      initials = '';
     }
 
     return (
@@ -88,11 +94,13 @@ export default class Avatar extends React.Component {
         ref       = {(ref) => { this.img = ref; }}
       >
         <rect
-          width       = {this.props.size}
-          height      = {this.props.size}
-          stroke      = {this.avatarBg}
-          strokeWidth = "0"
-          fill        = {this.avatarBg}
+          width         = {this.props.size}
+          height        = {this.props.size}
+          stroke        = {this.avatarBg}
+          strokeWidth   = "0"
+          strokeOpacity = {initials.length === 2 ? 1 : 0}
+          fill          = {this.avatarBg}
+          fillOpacity   = {initials.length === 2 ? 1 : 0}
         />
         <text
           x                 = {this.props.size / 2}
@@ -112,12 +120,16 @@ export default class Avatar extends React.Component {
   renderAvatarImgBySrc () {
     const avatarClassName = this.getAvatarClassName();
 
+    if (this.state.isImgLoaded === false) {
+      this.src = this.props.src;
+    }
+
     return (
       <img
         className = {avatarClassName}
         width     = {this.props.size}
         height    = {this.props.size}
-        src       = {this.props.src.length > 0 ? this.props.src : this.getGravatarUrl()}
+        src       = {this.props.src.length  > 0 ? this.props.src  : this.getGravatarUrl()}
         alt       = {this.props.name.length > 0 ? this.props.name : this.props.email}
         onError   = {this.handleAvatarLoadError}
         ref       = {(ref) => { this.img = ref; }}
@@ -127,7 +139,7 @@ export default class Avatar extends React.Component {
 
   render () {
     return (
-      this.state.isImgLoaded === true ? (
+      this.state.isImgLoaded === true || this.isNewSrc() ? (
         this.renderAvatarImgBySrc()
       ) : (
         this.renderAvatarImgByInitials()
