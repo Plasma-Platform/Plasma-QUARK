@@ -51,11 +51,11 @@ export default class Avatar extends React.Component {
   }
 
   isNewSrc () {
-    return this.props.src !== this.initialSrc;
+    return this.props.src !== this.initialSrc && this.props.src.length > 0;
   }
 
   isNewEmail () {
-    return this.props.email !== this.initialEmail;
+    return this.props.email !== this.initialEmail && this.props.email.length > 0;
   }
 
   getAvatarClassName () {
@@ -138,7 +138,7 @@ export default class Avatar extends React.Component {
         src               = this.getGravatarUrl();
       }
     } else {
-      src = this.props.src.length ? this.props.src : this.getGravatarUrl();
+      src = this.props.src.length ? this.props.src : this.props.email.length ? this.getGravatarUrl() : '';
     }
 
     return (
