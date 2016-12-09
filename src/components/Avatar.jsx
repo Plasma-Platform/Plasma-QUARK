@@ -2,6 +2,8 @@ import React    from 'react';
 import md5      from 'md5';
 import isRetina from 'is-retina';
 
+import './Avatar.less';
+
 export default class Avatar extends React.Component {
   static propTypes = {
     src       : React.PropTypes.string,
@@ -27,7 +29,8 @@ export default class Avatar extends React.Component {
   constructor (props) {
     super(props);
 
-    this.src = this.props.src;
+    this.initialSrc   = this.props.src;
+    this.initialEmail = this.props.email;
 
     this.handleAvatarLoadError = this.handleAvatarLoadError.bind(this);
 
@@ -48,7 +51,11 @@ export default class Avatar extends React.Component {
   }
 
   isNewSrc () {
-    return this.props.src.length > 0 && this.props.src || this.src;
+    return this.props.src !== this.initialSrc;
+  }
+
+  isNewEmail () {
+    return this.props.email !== this.initialEmail;
   }
 
   getAvatarClassName () {
@@ -120,8 +127,18 @@ export default class Avatar extends React.Component {
   renderAvatarImgBySrc () {
     const avatarClassName = this.getAvatarClassName();
 
+    let src;
+
     if (this.state.isImgLoaded === false) {
-      this.src = this.props.src;
+      if (this.isNewSrc()) {
+        this.initialSrc = this.props.src;
+        src             = this.props.src;
+      } else if (this.isNewEmail()) {
+        this.initialEmail = this.props.email;
+        src               = this.getGravatarUrl();
+      }
+    } else {
+      src = this.props.src.length ? this.props.src : this.getGravatarUrl();
     }
 
     return (
@@ -129,7 +146,7 @@ export default class Avatar extends React.Component {
         className = {avatarClassName}
         width     = {this.props.size}
         height    = {this.props.size}
-        src       = {this.props.src.length  > 0 ? this.props.src  : this.getGravatarUrl()}
+        src       = {src}
         alt       = {this.props.name.length > 0 ? this.props.name : this.props.email}
         onError   = {this.handleAvatarLoadError}
         ref       = {(ref) => { this.img = ref; }}
@@ -139,7 +156,7 @@ export default class Avatar extends React.Component {
 
   render () {
     return (
-      this.state.isImgLoaded === true || this.isNewSrc() ? (
+      this.state.isImgLoaded === true || this.isNewSrc() || this.isNewEmail() ? (
         this.renderAvatarImgBySrc()
       ) : (
         this.renderAvatarImgByInitials()
