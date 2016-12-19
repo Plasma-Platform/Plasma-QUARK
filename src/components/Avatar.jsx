@@ -67,22 +67,12 @@ export default class Avatar extends React.Component {
   }
 
   handleAvatarLoadError () {
-    if (this.img.src.indexOf(this.props.src) >= 0) {
-      if (this.isNewEmail()) {
-        this.img.src = this.getGravatarUrl();
-      } else {
-        this.setState({
-          isImgLoaded: false
-        });
-      }
+    if (this.props.src.length > 0 && this.img.src.indexOf(this.props.src) >= 0) {
+      this.img.src = this.getGravatarUrl();
     } else if (this.img.src.indexOf(this.getGravatarUrl()) >= 0) {
-      if (this.isNewEmail()) {
-        this.img.src = this.props.src;
-      } else {
-        this.setState({
-          isImgLoaded: false
-        });
-      }
+      this.setState({
+        isImgLoaded: false
+      });
     }
   }
 
