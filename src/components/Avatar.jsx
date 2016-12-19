@@ -23,7 +23,8 @@ export default class Avatar extends React.Component {
   }
 
   state = {
-    isImgLoaded: true
+    isSrcError      : false,
+    isGravatarError : false
   }
 
   constructor (props) {
@@ -50,14 +51,6 @@ export default class Avatar extends React.Component {
     this.avatarBg = this.bgColors[Math.floor((Math.random() * 10) + 1)];
   }
 
-  isNewSrc () {
-    return this.props.src !== this.initialSrc && this.props.src.length > 0;
-  }
-
-  isNewEmail () {
-    return this.props.email !== this.initialEmail && this.props.email.length > 0;
-  }
-
   getAvatarClassName () {
     return `avatar${this.props.isRounded ? ' avatar_round' : ''}${this.props.className ? ' ' + this.props.className : ''}`;
   }
@@ -68,10 +61,12 @@ export default class Avatar extends React.Component {
 
   handleAvatarLoadError () {
     if (this.props.src.length > 0 && this.img.src.indexOf(this.props.src) >= 0) {
-      this.img.src = this.getGravatarUrl();
+      this.setState({
+        isSrcError: true
+      });
     } else if (this.img.src.indexOf(this.getGravatarUrl()) >= 0) {
       this.setState({
-        isImgLoaded: false
+        isGravatarError: true
       });
     }
   }
@@ -86,7 +81,7 @@ export default class Avatar extends React.Component {
 
     if (nameParts.length === 2 && nameParts[0].split('').length > 0 && nameParts[1].split('').length > 0) {
       initials = `${nameParts[0].split('')[0]}${nameParts[1].split('')[0]}`;
-    } else if (emailParts.length === 2) {
+    } else if (emailParts.length >= 2) {
       initials = `${emailParts[0]}${emailParts[1]}`;
     } else {
       initials = '';
@@ -124,22 +119,8 @@ export default class Avatar extends React.Component {
     );
   }
 
-  renderAvatarImgBySrc () {
+  renderAvatarImgBySrc (src) {
     const avatarClassName = this.getAvatarClassName();
-
-    let src;
-
-    if (this.state.isImgLoaded === false) {
-      if (this.isNewSrc()) {
-        this.initialSrc = this.props.src;
-        src             = this.props.src;
-      } else if (this.isNewEmail()) {
-        this.initialEmail = this.props.email;
-        src               = this.getGravatarUrl();
-      }
-    } else {
-      src = this.props.src.length ? this.props.src : this.props.email.length ? this.getGravatarUrl() : '';
-    }
 
     return (
       <img
@@ -155,9 +136,25 @@ export default class Avatar extends React.Component {
   }
 
   render () {
+    let src = '';
+
+    if (this.props.src.length > 0 && (this.props.src !== this.initialSrc || this.state.isSrcError === false)) {
+      src = this.props.src;
+
+      if (this.props.src !== this.initialSrc) {
+        this.initialSrc = this.props.src;
+      }
+    } else if (this.props.email.length > 0 && (this.props.email !== this.initialEmail || this.state.isGravatarError === false)) {
+      src = this.getGravatarUrl();
+
+      if (this.props.email !== this.initialEmail) {
+        this.initialEmail = this.props.email;
+      }
+    }
+
     return (
-      this.state.isImgLoaded === true || this.isNewSrc() || this.isNewEmail() ? (
-        this.renderAvatarImgBySrc()
+      src.length > 0 ? (
+        this.renderAvatarImgBySrc(src)
       ) : (
         this.renderAvatarImgByInitials()
       )
