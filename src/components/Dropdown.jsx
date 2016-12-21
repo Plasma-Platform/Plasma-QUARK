@@ -4,7 +4,7 @@ import './Dropdown.less';
 
 export default class Dropdown extends React.Component {
   static propTypes = {
-    type               : React.PropTypes.oneOf([1, 2, 3]).isRequired,
+    type               : React.PropTypes.oneOf([1, 2, 3, 4]).isRequired,
     options            : React.PropTypes.array.isRequired,
     defaultOpen        : React.PropTypes.bool,
     className          : React.PropTypes.string,
