@@ -26,6 +26,15 @@ export default function connectNotificationTrigger (Component, props) {
       super(props, context);
       this.lastWidth = 0;
       this._originalCode = null;
+      if (typeof props.notification.button.action === 'string') {
+        switch (props.notification.button.action) {
+          case 'close':
+            props.notification.button.action = this.hideNotification;
+            break;
+          default:
+            break;
+        }
+      }
     }
 
     set originalCode (value) {
@@ -179,9 +188,10 @@ export default function connectNotificationTrigger (Component, props) {
       }
     };
     rerenderNotice = (newCode) => {
-      let {text, maxWidth} = this.props.notification;
+      let {text, maxWidth, button} = this.props.notification;
       let newTooltip = prepareNotification({
         code: newCode || this.originalCode,
+        button,
         text,
         maxWidth
       }, this.hideNotification);

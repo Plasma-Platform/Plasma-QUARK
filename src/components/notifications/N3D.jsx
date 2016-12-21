@@ -1,4 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, {
+  Component,
+  PropTypes
+} from 'react';
 import Notification from '../Notification.jsx';
 
 export default class N3D extends Component {
@@ -18,6 +21,7 @@ export default class N3D extends Component {
   render () {
     return (
       <Notification
+        {...this.props}
         ref={c => this.notification = c}
         className={this.props.className}
         text={this.props.text}

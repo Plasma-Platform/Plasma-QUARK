@@ -13,11 +13,11 @@ export default class N1I extends Component {
     position: 'left'
   }
 
-  setPosition(coords) {
+  setPosition (coords) {
     this.notification.setPosition(coords);
   }
 
-  render() {
+  render () {
     return (
       <Notification
         ref={c => this.notification = c}
@@ -28,6 +28,7 @@ export default class N1I extends Component {
         status='default'
         size='large'
         position='left'
+        button={this.props.button}
       />
     );
   }
