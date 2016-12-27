@@ -234,7 +234,11 @@ export default class Dropdown extends React.Component {
             {optionIconClassName.length > 0 &&
               <i className={optionIconClassName}></i>
             }
-            {option.label}
+            {option.html ? (
+              option.html
+            ) : (
+              option.label
+            )}
           </li>
         );
       })
@@ -258,7 +262,7 @@ export default class Dropdown extends React.Component {
     const containerClassName  = `dropdown${typeClassName}${disabledClassName}${contentPosClassName}${openedClassName}${addClassName}`;
 
     const selectedOption      = this.getOptionByValue(this.state.value);
-    const selectedOptionLabel = selectedOption ? selectedOption.label : this.props.options.length ? this.props.options[0].label : '';
+    const selectedOptionLabel = selectedOption ? selectedOption.html || selectedOption.label : this.props.options.length ? this.props.options[0].label : '';
 
     const selectedOptionIcon  = selectedOption && selectedOption.icon ? selectedOption.icon : this.props.options.length && this.props.options[0].icon ? this.props.options[0].icon : '';
 
@@ -332,10 +336,9 @@ export default class Dropdown extends React.Component {
               <li className="dropdown__option dropdown__no-results">
                 {`${this.props.noResultsText} "${this.state.filterQuery}"`}
               </li>
-              ) : (
-                this.renderOptions()
-              )
-            }
+            ) : (
+              this.renderOptions()
+            )}
           </ul>
         </div>
       </div>
