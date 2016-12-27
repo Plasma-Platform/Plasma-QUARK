@@ -99,6 +99,7 @@ export default class TextField extends Component {
         <input
           ref         = { input => this.input = input }
           id          = {this.props.id}
+          name        = {this.props.name ? this.props.name : null}
           type        = {this.props.type}
           value       = {this.props.value}
           autoFocus   = {this.props.autoFocus}
