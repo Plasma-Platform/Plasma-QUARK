@@ -30,6 +30,7 @@ export default class Dropdown extends React.Component {
     defaultFilterQuery              : '',
     noResultsText                   : 'No results match',
     showSelectedOptionLabelInButton : true,
+    defaultButtonIcon               : '',
     defaultButtonLabel              : null
   }
 
