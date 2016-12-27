@@ -220,13 +220,6 @@ export default class Dropdown extends React.Component {
           optionIndex = activeOptionIndex;
         }
 
-        if (this[`option${optionIndex}`]) {
-          console.log(this[`option${optionIndex}`].textContent);
-        }
-        if (this[`option${optionIndex}`].textContent) {
-          console.log(this[`option${optionIndex}`].textContent);
-        }
-
         return (
           <li
             className  = {optionClassName}
