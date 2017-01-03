@@ -1,4 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, {
+  Component,
+  PropTypes
+} from 'react';
 import Buttons from './buttons';
 import classnames                      from 'classnames';
 import {isEmptyObject} from './utils/isEmptyObject';
@@ -30,7 +33,7 @@ export default class Notification extends Component {
   };
 
   getContainerWidth = () => {
-    if (this.container) this.setState({width: this.container.offsetWidth + 2});
+    if (this.container) this.setState({width: (this.container.offsetWidth || 0) + 2});
   };
 
   setPosition (coords) {
