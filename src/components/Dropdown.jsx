@@ -4,29 +4,34 @@ import './Dropdown.less';
 
 export default class Dropdown extends React.Component {
   static propTypes = {
-    type               : React.PropTypes.oneOf([1, 2, 3]).isRequired,
-    options            : React.PropTypes.array.isRequired,
-    defaultOpen        : React.PropTypes.bool,
-    className          : React.PropTypes.string,
-    id                 : React.PropTypes.string,
-    disabled           : React.PropTypes.bool,
-    label              : React.PropTypes.string,
-    showFilter         : React.PropTypes.bool,
-    filterQuery        : React.PropTypes.string,
-    filterHint         : React.PropTypes.string,
-    defaultFilterQuery : React.PropTypes.string,
-    noResultsText      : React.PropTypes.string,
-    defaultValue       : React.PropTypes.string,
-    onOpen             : React.PropTypes.func,
-    onClose            : React.PropTypes.func,
-    onChange           : React.PropTypes.func
+    type                            : React.PropTypes.oneOf([1, 2, 3, 4]).isRequired,
+    options                         : React.PropTypes.array.isRequired,
+    defaultOpen                     : React.PropTypes.bool,
+    className                       : React.PropTypes.string,
+    id                              : React.PropTypes.string,
+    disabled                        : React.PropTypes.bool,
+    label                           : React.PropTypes.string,
+    showFilter                      : React.PropTypes.bool,
+    filterQuery                     : React.PropTypes.string,
+    filterHint                      : React.PropTypes.string,
+    defaultFilterQuery              : React.PropTypes.string,
+    noResultsText                   : React.PropTypes.string,
+    defaultValue                    : React.PropTypes.string,
+    onOpen                          : React.PropTypes.func,
+    onClose                         : React.PropTypes.func,
+    onChange                        : React.PropTypes.func,
+    showSelectedOptionLabelInButton : React.PropTypes.bool,
+    defaultButtonLabel              : React.PropTypes.string
   }
 
   static defaultProps = {
-    defaultOpen        : false,
-    showFilter         : false,
-    defaultFilterQuery : '',
-    noResultsText      : 'No results match'
+    defaultOpen                     : false,
+    showFilter                      : false,
+    defaultFilterQuery              : '',
+    noResultsText                   : 'No results match',
+    showSelectedOptionLabelInButton : true,
+    defaultButtonIcon               : '',
+    defaultButtonLabel              : null
   }
 
   state = {
@@ -224,13 +229,17 @@ export default class Dropdown extends React.Component {
             role       = "option"
             onClick    = {() => { this.handleOptionClick(option); }}
             onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
-            key        = {option.value}
+            key        = {index}
             ref        = {ref => { this[`option${optionIndex}`] = ref; }}
           >
             {optionIconClassName.length > 0 &&
               <i className={optionIconClassName}></i>
             }
-            {option.label}
+            {option.html ? (
+              option.html
+            ) : (
+              option.label
+            )}
           </li>
         );
       })
@@ -254,7 +263,7 @@ export default class Dropdown extends React.Component {
     const containerClassName  = `dropdown${typeClassName}${disabledClassName}${contentPosClassName}${openedClassName}${addClassName}`;
 
     const selectedOption      = this.getOptionByValue(this.state.value);
-    const selectedOptionLabel = selectedOption ? selectedOption.label : this.props.options.length ? this.props.options[0].label : '';
+    const selectedOptionLabel = selectedOption ? selectedOption.html || selectedOption.label : this.props.options.length ? this.props.options[0].html || this.props.options[0].label : '';
 
     const selectedOptionIcon  = selectedOption && selectedOption.icon ? selectedOption.icon : this.props.options.length && this.props.options[0].icon ? this.props.options[0].icon : '';
 
@@ -280,10 +289,20 @@ export default class Dropdown extends React.Component {
           onKeyDown  = {this.handleButtonKeyDown}
           ref        = {ref => { this.button = ref; }}
         >
-          {buttonIconClassName.length > 0 &&
+          {this.props.showSelectedOptionLabelInButton && buttonIconClassName.length > 0 ? (
             <i className={buttonIconClassName}></i>
-          }
-          {selectedOptionLabel}
+          ) : (
+            this.props.defaultButtonIcon.length > 0 ? (
+              <i className={`dropdown__icon icon icon-${this.props.defaultButtonIcon}`}></i>
+            ) : (
+              null
+            )
+          )}
+          {this.props.showSelectedOptionLabelInButton ? (
+            selectedOptionLabel
+          ) : (
+            this.props.defaultButtonLabel
+          )}
           <span className="dropdown__arrow"></span>
         </button>
 
@@ -318,10 +337,9 @@ export default class Dropdown extends React.Component {
               <li className="dropdown__option dropdown__no-results">
                 {`${this.props.noResultsText} "${this.state.filterQuery}"`}
               </li>
-              ) : (
-                this.renderOptions()
-              )
-            }
+            ) : (
+              this.renderOptions()
+            )}
           </ul>
         </div>
       </div>

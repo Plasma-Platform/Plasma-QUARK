@@ -455,7 +455,6 @@
     }
 
     .dropdown__button {
-      border-radius: 3px;
       font-size: 14px;
       line-height: 20px;
       padding-top: 10px;
@@ -467,13 +466,21 @@
       }
     }
 
-    .dropdown:not(.dropdown_open)& {
+    &:not(.dropdown_open) {
       .dropdown__button {
+        background: rgba(0,0,0,0);
+        box-shadow: none;
+        color: #243238;
+
         &:hover,
         &:focus,
         &:active {
           border-radius: 3px;
         }
+      }
+
+      .dropdown__arrow {
+        color: #b0bec5;
       }
     }
 
