@@ -36,7 +36,6 @@ export default class Button extends React.Component {
         <a
           {...props}
           className = {buttonClassName}
-          onClick={this.props.action}
           ref       = {ref => { this.button = ref; }}
         >
           {isLoading !== true && iconClassName.length > 0 &&
@@ -49,7 +48,6 @@ export default class Button extends React.Component {
       return (
         <span
           {...props}
-          onClick={this.props.action}
           className = {buttonClassName}
           ref       = {ref => { this.button = ref; }}
         >
@@ -64,7 +62,6 @@ export default class Button extends React.Component {
         <button
           {...props}
           type      = {type}
-          onClick={this.props.action}
           className = {buttonClassName}
           ref       = {ref => { this.button = ref; }}
         >
