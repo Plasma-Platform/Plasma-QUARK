@@ -6,12 +6,12 @@ let notificationTimeout;
 export function prepareNotification (notification, handleHide) {
   if (notification) {
     const NotificationComponent = Notifications[notification.code];
-
     return (
       < NotificationComponent
         onHideNotification  = {handleHide}
         text                = {notification.text}
         maxWidth            = {notification.maxWidth}
+        button              = {notification.button}
       />
     );
   }

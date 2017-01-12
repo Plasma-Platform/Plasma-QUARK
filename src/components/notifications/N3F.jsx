@@ -1,4 +1,7 @@
-import React, {Component, PropTypes} from 'react';
+import React, {
+  Component,
+  PropTypes
+} from 'react';
 import Notification from '../Notification.jsx';
 
 export default class N3F extends Component {
@@ -13,13 +16,14 @@ export default class N3F extends Component {
     position: 'bottom'
   }
 
-  setPosition(coords) {
+  setPosition (coords) {
     this.notification.setPosition(coords);
   }
 
-  render() {
+  render () {
     return (
       <Notification
+        {...this.props}
         ref={c => this.notification = c}
         className={this.props.className}
         text={this.props.text}

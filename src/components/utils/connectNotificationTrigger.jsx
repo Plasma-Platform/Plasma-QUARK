@@ -1,13 +1,21 @@
 import React, {PropTypes} from 'react';
 import ReactDOM           from 'react-dom';
 
-import {prepareNotification, isMouseOutOfComponent} from './';
+import {
+  prepareNotification,
+  isMouseOutOfComponent
+} from './';
 
 export default function connectNotificationTrigger (Component, props) {
   return class NotificationTrigger extends React.Component {
     static propTypes = {
       notification : PropTypes.object,
-      popover      : PropTypes.object
+      popover      : PropTypes.object,
+      afterClose   : PropTypes.func
+    };
+
+    static defaultProps = {
+      afterClose: () => {}
     };
 
     state = {
@@ -18,6 +26,15 @@ export default function connectNotificationTrigger (Component, props) {
       super(props, context);
       this.lastWidth = 0;
       this._originalCode = null;
+      if (typeof props.notification.button.action === 'string') {
+        switch (props.notification.button.action) {
+          case 'close':
+            props.notification.button.action = this.hideNotification;
+            break;
+          default:
+            break;
+        }
+      }
     }
 
     set originalCode (value) {
@@ -61,7 +78,7 @@ export default function connectNotificationTrigger (Component, props) {
       if (!this.popup) {
         this.targetNode = ReactDOM.findDOMNode(this.target);
 
-        let preparedNotification =  prepareNotification(this.props.notification, this.hideNotification);
+        let preparedNotification = prepareNotification(this.props.notification, this.hideNotification);
 
         this.notification = React.cloneElement(preparedNotification, {
           ref: c => this.notification = c
@@ -87,6 +104,7 @@ export default function connectNotificationTrigger (Component, props) {
         }
         this.popup = null;
         this.setState({notification: null});
+        this.props.afterClose();
       }
     };
 
@@ -106,9 +124,9 @@ export default function connectNotificationTrigger (Component, props) {
         }
 
         if (forceClose ||
-            relativityCheck ||
-            changeEvent ||
-            (this.props.closeOnCLickOutside && (detectEnterAction === false))
+          relativityCheck ||
+          changeEvent ||
+          (this.props.closeOnCLickOutside && (detectEnterAction === false))
         ) {
           popupNode.classList.add(closeClassname);
           popupNode.addEventListener('animationend', this.removeNotification);
@@ -170,13 +188,19 @@ export default function connectNotificationTrigger (Component, props) {
       }
     };
     rerenderNotice = (newCode) => {
-      let {text, maxWidth} = this.props.notification;
-      let newTooltip = prepareNotification({code: newCode || this.originalCode, text, maxWidth}, this.hideNotification);
+      let {text, maxWidth, button} = this.props.notification;
+      let newTooltip = prepareNotification({
+        code: newCode || this.originalCode,
+        button,
+        text,
+        maxWidth
+      }, this.hideNotification);
       this.notification = React.cloneElement(newTooltip, {
         ref: c => this.notification = c
       });
       ReactDOM.render(this.notification, this.popup);
     };
+
     calcSidePosition () {
       if (!this.notification) {
         return false;
