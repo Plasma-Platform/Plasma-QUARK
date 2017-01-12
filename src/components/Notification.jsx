@@ -1,5 +1,10 @@
-import React, {Component, PropTypes} from 'react';
+import React, {
+  Component,
+  PropTypes
+} from 'react';
+import Buttons from './buttons';
 import classnames                      from 'classnames';
+import {isEmptyObject} from './utils/isEmptyObject';
 
 import '../assets/styles/animations.less';
 import './Notification.less';
@@ -8,6 +13,7 @@ export default class Notification extends Component {
   static propTypes = {
     className          : PropTypes.string,
     text               : PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
+    button             : PropTypes.object,
     size               : PropTypes.string.isRequired,
     maxWidth           : PropTypes.string,
     onHideNotification : PropTypes.func,
@@ -27,7 +33,7 @@ export default class Notification extends Component {
   };
 
   getContainerWidth = () => {
-    if (this.container) this.setState({width: this.container.offsetWidth + 2});
+    if (this.container) this.setState({width: (this.container.offsetWidth || 0) + 2});
   };
 
   setPosition (coords) {
@@ -54,6 +60,7 @@ export default class Notification extends Component {
       width    : this.state.width
     };
 
+    const Button = !isEmptyObject(this.props.button) ? Buttons[this.props.button.code ? this.props.button.code : 'B2J'] : null;
     return (
       <div
         ref={container => this.container = container}
@@ -61,7 +68,7 @@ export default class Notification extends Component {
         style={parameters}
       >
         <div className='notification__container'>
-          <span className='notification__text'>{this.props.text}</span>
+          <span className='notification__text' dangerouslySetInnerHTML={{__html: this.props.text}}>{this.props.children}</span>
           {this.props.size === 'large'
             ? (<div className='notification__closeBlock'>
             <div
@@ -73,6 +80,12 @@ export default class Notification extends Component {
             : null
           }
         </div>
+        {Button
+          ? (
+            <Button action={this.props.button.action} type={this.props.button.type} className={this.props.button.className}>{this.props.button.text}</Button>
+          )
+          : null
+        }
       </div>
     );
   }

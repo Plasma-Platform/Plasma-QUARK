@@ -157,6 +157,8 @@
 .button_rounded_bottom {
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 .button_bg_1 {
   background: -webkit-linear-gradient(top, #f4511e 0%, #d84315 100%);

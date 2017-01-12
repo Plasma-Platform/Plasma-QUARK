@@ -11,13 +11,14 @@ export default class N1D extends Component {
     position: 'top'
   }
 
-  setPosition(coords) {
+  setPosition (coords) {
     this.notification.setPosition(coords);
   }
 
-  render() {
+  render () {
     return (
       <Notification
+        {...this.props}
         ref={c => this.notification = c}
         className={this.props.className}
         text={this.props.text}
