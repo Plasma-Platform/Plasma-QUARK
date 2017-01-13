@@ -68,7 +68,9 @@ export default class Notification extends Component {
         style={parameters}
       >
         <div className='notification__container'>
-          <span className='notification__text' dangerouslySetInnerHTML={{__html: this.props.text}}>{this.props.children}</span>
+          <span className='notification__text' >
+            {this.props.text}
+            </span>
           {this.props.size === 'large'
             ? (<div className='notification__closeBlock'>
             <div
