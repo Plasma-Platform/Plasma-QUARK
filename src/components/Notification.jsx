@@ -84,7 +84,7 @@ export default class Notification extends Component {
         </div>
         {Button
           ? (
-            <Button action={this.props.button.action} type={this.props.button.type} className={this.props.button.className}>{this.props.button.text}</Button>
+            <Button onClick={this.props.button.action} type={this.props.button.type} className={this.props.button.className}>{this.props.button.text}</Button>
           )
           : null
         }
