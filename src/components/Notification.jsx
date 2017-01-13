@@ -61,7 +61,6 @@ export default class Notification extends Component {
     };
 
     const Button = !isEmptyObject(this.props.button) ? Buttons[this.props.button.code ? this.props.button.code : 'B2J'] : null;
-    console.log(this.props.button);
     return (
       <div
         ref={container => this.container = container}
@@ -85,7 +84,7 @@ export default class Notification extends Component {
         </div>
         {Button
           ? (
-            <Button action={this.props.button.action} type={this.props.button.type} className={this.props.button.className}>{this.props.button.text}</Button>
+            <Button onclick={this.props.button.action} type={this.props.button.type} className={this.props.button.className}>{this.props.button.text}</Button>
           )
           : null
         }
