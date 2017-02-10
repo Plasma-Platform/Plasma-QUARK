@@ -600,7 +600,6 @@
   width: 8px;
   height: 8px;
   margin-left: auto;
-  margin-top: -2px;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
@@ -630,7 +629,6 @@
   border-radius: 0 0 3px 3px ;
 }
 .tm-quark-dropdown__button_open::after {
-  margin-top: 5px;
   -webkit-transform: rotate(-135deg);
   transform: rotate(-135deg);
 }
