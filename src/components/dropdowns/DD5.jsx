@@ -2,7 +2,7 @@ import React  from 'react';
 
 import Dropdown from '../Dropdown.jsx';
 
-export default class DD2 extends React.Component {
+export default class DD5 extends React.Component {
   constructor (props) {
     super(props);
 
@@ -26,9 +26,11 @@ export default class DD2 extends React.Component {
   render () {
     return (
       <Dropdown
-        type       = {2}
+        type                   = {5}
+        showButton             = {false}
+        showLabel              = {false}
         {...this.props}
-        ref        = {ref => { this.dropdown = ref; }}
+        ref                    = {ref => { this.dropdown = ref; }}
       />
     );
   }
