@@ -296,7 +296,7 @@ export default class Dropdown extends React.Component {
 
     return (
       <div
-        className = {`tm-quark-dropdown tm-quark-dropdown_type_${this.props.type}${this.props.disabled ? ' tm-quark-dropdown_disabled' : ''} ${this.props.className || ''}`}
+        className = {`tm-quark-dropdown tm-quark-dropdown_${this.state.open ? 'open' : 'closed'} tm-quark-dropdown_type_${this.props.type}${this.props.disabled ? ' tm-quark-dropdown_disabled' : ''} ${this.props.className || ''}`}
         id        = {this.props.id || null}
         tabIndex  = "-1"
         onKeyDown = {this.handleContainerKeyDown}
