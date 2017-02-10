@@ -118,7 +118,7 @@ export default class Dropdown extends React.Component {
       const option = options[optionIndex];
 
       if (option) {
-        optionsListHeight += (lastVisibleOptionIndex === optionIndex ? option.offsetHeight / 2 : option.offsetHeight);
+        optionsListHeight += (lastVisibleOptionIndex === optionIndex && this.props.optionsToShow !== this.props.options.length ? option.offsetHeight / 2 : option.offsetHeight);
       }
     });
 
