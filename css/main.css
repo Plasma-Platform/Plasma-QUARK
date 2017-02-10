@@ -433,7 +433,6 @@
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  height: 80px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-flow: column wrap;
@@ -441,7 +440,7 @@
 }
 .tm-quark-dropdown_type_2.tm-quark-dropdown_disabled::before {
   height: 40px;
-  top: 40px;
+  bottom: 0;
 }
 .tm-quark-dropdown_type_3 {
   display: -webkit-box;
