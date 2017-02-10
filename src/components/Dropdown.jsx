@@ -4,165 +4,128 @@ import './Dropdown.less';
 
 export default class Dropdown extends React.Component {
   static propTypes = {
-    type               : React.PropTypes.oneOf([1, 2, 3]).isRequired,
-    options            : React.PropTypes.array.isRequired,
-    defaultOpen        : React.PropTypes.bool,
-    className          : React.PropTypes.string,
-    id                 : React.PropTypes.string,
-    disabled           : React.PropTypes.bool,
-    label              : React.PropTypes.string,
-    showFilter         : React.PropTypes.bool,
-    filterQuery        : React.PropTypes.string,
-    filterHint         : React.PropTypes.string,
-    defaultFilterQuery : React.PropTypes.string,
-    noResultsText      : React.PropTypes.string,
-    defaultValue       : React.PropTypes.string,
-    onOpen             : React.PropTypes.func,
-    onClose            : React.PropTypes.func,
-    onChange           : React.PropTypes.func
+    id           : React.PropTypes.string,
+    name         : React.PropTypes.string,
+    defaultOpen  : React.PropTypes.bool,
+    defaultValue : React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
+    label             : React.PropTypes.string,
+    showLabelInButton : React.PropTypes.bool,
+    labelSize         : React.PropTypes.oneOf([
+      'small',
+      'medium'
+    ]),
+    showLabel  : React.PropTypes.bool,
+    showButton : React.PropTypes.bool,
+    buttonSize : React.PropTypes.oneOf([
+      'medium',
+      'large'
+    ]),
+    showOptionHTMLInButton : React.PropTypes.bool,
+    showFilterBox          : React.PropTypes.bool,
+    filterBoxPlaceholder   : React.PropTypes.string,
+    filterNoResultsText    : React.PropTypes.string,
+    defaultFilterQuery     : React.PropTypes.string,
+    options                : React.PropTypes.array,
+    optionsToShow          : React.PropTypes.number,
+    optionSize             : React.PropTypes.oneOf([
+      'medium',
+      'large'
+    ]),
+    showSelectedOption   : React.PropTypes.bool,
+    optionIconRadioStyle : React.PropTypes.bool,
+    optionIconSize       : React.PropTypes.oneOf([
+      'medium',
+      'large'
+    ]),
+    disabled : React.PropTypes.bool,
+    onOpen   : React.PropTypes.func,
+    onChange : React.PropTypes.func,
+    onClose  : React.PropTypes.func
   }
 
   static defaultProps = {
-    defaultOpen        : false,
-    showFilter         : false,
-    defaultFilterQuery : '',
-    noResultsText      : 'No results match'
+    defaultOpen            : false,
+    showLabelInButton      : false,
+    labelSize              : 'medium',
+    showLabel              : true,
+    showButton             : true,
+    buttonSize             : 'medium',
+    showOptionHTMLInButton : true,
+    showFilterBox          : false,
+    filterBoxPlaceholder   : '',
+    filterNoResultsText    : 'No results match',
+    defaultFilterQuery     : '',
+    options                : [],
+    optionsToShow          : 5,
+    optionSize             : 'medium',
+    showSelectedOption     : true,
+    optionIconRadioStyle   : false,
+    optionIconSize         : 'medium',
+    disabled               : false
   }
 
   state = {
-    open        : this.props.defaultOpen,
-    filterQuery : this.props.defaultFilterQuery,
-    value       : this.props.defaultValue ? this.props.defaultValue : this.props.options[0] ? this.props.options[0].value : ''
+    open           : this.props.defaultOpen,
+    value          : this.props.defaultValue || this.props.options[0].value,
+    filterQuery    : this.props.defaultFilterQuery,
+    selectedOption : this.props.defaultValue ? this.getOptionByValue(this.props.defaultValue) : this.props.options[0]
   }
 
   constructor (props) {
     super(props);
 
-    this.toggle                = this.toggle.bind(this);
-    this.handleButtonKeyDown   = this.handleButtonKeyDown.bind(this);
-    this.handleFilterInput     = this.handleFilterInput.bind(this);
-    this.handleFilterBlur      = this.handleFilterBlur.bind(this);
-    this.handleFilterKeyDown   = this.handleFilterKeyDown.bind(this);
-    this.handleOptionClick     = this.handleOptionClick.bind(this);
-    this.handleOptionKeyDown   = this.handleOptionKeyDown.bind(this);
-    this.handleDropdownKeyDown = this.handleDropdownKeyDown.bind(this);
-    this.handleDropdownBlur    = this.handleDropdownBlur.bind(this);
+    this.open                     = this.open.bind(this);
+    this.handleCloseAnimationEnd  = this.handleCloseAnimationEnd.bind(this);
+    this.close                    = this.close.bind(this);
 
-    this.contentPosition = 'bottom';
+    this.selectOption             = this.selectOption.bind(this);
+    this.filterOptions            = this.filterOptions.bind(this);
+
+    this.handleDropdownBlur       = this.handleDropdownBlur.bind(this);
+    this.handleContainerKeyDown   = this.handleContainerKeyDown.bind(this);
+    this.handleButtonKeyDown      = this.handleButtonKeyDown.bind(this);
+    this.handleFilterInputKeyDown = this.handleFilterInputKeyDown.bind(this);
+    this.handleOptionKeyDown      = this.handleOptionKeyDown.bind(this);
+
+    this.contentPosition          = 'bottom';
   }
 
   open () {
-    this.setContentPosition();
-
     this.setState({
-      open        : true,
-      filterQuery : ''
+      open: true
     }, () => {
-      if (this.props.showFilter) {
-        this.filterInput.focus();
-      } else {
-        this.button.focus();
-      }
+      this.animateShowContent();
+      window.addEventListener('click', this.handleDropdownBlur);
+
       if (this.props.onOpen) {
-        this.props.onOpen();
+        this.props.onOpen(this.state.value);
       }
     });
   }
 
-  close () {
-    this.setState({
-      open: false
-    }, () => {
-      this.button.blur();
-      if (this.props.onClose) {
-        this.props.onClose();
+  getOptionsListMaxHeight () {
+    const options              = this.optionsList.querySelectorAll('.tm-quark-dropdown__option');
+
+    let optionsListHeight      = 0;
+    let lastVisibleOptionIndex = Math.min(options.length - 1, this.props.optionsToShow - 1);
+
+    Array.from({
+      length: this.props.optionsToShow
+    }).map((optionNumber, optionIndex) => {
+      const option = options[optionIndex];
+
+      if (option) {
+        optionsListHeight += (lastVisibleOptionIndex === optionIndex ? option.offsetHeight / 2 : option.offsetHeight);
       }
     });
+
+    return optionsListHeight;
   }
 
-  toggle () {
-    this.state.open === true ? this.close() : this.open();
-  }
-
-  handleButtonKeyDown (event) {
-    const keyCode = event.keyCode;
-
-    if (keyCode === 40 && this.props.type !== 3 && this.option0) {
-      this.option0.focus();
-    }
-  }
-
-  handleFilterInput () {
-    const filterValue = this.filterInput.value;
-
-    this.setState({
-      filterQuery: filterValue.trim()
-    });
-  }
-
-  handleFilterBlur () {
-    this.filterInput.value = this.filterInput.value.trim();
-  }
-
-  handleFilterKeyDown (event) {
-    const keyCode = event.keyCode;
-
-    if (keyCode === 40 && this.option0) {
-      this.option0.focus();
-    }
-  }
-
-  handleOptionClick (option) {
-    this.setState({
-      open  : false,
-      value : option.value
-    }, () => {
-      this.props.onChange ? this.props.onChange(this.state.value) : null;
-    });
-  }
-
-  handleOptionKeyDown (event, option, optionIndex) {
-    const keyCode = event.keyCode;
-
-    if (keyCode === 13) {
-      this[`option${optionIndex}`].click();
-    } else if (keyCode === 40 && this[`option${optionIndex + 1}`]) {
-      this[`option${optionIndex + 1}`].focus();
-    } else if (keyCode === 38) {
-      if (this[`option${optionIndex - 1}`]) {
-        this[`option${optionIndex - 1}`].focus();
-      } else if (this.props.showFilter) {
-        this.filterInput.focus();
-      }
-    }
-  }
-
-  handleDropdownKeyDown (event) {
-    const keyCode = event.keyCode;
-
-    if (keyCode === 27) {
-      this.close();
-    }
-  }
-
-  handleDropdownBlur (event) {
-    if (this.container.contains(event.target) === false && this.container !== event.target && this.open) {
-      this.close();
-    }
-  }
-
-  getValue () {
-    return this.state.value;
-  }
-
-  getOptionByValue (optionValue) {
-    return this.props.options.filter((option) => {
-      return option.value === optionValue;
-    })[0];
-  }
-
-  setContentPosition () {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+  getContainerCoordinates () {
     const documentHeight = Math.max(
       document.body.scrollHeight,
       document.documentElement.scrollHeight,
@@ -171,160 +134,287 @@ export default class Dropdown extends React.Component {
       document.body.clientHeight,
       document.documentElement.clientHeight
     );
-    const buttonHeight       = this.button.offsetHeight;
-    const buttonTopOffset    = this.button.getBoundingClientRect().top + scrollTop;
-    const buttonBottomOffset = documentHeight - buttonTopOffset - buttonHeight;
-    const contentHeight      = this.content.offsetHeight;
 
-    if (contentHeight > buttonBottomOffset) {
-      if (buttonTopOffset > contentHeight) {
-        this.contentPosition = 'top';
+    const containerRect = this.container.getBoundingClientRect();
+    const scrollTop     = window.pageYOffset || document.documentElement.scrollTop;
+
+    const containerTopOffset    = containerRect.top + scrollTop;
+    const containerBottomOffset = documentHeight - (containerRect.bottom + scrollTop);
+
+    return {
+      top    : containerTopOffset,
+      bottom : containerBottomOffset
+    };
+  }
+
+  animateShowContent () {
+    const containerTopOffset    = this.getContainerCoordinates().top;
+    const containerBottomOffset = this.getContainerCoordinates().bottom;
+
+    let optionsListMaxHeight = this.getOptionsListMaxHeight();
+    let optionsListPosition  = 'bottom';
+
+    if (optionsListMaxHeight > (containerBottomOffset - 20)) {
+      if (containerTopOffset > containerBottomOffset) {
+        optionsListMaxHeight = Math.min(optionsListMaxHeight, containerTopOffset - 20);
+        optionsListPosition  = 'top';
       } else {
-        this.contentPosition = 'bottom-fixed';
+        optionsListMaxHeight = containerBottomOffset - 20;
       }
-    } else {
-      this.contentPosition = 'bottom';
+    }
+
+    this.optionsList.style.maxHeight = `${optionsListMaxHeight}px`;
+
+    this.container.classList.add(`tm-quark-dropdown_open-position_${optionsListPosition}`);
+    this.content.classList.add(`tm-quark-dropdown__content_open`);
+  }
+
+  close () {
+    window.removeEventListener('click', this.handleDropdownBlur);
+    this.animateCloseContent();
+  }
+
+  animateCloseContent () {
+    this.content.classList.add('tm-quark-dropdown__content_close');
+    this.content.addEventListener('animationend', this.handleCloseAnimationEnd);
+  }
+
+  handleCloseAnimationEnd () {
+    this.content.removeEventListener('animationend', this.handleCloseAnimationEnd);
+
+    this.setState({
+      open: false
+    }, () => {
+      if (this.props.onClose) {
+        this.props.onClose(this.state.value);
+      }
+    });
+  }
+
+  filterOptions (filterQuery) {
+    this.setState({
+      filterQuery: filterQuery
+    });
+  }
+
+  getVisibleOptions () {
+    const filterQuery    = this.state.filterQuery.toLowerCase().trim();
+    const visibleOptions = this.props.options.filter((option) => {
+      return option.label.toLowerCase().search(filterQuery) >= 0 && (this.props.showSelectedOption ? true : this.state.value !== option.value);
+    });
+
+    return visibleOptions;
+  }
+
+  selectOption (option) {
+    this.setState({
+      value          : option.value,
+      selectedOption : option
+    }, () => {
+      if (this.props.onChange) {
+        this.props.onChange(this.state.value);
+      }
+      this.close();
+    });
+  }
+
+  getOptionByValue (optionValue) {
+    const option = this.props.options.filter((optionData) => {
+      return optionData.value === optionValue;
+    })[0];
+
+    return option;
+  }
+
+  handleDropdownBlur (event) {
+    if (this.container.contains(event.target) === false && event.target !== this.container && this.state.open) {
+      this.close();
     }
   }
 
-  renderOptions () {
-    const filterQuery  = this.state.filterQuery.toLowerCase();
-    const filterRegExp = new RegExp('\\b' + filterQuery, 'gi');
+  handleContainerKeyDown (event) {
+    const keyCode = event.keyCode;
+
+    if (keyCode === 27) {
+      this.close();
+    }
+  }
+
+  handleButtonKeyDown (event) {
+    const keyCode = event.keyCode;
+
+    if (keyCode === 40) {
+      this.filterInput ? this.filterInput.focus() : this.option0 ? this.option0.focus() : null;
+    }
+  }
+
+  handleFilterInputKeyDown (event) {
+    const keyCode = event.keyCode;
+
+    if (keyCode === 40 && this.option0) {
+      this.option0.focus();
+    }
+  }
+
+  handleOptionKeyDown (event, option, optionIndex) {
+    const keyCode = event.keyCode;
+
+    if (keyCode === 13) {
+      this.selectOption(option);
+    } else if (keyCode === 40 && this[`option${optionIndex + 1}`]) {
+      this[`option${optionIndex + 1}`].focus();
+    } else if (keyCode === 38) {
+      if (this[`option${optionIndex - 1}`] && optionIndex - 1 >= 0) {
+        this[`option${optionIndex - 1}`].focus();
+      } else if (this.filterInput) {
+        this.filterInput.focus();
+      }
+    }
+  }
+
+  getValue () {
+    return this.state.value;
+  }
+
+  componentDidMount () {
+    if (this.state.open) {
+      window.addEventListener('click', this.handleDropdownBlur);
+    }
+  }
+
+  componentWillUnmount () {
+    if (this.state.open) {
+      window.removeEventListener('click', this.handleDropdownBlur);
+    }
+  }
+
+  render () {
+    const visibleOptions = this.getVisibleOptions();
 
     let activeOptionIndex   = -1;
     let disabledOptionIndex = 0;
 
     return (
-      this.props.options.filter((option) => {
-        const isSelectedOption  = this.props.type !== 3 && option.value === this.state.value;
-        const isRespondToSearch = filterQuery.length > 0 ? filterRegExp.test(option.label.toLowerCase()) : true;
-        const isVisible         = isSelectedOption !== true && isRespondToSearch === true;
-
-        return isVisible;
-      }).map((option, index) => {
-        const selectedClassName   = this.state.value === option.value ? ' dropdown__option_selected' : '';
-        const optionClassName     = `dropdown__option${selectedClassName}`;
-        const optionIconClassName = option.icon && option.icon.length > 0 ? ` dropdown__icon icon icon-${option.icon}` : '';
-
-        let optionIndex;
-
-        if (option.disabled) {
-          disabledOptionIndex--;
-          optionIndex = disabledOptionIndex;
-        } else {
-          activeOptionIndex++;
-          optionIndex = activeOptionIndex;
-        }
-
-        return (
-          <li
-            className  = {optionClassName}
-            tabIndex   = {option.disabled || this.state.open === false ? -1 : 0}
-            aria-label = {option.label}
-            role       = "option"
-            onClick    = {() => { this.handleOptionClick(option); }}
-            onKeyDown  = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
-            key        = {option.value}
-            ref        = {ref => { this[`option${optionIndex}`] = ref; }}
-          >
-            {optionIconClassName.length > 0 &&
-              <i className={optionIconClassName}></i>
-            }
-            {option.label}
-          </li>
-        );
-      })
-    );
-  }
-
-  componentDidMount () {
-    window.addEventListener('click', this.handleDropdownBlur);
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('click', this.handleDropdownBlur);
-  }
-
-  render () {
-    const typeClassName       = ` dropdown_type_${this.props.type}`;
-    const disabledClassName   = this.props.disabled ? ` dropdown_disabled` : '';
-    const contentPosClassName = ` dropdown_content-position_${this.contentPosition}`;
-    const openedClassName     = this.state.open ? ` dropdown_open` : ' dropdown_closed';
-    const addClassName        = this.props.className ? ` ${this.props.className}` : '';
-    const containerClassName  = `dropdown${typeClassName}${disabledClassName}${contentPosClassName}${openedClassName}${addClassName}`;
-
-    const selectedOption      = this.getOptionByValue(this.state.value);
-    const selectedOptionLabel = selectedOption ? selectedOption.label : this.props.options.length ? this.props.options[0].label : '';
-
-    const selectedOptionIcon  = selectedOption && selectedOption.icon ? selectedOption.icon : this.props.options.length && this.props.options[0].icon ? this.props.options[0].icon : '';
-
-    const buttonIconClassName = selectedOptionIcon.length > 0 ? ` dropdown__icon icon icon-${selectedOptionIcon}` : '';
-
-    return (
       <div
-        className = {containerClassName}
+        className = {`tm-quark-dropdown tm-quark-dropdown_type_${this.props.type}${this.props.disabled ? ' tm-quark-dropdown_disabled' : ''} ${this.props.className || ''}`}
         id        = {this.props.id || null}
         tabIndex  = "-1"
-        onKeyDown = {this.handleDropdownKeyDown}
-        ref       = {ref => { this.container = ref; }}
+        onKeyDown = {this.handleContainerKeyDown}
+        ref       = {(ref) => { this.container = ref; }}
       >
-        {(this.props.type === 1 || this.props.type === 2) &&
-          <span className="dropdown__label">{this.props.label}</span>
-        }
-
-        <button
-          className  = "dropdown__button"
-          type       = "button"
-          aria-label = {this.props.label}
-          onClick    = {this.toggle}
-          onKeyDown  = {this.handleButtonKeyDown}
-          ref        = {ref => { this.button = ref; }}
-        >
-          {buttonIconClassName.length > 0 &&
-            <i className={buttonIconClassName}></i>
-          }
-          {selectedOptionLabel}
-          <span className="dropdown__arrow"></span>
-        </button>
-
-        {this.props.type === 3 &&
-          <span className="dropdown__label">{this.props.label}</span>
-        }
-
-        <div
-          className = "dropdown__content"
-          ref       = {ref => { this.content = ref; }}
-        >
-          {this.props.showFilter &&
-            <div className="dropdown__filter-box">
-              <input
-                className   = "dropdown__filter-input"
-                type        = "search"
-                value       = {this.state.filterQuery}
-                placeholder = {this.props.filterHint || null}
-                tabIndex    = {this.state.open ? '0' : '-1'}
-                onChange    = {this.handleFilterInput}
-                onBlur      = {this.handleFilterBlur}
-                onKeyDown   = {this.handleFilterKeyDown}
-                ref         = {ref => { this.filterInput = ref; }}
-              />
-            </div>
-          }
-          <ul
-            className = "dropdown__options"
-            ref       = {ref => { this.optionsList = ref; }}
+        {(this.props.showLabelInButton === false && this.props.showLabel) && (
+          <span
+            className = {`tm-quark-dropdown__label tm-quark-dropdown__label_size_${this.props.labelSize}${this.props.disabled ? ' tm-quark-dropdown__label_disabled' : ''}`}
+            ref       = {(ref) => { this.label = ref; }}
           >
-            {this.renderOptions().length === 0 && this.props.showFilter ? (
-              <li className="dropdown__option dropdown__no-results">
-                {`${this.props.noResultsText} "${this.state.filterQuery}"`}
-              </li>
+            {this.props.label}
+          </span>
+        )}
+
+        <input
+          className = "tm-quark-drodpown__value-input"
+          type      = "hidden"
+          name      = {this.props.name || null}
+          ref       = {(ref) => { this.valueInput = ref; }}
+        />
+
+        {this.props.showButton && (
+          <button
+            className = {`tm-quark-dropdown__button${this.state.open ? ' tm-quark-dropdown__button_open' : ''} tm-quark-dropdown__button_size_${this.props.buttonSize}${this.props.disabled ? ' tm-quark-dropdown__button_disabled' : ''}`}
+            type       = "button"
+            aria-label = {this.props.label}
+            onClick    = {this.state.open ? this.close : this.open}
+            onKeyDown  = {this.handleButtonKeyDown}
+            ref        = {(ref) => { this.button = ref; }}
+          >
+            {(this.props.showLabelInButton && this.props.showLabel) && (
+              <span
+                className = {`tm-quark-dropdown__label tm-quark-dropdown__label_size_${this.props.labelSize}${this.props.disabled ? ' tm-quark-dropdown__label_disabled' : ''}`}
+                ref       = {(ref) => { this.label = ref; }}
+              >
+                {this.props.label}
+              </span>
+            )}
+            <span className="tm-quark-dropdown__selected-option-content">
+              {(this.state.selectedOption.icon && this.props.optionIconRadioStyle !== true) && (
+                <i className={`tm-quark-dropdown__icon tm-quark-dropdown__icon_size_medium icon icon-${this.state.selectedOption.icon}`}></i>
+              )}
+              {this.props.showOptionHTMLInButton && this.state.selectedOption.html ? this.state.selectedOption.html : this.state.selectedOption.label}
+            </span>
+          </button>
+        )}
+
+        {this.state.open && (
+          <div
+            className = {`tm-quark-dropdown__content`}
+            ref       = {(ref) => { this.content = ref; }}
+          >
+            {this.props.showFilterBox && (
+              <div
+                className = "tm-quark-dropdown__filter-box"
+                ref       = {(ref) => { this.filterBox = ref; }}
+              >
+                <input
+                  className   = "tm-quark-dropdown__filter-input"
+                  type        = "search"
+                  placeholder = {this.props.filterBoxPlaceholder}
+                  value       = {this.state.filterQuery}
+                  tabIndex    = {this.state.open ? '0' : '-1'}
+                  onChange    = {(event) => { this.filterOptions(event.target.value); }}
+                  onKeyDown   = {this.handleFilterInputKeyDown}
+                  ref         = {(ref) => { this.filterInput = ref; }}
+                  autoFocus
+                />
+              </div>
+            )}
+
+            <ul
+              className = "tm-quark-dropdown__options"
+              ref       = {(ref) => { this.optionsList = ref; }}
+            >
+              {visibleOptions.length > 0 ? (
+
+                visibleOptions.map((option, index) => {
+                  if (option.disabled) {
+                    disabledOptionIndex = disabledOptionIndex - 1;
+                  } else {
+                    activeOptionIndex = activeOptionIndex + 1;
+                  }
+
+                  const optionIndex = option.disabled ? disabledOptionIndex : activeOptionIndex;
+                  const optionIcon  = this.props.optionIconRadioStyle ? 'tm-quark-dropdown__icon tm-quark-dropdown__icon_size_medium tm-quark-dropdown__icon_type_radio' : option.icon ? `tm-quark-dropdown__icon tm-quark-dropdown__icon_size_${this.props.optionIconSize} ${`icon icon-${option.icon}`}` : '';
+
+                  return (
+                    <li
+                      className = {`tm-quark-dropdown__option ${option.disabled ? 'tm-quark-dropdown__option_disabled ' : ''}tm-quark-dropdown__option_size_${this.props.optionSize}${option.value === this.state.value ? ' tm-quark-dropdown__option_selected' : ''}`}
+                      tabIndex  = {option.disabled || this.state.open === false ? -1 : 0}
+                      role      = "option"
+                      onClick   = {(event) => { this.selectOption(option); }}
+                      onKeyDown = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
+                      ref       = {(ref) => { this[`option${optionIndex}`] = ref; }}
+                      key       = {index}
+                    >
+                      {optionIcon.length > 0 && (
+                        <i className={optionIcon}></i>
+                      )}
+                      {option.html || option.label}
+                    </li>
+                  );
+                })
               ) : (
-                this.renderOptions()
-              )
-            }
-          </ul>
-        </div>
+                this.state.filterQuery.length > 0 ? (
+                  <li className={`tm-quark-dropdown__option tm-quark-dropdown__option_size_${this.props.optionSize} tm-quark-dropdown__option_type_no-filter-results`}>
+                    {`${this.props.filterNoResultsText} "${this.state.filterQuery}"`}
+                  </li>
+                ) : (
+                  null
+                )
+              )}
+            </ul>
+          </div>
+        )}
       </div>
     );
   }
+
 }
