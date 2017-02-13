@@ -286,11 +286,11 @@ export default class Dropdown extends React.Component {
   componentWillReceiveProps (nextProps) {
     const newSelectedOption = nextProps.options.filter((optionData) => {
       return (optionData.value === this.state.value || optionData.value === nextProps.defaultValue);
-    })[0] || nextProps.options[0];
+    })[0];
 
     this.setState({
-      value          : newSelectedOption.value,
-      selectedOption : newSelectedOption
+      value          : newSelectedOption ? newSelectedOption.value : nextProps.options[0].value,
+      selectedOption : newSelectedOption || nextProps.options[0]
     });
   }
 
