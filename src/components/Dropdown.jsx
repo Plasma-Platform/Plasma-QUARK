@@ -69,9 +69,9 @@ export default class Dropdown extends React.Component {
 
   state = {
     open           : this.props.defaultOpen,
-    value          : this.props.defaultValue || this.props.options[0].value,
+    value          : this.getOptionByValue(this.props.defaultValue) ? this.props.defaultValue : this.props.options[0].value,
     filterQuery    : this.props.defaultFilterQuery,
-    selectedOption : this.props.defaultValue ? this.getOptionByValue(this.props.defaultValue) : this.props.options[0]
+    selectedOption : this.props.defaultValue && this.getOptionByValue(this.props.defaultValue) ? this.getOptionByValue(this.props.defaultValue) : this.props.options[0]
   }
 
   constructor (props) {
@@ -292,6 +292,8 @@ export default class Dropdown extends React.Component {
   render () {
     const visibleOptions = this.getVisibleOptions();
 
+    const selectedOption = this.getOptionByValue(this.state.selectedOption.value) || this.props.options[0].value;
+
     let activeOptionIndex   = -1;
     let disabledOptionIndex = 0;
 
@@ -337,10 +339,10 @@ export default class Dropdown extends React.Component {
               </span>
             )}
             <span className="tm-quark-dropdown__selected-option-content">
-              {(this.state.selectedOption.icon && this.props.optionIconRadioStyle !== true) && (
-                <i className={`tm-quark-dropdown__icon tm-quark-dropdown__icon_size_medium icon icon-${this.state.selectedOption.icon}`}></i>
+              {(selectedOption.icon && this.props.optionIconRadioStyle !== true) && (
+                <i className={`tm-quark-dropdown__icon tm-quark-dropdown__icon_size_medium icon icon-${selectedOption.icon}`}></i>
               )}
-              {this.props.showOptionHTMLInButton && this.state.selectedOption.html ? this.state.selectedOption.html : this.state.selectedOption.label}
+              {this.props.showOptionHTMLInButton && selectedOption.html ? selectedOption.html : selectedOption.label}
             </span>
           </button>
         )}
