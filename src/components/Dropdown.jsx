@@ -283,6 +283,17 @@ export default class Dropdown extends React.Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    const newSelectedOption = nextProps.options.filter((optionData) => {
+      return (optionData.value === this.state.value || optionData.value === nextProps.defaultValue);
+    })[0] || nextProps.options[0];
+
+    this.setState({
+      value          : newSelectedOption.value,
+      selectedOption : newSelectedOption
+    });
+  }
+
   componentWillUnmount () {
     if (this.state.open) {
       window.removeEventListener('click', this.handleDropdownBlur);
