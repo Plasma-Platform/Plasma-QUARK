@@ -283,6 +283,17 @@ export default class Dropdown extends React.Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    const newSelectedOption = nextProps.options.filter((optionData) => {
+      return optionData.value === this.state.value;
+    })[0];
+
+    this.setState({
+      value          : newSelectedOption.value || nextProps.options[0].value,
+      selectedOption : newSelectedOption || nextProps.options[0]
+    });
+  }
+
   componentWillUnmount () {
     if (this.state.open) {
       window.removeEventListener('click', this.handleDropdownBlur);
@@ -291,8 +302,6 @@ export default class Dropdown extends React.Component {
 
   render () {
     const visibleOptions = this.getVisibleOptions();
-
-    const selectedOption = this.getOptionByValue(this.state.selectedOption.value) || this.props.options[0];
 
     let activeOptionIndex   = -1;
     let disabledOptionIndex = 0;
@@ -339,10 +348,10 @@ export default class Dropdown extends React.Component {
               </span>
             )}
             <span className="tm-quark-dropdown__selected-option-content">
-              {(selectedOption.icon && this.props.optionIconRadioStyle !== true) && (
-                <i className={`tm-quark-dropdown__icon tm-quark-dropdown__icon_size_medium icon icon-${selectedOption.icon}`}></i>
+              {(this.state.selectedOption.icon && this.props.optionIconRadioStyle !== true) && (
+                <i className={`tm-quark-dropdown__icon tm-quark-dropdown__icon_size_medium icon icon-${this.state.selectedOption.icon}`}></i>
               )}
-              {this.props.showOptionHTMLInButton && selectedOption.html ? selectedOption.html : selectedOption.label}
+              {this.props.showOptionHTMLInButton && this.state.selectedOption.html ? this.state.selectedOption.html : this.state.selectedOption.label}
             </span>
           </button>
         )}
