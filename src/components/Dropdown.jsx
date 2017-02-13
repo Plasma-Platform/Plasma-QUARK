@@ -198,9 +198,10 @@ export default class Dropdown extends React.Component {
   }
 
   getVisibleOptions () {
-    const filterQuery    = this.state.filterQuery.toLowerCase().trim();
+    const filterQuery       = this.state.filterQuery.toLowerCase().trim();
+    const filterQueryRegExp = new RegExp('\\b' + filterQuery, 'gi');
     const visibleOptions = this.props.options.filter((option) => {
-      return option.label.toLowerCase().search(filterQuery) >= 0 && (this.props.showSelectedOption ? true : this.state.value !== option.value);
+      return option.label.search(filterQueryRegExp) >= 0 && (this.props.showSelectedOption ? true : this.state.value !== option.value);
     });
 
     return visibleOptions;
