@@ -602,6 +602,10 @@
   margin-left: auto;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
+  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: -webkit-transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), -webkit-transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 .tm-quark-dropdown__button:hover,
 .tm-quark-dropdown__button:active,
