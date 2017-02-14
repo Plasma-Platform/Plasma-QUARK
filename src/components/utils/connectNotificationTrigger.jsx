@@ -30,7 +30,7 @@ export default function connectNotificationTrigger (Component, props) {
         if (typeof props.notification.button.onClick === 'string') {
           switch (props.notification.button.onClick) {
             case 'close':
-              props.notification.button.action = this.hideNotification;
+              props.notification.button.onClick = this.hideNotification;
               break;
             default:
               break;
