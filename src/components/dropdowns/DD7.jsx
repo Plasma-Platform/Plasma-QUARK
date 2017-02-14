@@ -31,8 +31,8 @@ export default class DD7 extends React.Component {
         showLabel      = {false}
         optionSize     = "large"
         optionIconSize = "large"
-        {...this.props}
         ref  = {ref => { this.dropdown = ref; }}
+        {...this.props}
       />
     );
   }

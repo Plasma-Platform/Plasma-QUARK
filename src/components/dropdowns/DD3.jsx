@@ -26,14 +26,14 @@ export default class DD3 extends React.Component {
   render () {
     return (
       <Dropdown
-        type              = {3}
-        labelSize         = "small"
-        showLabelInButton = {true}
-        buttonSize        = "large"
-        showFilterBox     = {true}
+        type               = {3}
+        labelSize          = "small"
+        showLabelInButton  = {true}
+        buttonSize         = "large"
+        showFilterBox      = {true}
         showSelectedOption = {false}
+        ref                = {ref => { this.dropdown = ref; }}
         {...this.props}
-        ref               = {ref => { this.dropdown = ref; }}
       />
     );
   }

@@ -4,13 +4,10 @@ import './Dropdown.less';
 
 export default class Dropdown extends React.Component {
   static propTypes = {
-    id          : React.PropTypes.string,
-    name        : React.PropTypes.string,
-    defaultOpen : React.PropTypes.bool,
-    value       : React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
-    ]),
+    id                : React.PropTypes.string,
+    name              : React.PropTypes.string,
+    defaultOpen       : React.PropTypes.bool,
+    value             : React.PropTypes.any,
     label             : React.PropTypes.string,
     showLabelInButton : React.PropTypes.bool,
     labelSize         : React.PropTypes.oneOf([
@@ -76,8 +73,8 @@ export default class Dropdown extends React.Component {
     super(props);
 
     this.open                     = this.open.bind(this);
-    this.handleCloseAnimationEnd  = this.handleCloseAnimationEnd.bind(this);
     this.close                    = this.close.bind(this);
+    this.hideContent              = this.hideContent.bind(this);
 
     this.handleOptionSelect       = this.handleOptionSelect.bind(this);
     this.filterOptions            = this.filterOptions.bind(this);
@@ -92,30 +89,45 @@ export default class Dropdown extends React.Component {
   open () {
     this.setState({
       open: true
-    }, () => {
-      this.animateShowContent();
-      window.addEventListener('click', this.handleDropdownBlur);
+    }, this.showContent);
+  }
 
-      if (this.props.onOpen) {
-        this.props.onOpen(this.getValue());
+  showContent () {
+    const containerTopOffset    = this.getContainerCoordinates().top;
+    const containerBottomOffset = this.getContainerCoordinates().bottom;
+
+    let optionsListMaxHeight = this.getOptionsListMaxHeight();
+    let optionsListPosition  = 'bottom';
+
+    if (optionsListMaxHeight > (containerBottomOffset - 20)) {
+      if (containerTopOffset > containerBottomOffset) {
+        optionsListMaxHeight = Math.min(optionsListMaxHeight, containerTopOffset - 20);
+        optionsListPosition  = 'top';
+      } else {
+        optionsListMaxHeight = containerBottomOffset - 20;
       }
-    });
+    }
+
+    this.optionsList.style.maxHeight = `${optionsListMaxHeight}px`;
+
+    this.container.classList.add(`tm-quark-dropdown_open-position_${optionsListPosition}`);
+    this.content.classList.add(`tm-quark-dropdown__content_open`);
+
+    window.addEventListener('click', this.handleDropdownBlur);
+
+    if (this.props.onOpen) {
+      this.props.onOpen(this.getValue());
+    }
   }
 
   getOptionsListMaxHeight () {
-    const options              = this.optionsList.querySelectorAll('.tm-quark-dropdown__option');
+    const options              = [...this.optionsList.querySelectorAll('.tm-quark-dropdown__option')];
 
     let optionsListHeight      = 0;
     let lastVisibleOptionIndex = Math.min(options.length - 1, this.props.optionsToShow - 1);
 
-    Array.from({
-      length: this.props.optionsToShow
-    }).map((optionNumber, optionIndex) => {
-      const option = options[optionIndex];
-
-      if (option) {
-        optionsListHeight += (lastVisibleOptionIndex === optionIndex && this.props.optionsToShow !== this.props.options.length ? option.offsetHeight / 2 : option.offsetHeight);
-      }
+    options.slice(0, lastVisibleOptionIndex + 1).forEach((option, optionIndex) => {
+      optionsListHeight += (lastVisibleOptionIndex === optionIndex && options.length > this.props.optionsToShow ? option.offsetHeight / 2 : option.offsetHeight);
     });
 
     return optionsListHeight;
@@ -143,40 +155,15 @@ export default class Dropdown extends React.Component {
     };
   }
 
-  animateShowContent () {
-    const containerTopOffset    = this.getContainerCoordinates().top;
-    const containerBottomOffset = this.getContainerCoordinates().bottom;
-
-    let optionsListMaxHeight = this.getOptionsListMaxHeight();
-    let optionsListPosition  = 'bottom';
-
-    if (optionsListMaxHeight > (containerBottomOffset - 20)) {
-      if (containerTopOffset > containerBottomOffset) {
-        optionsListMaxHeight = Math.min(optionsListMaxHeight, containerTopOffset - 20);
-        optionsListPosition  = 'top';
-      } else {
-        optionsListMaxHeight = containerBottomOffset - 20;
-      }
-    }
-
-    this.optionsList.style.maxHeight = `${optionsListMaxHeight}px`;
-
-    this.container.classList.add(`tm-quark-dropdown_open-position_${optionsListPosition}`);
-    this.content.classList.add(`tm-quark-dropdown__content_open`);
-  }
-
   close () {
     window.removeEventListener('click', this.handleDropdownBlur);
-    this.animateCloseContent();
-  }
 
-  animateCloseContent () {
     this.content.classList.add('tm-quark-dropdown__content_close');
-    this.content.addEventListener('animationend', this.handleCloseAnimationEnd);
+    this.content.addEventListener('animationend', this.hideContent);
   }
 
-  handleCloseAnimationEnd () {
-    this.content.removeEventListener('animationend', this.handleCloseAnimationEnd);
+  hideContent () {
+    this.content.removeEventListener('animationend', this.hideContent);
 
     this.setState({
       open: false
@@ -282,8 +269,8 @@ export default class Dropdown extends React.Component {
 
   render () {
     const visibleOptions = this.getVisibleOptions();
-    const currentValue   = this.props.value || this.props.options[0].value;
-    const selectedOption = this.getOptionByValue(currentValue);
+    const selectedOption = this.getOptionByValue(this.props.value) || this.props.options[0];
+    const currentValue   = selectedOption.value;
 
     let activeOptionIndex   = -1;
     let disabledOptionIndex = 0;

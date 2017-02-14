@@ -29,10 +29,10 @@ export default class DD4 extends React.Component {
         type                   = {4}
         showSelectedOption     = {false}
         showLabel              = {false}
-        showFilterBox
         showOptionHTMLInButton = {false}
-        {...this.props}
+        showFilterBox
         ref                    = {ref => { this.dropdown = ref; }}
+        {...this.props}
       />
     );
   }
