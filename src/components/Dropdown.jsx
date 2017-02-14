@@ -282,8 +282,8 @@ export default class Dropdown extends React.Component {
 
   render () {
     const visibleOptions = this.getVisibleOptions();
-    const selectedOption = this.getOptionByValue(this.props.value);
     const currentValue   = this.props.value || this.props.options[0].value;
+    const selectedOption = this.getOptionByValue(currentValue);
 
     let activeOptionIndex   = -1;
     let disabledOptionIndex = 0;
