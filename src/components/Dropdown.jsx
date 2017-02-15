@@ -204,12 +204,13 @@ export default class Dropdown extends React.Component {
     if (this.props.onChange) {
       this.props.onChange(option.value);
     }
+
     this.close();
   }
 
   getOptionByValue (optionValue) {
     const option = this.props.options.filter((optionData) => {
-      return optionData.value === optionValue;
+      return optionData.value.toString() === optionValue.toString();
     })[0];
 
     return option;
