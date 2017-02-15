@@ -414,8 +414,6 @@
   background: linear-gradient(to bottom, #eceff1 0%, #dde3e6 100%);
   border-radius: 3px;
   box-shadow: 0 1px 0 0 #cfd8dc;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
   -ms-flex-flow: row nowrap;
   flex-flow: row nowrap;
   height: 40px;
@@ -435,8 +433,6 @@
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
   -ms-flex-flow: column wrap;
   flex-flow: column wrap;
 }
@@ -448,8 +444,6 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
   -ms-flex-flow: column wrap;
   flex-flow: column wrap;
 }
@@ -461,8 +455,6 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
 }
@@ -502,8 +494,6 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
   -webkit-box-pack: end;
@@ -561,8 +551,6 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
   -webkit-box-align: center;
