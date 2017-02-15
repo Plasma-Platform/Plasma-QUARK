@@ -26,9 +26,9 @@ export default class DD2 extends React.Component {
   render () {
     return (
       <Dropdown
-        type       = {2}
+        type = {2}
+        ref  = {ref => { this.dropdown = ref; }}
         {...this.props}
-        ref        = {ref => { this.dropdown = ref; }}
       />
     );
   }

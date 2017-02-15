@@ -31,8 +31,8 @@ export default class DD6 extends React.Component {
         buttonSize           = "large"
         optionSize           = "large"
         optionIconRadioStyle
-        {...this.props}
         ref  = {ref => { this.dropdown = ref; }}
+        {...this.props}
       />
     );
   }

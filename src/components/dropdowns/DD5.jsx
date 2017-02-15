@@ -26,11 +26,11 @@ export default class DD5 extends React.Component {
   render () {
     return (
       <Dropdown
-        type                   = {5}
-        showButton             = {false}
-        showLabel              = {false}
+        type       = {5}
+        showButton = {false}
+        showLabel  = {false}
+        ref        = {ref => { this.dropdown = ref; }}
         {...this.props}
-        ref                    = {ref => { this.dropdown = ref; }}
       />
     );
   }
