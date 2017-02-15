@@ -32,9 +32,10 @@ export default class Dropdown extends React.Component {
       'medium',
       'large'
     ]),
-    showSelectedOption   : React.PropTypes.bool,
-    optionIconRadioStyle : React.PropTypes.bool,
-    optionIconSize       : React.PropTypes.oneOf([
+    showSelectedOption      : React.PropTypes.bool,
+    highlightSelectedOption : React.PropTypes.bool,
+    optionIconRadioStyle    : React.PropTypes.bool,
+    optionIconSize          : React.PropTypes.oneOf([
       'medium',
       'large'
     ]),
@@ -45,24 +46,25 @@ export default class Dropdown extends React.Component {
   }
 
   static defaultProps = {
-    defaultOpen            : false,
-    showLabel              : true,
-    showLabelInButton      : false,
-    labelSize              : 'medium',
-    showButton             : true,
-    showOptionHTMLInButton : true,
-    buttonSize             : 'medium',
-    showFilterBox          : false,
-    defaultFilterQuery     : '',
-    filterBoxPlaceholder   : '',
-    filterNoResultsText    : 'No results match',
-    options                : [],
-    optionsToShow          : 5,
-    optionSize             : 'medium',
-    showSelectedOption     : true,
-    optionIconRadioStyle   : false,
-    optionIconSize         : 'medium',
-    disabled               : false
+    defaultOpen             : false,
+    showLabel               : true,
+    showLabelInButton       : false,
+    labelSize               : 'medium',
+    showButton              : true,
+    showOptionHTMLInButton  : true,
+    buttonSize              : 'medium',
+    showFilterBox           : false,
+    defaultFilterQuery      : '',
+    filterBoxPlaceholder    : '',
+    filterNoResultsText     : 'No results match',
+    options                 : [],
+    optionsToShow           : 5,
+    optionSize              : 'medium',
+    showSelectedOption      : true,
+    highlightSelectedOption : true,
+    optionIconRadioStyle    : false,
+    optionIconSize          : 'medium',
+    disabled                : false
   }
 
   state = {
@@ -377,7 +379,7 @@ export default class Dropdown extends React.Component {
 
                   return (
                     <li
-                      className = {`tm-quark-dropdown__option ${option.disabled ? 'tm-quark-dropdown__option_disabled ' : ''}tm-quark-dropdown__option_size_${this.props.optionSize}${option.value === currentValue ? ' tm-quark-dropdown__option_selected' : ''}`}
+                      className = {`tm-quark-dropdown__option ${option.disabled ? 'tm-quark-dropdown__option_disabled ' : ''}tm-quark-dropdown__option_size_${this.props.optionSize}${option.value === currentValue && this.props.highlightSelectedOption ? ' tm-quark-dropdown__option_selected' : ''}`}
                       tabIndex  = {option.disabled || this.state.open === false ? -1 : 0}
                       role      = "option"
                       onClick   = {(event) => { this.handleOptionSelect(option); }}
