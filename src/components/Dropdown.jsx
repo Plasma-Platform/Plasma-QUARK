@@ -187,14 +187,15 @@ export default class Dropdown extends React.Component {
     });
   }
 
-  getVisibleOptions () {
+  getFilteredOptions () {
     const filterQuery       = this.state.filterQuery.toLowerCase().trim();
     const filterQueryRegExp = new RegExp('\\b' + filterQuery, 'gi');
-    const visibleOptions = this.props.options.filter((option) => {
-      return option.label.search(filterQueryRegExp) >= 0 && (this.props.showSelectedOption ? true : this.props.value !== option.value);
+
+    const filteredOptions    = this.props.options.filter((option) => {
+      return option.label.search(filterQueryRegExp) >= 0;
     });
 
-    return visibleOptions;
+    return filteredOptions;
   }
 
   handleOptionSelect (option) {
@@ -277,9 +278,13 @@ export default class Dropdown extends React.Component {
   }
 
   render () {
-    const visibleOptions = this.getVisibleOptions();
-    const selectedOption = this.props.value && this.getOptionByValue(this.props.value) ? this.getOptionByValue(this.props.value) : this.valueInput && this.getOptionByValue(this.valueInput.value) ? this.getOptionByValue(this.valueInput.value) : this.defaultSelectedOption;
-    const currentValue   = selectedOption.value;
+    const selectedOption  = this.props.value && this.getOptionByValue(this.props.value) ? this.getOptionByValue(this.props.value) : this.valueInput && this.getOptionByValue(this.valueInput.value) ? this.getOptionByValue(this.valueInput.value) : this.defaultSelectedOption;
+    const currentValue    = selectedOption.value;
+
+    const filteredOptions = this.getFilteredOptions();
+    const visibleOptions  = this.props.showSelectedOption ? filteredOptions : filteredOptions.filter((option) => {
+      return option.value !== currentValue;
+    });
 
     let activeOptionIndex   = -1;
     let disabledOptionIndex = 0;
