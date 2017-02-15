@@ -296,7 +296,6 @@ export default class Dropdown extends React.Component {
           className    = "tm-quark-drodpown__value-input"
           type         = "hidden"
           name         = {this.props.name || null}
-          defaultValue = {this.defaultValue}
           value        = {currentValue}
           ref          = {(ref) => { this.valueInput = ref; }}
         />
