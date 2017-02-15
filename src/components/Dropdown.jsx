@@ -331,6 +331,7 @@ export default class Dropdown extends React.Component {
                 {this.props.showOptionHTMLInButton && selectedOption.html ? selectedOption.html : selectedOption.label}
               </span>
             )}
+            <span className="tm-quark-dropdown__button-arrow"></span>
           </button>
         )}
 
