@@ -7,6 +7,7 @@ export default class Dropdown extends React.Component {
     id                : React.PropTypes.string,
     name              : React.PropTypes.string,
     defaultOpen       : React.PropTypes.bool,
+    defaultValue      : React.PropTypes.any,
     value             : React.PropTypes.any,
     showLabel         : React.PropTypes.bool,
     label             : React.PropTypes.string,
@@ -87,6 +88,9 @@ export default class Dropdown extends React.Component {
     this.handleButtonKeyDown      = this.handleButtonKeyDown.bind(this);
     this.handleFilterInputKeyDown = this.handleFilterInputKeyDown.bind(this);
     this.handleOptionKeyDown      = this.handleOptionKeyDown.bind(this);
+
+    this.defaultSelectedOption = this.props.defaultValue ? this.getOptionByValue(this.props.defaultValue) || this.props.options[0] : this.props.options[0];
+    this.defaultValue          = this.defaultSelectedOption.value;
   }
 
   open () {
@@ -194,6 +198,8 @@ export default class Dropdown extends React.Component {
   }
 
   handleOptionSelect (option) {
+    this.valueInput.value = option.value;
+
     if (this.props.onChange) {
       this.props.onChange(option.value);
     }
@@ -272,7 +278,7 @@ export default class Dropdown extends React.Component {
 
   render () {
     const visibleOptions = this.getVisibleOptions();
-    const selectedOption = this.getOptionByValue(this.props.value) || this.props.options[0];
+    const selectedOption = this.props.value && this.getOptionByValue(this.props.value) ? this.getOptionByValue(this.props.value) : this.valueInput && this.getOptionByValue(this.valueInput.value) ? this.getOptionByValue(this.valueInput.value) : this.defaultSelectedOption;
     const currentValue   = selectedOption.value;
 
     let activeOptionIndex   = -1;
@@ -286,6 +292,15 @@ export default class Dropdown extends React.Component {
         onKeyDown = {this.handleContainerKeyDown}
         ref       = {(ref) => { this.container = ref; }}
       >
+        <input
+          className    = "tm-quark-drodpown__value-input"
+          type         = "hidden"
+          name         = {this.props.name || null}
+          defaultValue = {this.defaultValue}
+          value        = {currentValue}
+          ref          = {(ref) => { this.valueInput = ref; }}
+        />
+
         {(this.props.showLabelInButton === false && this.props.showLabel) && (
           <span
             className = {`tm-quark-dropdown__label tm-quark-dropdown__label_size_${this.props.labelSize}${this.props.disabled ? ' tm-quark-dropdown__label_disabled' : ''}`}
@@ -294,14 +309,6 @@ export default class Dropdown extends React.Component {
             {this.props.label}
           </span>
         )}
-
-        <input
-          className = "tm-quark-drodpown__value-input"
-          type      = "hidden"
-          name      = {this.props.name || null}
-          value     = {currentValue}
-          ref       = {(ref) => { this.valueInput = ref; }}
-        />
 
         {this.props.showButton && (
           <span
