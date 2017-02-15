@@ -636,7 +636,7 @@
   -webkit-transform: rotate(-135deg);
   transform: rotate(-135deg);
 }
-.tm-quark-dropdown__selected-option-content {
+.tm-quark-dropdown__button-content {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -645,7 +645,7 @@
   align-items: center;
   padding-right: 10px;
 }
-.tm-quark-dropdown__label ~ .tm-quark-dropdown__selected-option-content {
+.tm-quark-dropdown__label ~ .tm-quark-dropdown__button-content {
   margin-bottom: -8px;
 }
 .tm-quark-dropdown__icon_size_medium {

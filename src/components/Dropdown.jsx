@@ -8,26 +8,27 @@ export default class Dropdown extends React.Component {
     name              : React.PropTypes.string,
     defaultOpen       : React.PropTypes.bool,
     value             : React.PropTypes.any,
+    showLabel         : React.PropTypes.bool,
     label             : React.PropTypes.string,
     showLabelInButton : React.PropTypes.bool,
     labelSize         : React.PropTypes.oneOf([
       'small',
       'medium'
     ]),
-    showLabel  : React.PropTypes.bool,
-    showButton : React.PropTypes.bool,
-    buttonSize : React.PropTypes.oneOf([
+    showButton             : React.PropTypes.bool,
+    buttonContent          : React.PropTypes.any,
+    showOptionHTMLInButton : React.PropTypes.bool,
+    buttonSize             : React.PropTypes.oneOf([
       'medium',
       'large'
     ]),
-    showOptionHTMLInButton : React.PropTypes.bool,
-    showFilterBox          : React.PropTypes.bool,
-    filterBoxPlaceholder   : React.PropTypes.string,
-    filterNoResultsText    : React.PropTypes.string,
-    defaultFilterQuery     : React.PropTypes.string,
-    options                : React.PropTypes.array,
-    optionsToShow          : React.PropTypes.number,
-    optionSize             : React.PropTypes.oneOf([
+    showFilterBox        : React.PropTypes.bool,
+    defaultFilterQuery   : React.PropTypes.string,
+    filterBoxPlaceholder : React.PropTypes.string,
+    filterNoResultsText  : React.PropTypes.string,
+    options              : React.PropTypes.array,
+    optionsToShow        : React.PropTypes.number,
+    optionSize           : React.PropTypes.oneOf([
       'medium',
       'large'
     ]),
@@ -45,16 +46,16 @@ export default class Dropdown extends React.Component {
 
   static defaultProps = {
     defaultOpen            : false,
+    showLabel              : true,
     showLabelInButton      : false,
     labelSize              : 'medium',
-    showLabel              : true,
     showButton             : true,
-    buttonSize             : 'medium',
     showOptionHTMLInButton : true,
+    buttonSize             : 'medium',
     showFilterBox          : false,
+    defaultFilterQuery     : '',
     filterBoxPlaceholder   : '',
     filterNoResultsText    : 'No results match',
-    defaultFilterQuery     : '',
     options                : [],
     optionsToShow          : 5,
     optionSize             : 'medium',
@@ -317,12 +318,19 @@ export default class Dropdown extends React.Component {
                 {this.props.label}
               </span>
             )}
-            <span className="tm-quark-dropdown__selected-option-content">
-              {(selectedOption.icon && this.props.optionIconRadioStyle !== true) && (
-                <i className={`tm-quark-dropdown__icon tm-quark-dropdown__icon_size_medium icon icon-${selectedOption.icon}`}></i>
-              )}
-              {this.props.showOptionHTMLInButton && selectedOption.html ? selectedOption.html : selectedOption.label}
-            </span>
+
+            {this.props.buttonContent ? (
+              <span className="tm-quark-dropdown__button-content">
+                {this.props.buttonContent}
+              </span>
+            ) : (
+              <span className="tm-quark-dropdown__button-content">
+                {(selectedOption.icon && this.props.optionIconRadioStyle !== true) && (
+                  <i className={`tm-quark-dropdown__icon tm-quark-dropdown__icon_size_medium icon icon-${selectedOption.icon}`}></i>
+                )}
+                {this.props.showOptionHTMLInButton && selectedOption.html ? selectedOption.html : selectedOption.label}
+              </span>
+            )}
           </button>
         )}
 
