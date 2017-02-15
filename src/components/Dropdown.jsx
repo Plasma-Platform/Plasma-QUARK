@@ -304,7 +304,6 @@ export default class Dropdown extends React.Component {
         {this.props.showButton && (
           <span
             className = {`tm-quark-dropdown__button${this.state.open ? ' tm-quark-dropdown__button_open' : ''} tm-quark-dropdown__button_size_${this.props.buttonSize}${this.props.disabled ? ' tm-quark-dropdown__button_disabled' : ''}`}
-            type       = "button"
             aria-label = {this.props.label}
             role       = "button"
             onClick    = {this.state.open ? this.close : this.open}
