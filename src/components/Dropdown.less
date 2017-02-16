@@ -182,7 +182,7 @@
     color: #243238;
     display: flex;
     flex-flow: row wrap;
-    align-items: center;
+    align-items: stretch;
     line-height: 20px;
     text-align: left;
 
@@ -209,10 +209,10 @@
       color: #cfd8dc;
     }
 
-    .tm-quark-dropdown__label {
-      cursor: pointer;
-      margin-bottom: 5px;
-      margin-top: -8px;
+    &-inner {
+      display: flex;
+      align-items: center;
+      flex-flow: row wrap;
       width: 100%;
     }
 
@@ -225,6 +225,13 @@
       margin-left: auto;
       transform: rotate(45deg);
       transition: transform .5s cubic-bezier(.68, -.55, .265, 1.55);
+    }
+
+    .tm-quark-dropdown__label {
+      cursor: pointer;
+      margin-bottom: 5px;
+      margin-top: -8px;
+      width: 100%;
     }
 
     &:hover,

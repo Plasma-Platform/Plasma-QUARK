@@ -125,6 +125,10 @@ export default class Dropdown extends React.Component {
     this.container.classList.add(`tm-quark-dropdown_open-position_${optionsListPosition}`);
     this.content.classList.add(`tm-quark-dropdown__content_open`);
 
+    if (this.filterInput) {
+      this.filterInput.focus();
+    }
+
     window.addEventListener('click', this.handleDropdownBlur);
     window.addEventListener('keydown', this.handleDropdownBlur);
 
@@ -236,10 +240,7 @@ export default class Dropdown extends React.Component {
   handleButtonKeyDown (event) {
     const keyCode = event.keyCode;
 
-    if (keyCode === 13) {
-      this.state.open ? this.close() : this.open();
-      event.stopPropagation();
-    } else if (keyCode === 40) {
+    if (keyCode === 40) {
       this.filterInput ? this.filterInput.focus() : this.option0 ? this.option0.focus() : null;
     }
   }
@@ -326,38 +327,39 @@ export default class Dropdown extends React.Component {
         )}
 
         {this.props.showButton && (
-          <span
+          <button
             className = {`tm-quark-dropdown__button${this.state.open ? ' tm-quark-dropdown__button_open' : ''} tm-quark-dropdown__button_size_${this.props.buttonSize}${this.props.disabled ? ' tm-quark-dropdown__button_disabled' : ''}`}
             aria-label = {this.props.label}
-            role       = "button"
-            tabIndex   = "0"
+            type       = "button"
             onClick    = {this.toggle}
             onKeyDown  = {this.handleButtonKeyDown}
             ref        = {(ref) => { this.button = ref; }}
           >
-            {(this.props.showLabelInButton && this.props.showLabel) && (
-              <span
-                className = {`tm-quark-dropdown__label tm-quark-dropdown__label_size_${this.props.labelSize}${this.props.disabled ? ' tm-quark-dropdown__label_disabled' : ''}`}
-                ref       = {(ref) => { this.label = ref; }}
-              >
-                {this.props.label}
-              </span>
-            )}
+            <span className="tm-quark-dropdown__button-inner">
+              {(this.props.showLabelInButton && this.props.showLabel) && (
+                <span
+                  className = {`tm-quark-dropdown__label tm-quark-dropdown__label_size_${this.props.labelSize}${this.props.disabled ? ' tm-quark-dropdown__label_disabled' : ''}`}
+                  ref       = {(ref) => { this.label = ref; }}
+                >
+                  {this.props.label}
+                </span>
+              )}
 
-            {this.props.buttonContent ? (
-              <span className="tm-quark-dropdown__button-content">
-                {this.props.buttonContent}
-              </span>
-            ) : (
-              <span className="tm-quark-dropdown__button-content">
-                {(this.selectedOption.icon && this.props.optionIconRadioStyle !== true) && (
-                  <i className={`tm-quark-dropdown__icon tm-quark-dropdown__icon_size_medium icon icon-${this.selectedOption.icon}`}></i>
-                )}
-                {this.props.showOptionHTMLInButton && this.selectedOption.html ? this.selectedOption.html : this.selectedOption.label}
-              </span>
-            )}
-            <span className="tm-quark-dropdown__button-arrow"></span>
-          </span>
+              {this.props.buttonContent ? (
+                <span className="tm-quark-dropdown__button-content">
+                  {this.props.buttonContent}
+                </span>
+              ) : (
+                <span className="tm-quark-dropdown__button-content">
+                  {(this.selectedOption.icon && this.props.optionIconRadioStyle !== true) && (
+                    <i className={`tm-quark-dropdown__icon tm-quark-dropdown__icon_size_medium icon icon-${this.selectedOption.icon}`}></i>
+                  )}
+                  {this.props.showOptionHTMLInButton && this.selectedOption.html ? this.selectedOption.html : this.selectedOption.label}
+                </span>
+              )}
+              <span className="tm-quark-dropdown__button-arrow"></span>
+            </span>
+          </button>
         )}
 
         {this.state.open && (
