@@ -608,11 +608,13 @@
   transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), -webkit-transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 .tm-quark-dropdown__button:hover,
+.tm-quark-dropdown__button:focus,
 .tm-quark-dropdown__button:active,
 .tm-quark-dropdown__button_open {
   color: #fff;
 }
-.tm-quark-dropdown__button:hover {
+.tm-quark-dropdown__button:hover,
+.tm-quark-dropdown__button:focus {
   background: -webkit-linear-gradient(top, #78909c 0%, #546e7a 100%);
   background: linear-gradient(to bottom, #78909c 0%, #546e7a 100%);
 }

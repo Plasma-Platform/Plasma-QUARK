@@ -126,7 +126,7 @@ export default class Dropdown extends React.Component {
     this.content.classList.add(`tm-quark-dropdown__content_open`);
 
     window.addEventListener('click', this.handleDropdownBlur);
-    window.addEventListener('focus', this.handleDropdownBlur);
+    window.addEventListener('keydown', this.handleDropdownBlur);
 
     if (this.props.onOpen) {
       this.props.onOpen(this.getValue());
@@ -170,7 +170,7 @@ export default class Dropdown extends React.Component {
 
   close () {
     window.removeEventListener('click', this.handleDropdownBlur);
-    window.removeEventListener('focus', this.handleDropdownBlur);
+    window.removeEventListener('keydown', this.handleDropdownBlur);
 
     this.content.classList.add('tm-quark-dropdown__content_close');
     this.content.addEventListener('animationend', this.hideContent);
@@ -182,6 +182,8 @@ export default class Dropdown extends React.Component {
     this.setState({
       open: false
     }, () => {
+      this.button.blur();
+
       if (this.props.onClose) {
         this.props.onClose(this.getValue());
       }
@@ -234,7 +236,10 @@ export default class Dropdown extends React.Component {
   handleButtonKeyDown (event) {
     const keyCode = event.keyCode;
 
-    if (keyCode === 40) {
+    if (keyCode === 13) {
+      this.state.open ? this.close() : this.open();
+      event.stopPropagation();
+    } else if (keyCode === 40) {
       this.filterInput ? this.filterInput.focus() : this.option0 ? this.option0.focus() : null;
     }
   }
@@ -242,7 +247,9 @@ export default class Dropdown extends React.Component {
   handleFilterInputKeyDown (event) {
     const keyCode = event.keyCode;
 
-    if (keyCode === 40 && this.option0) {
+    if (keyCode === 13) {
+      event.stopPropagation();
+    } else if (keyCode === 40 && this.option0) {
       this.option0.focus();
     }
   }
@@ -277,14 +284,14 @@ export default class Dropdown extends React.Component {
   componentDidMount () {
     if (this.state.open) {
       window.addEventListener('click', this.handleDropdownBlur);
-      window.addEventListener('focus', this.handleDropdownBlur);
+      window.addEventListener('keydown', this.handleDropdownBlur);
     }
   }
 
   componentWillUnmount () {
     if (this.state.open) {
       window.removeEventListener('click', this.handleDropdownBlur);
-      window.removeEventListener('focus', this.handleDropdownBlur);
+      window.removeEventListener('keydown', this.handleDropdownBlur);
     }
   }
 
