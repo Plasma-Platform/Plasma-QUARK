@@ -100,7 +100,7 @@ export default class Dropdown extends React.Component {
   }
 
   toggle () {
-    this.state.open ? this.close() : this.open();
+    this.state.showContent ? this.close() : this.open();
   }
 
   open () {
@@ -222,7 +222,7 @@ export default class Dropdown extends React.Component {
   }
 
   handleDropdownBlur (event) {
-    if (this.container.contains(event.target) === false && event.target !== this.container && this.state.open) {
+    if (this.container.contains(event.target) === false && event.target !== this.container && this.state.showContent) {
       this.close();
     }
   }
@@ -325,7 +325,7 @@ export default class Dropdown extends React.Component {
 
     return (
       <div
-        className = {`tm-quark-dropdown tm-quark-dropdown_open-position_${this.openContentPosition} tm-quark-dropdown_${this.state.open ? 'open' : 'closed'} tm-quark-dropdown_type_${this.props.type}${this.props.disabled ? ' tm-quark-dropdown_disabled' : ''} ${this.props.className || ''}`}
+        className = {`tm-quark-dropdown tm-quark-dropdown_open-position_${this.openContentPosition} tm-quark-dropdown_${this.state.showContent ? 'open' : 'closed'} tm-quark-dropdown_type_${this.props.type}${this.props.disabled ? ' tm-quark-dropdown_disabled' : ''} ${this.props.className || ''}`}
         id        = {this.props.id || null}
         name      = {this.props.name || null}
         tabIndex  = "-1"
@@ -343,7 +343,7 @@ export default class Dropdown extends React.Component {
 
         {this.props.showButton && (
           <button
-            className = {`tm-quark-dropdown__button${this.state.open ? ' tm-quark-dropdown__button_open' : ''} tm-quark-dropdown__button_size_${this.props.buttonSize}${this.props.disabled ? ' tm-quark-dropdown__button_disabled' : ''}`}
+            className = {`tm-quark-dropdown__button${this.state.showContent ? ' tm-quark-dropdown__button_open' : ''} tm-quark-dropdown__button_size_${this.props.buttonSize}${this.props.disabled ? ' tm-quark-dropdown__button_disabled' : ''}`}
             aria-label = {this.props.label}
             type       = "button"
             onClick    = {this.toggle}
@@ -392,7 +392,7 @@ export default class Dropdown extends React.Component {
                   type        = "search"
                   placeholder = {this.props.filterBoxPlaceholder}
                   value       = {this.state.filterQuery}
-                  tabIndex    = {this.state.open ? '0' : '-1'}
+                  tabIndex    = {this.state.showContent ? '0' : '-1'}
                   onChange    = {(event) => { this.filterOptions(event.target.value); }}
                   onKeyDown   = {this.handleFilterInputKeyDown}
                   ref         = {(ref) => { this.filterInput = ref; }}
@@ -423,7 +423,7 @@ export default class Dropdown extends React.Component {
                   return (
                     <li
                       className = {`tm-quark-dropdown__option ${option.disabled ? 'tm-quark-dropdown__option_disabled ' : ''}tm-quark-dropdown__option_size_${this.props.optionSize}${option.value === this.currentValue && this.props.highlightSelectedOption ? ' tm-quark-dropdown__option_selected' : ''}`}
-                      tabIndex  = {option.disabled || this.state.open === false ? -1 : 0}
+                      tabIndex  = {option.disabled || this.state.showContent === false ? -1 : 0}
                       role      = "option"
                       onClick   = {(event) => { this.handleOptionSelect(option); }}
                       onKeyDown = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
