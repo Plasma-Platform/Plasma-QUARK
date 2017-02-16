@@ -322,6 +322,7 @@
     overflow: hidden;
     position: absolute;
     left: 0;
+    transform: scale(0);
     width: 100%;
 
     .tm-quark-dropdown_open-position_top & {
@@ -340,8 +341,8 @@
       transform-origin: 0 0;
     }
 
-    &_open {
-      animation: TMQuarkDropdownOpenContent .5s cubic-bezier(.68, -.55, .265, 1.55);
+    &_animate_show {
+      animation: TMQuarkDropdownOpenContent .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
 
       @keyframes TMQuarkDropdownOpenContent {
         from {
@@ -356,8 +357,8 @@
       }
     }
 
-    &_close {
-      animation: TMQuarkDropdownCloseContent .5s cubic-bezier(.68, -.55, .265, 1.55);
+    &_animate_hide {
+      animation: TMQuarkDropdownCloseContent .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
 
       @keyframes TMQuarkDropdownCloseContent {
         from {

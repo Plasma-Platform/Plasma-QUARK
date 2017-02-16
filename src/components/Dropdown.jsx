@@ -70,6 +70,7 @@ export default class Dropdown extends React.Component {
 
   state = {
     open        : this.props.defaultOpen,
+    showContent : false,
     filterQuery : this.props.defaultFilterQuery
   }
 
@@ -78,8 +79,9 @@ export default class Dropdown extends React.Component {
 
     this.toggle                   = this.toggle.bind(this);
     this.open                     = this.open.bind(this);
+    this.handleShowAnimationEnd   = this.handleShowAnimationEnd.bind(this);
     this.close                    = this.close.bind(this);
-    this.hideContent              = this.hideContent.bind(this);
+    this.handleHideAnimationEnd  = this.handleHideAnimationEnd.bind(this);
 
     this.handleOptionSelect       = this.handleOptionSelect.bind(this);
     this.filterOptions            = this.filterOptions.bind(this);
@@ -90,12 +92,15 @@ export default class Dropdown extends React.Component {
     this.handleFilterInputKeyDown = this.handleFilterInputKeyDown.bind(this);
     this.handleOptionKeyDown      = this.handleOptionKeyDown.bind(this);
 
-    this.defaultSelectedOption = this.props.defaultValue ? this.getOptionByValue(this.props.defaultValue) || this.props.options[0] : this.props.options[0];
-    this.defaultValue          = this.defaultSelectedOption.value;
+    this.defaultSelectedOption    = this.props.defaultValue ? this.getOptionByValue(this.props.defaultValue) || this.props.options[0] : this.props.options[0];
+    this.defaultValue             = this.defaultSelectedOption.value;
+
+    this.openContentPosition      = 'bottom';
+    this.optionsListMaxHeight     = '100%';
   }
 
   toggle () {
-    this.state.open ? this.close() : this.open();
+    this.state.showContent ? this.close() : this.open();
   }
 
   open () {
@@ -105,36 +110,51 @@ export default class Dropdown extends React.Component {
   }
 
   showContent () {
-    const containerTopOffset    = this.getContainerCoordinates().top;
-    const containerBottomOffset = this.getContainerCoordinates().bottom;
+    this.content.addEventListener('animationend', this.handleShowAnimationEnd);
 
-    let optionsListMaxHeight = this.getOptionsListMaxHeight();
-    let optionsListPosition  = 'bottom';
+    this.setState({
+      showContent: true
+    });
+  }
 
-    if (optionsListMaxHeight > (containerBottomOffset - 20)) {
-      if (containerTopOffset > containerBottomOffset) {
-        optionsListMaxHeight = Math.min(optionsListMaxHeight, containerTopOffset - 20);
-        optionsListPosition  = 'top';
-      } else {
-        optionsListMaxHeight = containerBottomOffset - 20;
-      }
-    }
-
-    this.optionsList.style.maxHeight = `${optionsListMaxHeight}px`;
-
-    this.container.classList.add(`tm-quark-dropdown_open-position_${optionsListPosition}`);
-    this.content.classList.add(`tm-quark-dropdown__content_open`);
+  handleShowAnimationEnd () {
+    this.content.removeEventListener('animationend', this.handleShowAnimationEnd);
 
     if (this.filterInput) {
       this.filterInput.focus();
     }
 
-    window.addEventListener('click', this.handleDropdownBlur);
-    window.addEventListener('keydown', this.handleDropdownBlur);
-
     if (this.props.onOpen) {
       this.props.onOpen(this.getValue());
     }
+
+    window.addEventListener('click', this.handleDropdownBlur);
+    window.addEventListener('keydown', this.handleDropdownBlur);
+  }
+
+  close () {
+    this.content.addEventListener('animationend', this.handleHideAnimationEnd);
+
+    this.setState({
+      showContent: false
+    }, () => {
+      window.removeEventListener('click', this.handleDropdownBlur);
+      window.removeEventListener('keydown', this.handleDropdownBlur);
+    });
+  }
+
+  handleHideAnimationEnd () {
+    this.content.removeEventListener('animationend', this.handleHideAnimationEnd);
+
+    this.button.blur();
+
+    if (this.props.onClose) {
+      this.props.onClose(this.getValue());
+    }
+
+    this.setState({
+      open: false
+    }, this.hideContent);
   }
 
   getOptionsListMaxHeight () {
@@ -172,28 +192,6 @@ export default class Dropdown extends React.Component {
     };
   }
 
-  close () {
-    window.removeEventListener('click', this.handleDropdownBlur);
-    window.removeEventListener('keydown', this.handleDropdownBlur);
-
-    this.content.classList.add('tm-quark-dropdown__content_close');
-    this.content.addEventListener('animationend', this.hideContent);
-  }
-
-  hideContent () {
-    this.content.removeEventListener('animationend', this.hideContent);
-
-    this.setState({
-      open: false
-    }, () => {
-      this.button.blur();
-
-      if (this.props.onClose) {
-        this.props.onClose(this.getValue());
-      }
-    });
-  }
-
   filterOptions (filterQuery) {
     this.setState({
       filterQuery: filterQuery
@@ -224,7 +222,7 @@ export default class Dropdown extends React.Component {
   }
 
   handleDropdownBlur (event) {
-    if (this.container.contains(event.target) === false && event.target !== this.container && this.state.open) {
+    if (this.container.contains(event.target) === false && event.target !== this.container && this.state.showContent) {
       this.close();
     }
   }
@@ -284,19 +282,36 @@ export default class Dropdown extends React.Component {
 
   componentDidMount () {
     if (this.state.open) {
-      window.addEventListener('click', this.handleDropdownBlur);
-      window.addEventListener('keydown', this.handleDropdownBlur);
+      this.showContent();
     }
   }
 
   componentWillUnmount () {
-    if (this.state.open) {
+    if (this.state.showContent) {
       window.removeEventListener('click', this.handleDropdownBlur);
       window.removeEventListener('keydown', this.handleDropdownBlur);
     }
   }
 
   render () {
+    if (this.state.showContent) {
+      const containerTopOffset    = this.getContainerCoordinates().top;
+      const containerBottomOffset = this.getContainerCoordinates().bottom;
+      const optionsListMaxHeight  = this.getOptionsListMaxHeight();
+
+      if (optionsListMaxHeight > (containerBottomOffset - 20)) {
+        if (containerTopOffset > containerBottomOffset) {
+          this.optionsListMaxHeight = Math.min(optionsListMaxHeight, containerTopOffset - 20) + 'px';
+          this.openContentPosition  = 'top';
+        } else {
+          this.optionsListMaxHeight = containerBottomOffset - 20;
+        }
+      } else {
+        this.optionsListMaxHeight = optionsListMaxHeight + 'px';
+        this.openContentPosition  = 'bottom';
+      }
+    }
+
     this.selectedOption = this.props.value && this.getOptionByValue(this.props.value) ? this.getOptionByValue(this.props.value) : this.currentValue && this.getOptionByValue(this.currentValue) ? this.getOptionByValue(this.currentValue) : this.defaultSelectedOption;
     this.currentValue   = this.selectedOption.value;
 
@@ -310,7 +325,7 @@ export default class Dropdown extends React.Component {
 
     return (
       <div
-        className = {`tm-quark-dropdown tm-quark-dropdown_${this.state.open ? 'open' : 'closed'} tm-quark-dropdown_type_${this.props.type}${this.props.disabled ? ' tm-quark-dropdown_disabled' : ''} ${this.props.className || ''}`}
+        className = {`tm-quark-dropdown tm-quark-dropdown_open-position_${this.openContentPosition} tm-quark-dropdown_${this.state.showContent ? 'open' : 'closed'} tm-quark-dropdown_type_${this.props.type}${this.props.disabled ? ' tm-quark-dropdown_disabled' : ''} ${this.props.className || ''}`}
         id        = {this.props.id || null}
         name      = {this.props.name || null}
         tabIndex  = "-1"
@@ -328,7 +343,7 @@ export default class Dropdown extends React.Component {
 
         {this.props.showButton && (
           <button
-            className = {`tm-quark-dropdown__button${this.state.open ? ' tm-quark-dropdown__button_open' : ''} tm-quark-dropdown__button_size_${this.props.buttonSize}${this.props.disabled ? ' tm-quark-dropdown__button_disabled' : ''}`}
+            className = {`tm-quark-dropdown__button${this.state.showContent ? ' tm-quark-dropdown__button_open' : ''} tm-quark-dropdown__button_size_${this.props.buttonSize}${this.props.disabled ? ' tm-quark-dropdown__button_disabled' : ''}`}
             aria-label = {this.props.label}
             type       = "button"
             onClick    = {this.toggle}
@@ -364,7 +379,7 @@ export default class Dropdown extends React.Component {
 
         {this.state.open && (
           <div
-            className = {`tm-quark-dropdown__content`}
+            className = {`tm-quark-dropdown__content${this.state.showContent ? ' tm-quark-dropdown__content_animate_show' : ' tm-quark-dropdown__content_animate_hide'}`}
             ref       = {(ref) => { this.content = ref; }}
           >
             {this.props.showFilterBox && (
@@ -377,7 +392,7 @@ export default class Dropdown extends React.Component {
                   type        = "search"
                   placeholder = {this.props.filterBoxPlaceholder}
                   value       = {this.state.filterQuery}
-                  tabIndex    = {this.state.open ? '0' : '-1'}
+                  tabIndex    = {this.state.showContent ? '0' : '-1'}
                   onChange    = {(event) => { this.filterOptions(event.target.value); }}
                   onKeyDown   = {this.handleFilterInputKeyDown}
                   ref         = {(ref) => { this.filterInput = ref; }}
@@ -388,6 +403,9 @@ export default class Dropdown extends React.Component {
 
             <ul
               className = "tm-quark-dropdown__options"
+              style     = {{
+                maxHeight: this.optionsListMaxHeight
+              }}
               ref       = {(ref) => { this.optionsList = ref; }}
             >
               {visibleOptions.length > 0 ? (
@@ -405,7 +423,7 @@ export default class Dropdown extends React.Component {
                   return (
                     <li
                       className = {`tm-quark-dropdown__option ${option.disabled ? 'tm-quark-dropdown__option_disabled ' : ''}tm-quark-dropdown__option_size_${this.props.optionSize}${option.value === this.currentValue && this.props.highlightSelectedOption ? ' tm-quark-dropdown__option_selected' : ''}`}
-                      tabIndex  = {option.disabled || this.state.open === false ? -1 : 0}
+                      tabIndex  = {option.disabled || this.state.showContent === false ? -1 : 0}
                       role      = "option"
                       onClick   = {(event) => { this.handleOptionSelect(option); }}
                       onKeyDown = {(event) => { this.handleOptionKeyDown(event, option, optionIndex); }}
