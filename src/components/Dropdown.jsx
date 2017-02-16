@@ -76,6 +76,7 @@ export default class Dropdown extends React.Component {
   constructor (props) {
     super(props);
 
+    this.toggle                   = this.toggle.bind(this);
     this.open                     = this.open.bind(this);
     this.close                    = this.close.bind(this);
     this.hideContent              = this.hideContent.bind(this);
@@ -91,6 +92,10 @@ export default class Dropdown extends React.Component {
 
     this.defaultSelectedOption = this.props.defaultValue ? this.getOptionByValue(this.props.defaultValue) || this.props.options[0] : this.props.options[0];
     this.defaultValue          = this.defaultSelectedOption.value;
+  }
+
+  toggle () {
+    this.state.open ? this.close() : this.open();
   }
 
   open () {
@@ -229,9 +234,7 @@ export default class Dropdown extends React.Component {
   handleButtonKeyDown (event) {
     const keyCode = event.keyCode;
 
-    if (keyCode === 13) {
-      this.state.open ? this.close() : this.open();
-    } else if (keyCode === 40) {
+    if (keyCode === 40) {
       this.filterInput ? this.filterInput.focus() : this.option0 ? this.option0.focus() : null;
     }
   }
@@ -304,7 +307,6 @@ export default class Dropdown extends React.Component {
         name      = {this.props.name || null}
         tabIndex  = "-1"
         onKeyDown = {this.handleContainerKeyDown}
-        onBlur    = {this.handleDropdownBlur}
         ref       = {(ref) => { this.container = ref; }}
       >
         {(this.props.showLabelInButton === false && this.props.showLabel) && (
@@ -322,7 +324,7 @@ export default class Dropdown extends React.Component {
             aria-label = {this.props.label}
             role       = "button"
             tabIndex   = "0"
-            onClick    = {this.state.open ? this.close : this.open}
+            onClick    = {this.toggle}
             onKeyDown  = {this.handleButtonKeyDown}
             ref        = {(ref) => { this.button = ref; }}
           >
