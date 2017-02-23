@@ -97,6 +97,7 @@ export default class Dropdown extends React.Component {
 
     this.openContentPosition      = 'bottom';
     this.optionsListMaxHeight     = '100%';
+    this.showOptionsListScrollBar = false;
   }
 
   toggle () {
@@ -294,6 +295,11 @@ export default class Dropdown extends React.Component {
   }
 
   render () {
+    const filteredOptions = this.getFilteredOptions();
+    const visibleOptions  = this.props.showSelectedOption ? filteredOptions : filteredOptions.filter((option) => {
+      return option.value !== this.currentValue;
+    });
+
     if (this.state.showContent) {
       const containerTopOffset    = this.getContainerCoordinates().top;
       const containerBottomOffset = this.getContainerCoordinates().bottom;
@@ -301,24 +307,22 @@ export default class Dropdown extends React.Component {
 
       if (optionsListMaxHeight > (containerBottomOffset - 20)) {
         if (containerTopOffset > containerBottomOffset) {
+          this.showOptionsListScrollBar = optionsListMaxHeight > (containerTopOffset - 20) || visibleOptions.length > this.props.optionsToShow;
           this.optionsListMaxHeight = Math.min(optionsListMaxHeight, containerTopOffset - 20) + 'px';
           this.openContentPosition  = 'top';
         } else {
-          this.optionsListMaxHeight = containerBottomOffset - 20;
+          this.showOptionsListScrollBar = true;
+          this.optionsListMaxHeight     = containerBottomOffset - 20;
         }
       } else {
-        this.optionsListMaxHeight = optionsListMaxHeight + 'px';
-        this.openContentPosition  = 'bottom';
+        this.showOptionsListScrollBar = visibleOptions.length > this.props.optionsToShow;
+        this.optionsListMaxHeight     = optionsListMaxHeight + 'px';
+        this.openContentPosition      = 'bottom';
       }
     }
 
     this.selectedOption = this.props.value && this.getOptionByValue(this.props.value) ? this.getOptionByValue(this.props.value) : this.currentValue && this.getOptionByValue(this.currentValue) ? this.getOptionByValue(this.currentValue) : this.defaultSelectedOption;
     this.currentValue   = this.selectedOption.value;
-
-    const filteredOptions = this.getFilteredOptions();
-    const visibleOptions  = this.props.showSelectedOption ? filteredOptions : filteredOptions.filter((option) => {
-      return option.value !== this.currentValue;
-    });
 
     let activeOptionIndex   = -1;
     let disabledOptionIndex = 0;
@@ -404,7 +408,8 @@ export default class Dropdown extends React.Component {
             <ul
               className = "tm-quark-dropdown__options"
               style     = {{
-                maxHeight: this.optionsListMaxHeight
+                maxHeight : this.optionsListMaxHeight,
+                overflow  : this.showOptionsListScrollBar ? 'auto' : null
               }}
               ref       = {(ref) => { this.optionsList = ref; }}
             >
