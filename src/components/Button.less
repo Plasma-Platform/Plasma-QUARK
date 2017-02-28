@@ -28,11 +28,16 @@
   &:active,
   &:focus {
     outline: none;
+    -moz-outline-style: none;
   }
 
   &::-moz-focus-inner {
     border-style: none;
     padding: 0;
+  }
+
+  &[type="button"]:-moz-focusring {
+    outline: 0;
   }
 
   &::-webkit-file-upload-button {
@@ -305,8 +310,7 @@
   &:disabled {
     background: rgba(0, 0, 0, 0);
     border: 2px solid #b0bec5;
-    cursor: default;
-    pointer-events: none;
+    cursor: not-allowed;
 
     &:not(.button_width_square) {
       color: #b0bec5;

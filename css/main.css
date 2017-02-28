@@ -33,10 +33,14 @@
 .button:active,
 .button:focus {
   outline: none;
+  -moz-outline-style: none;
 }
 .button::-moz-focus-inner {
   border-style: none;
   padding: 0;
+}
+.button[type="button"]:-moz-focusring {
+  outline: 0;
 }
 .button::-webkit-file-upload-button {
   -webkit-appearance: button;
@@ -267,8 +271,7 @@
 .button:disabled {
   background: rgba(0, 0, 0, 0);
   border: 2px solid #b0bec5;
-  cursor: default;
-  pointer-events: none;
+  cursor: not-allowed;
 }
 .button:disabled:not(.button_width_square) {
   color: #b0bec5;
