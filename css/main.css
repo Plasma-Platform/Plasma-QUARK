@@ -2562,3 +2562,29 @@
 .avatar_round {
   border-radius: 50%;
 }
+.stars-rating {
+  display: inline-block;
+}
+.stars-rating__icon {
+  display: inline-block;
+  position: relative;
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+  vertical-align: text-bottom;
+  cursor: pointer;
+}
+.stars-rating__icon:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.stars-rating__icon_fill {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 20 19' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E %3Cg id='Downloads-1024+' transform='translate(-619.000000, -889.000000)' fill='%23FFAB00'%3E %3Cg id='Download-item-2' transform='translate(380.000000, 758.000000)'%3E %3Cg id='Stars' transform='translate(239.000000, 131.000000)'%3E %3Cpolygon id='Star-1' points='10 15.7719334 3.81966011 19.0211303 5 12.1392207 6.03961325e-14 7.26542528 6.90983006 6.2613682 10 0 13.0901699 6.2613682 20 7.26542528 15 12.1392207 16.1803399 19.0211303'/%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/svg%3E");
+}
+.stars-rating__icon_empty {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 20 19' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E %3Cdefs%3E %3Cpolygon id='path-1' points='110 15.7719334 103.81966 19.0211303 105 12.1392207 100 7.26542528 106.90983 6.2613682 110 0 113.09017 6.2613682 120 7.26542528 115 12.1392207 116.18034 19.0211303'/%3E %3Cmask id='mask-2' maskContentUnits='userSpaceOnUse' maskUnits='objectBoundingBox' x='0' y='0' width='20' height='19.0211303' fill='white'%3E %3Cuse xlink:href='%23path-1'/%3E %3C/mask%3E %3C/defs%3E %3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E %3Cg id='Downloads-1024+' transform='translate(-719.000000, -889.000000)' stroke='%23B0BEC5' stroke-width='2' fill='%23FFFFFF'%3E %3Cg id='Download-item-2' transform='translate(380.000000, 758.000000)'%3E %3Cg id='Stars' transform='translate(239.000000, 131.000000)'%3E %3Cuse id='Star-1-Copy' mask='url(%23mask-2)' xlink:href='%23path-1'/%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/g%3E %3C/svg%3E");
+}

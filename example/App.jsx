@@ -16,6 +16,9 @@ export default class App extends React.Component {
             <li className="spacing-right-20">
               <Link to="/textarea">Textarea</Link>
             </li>
+            <li className="spacing-right-20">
+              <Link to="/stars-rating">StarsRating</Link>
+            </li>
           </ul>
         </div>
         {this.props.children}

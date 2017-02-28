@@ -5,6 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "build": "npm run compile && npm run build:css",
+    "build:demo": "npm run compile && npm run build:css  && cd example && npm start",
     "build:css": "rimraf css && webpack && rimraf css/main.js",
     "compile": "rimraf lib && BABEL_ENV=build babel src/components --out-dir lib",
     "test": "jest",
