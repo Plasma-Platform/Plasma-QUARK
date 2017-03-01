@@ -143,7 +143,7 @@ export default class Dropdown extends React.Component {
   }
 
   handleContentAnimationEnd (event) {
-    if (event.target === this.container) {
+    if (event.target === this.content) {
       this.state.showContent ? this.handleShowContentAnimationEnd() : this.handleHideContentAnimationEnd();
     }
   }
@@ -153,13 +153,13 @@ export default class Dropdown extends React.Component {
   }
 
   handleHideContentAnimationEnd () {
+    this.button.blur();
+
     this.setState(() => {
       return {
         open        : false,
         showContent : false
       };
-    }, () => {
-      this.button.blur();
     });
   }
 
