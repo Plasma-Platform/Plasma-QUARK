@@ -4,15 +4,16 @@ import './Dropdown.less';
 
 export default class Dropdown extends React.Component {
   static propTypes = {
-    id                : React.PropTypes.string,
-    name              : React.PropTypes.string,
-    defaultOpen       : React.PropTypes.bool,
-    defaultValue      : React.PropTypes.any,
-    value             : React.PropTypes.any,
-    showLabel         : React.PropTypes.bool,
-    label             : React.PropTypes.string,
-    showLabelInButton : React.PropTypes.bool,
-    labelSize         : React.PropTypes.oneOf([
+    id                  : React.PropTypes.string,
+    name                : React.PropTypes.string,
+    defaultOpen         : React.PropTypes.bool,
+    closeOnClickOutside : React.PropTypes.bool,
+    defaultValue        : React.PropTypes.any,
+    value               : React.PropTypes.any,
+    showLabel           : React.PropTypes.bool,
+    label               : React.PropTypes.string,
+    showLabelInButton   : React.PropTypes.bool,
+    labelSize           : React.PropTypes.oneOf([
       'small',
       'medium'
     ]),
@@ -48,6 +49,7 @@ export default class Dropdown extends React.Component {
 
   static defaultProps = {
     defaultOpen             : false,
+    closeOnClickOutside     : true,
     showLabel               : true,
     showLabelInButton       : false,
     labelSize               : 'medium',
@@ -81,7 +83,7 @@ export default class Dropdown extends React.Component {
     this.open                     = this.open.bind(this);
     this.handleShowAnimationEnd   = this.handleShowAnimationEnd.bind(this);
     this.close                    = this.close.bind(this);
-    this.handleHideAnimationEnd  = this.handleHideAnimationEnd.bind(this);
+    this.handleHideAnimationEnd   = this.handleHideAnimationEnd.bind(this);
 
     this.handleOptionSelect       = this.handleOptionSelect.bind(this);
     this.filterOptions            = this.filterOptions.bind(this);
@@ -93,7 +95,6 @@ export default class Dropdown extends React.Component {
     this.handleOptionKeyDown      = this.handleOptionKeyDown.bind(this);
 
     this.defaultSelectedOption    = this.props.defaultValue ? this.getOptionByValue(this.props.defaultValue) || this.props.options[0] : this.props.options[0];
-    this.defaultValue             = this.defaultSelectedOption.value;
 
     this.openContentPosition      = 'bottom';
     this.optionsListMaxHeight     = '100%';
@@ -129,8 +130,10 @@ export default class Dropdown extends React.Component {
       this.props.onOpen(this.getValue());
     }
 
-    window.addEventListener('click', this.handleDropdownBlur);
-    window.addEventListener('keydown', this.handleDropdownBlur);
+    if (this.props.closeOnClickOutside) {
+      window.addEventListener('click', this.handleDropdownBlur);
+      window.addEventListener('keydown', this.handleDropdownBlur);
+    }
   }
 
   close () {
@@ -139,8 +142,10 @@ export default class Dropdown extends React.Component {
     this.setState({
       showContent: false
     }, () => {
-      window.removeEventListener('click', this.handleDropdownBlur);
-      window.removeEventListener('keydown', this.handleDropdownBlur);
+      if (this.props.closeOnClickOutside) {
+        window.removeEventListener('click', this.handleDropdownBlur);
+        window.removeEventListener('keydown', this.handleDropdownBlur);
+      }
     });
   }
 
@@ -288,7 +293,7 @@ export default class Dropdown extends React.Component {
   }
 
   componentWillUnmount () {
-    if (this.state.showContent) {
+    if (this.state.showContent && this.props.closeOnClickOutside) {
       window.removeEventListener('click', this.handleDropdownBlur);
       window.removeEventListener('keydown', this.handleDropdownBlur);
     }
