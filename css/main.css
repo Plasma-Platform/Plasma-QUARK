@@ -573,6 +573,7 @@
   align-items: stretch;
   line-height: 20px;
   text-align: left;
+  overflow: hidden;
 }
 .tm-quark-dropdown__button_size_medium {
   padding: 10px 20px;
@@ -665,9 +666,17 @@
   -ms-flex-align: center;
   align-items: center;
   padding-right: 10px;
+  width: calc(90%);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .tm-quark-dropdown__label ~ .tm-quark-dropdown__button-content {
   margin-bottom: -8px;
+}
+.tm-quark-dropdown__button-label-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .tm-quark-dropdown__icon_size_medium {
   height: 20px;

@@ -371,14 +371,18 @@ export default class Dropdown extends React.Component {
 
               {this.props.buttonContent ? (
                 <span className="tm-quark-dropdown__button-content">
-                  {this.props.buttonContent}
+                  <span className="tm-quark-dropdown__button-label-content">
+                    {this.props.buttonContent}
+                  </span>
                 </span>
               ) : (
                 <span className="tm-quark-dropdown__button-content">
                   {(this.selectedOption.icon && this.props.optionIconRadioStyle !== true) && (
                     <i className={`tm-quark-dropdown__icon tm-quark-dropdown__icon_size_medium icon icon-${this.selectedOption.icon}`}></i>
                   )}
-                  {this.props.showOptionHTMLInButton && this.selectedOption.html ? this.selectedOption.html : this.selectedOption.label}
+                  <span className="tm-quark-dropdown__button-label-content">
+                    {this.props.showOptionHTMLInButton && this.selectedOption.html ? this.selectedOption.html : this.selectedOption.label}
+                  </span>
                 </span>
               )}
               <span className="tm-quark-dropdown__button-arrow"></span>

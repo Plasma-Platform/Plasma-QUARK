@@ -185,6 +185,7 @@
     align-items: stretch;
     line-height: 20px;
     text-align: left;
+    overflow: hidden;
 
     &_size {
       &_medium {
@@ -278,10 +279,19 @@
     display: inline-flex;
     align-items: center;
     padding-right: 10px;
+    width: calc(100% - 10px);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     .tm-quark-dropdown__label ~ & {
       margin-bottom: -8px;
     }
+  }
+
+  &__button-label-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__icon {
