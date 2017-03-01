@@ -79,26 +79,27 @@ export default class Dropdown extends React.Component {
   constructor (props) {
     super(props);
 
-    this.toggle                   = this.toggle.bind(this);
-    this.open                     = this.open.bind(this);
-    this.handleShowAnimationEnd   = this.handleShowAnimationEnd.bind(this);
-    this.close                    = this.close.bind(this);
-    this.handleHideAnimationEnd   = this.handleHideAnimationEnd.bind(this);
+    this.toggle                        = this.toggle.bind(this);
+    this.open                          = this.open.bind(this);
+    this.close                         = this.close.bind(this);
 
-    this.handleOptionSelect       = this.handleOptionSelect.bind(this);
-    this.filterOptions            = this.filterOptions.bind(this);
+    this.handleShowContentAnimationEnd = this.handleShowContentAnimationEnd.bind(this);
+    this.handleHideContentAnimationEnd = this.handleHideContentAnimationEnd.bind(this);
 
-    this.handleDropdownBlur       = this.handleDropdownBlur.bind(this);
-    this.handleContainerKeyDown   = this.handleContainerKeyDown.bind(this);
-    this.handleButtonKeyDown      = this.handleButtonKeyDown.bind(this);
-    this.handleFilterInputKeyDown = this.handleFilterInputKeyDown.bind(this);
-    this.handleOptionKeyDown      = this.handleOptionKeyDown.bind(this);
+    this.handleOptionSelect            = this.handleOptionSelect.bind(this);
+    this.filterOptions                 = this.filterOptions.bind(this);
 
-    this.defaultSelectedOption    = this.props.defaultValue ? this.getOptionByValue(this.props.defaultValue) || this.props.options[0] : this.props.options[0];
+    this.handleDropdownBlur            = this.handleDropdownBlur.bind(this);
+    this.handleContainerKeyDown        = this.handleContainerKeyDown.bind(this);
+    this.handleButtonKeyDown           = this.handleButtonKeyDown.bind(this);
+    this.handleFilterInputKeyDown      = this.handleFilterInputKeyDown.bind(this);
+    this.handleOptionKeyDown           = this.handleOptionKeyDown.bind(this);
 
-    this.openContentPosition      = 'bottom';
-    this.optionsListMaxHeight     = '100%';
-    this.showOptionsListScrollBar = false;
+    this.defaultSelectedOption         = this.props.defaultValue ? this.getOptionByValue(this.props.defaultValue) || this.props.options[0] : this.props.options[0];
+
+    this.openContentPosition           = 'bottom';
+    this.optionsListMaxHeight          = '100%';
+    this.showOptionsListScrollBar      = false;
   }
 
   toggle () {
@@ -106,61 +107,55 @@ export default class Dropdown extends React.Component {
   }
 
   open () {
-    this.setState({
-      open: true
+    this.setState(() => {
+      return {
+        open        : true,
+        showContent : false
+      };
     }, this.showContent);
   }
 
   showContent () {
-    this.content.addEventListener('animationend', this.handleShowAnimationEnd);
+    this.props.onOpen && this.props.onOpen(this.getValue());
+    this.props.closeOnClickOutside && window.addEventListener('click', this.handleDropdownBlur);
 
-    this.setState({
-      showContent: true
+    this.setState(() => {
+      return {
+        open        : true,
+        showContent : true
+      };
     });
   }
 
-  handleShowAnimationEnd () {
-    this.content.removeEventListener('animationend', this.handleShowAnimationEnd);
-
-    if (this.filterInput) {
-      this.filterInput.focus();
-    }
-
-    if (this.props.onOpen) {
-      this.props.onOpen(this.getValue());
-    }
-
-    if (this.props.closeOnClickOutside) {
-      window.addEventListener('click', this.handleDropdownBlur);
-      window.addEventListener('keydown', this.handleDropdownBlur);
-    }
+  handleShowContentAnimationEnd () {
+    this.filterInput && this.filterInput.focus();
   }
 
   close () {
-    this.content.addEventListener('animationend', this.handleHideAnimationEnd);
+    this.props.closeOnClickOutside && window.removeEventListener('click', this.handleDropdownBlur);
+    this.props.onClose && this.props.onClose(this.getValue());
 
-    this.setState({
-      showContent: false
-    }, () => {
-      if (this.props.closeOnClickOutside) {
-        window.removeEventListener('click', this.handleDropdownBlur);
-        window.removeEventListener('keydown', this.handleDropdownBlur);
-      }
+    this.hideContent();
+  }
+
+  hideContent () {
+    this.setState(() => {
+      return {
+        open        : true,
+        showContent : false
+      };
     });
   }
 
-  handleHideAnimationEnd () {
-    this.content.removeEventListener('animationend', this.handleHideAnimationEnd);
-
+  handleHideContentAnimationEnd () {
     this.button.blur();
 
-    if (this.props.onClose) {
-      this.props.onClose(this.getValue());
-    }
-
-    this.setState({
-      open: false
-    }, this.hideContent);
+    this.setState(() => {
+      return {
+        open        : false,
+        showContent : false
+      };
+    });
   }
 
   getOptionsListMaxHeight () {
@@ -287,16 +282,11 @@ export default class Dropdown extends React.Component {
   }
 
   componentDidMount () {
-    if (this.state.open) {
-      this.showContent();
-    }
+    this.props.defaultOpen && this.showContent();
   }
 
   componentWillUnmount () {
-    if (this.state.showContent && this.props.closeOnClickOutside) {
-      window.removeEventListener('click', this.handleDropdownBlur);
-      window.removeEventListener('keydown', this.handleDropdownBlur);
-    }
+    (this.state.showContent && this.props.closeOnClickOutside) && window.removeEventListener('click', this.handleDropdownBlur);
   }
 
   render () {
@@ -392,8 +382,9 @@ export default class Dropdown extends React.Component {
 
         {this.state.open && (
           <div
-            className = {`tm-quark-dropdown__content${this.state.showContent ? ' tm-quark-dropdown__content_animate_show' : ' tm-quark-dropdown__content_animate_hide'}`}
-            ref       = {(ref) => { this.content = ref; }}
+            className      = {`tm-quark-dropdown__content${this.state.showContent ? ' tm-quark-dropdown__content_animate_show' : ' tm-quark-dropdown__content_animate_hide'}`}
+            onAnimationEnd = {() => { this.state.showContent ? this.handleShowContentAnimationEnd() : this.handleHideContentAnimationEnd(); }}
+            ref            = {(ref) => { this.content = ref; }}
           >
             {this.props.showFilterBox && (
               <div
