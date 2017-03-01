@@ -422,6 +422,9 @@
   flex-flow: row nowrap;
   height: 40px;
   padding-left: 20px;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 .tm-quark-dropdown_type_1.tm-quark-dropdown_disabled::before {
   height: 40px;
@@ -543,6 +546,7 @@
   color: #90a4ae;
   cursor: default;
   padding-right: 20px;
+  white-space: nowrap;
 }
 .tm-quark-dropdown__label_disabled {
   color: #cfd8dc;
@@ -665,8 +669,8 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding-right: 10px;
-  width: calc(90%);
+  padding-right: 8px;
+  width: calc(100% - 8px);
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
