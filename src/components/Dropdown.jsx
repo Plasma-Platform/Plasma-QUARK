@@ -153,13 +153,13 @@ export default class Dropdown extends React.Component {
   }
 
   handleHideContentAnimationEnd () {
-    this.button.blur();
-
     this.setState(() => {
       return {
         open        : false,
         showContent : false
       };
+    }, () => {
+      this.button.blur();
     });
   }
 
