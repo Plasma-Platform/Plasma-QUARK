@@ -3,78 +3,78 @@ import './StarsRating.less';
 
 export default class StarsRating extends Component {
   static propTypes = {
-    rating: React.PropTypes.oneOfType([
-      React.PropTypes.number.isRequired,
-      React.PropTypes.oneOf([0, 1, 2, 3, 4, 5])
-    ]),
-    checkStars: React.PropTypes.func
+    rating       : React.PropTypes.number.isRequired,
+    checkStars   : React.PropTypes.func,
+    value        : React.PropTypes.number,
+    defaultValue : React.PropTypes.number,
+    splitInHalf  : React.PropTypes.bool,
+    hovered      : React.PropTypes.bool
   };
   static defaultProps = {
-    checkStars: () => {
-    }
+    checkStars   : () => {
+    },
+    defaultValue : 0,
+    splitInHalf  : false,
+    hovered      : false
   };
   state = {
     stars     : [],
-    prevStars : []
+    prevStars : [],
+    value     : this.props.defaultValue
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
-    for (let i = 0; i < 5; i++) {
+    const starsLength = 5;
+    Array.from({length : starsLength}).map((starIndex, i) => {
       const star = {
-        fill: i < props.rating
+        fill : i < props.rating
       };
       this.state.stars.push(JSON.parse(JSON.stringify(star)));
-      this.state.prevStars.push(JSON.parse(JSON.stringify(star)));
+      this.state.value = this.props.rating;
+    })
+  }
+
+  select (val) {
+    if (this.props.hovered) {
+      this.setState({
+        value : val
+      }, this.props.checkStars.bind(this, val));
     }
   }
 
-  hoverStar = (id) => {
-    const newStars = this.state.stars.map((star, index) => {
-      star.fill = index <= id;
-      return star;
-    });
-    this.setState({
-      ...this.state,
-      stars: [...newStars]
-    });
-  };
+  printStarClass (value, i) {
+    const floor = Math.floor(value);
+    const free = value - floor;
+    if(floor < i && i-floor === 1){
+      switch (true){
+        case free <= 0.2:
+          return 'stars-rating__icon_empty';
+        case free <= 0.7:
+          return 'stars-rating__icon_half';
+        case free <= 0.999:
+          return '';
+      }
+    }
+    if(floor < i && i-floor > 1){
+      return 'stars-rating__icon_empty'
+    }
+    return '';
+  }
 
-  revertPrev = () => {
-    const state = JSON.parse(JSON.stringify(this.state));
-    this.setState({
-      ...this.state,
-      stars: state.prevStars
-    });
-  };
-
-  checkStars = (id) => {
-    const newStars = this.state.stars.map((star, index) => {
-      star.fill = index <= id;
-      return star;
-    });
-    this.setState({
-      ...this.state,
-      prevStars: [...newStars]
-    });
-    this.props.checkStars(id+1);
-  };
-
-  render() {
-    this.refsArray = [];
+  render () {
     return (
-      <div className="stars-rating">
-        {this.state.stars.map((star, i) => {
-          return (<i
-            key={i}
-            data-id={i}
-            ref={(e) => {
-              this.refsArray.push(e);
-            }}
-            onMouseOver={this.hoverStar.bind(null, i)}
-            onMouseOut={this.revertPrev}
-            onClick={this.checkStars.bind(null, i)}
-            className={`stars-rating__icon stars-rating__icon_${star.fill ? 'fill' : 'empty'}`}/>);
+      <div className={`stars-rating ${this.props.hovered ? 'stars-rating_hovered' : ''}`}>
+        {this.state.stars.map((value, i) => {
+          i++;
+          return (
+            <i
+              key={i}
+              className={`stars-rating__icon ${this.printStarClass(this.state.value, i)}`}
+              onClick={this.select.bind(this, i)}
+            >
+            </i>
+          )
         })}
       </div>
     )

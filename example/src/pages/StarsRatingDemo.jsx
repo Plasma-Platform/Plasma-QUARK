@@ -16,7 +16,11 @@ export default class StarsRatingDemo extends React.Component {
           <div className="half-width spacing-right-20">
             <StarsRating
               rating={3}
+            /><br />
+            <StarsRating
+              rating={3.32}
               checkStars={(checked)=>{alert(checked);}}
+              hovered={true}
             />
           </div>
         </div>
