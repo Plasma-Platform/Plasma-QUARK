@@ -15,12 +15,12 @@ export default class StarsRatingDemo extends React.Component {
         <div className="flex spacing-outer-bottom-20">
           <div className="half-width spacing-right-20">
             <StarsRating
-              rating={3}
+              defaultRating={3}
+              disabled={true}
             /><br />
             <StarsRating
-              rating={3.32}
-              checkStars={(checked)=>{alert(checked);}}
-              hovered={true}
+              defaultRating={3.32}
+              onChange={(checked)=>{alert(checked);}}
             />
           </div>
         </div>

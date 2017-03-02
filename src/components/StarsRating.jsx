@@ -3,51 +3,37 @@ import './StarsRating.less';
 
 export default class StarsRating extends Component {
   static propTypes = {
-    rating       : React.PropTypes.number.isRequired,
-    checkStars   : React.PropTypes.func,
-    value        : React.PropTypes.number,
-    defaultValue : React.PropTypes.number,
-    splitInHalf  : React.PropTypes.bool,
-    hovered      : React.PropTypes.bool
+    defaultRating : React.PropTypes.number.isRequired,
+    onChange      : React.PropTypes.func,
+    value         : React.PropTypes.number,
+    disabled      : React.PropTypes.bool
   };
   static defaultProps = {
-    checkStars   : () => {
+    onChange : () => {
     },
-    defaultValue : 0,
-    splitInHalf  : false,
-    hovered      : false
+    disabled : false
   };
   state = {
-    stars     : [],
-    prevStars : [],
-    value     : this.props.defaultValue
+    value : this.props.defaultRating
   };
 
   constructor (props) {
     super(props);
-    const starsLength = 5;
-    Array.from({length : starsLength}).map((starIndex, i) => {
-      const star = {
-        fill : i < props.rating
-      };
-      this.state.stars.push(JSON.parse(JSON.stringify(star)));
-      this.state.value = this.props.rating;
-    })
   }
 
   select (val) {
-    if (this.props.hovered) {
+    if (!this.props.disabled) {
       this.setState({
         value : val
-      }, this.props.checkStars.bind(this, val));
+      }, this.props.onChange.bind(this, val));
     }
   }
 
   printStarClass (value, i) {
     const floor = Math.floor(value);
     const free = value - floor;
-    if(floor < i && i-floor === 1){
-      switch (true){
+    if (floor < i && i - floor === 1) {
+      switch (true) {
         case free <= 0.2:
           return 'stars-rating__icon_empty';
         case free <= 0.7:
@@ -56,16 +42,17 @@ export default class StarsRating extends Component {
           return '';
       }
     }
-    if(floor < i && i-floor > 1){
+    if (floor < i && i - floor > 1) {
       return 'stars-rating__icon_empty'
     }
     return '';
   }
 
   render () {
+    const starsLength = 5;
     return (
-      <div className={`stars-rating ${this.props.hovered ? 'stars-rating_hovered' : ''}`}>
-        {this.state.stars.map((value, i) => {
+      <div className={`stars-rating ${this.props.disabled ? '' : 'stars-rating_hovered'}`}>
+        {Array.from({length : starsLength}).map((value, i) => {
           i++;
           return (
             <i
