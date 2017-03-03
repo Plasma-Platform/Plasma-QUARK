@@ -26,14 +26,16 @@ export default function connectNotificationTrigger (Component, props) {
       super(props, context);
       this.lastWidth = 0;
       this._originalCode = null;
-      if (typeof props.notification.button !== 'undefined') {
-        if (typeof props.notification.button.onClick === 'string') {
-          switch (props.notification.button.onClick) {
-            case 'close':
-              props.notification.button.onClick = this.hideNotification;
-              break;
-            default:
-              break;
+      if(typeof props.notification !== 'undefined'){
+        if (typeof props.notification.button !== 'undefined') {
+          if (typeof props.notification.button.onClick === 'string') {
+            switch (props.notification.button.onClick) {
+              case 'close':
+                props.notification.button.onClick = this.hideNotification;
+                break;
+              default:
+                break;
+            }
           }
         }
       }
