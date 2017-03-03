@@ -51,20 +51,18 @@ export default class StarsRating extends Component {
   render () {
     const starsLength = 5;
     return (
-      <div className='stars-rating-wrapper'>
-        <div className={`stars-rating ${this.props.disabled ? '' : 'stars-rating_hovered'}`}>
-          {Array.from({length : starsLength}).map((value, i) => {
-            i++;
-            return (
-              <i
-                key={i}
-                className={`stars-rating__icon ${this.printStarClass(this.state.value, i)}`}
-                onClick={this.select.bind(this, i)}
-              >
-              </i>
-            )
-          })}
-        </div>
+      <div className={`stars-rating ${this.props.disabled ? '' : 'stars-rating_hovered'}`}>
+        {Array.from({length : starsLength}).map((value, i) => {
+          i++;
+          return (
+            <i
+              key={i}
+              className={`stars-rating__icon ${this.printStarClass(this.state.value, i)}`}
+              onClick={this.select.bind(this, i)}
+            >
+            </i>
+          )
+        })}
       </div>
     )
   };
