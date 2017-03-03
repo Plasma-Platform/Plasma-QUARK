@@ -38,6 +38,12 @@ export default class TextAreaDemo extends React.Component {
               label='Text area type = TA5'
               maxLength={300}
             />
+            <TextAreas.TA5
+              className="spacing-outer-bottom-20"
+              label='Text area type = TA5, counter from 0'
+              maxLength={400}
+              increaseValue={true}
+            />
             <TextAreas.TA6
               className="spacing-outer-bottom-20"
               label='Text area type = TA6'

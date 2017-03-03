@@ -16,7 +16,8 @@ export default class AbstractField extends Component {
     filled           : PropTypes.bool,
     focused          : PropTypes.bool,
     notificationText : PropTypes.string,
-    maxLength        : PropTypes.number
+    maxLength        : PropTypes.number,
+    increaseValue    : PropTypes.bool
   };
 
   static defaultProps = {
@@ -223,6 +224,7 @@ export default class AbstractField extends Component {
         limitCounter          = {this.state.limitCounter}
         isValid               = {this.state.isValid}
         animated              = {this.state.animated}
+        increaseValue         = {this.props.increaseValue}
         onFocus               = {this.onFocus}
         onBlur                = {this.onBlur}
         onChange              = {this.onChange}
