@@ -6,12 +6,14 @@ export default class StarsRating extends Component {
     defaultRating : React.PropTypes.number.isRequired,
     onChange      : React.PropTypes.func,
     value         : React.PropTypes.number,
-    disabled      : React.PropTypes.bool
+    disabled      : React.PropTypes.bool,
+    reset         : React.PropTypes.bool
   };
   static defaultProps = {
     onChange : () => {
     },
-    disabled : false
+    disabled : false,
+    reset    : false
   };
   state = {
     value : this.props.defaultRating
@@ -51,18 +53,20 @@ export default class StarsRating extends Component {
   render () {
     const starsLength = 5;
     return (
-      <div className={`stars-rating ${this.props.disabled ? '' : 'stars-rating_hovered'}`}>
-        {Array.from({length : starsLength}).map((value, i) => {
-          i++;
-          return (
-            <i
-              key={i}
-              className={`stars-rating__icon ${this.printStarClass(this.state.value, i)}`}
-              onClick={this.select.bind(this, i)}
-            >
-            </i>
-          )
-        })}
+      <div className="stars-rating-wrapper">
+        <div className={`stars-rating ${this.props.disabled ? '' : 'stars-rating_hovered'}`}>
+          {Array.from({length : starsLength}).map((value, i) => {
+            i++;
+            return (
+              <i
+                key={i}
+                className={`stars-rating__icon ${this.printStarClass(this.state.value, i)}`}
+                onClick={this.select.bind(this, i)}
+              >
+              </i>
+            )
+          })}
+        </div>
       </div>
     )
   };
