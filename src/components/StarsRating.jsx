@@ -3,11 +3,12 @@ import './StarsRating.less';
 
 export default class StarsRating extends Component {
   static propTypes = {
-    defaultRating : React.PropTypes.number.isRequired,
-    onChange      : React.PropTypes.func,
-    value         : React.PropTypes.number,
-    disabled      : React.PropTypes.bool,
-    reset         : React.PropTypes.bool
+    defaultRating  : React.PropTypes.number.isRequired,
+    onChange       : React.PropTypes.func,
+    value          : React.PropTypes.number,
+    disabled       : React.PropTypes.bool,
+    reset          : React.PropTypes.bool,
+    onClickOutside : React.PropTypes.func
   };
   static defaultProps = {
     onChange : () => {
@@ -17,6 +18,21 @@ export default class StarsRating extends Component {
   };
   state = {
     value : this.props.defaultRating
+  };
+
+  componentDidMount () {
+    window.addEventListener('click', this.handleDocumentClick)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('click', this.handleDocumentClick)
+  }
+
+  handleDocumentClick = (evt) => {
+    const area = this.refs.component.getDOMNode();
+    if (!area.contains(evt.target)) {
+      this.props.onClickOutside(evt)
+    }
   };
 
   constructor (props) {
@@ -53,7 +69,7 @@ export default class StarsRating extends Component {
   render () {
     const starsLength = 5;
     return (
-      <div className="stars-rating-wrapper">
+      <div className="stars-rating-wrapper" ref="component">
         <div className={`stars-rating ${this.props.disabled ? '' : 'stars-rating_hovered'}`}>
           {Array.from({length : starsLength}).map((value, i) => {
             i++;

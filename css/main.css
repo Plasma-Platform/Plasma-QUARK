@@ -2565,6 +2565,9 @@
 .stars-rating {
   display: inline;
 }
+.stars-rating-wrapper {
+  position: relative;
+}
 .stars-rating__icon {
   display: inline-block;
   box-sizing: initial;
