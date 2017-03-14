@@ -436,6 +436,9 @@
 .tm-quark-dropdown_type_1.tm-quark-dropdown_open-position_bottom .tm-quark-dropdown__content {
   border-top-left-radius: 3px;
 }
+.tm-quark-dropdown_type_1 .tm-quark-dropdown__button {
+  margin-left: auto;
+}
 .tm-quark-dropdown_type_2 {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
