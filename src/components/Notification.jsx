@@ -77,6 +77,7 @@ export default class Notification extends Component {
               className='notification__closeBlock__closeArea'
               onClick={this.props.onHideNotification}
               onTouchEnd={this.props.onHideNotification}
+              id="notification_close"
             />
           </div>)
             : null
@@ -84,7 +85,7 @@ export default class Notification extends Component {
         </div>
         {Button
           ? (
-            <Button onClick={this.props.button.onClick} type={this.props.button.type} className={this.props.button.className}>{this.props.button.text}</Button>
+            <Button onClick={this.props.button.onClick} type={this.props.button.type} className={this.props.button.className} id={this.props.button.id}>{this.props.button.text}</Button>
           )
           : null
         }
