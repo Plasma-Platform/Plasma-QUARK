@@ -190,11 +190,12 @@ export default function connectNotificationTrigger (Component, props) {
       }
     };
     rerenderNotice = (newCode) => {
-      let {text, maxWidth, button} = this.props.notification;
+      let {text, maxWidth, button, closeIconId} = this.props.notification;
       let newTooltip = prepareNotification({
         code: newCode || this.originalCode,
         button,
         text,
+        closeIconId,
         maxWidth
       }, this.hideNotification);
       this.notification = React.cloneElement(newTooltip, {
@@ -281,7 +282,6 @@ export default function connectNotificationTrigger (Component, props) {
     }
 
     render () {
-      console.log('this.props', this.props);
       return (
         <Component
           {...this.props}
