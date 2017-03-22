@@ -16,6 +16,7 @@ export default class Notification extends Component {
     button             : PropTypes.object,
     size               : PropTypes.string.isRequired,
     maxWidth           : PropTypes.string,
+    closeIconId        : PropTypes.string,
     onHideNotification : PropTypes.func,
     status             : PropTypes.oneOf(['default', 'success', 'error']).isRequired,
     position           : PropTypes.oneOf(['top', 'bottom', 'left', 'right']).isRequired
@@ -61,7 +62,6 @@ export default class Notification extends Component {
     };
 
     const Button = !isEmptyObject(this.props.button) ? Buttons[this.props.button.code ? this.props.button.code : 'B2J'] : null;
-    console.log('this.props.button', this.props.button);
     const buttonAttr = {
       onClick   : this.props.button.onClick,
       type      : this.props.button.type,
@@ -86,7 +86,7 @@ export default class Notification extends Component {
               className='notification__closeBlock__closeArea'
               onClick={this.props.onHideNotification}
               onTouchEnd={this.props.onHideNotification}
-              id="notification_close"
+              id={this.props.closeIconId}
             />
           </div>)
             : null
