@@ -281,6 +281,7 @@ export default function connectNotificationTrigger (Component, props) {
     }
 
     render () {
+      console.log('this.props', this.props);
       return (
         <Component
           {...this.props}
