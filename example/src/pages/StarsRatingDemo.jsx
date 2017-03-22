@@ -22,6 +22,12 @@ export default class StarsRatingDemo extends React.Component {
               defaultRating={3.32}
               onChange={(checked)=>{alert(checked);}}
             />
+            <StarsRating
+              defaultRating={3.32}
+              onChange={(checked)=>{alert(checked);}}
+              noHovered={true}
+              disabled={true}
+            />
           </div>
         </div>
         <a target="_blank" href="http://confluence.devoffice.com/display/DEVDOC/Text+Area">Text Area in Confluence</a>

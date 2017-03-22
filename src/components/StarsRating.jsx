@@ -7,32 +7,16 @@ export default class StarsRating extends Component {
     onChange       : React.PropTypes.func,
     value          : React.PropTypes.number,
     disabled       : React.PropTypes.bool,
-    reset          : React.PropTypes.bool,
-    onClickOutside : React.PropTypes.func
+    noHovered      : React.PropTypes.bool
   };
   static defaultProps = {
     onChange : () => {
     },
-    disabled : false,
-    reset    : false
+    disabled  : false,
+    noHovered : false
   };
   state = {
     value : this.props.defaultRating
-  };
-
-  componentDidMount () {
-    window.addEventListener('click', this.handleDocumentClick)
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('click', this.handleDocumentClick)
-  }
-
-  handleDocumentClick = (evt) => {
-    const area = this.refs.component.getDOMNode();
-    if (!area.contains(evt.target)) {
-      this.props.onClickOutside(evt)
-    }
   };
 
   constructor (props) {
@@ -43,6 +27,10 @@ export default class StarsRating extends Component {
     if (!this.props.disabled) {
       this.setState({
         value : val
+      }, this.props.onChange.bind(this, val));
+    } else if (this.props.noHovered) {
+      this.setState({
+        value : this.props.defaultRating
       }, this.props.onChange.bind(this, val));
     }
   }
@@ -69,8 +57,9 @@ export default class StarsRating extends Component {
   render () {
     const starsLength = 5;
     return (
-      <div className="stars-rating-wrapper" ref="component">
-        <div className={`stars-rating ${this.props.disabled ? '' : 'stars-rating_hovered'}`}>
+      <div className="stars-rating-wrapper">
+        <div className={`stars-rating ${this.props.disabled ? '' : 'stars-rating_hovered'}
+          ${this.props.noHovered ? 'stars-rating_no-hovered' : ''}`}>
           {Array.from({length : starsLength}).map((value, i) => {
             i++;
             return (
