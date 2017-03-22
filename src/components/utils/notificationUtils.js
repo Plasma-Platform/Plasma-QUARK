@@ -12,6 +12,7 @@ export function prepareNotification (notification, handleHide) {
         text                = {notification.text}
         maxWidth            = {notification.maxWidth}
         button              = {notification.button}
+        closeIconId         = {notification.closeIconId}
       />
     );
   }
