@@ -2583,8 +2583,7 @@
   border-left-width: 0;
 }
 .stars-rating__icon:last-child {
-  padding-right: 0;
-  border-right-width: 10px;
+  padding-right: 10px;
 }
 .stars-rating__icon:first-child {
   border-left-width: 10px;
