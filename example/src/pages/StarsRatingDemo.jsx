@@ -17,7 +17,7 @@ export default class StarsRatingDemo extends React.Component {
             <StarsRating
               defaultRating={3}
               disabled={true}
-            /><br />
+            />
             <StarsRating
               defaultRating={3.32}
               onChange={(checked)=>{alert(checked);}}
