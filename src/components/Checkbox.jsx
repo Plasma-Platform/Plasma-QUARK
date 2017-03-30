@@ -3,7 +3,7 @@ import React from 'react';
 import './Checkbox.less';
 
 export default function Checkbox (props) {
-  const {className, label, children, ...inputProps} = props;
+  const {className, children, ...inputProps} = props;
 
   return (
     <label

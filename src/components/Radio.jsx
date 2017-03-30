@@ -2,60 +2,32 @@ import React from 'react';
 
 import './Radio.less';
 
-export default class Radio extends React.Component {
-  static propTypes = {
-    className : React.PropTypes.string,
-    id        : React.PropTypes.string.isRequired,
-    name      : React.PropTypes.string.isRequired
-  }
+export default function Radio (props) {
+  const {className, label, ...radioProps} = props;
+  const addClassName = className ? ` ${className}` : '';
 
-  static defaultProps = {
-    tabIndex: 0
-  }
-
-  constructor (props) {
-    super(props);
-
-    this.handleKeyUp = this.handleKeyUp.bind(this);
-  }
-
-  handleKeyUp = (event) => {
-    this.props.onKeyUp ? this.props.onKeyUp() : null;
-
-    if (event.keyCode === 13 && this.input.checked === false) {
-      this.input.checked = !this.input.checked;
-      this.label.blur();
-      this.props.onChange ? this.props.onChange() : null;
-    }
-  }
-
-  render () {
-    const {className, id, name, label, checked, tabIndex, onKeyUp, ...props} = this.props;
-    const addClassName = className ? ` ${className}` : '';
-
-    return (
-      <div
-        className = {`radio${addClassName}`}
-      >
-        <input
-          {...props}
-          className      = "radio__input"
-          id             = {id}
-          name           = {name}
-          type           = "radio"
-          defaultChecked = {checked}
-          ref            = {ref => { this.input = ref; }}
-        />
-        <label
-          className = "radio__label"
-          htmlFor   = {id}
-          tabIndex  = {tabIndex || this.props.tabIndex}
-          onKeyUp   = {this.handleKeyUp}
-          ref       = {ref => { this.label = ref; }}
-        >
-          {label}
-        </label>
-      </div>
-    );
-  }
+  return (
+    <label
+      className = {`tm-quark-radio${radioProps.disabled ? ' tm-quark-radio_disabled' : ''}${addClassName}`}
+      tabIndex  = "0"
+    >
+      <input
+        {...radioProps}
+        className = "tm-quark-radio__input"
+        type      = "radio"
+      />
+      <i className="tm-quark-radio__icon"></i>
+      <span className = "tm-quark-radio__label">{label}</span>
+    </label>
+  );
 }
+
+Radio.propTypes = {
+  className : React.PropTypes.string,
+  id        : React.PropTypes.string.isRequired,
+  name      : React.PropTypes.string.isRequired
+};
+
+Radio.defaultProps = {
+  tabIndex: 0
+};
