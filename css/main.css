@@ -284,9 +284,9 @@
   vertical-align: middle;
 }
 .tm-quark-checkbox {
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   box-sizing: border-box;
   color: #242338;
   cursor: pointer;
@@ -347,19 +347,6 @@
   transform: rotate(45deg);
   width: 10px;
 }
-.tm-quark-checkbox:hover .tm-quark-checkbox__icon {
-  border-color: #1ab744;
-}
-.tm-quark-checkbox:active .tm-quark-checkbox__icon {
-  background-color: #1ab744;
-  border-color: #1ab744;
-  height: 16px;
-  margin: 2px 12px 2px 2px;
-  width: 16px;
-}
-.tm-quark-checkbox:active .tm-quark-checkbox__icon::before {
-  color: transparent;
-}
 .tm-quark-checkbox__input:checked + .tm-quark-checkbox__icon {
   background-color: #1ab744;
   border-color: #1ab744;
@@ -374,6 +361,19 @@
 .tm-quark-checkbox__input:checked:disabled + .tm-quark-checkbox__icon {
   background-color: #cfd8dc;
   border-color: #cfd8dc;
+}
+.tm-quark-checkbox:hover .tm-quark-checkbox__icon {
+  border-color: #1ab744;
+}
+.tm-quark-checkbox:active .tm-quark-checkbox__icon {
+  background-color: #1ab744;
+  border-color: #1ab744;
+  height: 16px;
+  margin: 2px 12px 2px 2px;
+  width: 16px;
+}
+.tm-quark-checkbox:active .tm-quark-checkbox__icon::before {
+  color: transparent;
 }
 .tm-quark-checkbox__label {
   -webkit-box-align: center;

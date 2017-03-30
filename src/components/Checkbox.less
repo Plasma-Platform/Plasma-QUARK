@@ -1,5 +1,5 @@
 .tm-quark-checkbox {
-  align-items: stretch;
+  align-items: center;
   box-sizing: border-box;
   color: #242338;
   cursor: pointer;
@@ -54,22 +54,6 @@
       width: 10px;
     }
 
-    .tm-quark-checkbox:hover & {
-      border-color: #1ab744;
-    }
-
-    .tm-quark-checkbox:active & {
-      background-color: #1ab744;
-      border-color: #1ab744;
-      height: 16px;
-      margin: 2px 12px 2px 2px;
-      width: 16px;
-
-      &::before {
-        color: transparent;
-      }
-    }
-
     .tm-quark-checkbox__input:checked + & {
       background-color: #1ab744;
       border-color: #1ab744;
@@ -87,6 +71,22 @@
     .tm-quark-checkbox__input:checked:disabled + & {
       background-color: #cfd8dc;
       border-color: #cfd8dc;
+    }
+
+    .tm-quark-checkbox:hover & {
+      border-color: #1ab744;
+    }
+
+    .tm-quark-checkbox:active & {
+      background-color: #1ab744;
+      border-color: #1ab744;
+      height: 16px;
+      margin: 2px 12px 2px 2px;
+      width: 16px;
+
+      &::before {
+        color: transparent;
+      }
     }
   }
 
