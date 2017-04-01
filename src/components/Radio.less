@@ -1,11 +1,9 @@
 .tm-quark-radio {
   align-items: center;
   box-sizing: border-box;
-  color: #242338;
-  cursor: pointer;
+  cursor: default;
   display: inline-flex;
-  font-weight: 400;
-  flex: row nowrap;
+  flex-flow: row nowrap;
   touch-action: manipulation;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -16,86 +14,95 @@
     box-sizing: inherit;
   }
 
-  &_disabled {
-    pointer-events: none;
-  }
-
-  &:hover {
-    color: #1ab744;
-  }
-
   &:focus {
     outline: none;
   }
 
-  &__input {
-    display: none;
-  }
-
   &__icon {
-    align-items: center;
-    border: 2px solid #cfd8dc;
+    background-color: transparent;
+    border: 2px solid;
     border-radius: 50%;
-    display: inline-flex;
+    color: #cfd8dc;
     height: 20px;
-    margin-right: 10px;
-    justify-content: center;
+    min-height: 20px;
+    min-width: 20px;
     width: 20px;
-
-    &::before {
-      background-color: transparent;
-      border-radius: 50%;
-      content: "";
-    }
-
-    .tm-quark-radio__input:checked + & {
-      border-color: #1ab744;
-
-      &::before {
-        background-color: #1ab744;
-        height: 10px;
-        width: 10px;
-      }
-    }
-
-    .tm-quark-radio__input:disabled + & {
-      border-color: #eceff1;
-    }
-
-    .tm-quark-radio__input:checked:disabled + & {
-      border-color: #cfd8dc;
-
-      &::before {
-        background-color: #cfd8dc;
-      }
-    }
-
-    .tm-quark-radio:hover & {
-      border-color: #1ab744;
-    }
-
-    .tm-quark-radio:active & {
-      border-color: transparent;
-
-      &::before {
-        background-color: #1ab744;
-        height: 16px;
-        width: 16px;
-      }
-    }
   }
 
   &__label {
-    align-items: center;
-    display: inline-flex;
+    padding-left: 10px;
+  }
 
-    .tm-quark-radio__input:checked ~ & {
-      color: #1ab744;
-      font-weight: 700;
+  &__input {
+    display: none;
+
+    &:checked {
+      & + .tm-quark-radio__icon {
+        color: #1ab744;
+
+        &::before {
+          border: 5px solid;
+          border-radius: 50%;
+          content: "";
+          display: block;
+          height: 10px;
+          margin: 3px;
+          width: 10px;
+        }
+      }
+
+      & ~ .tm-quark-radio__label {
+        color: #1ab744;
+        font-weight: 700;
+      }
     }
 
-    .tm-quark-radio__input:disabled ~ & {
-      color: #cfd8dc;
+    &:disabled {
+      & + .tm-quark-radio__icon,
+      & ~ .tm-quark-radio__label {
+        cursor: not-allowed;
+      }
+
+      & + .tm-quark-radio__icon {
+        color: #eceff1;
+      }
+
+      &:checked + .tm-quark-radio__icon {
+        color: #cfd8dc;
+      }
+
+      & ~ .tm-quark-radio__label {
+        color: #cfd8dc;
+      }
+    }
+
+    &:not(:disabled) {
+      & + .tm-quark-radio__icon,
+      & ~ .tm-quark-radio__label {
+        cursor: pointer;
+      }
+
+      .tm-quark-radio:hover &,
+      .tm-quark-radio:active & {
+        & + .tm-quark-radio__icon {
+          color: #1ab744;
+        }
+
+        & ~ .tm-quark-radio__label {
+          color: #1ab744;
+        }
+      }
+
+      .tm-quark-radio:active & {
+        & + .tm-quark-radio__icon {
+          background-color: #1ab744;
+          transform: scale(.8) translateY(2px);
+        }
+
+        & ~ .tm-quark-radio__label {
+          transform: translateY(1px);
+        }
+      }
     }
   }
 }
