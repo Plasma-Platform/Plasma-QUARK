@@ -5,9 +5,12 @@ import './Checkbox.less';
 export default function Checkbox (props) {
   const {className, children, ...inputProps} = props;
 
+  const customClassName = className ? ` ${className}` : '';
+
   return (
     <label
-      className = {`tm-quark-checkbox${inputProps.disabled ? ' tm-quark-checkbox_disabled' : ''}${className ? ` ${className}` : ''}`} tabIndex  = "0"
+      className = {`tm-quark-checkbox${customClassName}`}
+      tabIndex  = "0"
     >
       <input
         {...inputProps}
@@ -23,13 +26,5 @@ export default function Checkbox (props) {
 }
 
 Checkbox.propTypes = {
-  className : React.PropTypes.string,
-  label     : React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object
-  ])
-};
-
-Checkbox.defaultProps = {
-  label: ''
+  className: React.PropTypes.string
 };
