@@ -7,7 +7,7 @@ import TA6 from './TA6.jsx';
 import TA7 from './TA7.jsx';
 import TA8 from './TA8.jsx';
 
-module.exports = {
+export default {
   TA1,
   TA2,
   TA3,
