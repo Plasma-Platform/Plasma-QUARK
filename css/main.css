@@ -919,15 +919,14 @@
   -ms-flex-align: center;
   align-items: center;
   box-sizing: border-box;
-  color: #242338;
-  cursor: pointer;
+  cursor: default;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  font-weight: 400;
-  -webkit-box-flex: row;
-  -ms-flex: row nowrap;
-  flex: row nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
   -webkit-text-size-adjust: 100%;
@@ -938,81 +937,74 @@
 .tm-quark-radio *::after {
   box-sizing: inherit;
 }
-.tm-quark-radio_disabled {
-  pointer-events: none;
-}
-.tm-quark-radio:hover {
-  color: #1ab744;
-}
 .tm-quark-radio:focus {
   outline: none;
+}
+.tm-quark-radio__icon {
+  background-color: transparent;
+  border: 2px solid;
+  border-radius: 50%;
+  color: #cfd8dc;
+  height: 20px;
+  min-height: 20px;
+  min-width: 20px;
+  width: 20px;
+}
+.tm-quark-radio__label {
+  padding-left: 10px;
 }
 .tm-quark-radio__input {
   display: none;
 }
-.tm-quark-radio__icon {
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border: 2px solid #cfd8dc;
-  border-radius: 50%;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  height: 20px;
-  margin-right: 10px;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  width: 20px;
-}
-.tm-quark-radio__icon::before {
-  background-color: transparent;
-  border-radius: 50%;
-  content: "";
-}
 .tm-quark-radio__input:checked + .tm-quark-radio__icon {
-  border-color: #1ab744;
+  color: #1ab744;
 }
 .tm-quark-radio__input:checked + .tm-quark-radio__icon::before {
-  background-color: #1ab744;
+  border: 5px solid;
+  border-radius: 50%;
+  content: "";
+  display: block;
   height: 10px;
+  margin: 3px;
   width: 10px;
-}
-.tm-quark-radio__input:disabled + .tm-quark-radio__icon {
-  border-color: #eceff1;
-}
-.tm-quark-radio__input:checked:disabled + .tm-quark-radio__icon {
-  border-color: #cfd8dc;
-}
-.tm-quark-radio__input:checked:disabled + .tm-quark-radio__icon::before {
-  background-color: #cfd8dc;
-}
-.tm-quark-radio:hover .tm-quark-radio__icon {
-  border-color: #1ab744;
-}
-.tm-quark-radio:active .tm-quark-radio__icon {
-  border-color: transparent;
-}
-.tm-quark-radio:active .tm-quark-radio__icon::before {
-  background-color: #1ab744;
-  height: 16px;
-  width: 16px;
-}
-.tm-quark-radio__label {
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
 }
 .tm-quark-radio__input:checked ~ .tm-quark-radio__label {
   color: #1ab744;
   font-weight: 700;
 }
+.tm-quark-radio__input:disabled + .tm-quark-radio__icon,
+.tm-quark-radio__input:disabled ~ .tm-quark-radio__label {
+  cursor: not-allowed;
+}
+.tm-quark-radio__input:disabled + .tm-quark-radio__icon {
+  color: #eceff1;
+}
+.tm-quark-radio__input:disabled:checked + .tm-quark-radio__icon {
+  color: #cfd8dc;
+}
 .tm-quark-radio__input:disabled ~ .tm-quark-radio__label {
   color: #cfd8dc;
+}
+.tm-quark-radio__input:not(:disabled) + .tm-quark-radio__icon,
+.tm-quark-radio__input:not(:disabled) ~ .tm-quark-radio__label {
+  cursor: pointer;
+}
+.tm-quark-radio:hover .tm-quark-radio__input:not(:disabled) + .tm-quark-radio__icon,
+.tm-quark-radio:active .tm-quark-radio__input:not(:disabled) + .tm-quark-radio__icon {
+  color: #1ab744;
+}
+.tm-quark-radio:hover .tm-quark-radio__input:not(:disabled) ~ .tm-quark-radio__label,
+.tm-quark-radio:active .tm-quark-radio__input:not(:disabled) ~ .tm-quark-radio__label {
+  color: #1ab744;
+}
+.tm-quark-radio:active .tm-quark-radio__input:not(:disabled) + .tm-quark-radio__icon {
+  background-color: #1ab744;
+  -webkit-transform: scale(0.8) translateY(2px);
+  transform: scale(0.8) translateY(2px);
+}
+.tm-quark-radio:active .tm-quark-radio__input:not(:disabled) ~ .tm-quark-radio__label {
+  -webkit-transform: translateY(1px);
+  transform: translateY(1px);
 }
 .switcher {
   box-sizing: border-box;
