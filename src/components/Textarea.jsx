@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-// import notifications                 from './notifications/';
+import notifications                 from './notifications/';
 
 import './Textarea.less';
 
@@ -110,7 +110,7 @@ export default class Textarea extends Component {
 
     const inputHasIconClassName    = fieldIcon ? ' tm-quark-textarea__input_with-icon' : '';
 
-    // const FieldErrorMessage        = errorMessage && errorMessage.type ? notifications[errorMessage.type] : null;
+    const FieldErrorMessage        = errorMessage && errorMessage.type ? notifications[errorMessage.type] : null;
 
     return (
       <label
@@ -150,14 +150,14 @@ export default class Textarea extends Component {
           )}
         </div>
 
-        {/* {inputProps.disabled !== true && FieldErrorMessage && (
+        {inputProps.disabled !== true && FieldErrorMessage && (
           <FieldErrorMessage
             show               = {invalid}
             hideOnClickOutside = {false}
           >
             {errorMessage.content || null}
           </FieldErrorMessage>
-        )} */}
+        )}
       </label>
     );
   }

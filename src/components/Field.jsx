@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-// import notifications                 from './notifications/';
+import notifications                 from './notifications/';
 
 import './Field.less';
 
@@ -122,7 +122,7 @@ export default class Field extends Component {
 
     const inputHasIconClassName    = fieldIcon ? ' tm-quark-field__input_with-icon' : '';
 
-    // const FieldErrorMessage        = errorMessage && errorMessage.type ? notifications[errorMessage.type] : null;
+    const FieldErrorMessage        = errorMessage && errorMessage.type ? notifications[errorMessage.type] : null;
 
     if (errorMessage.content) {
       this.errorMessageContent = errorMessage.content;
@@ -176,14 +176,14 @@ export default class Field extends Component {
           </i>
         )}
 
-        {/* {inputProps.disabled !== true && FieldErrorMessage && (
+        {inputProps.disabled !== true && FieldErrorMessage && (
           <FieldErrorMessage
             show               = {invalid}
             hideOnClickOutside = {false}
           >
             {this.errorMessageContent || null}
           </FieldErrorMessage>
-        )} */}
+        )}
       </label>
     );
   }
