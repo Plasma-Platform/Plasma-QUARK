@@ -2,18 +2,16 @@ import React from 'react';
 
 import Button from '../Button.jsx';
 
-export default class B2G extends React.Component {
-  render () {
-    return (
-      <Button
-        {...this.props}
-        widthType   = "full"
-        heightType  = "medium"
-        roundedType = "all"
-        bgType      = "2"
-      >
-        {this.props.children}
-      </Button>
-    );
-  }
+export default function B2G (props) {
+  return (
+    <Button
+      widthType   = "full"
+      heightType  = "medium"
+      roundedType = "all"
+      bgType      = "2"
+      {...props}
+    >
+      {props.children}
+    </Button>
+  );
 }

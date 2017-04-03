@@ -2,19 +2,17 @@ import React from 'react';
 
 import Button from '../Button.jsx';
 
-export default class BF5 extends React.Component {
-  render () {
-    return (
-      <Button
-        {...this.props}
-        widthType    = "square"
-        heightType   = "medium"
-        roundedType  = "all"
-        bgType       = "facebook"
-        icon         = "facebook"
-      >
-        {this.props.children}
-      </Button>
-    );
-  }
+export default function BF5 (props) {
+  return (
+    <Button
+      widthType    = "square"
+      heightType   = "medium"
+      roundedType  = "all"
+      bgType       = "facebook"
+      icon         = "facebook"
+      {...props}
+    >
+      {props.children}
+    </Button>
+  );
 }
