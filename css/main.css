@@ -814,6 +814,9 @@
 .tm-quark-dropdown__filter-input::-webkit-input-placeholder {
   color: #90a4ae;
 }
+.tm-quark-dropdown__filter-input::-moz-placeholder {
+  color: #90a4ae;
+}
 .tm-quark-dropdown__filter-input:-ms-input-placeholder {
   color: #90a4ae;
 }
@@ -827,6 +830,9 @@
   -webkit-appearance: none;
 }
 .tm-quark-dropdown__filter-input:focus::-webkit-input-placeholder {
+  color: #bbdefb;
+}
+.tm-quark-dropdown__filter-input:focus::-moz-placeholder {
   color: #bbdefb;
 }
 .tm-quark-dropdown__filter-input:focus:-ms-input-placeholder {
@@ -1963,6 +1969,9 @@
 .text-field__input::-webkit-input-placeholder {
   color: #90a4ae;
 }
+.text-field__input::-moz-placeholder {
+  color: #90a4ae;
+}
 .text-field__input:-ms-input-placeholder {
   color: #90a4ae;
 }
@@ -1975,6 +1984,9 @@
   box-shadow: none;
 }
 .text-field__input:focus::-webkit-input-placeholder {
+  color: #bbdefb;
+}
+.text-field__input:focus::-moz-placeholder {
   color: #bbdefb;
 }
 .text-field__input:focus:-ms-input-placeholder {
@@ -1998,6 +2010,12 @@
 .text-field__input:disabled ~ [class*="__label"] {
   color: #eceff1;
   -webkit-user-select: none;
+  user-select: none;
+}
+.text-field__input:disabled::-moz-placeholder,
+.text-field__input:disabled ~ [class*="__label"] {
+  color: #eceff1;
+  -moz-user-select: none;
   user-select: none;
 }
 .text-field__input:disabled:-ms-input-placeholder,
