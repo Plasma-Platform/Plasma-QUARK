@@ -69,12 +69,16 @@ export default class Notification extends Component {
 
   handleAnimationEnd (event) {
     if (event.target === this.container && !this.props.show) {
+      window.removeEventListener('click', this.handleClickOutside);
+
       this.removeContainer();
+    } else {
+      window.addEventListener('click', this.handleClickOutside);
     }
   }
 
   handleClickOutside (event) {
-    if (this.props.hideOnClickOutside && this.container && event.target !== this.container && this.container.contains(event.target) !== true && this.props.show) {
+    if (this.props.hideOnClickOutside && this.container && event.target !== this.container && !this.container.contains(event.target) && this.props.show) {
       this.props.onRequestHide();
     }
   }
@@ -85,20 +89,12 @@ export default class Notification extends Component {
     });
   }
 
-  componentDidMount () {
-    window.addEventListener('click', this.handleClickOutside);
-  }
-
   componentWillReceiveProps (nextProps) {
     if (nextProps.show && !this.state.renderContainer) {
       this.setState({
         renderContainer: true
       });
     }
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('click', this.handleClickOutside);
   }
 
   render () {
