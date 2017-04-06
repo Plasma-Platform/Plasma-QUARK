@@ -43,12 +43,12 @@ export default class Notification extends Component {
 
   render () {
     const classes = classnames({
-      'notification'                                   : true,
-      [`notification--${this.props.size}`]             : true,
-      [`notification--${this.props.status}`]           : true,
-      [`notification--${this.props.position}`]         : true,
-      [`notification--${this.props.position}-arrow`]   : true,
-      [`animated-tooltip_open_${this.props.position}`] : true,
+      'quark-notification'                                   : true,
+      [`quark-notification--${this.props.size}`]             : true,
+      [`quark-notification--${this.props.status}`]           : true,
+      [`quark-notification--${this.props.position}`]         : true,
+      [`quark-notification--${this.props.position}-arrow`]   : true,
+      [`quark-animated-tooltip_open_${this.props.position}`] : true,
       [this.props.className]                           : this.props.className
     });
 
@@ -76,14 +76,14 @@ export default class Notification extends Component {
         className={classes}
         style={parameters}
       >
-        <div className='notification__container'>
-          <span className='notification__text' >
+        <div className='quark-notification__container'>
+          <span className='quark-notification__text' >
             {this.props.text}
             </span>
           {this.props.size === 'large'
-            ? (<div className='notification__closeBlock'>
+            ? (<div className='quark-notification__closeBlock'>
             <div
-              className='notification__closeBlock__closeArea'
+              className='quark-notification__closeBlock__closeArea'
               onClick={this.props.onHideNotification}
               onTouchEnd={this.props.onHideNotification}
               id={this.props.closeIconId}
