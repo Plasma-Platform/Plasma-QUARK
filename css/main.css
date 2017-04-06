@@ -1484,7 +1484,7 @@
   background-color: #546E7A;
   color: rgba(36, 50, 56, 0.2);
 }
-.quark-notification--default .notification__container {
+.quark-notification--default .quark-notification__container {
   background-color: #546E7A;
 }
 .quark-notification--success {
@@ -1495,7 +1495,7 @@
   background-color: #1AB744;
   color: rgba(0, 96, 35, 0.2);
 }
-.quark-notification--success .notification__container {
+.quark-notification--success .quark-notification__container {
   background-color: #1AB744;
 }
 .quark-notification--error {
@@ -1506,10 +1506,10 @@
   background-color: #D84315;
   color: rgba(191, 54, 12, 0.2);
 }
-.quark-notification--error .notification__container {
+.quark-notification--error .quark-notification__container {
   background-color: #D84315;
 }
-.quark-notification--small .notification__container {
+.quark-notification--small .quark-notification__container {
   height: 40px;
 }
 .quark-notification--large {
@@ -1518,7 +1518,7 @@
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
-.quark-notification--large .notification__container {
+.quark-notification--large .quark-notification__container {
   padding: 20px;
 }
 .quark-notification--large .quark-notification__text {
