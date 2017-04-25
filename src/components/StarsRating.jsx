@@ -18,6 +18,10 @@ export default class StarsRating extends Component {
   state = {
     value : this.props.defaultRating
   };
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps);
+    console.log('this.state.value', this.state.value);
+  }
 
   constructor (props) {
     super(props);
