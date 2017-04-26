@@ -77,7 +77,7 @@ export default class StarsRating extends Component {
             return (
               <i
                 key={i}
-                className={`stars-rating_qqqqqqqqqqqqqqqqqqq_icon ${this.printStarClass(this.state.value, i)}`}
+                className={`stars-rating__icon ${this.printStarClass(this.state.value, i)}`}
                 onClick={this.select.bind(this, i)}
               >
               </i>
