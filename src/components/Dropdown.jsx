@@ -4,15 +4,16 @@ import './Dropdown.less';
 
 export default class Dropdown extends React.Component {
   static propTypes = {
-    id                : React.PropTypes.string,
-    name              : React.PropTypes.string,
-    defaultOpen       : React.PropTypes.bool,
-    defaultValue      : React.PropTypes.any,
-    value             : React.PropTypes.any,
-    showLabel         : React.PropTypes.bool,
-    label             : React.PropTypes.string,
-    showLabelInButton : React.PropTypes.bool,
-    labelSize         : React.PropTypes.oneOf([
+    id                  : React.PropTypes.string,
+    name                : React.PropTypes.string,
+    defaultOpen         : React.PropTypes.bool,
+    closeOnClickOutside : React.PropTypes.bool,
+    defaultValue        : React.PropTypes.any,
+    value               : React.PropTypes.any,
+    showLabel           : React.PropTypes.bool,
+    label               : React.PropTypes.string,
+    showLabelInButton   : React.PropTypes.bool,
+    labelSize           : React.PropTypes.oneOf([
       'small',
       'medium'
     ]),
@@ -48,6 +49,7 @@ export default class Dropdown extends React.Component {
 
   static defaultProps = {
     defaultOpen             : false,
+    closeOnClickOutside     : true,
     showLabel               : true,
     showLabelInButton       : false,
     labelSize               : 'medium',
@@ -77,27 +79,26 @@ export default class Dropdown extends React.Component {
   constructor (props) {
     super(props);
 
-    this.toggle                   = this.toggle.bind(this);
-    this.open                     = this.open.bind(this);
-    this.handleShowAnimationEnd   = this.handleShowAnimationEnd.bind(this);
-    this.close                    = this.close.bind(this);
-    this.handleHideAnimationEnd  = this.handleHideAnimationEnd.bind(this);
+    this.toggle                    = this.toggle.bind(this);
+    this.open                      = this.open.bind(this);
+    this.close                     = this.close.bind(this);
 
-    this.handleOptionSelect       = this.handleOptionSelect.bind(this);
-    this.filterOptions            = this.filterOptions.bind(this);
+    this.handleContentAnimationEnd = this.handleContentAnimationEnd.bind(this);
 
-    this.handleDropdownBlur       = this.handleDropdownBlur.bind(this);
-    this.handleContainerKeyDown   = this.handleContainerKeyDown.bind(this);
-    this.handleButtonKeyDown      = this.handleButtonKeyDown.bind(this);
-    this.handleFilterInputKeyDown = this.handleFilterInputKeyDown.bind(this);
-    this.handleOptionKeyDown      = this.handleOptionKeyDown.bind(this);
+    this.handleOptionSelect        = this.handleOptionSelect.bind(this);
+    this.filterOptions             = this.filterOptions.bind(this);
 
-    this.defaultSelectedOption    = this.props.defaultValue ? this.getOptionByValue(this.props.defaultValue) || this.props.options[0] : this.props.options[0];
-    this.defaultValue             = this.defaultSelectedOption.value;
+    this.handleDropdownBlur        = this.handleDropdownBlur.bind(this);
+    this.handleContainerKeyDown    = this.handleContainerKeyDown.bind(this);
+    this.handleButtonKeyDown       = this.handleButtonKeyDown.bind(this);
+    this.handleFilterInputKeyDown  = this.handleFilterInputKeyDown.bind(this);
+    this.handleOptionKeyDown       = this.handleOptionKeyDown.bind(this);
 
-    this.openContentPosition      = 'bottom';
-    this.optionsListMaxHeight     = '100%';
-    this.showOptionsListScrollBar = false;
+    this.defaultSelectedOption     = this.props.defaultValue ? this.getOptionByValue(this.props.defaultValue) || this.props.options[0] : this.props.options[0];
+
+    this.openContentPosition       = 'bottom';
+    this.optionsListMaxHeight      = '100%';
+    this.showOptionsListScrollBar  = false;
   }
 
   toggle () {
@@ -105,57 +106,62 @@ export default class Dropdown extends React.Component {
   }
 
   open () {
-    this.setState({
-      open: true
+    this.setState(() => {
+      return {
+        open        : true,
+        showContent : false
+      };
     }, this.showContent);
   }
 
   showContent () {
-    this.content.addEventListener('animationend', this.handleShowAnimationEnd);
+    this.props.onOpen && this.props.onOpen(this.getValue());
+    this.props.closeOnClickOutside && window.addEventListener('click', this.handleDropdownBlur);
 
-    this.setState({
-      showContent: true
+    this.setState(() => {
+      return {
+        open        : true,
+        showContent : true
+      };
     });
-  }
-
-  handleShowAnimationEnd () {
-    this.content.removeEventListener('animationend', this.handleShowAnimationEnd);
-
-    if (this.filterInput) {
-      this.filterInput.focus();
-    }
-
-    if (this.props.onOpen) {
-      this.props.onOpen(this.getValue());
-    }
-
-    window.addEventListener('click', this.handleDropdownBlur);
-    window.addEventListener('keydown', this.handleDropdownBlur);
   }
 
   close () {
-    this.content.addEventListener('animationend', this.handleHideAnimationEnd);
+    this.props.closeOnClickOutside && window.removeEventListener('click', this.handleDropdownBlur);
 
-    this.setState({
-      showContent: false
-    }, () => {
-      window.removeEventListener('click', this.handleDropdownBlur);
-      window.removeEventListener('keydown', this.handleDropdownBlur);
+    this.hideContent();
+  }
+
+  hideContent () {
+    this.setState(() => {
+      return {
+        open        : true,
+        showContent : false
+      };
     });
   }
 
-  handleHideAnimationEnd () {
-    this.content.removeEventListener('animationend', this.handleHideAnimationEnd);
-
-    this.button.blur();
-
-    if (this.props.onClose) {
-      this.props.onClose(this.getValue());
+  handleContentAnimationEnd (event) {
+    if (event.target === this.content) {
+      this.state.showContent ? this.handleShowContentAnimationEnd() : this.handleHideContentAnimationEnd();
     }
+  }
 
-    this.setState({
-      open: false
-    }, this.hideContent);
+  handleShowContentAnimationEnd () {
+    this.filterInput && this.filterInput.focus();
+  }
+
+  handleHideContentAnimationEnd () {
+    this.button && this.button.blur();
+
+    this.setState(() => {
+      return {
+        open        : false,
+        showContent : false
+      };
+    }, () => {
+      this.props.onClose && this.props.onClose(this.getValue());
+    });
   }
 
   getOptionsListMaxHeight () {
@@ -282,16 +288,11 @@ export default class Dropdown extends React.Component {
   }
 
   componentDidMount () {
-    if (this.state.open) {
-      this.showContent();
-    }
+    this.props.defaultOpen && this.showContent();
   }
 
   componentWillUnmount () {
-    if (this.state.showContent) {
-      window.removeEventListener('click', this.handleDropdownBlur);
-      window.removeEventListener('keydown', this.handleDropdownBlur);
-    }
+    this.state.showContent && this.props.closeOnClickOutside && window.removeEventListener('click', this.handleDropdownBlur);
   }
 
   render () {
@@ -366,14 +367,18 @@ export default class Dropdown extends React.Component {
 
               {this.props.buttonContent ? (
                 <span className="tm-quark-dropdown__button-content">
-                  {this.props.buttonContent}
+                  <span className="tm-quark-dropdown__button-label-content">
+                    {this.props.buttonContent}
+                  </span>
                 </span>
               ) : (
                 <span className="tm-quark-dropdown__button-content">
                   {(this.selectedOption.icon && this.props.optionIconRadioStyle !== true) && (
                     <i className={`tm-quark-dropdown__icon tm-quark-dropdown__icon_size_medium icon icon-${this.selectedOption.icon}`}></i>
                   )}
-                  {this.props.showOptionHTMLInButton && this.selectedOption.html ? this.selectedOption.html : this.selectedOption.label}
+                  <span className="tm-quark-dropdown__button-label-content">
+                    {this.props.showOptionHTMLInButton && this.selectedOption.html ? this.selectedOption.html : this.selectedOption.label}
+                  </span>
                 </span>
               )}
               <span className="tm-quark-dropdown__button-arrow"></span>
@@ -383,8 +388,9 @@ export default class Dropdown extends React.Component {
 
         {this.state.open && (
           <div
-            className = {`tm-quark-dropdown__content${this.state.showContent ? ' tm-quark-dropdown__content_animate_show' : ' tm-quark-dropdown__content_animate_hide'}`}
-            ref       = {(ref) => { this.content = ref; }}
+            className      = {`tm-quark-dropdown__content${this.state.showContent ? ' tm-quark-dropdown__content_animate_show' : ' tm-quark-dropdown__content_animate_hide'}`}
+            onAnimationEnd = {this.handleContentAnimationEnd}
+            ref            = {(ref) => { this.content = ref; }}
           >
             {this.props.showFilterBox && (
               <div

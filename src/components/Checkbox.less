@@ -1,7 +1,12 @@
-.checkbox {
+.tm-quark-checkbox {
+  align-items: center;
   box-sizing: border-box;
-  display: inline-block;
-  position: relative;
+  color: #242338;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 400;
+  flex: row nowrap;
+  touch-action: manipulation;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 
@@ -11,113 +16,91 @@
     box-sizing: inherit;
   }
 
+  &_disabled {
+    pointer-events: none;
+  }
+
+  &:hover {
+    color: #1ab744;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
   &__input {
-    top: 0;
-    height: 0;
-    left: 0;
-    margin: 0;
-    opacity: 0;
-    padding: 0;
-    position: absolute;
-    width: 0;
+    display: none;
+  }
+
+  &__icon {
+    align-items: center;
+    border: 2px solid #cfd8dc;
+    border-radius: 3px;
+    display: inline-flex;
+    height: 20px;
+    margin-right: 10px;
+    justify-content: center;
+    width: 20px;
+
+    &::before {
+      border-bottom: 2px solid;
+      border-right: 2px solid;
+      color: transparent;
+      content: "";
+      display: block;
+      height: 14px;
+      margin-top: -4px;
+      transform: rotate(45deg);
+      width: 10px;
+    }
+
+    .tm-quark-checkbox__input:checked + & {
+      background-color: #1ab744;
+      border-color: #1ab744;
+
+      &::before {
+        color: #fff;
+      }
+    }
+
+    .tm-quark-checkbox__input:disabled + & {
+      background-color: transparent;
+      border-color: #eceff1;
+    }
+
+    .tm-quark-checkbox__input:checked:disabled + & {
+      background-color: #cfd8dc;
+      border-color: #cfd8dc;
+    }
+
+    .tm-quark-checkbox:hover & {
+      border-color: #1ab744;
+    }
+
+    .tm-quark-checkbox:active & {
+      background-color: #1ab744;
+      border-color: #1ab744;
+      height: 16px;
+      margin: 2px 12px 2px 2px;
+      width: 16px;
+
+      &::before {
+        color: transparent;
+      }
+    }
   }
 
   &__label {
-    cursor: pointer;
-    display: inline-block;
-    font-weight: 400;
-    margin-bottom: 0;
-    padding-left: 30px;
-    touch-action: manipulation;
-    color: #243238;
+    align-items: center;
+    display: inline-flex;
 
-    &::before,
-    &::after {
-      top: 50%;
-      border-radius: 3px;
-      content: "";
-      left: 0;
-      position: absolute;
-    }
-
-    &::before {
-      border: 2px solid #cfd8dc;
-      height: 20px;
-      margin-top: -10px;
-      width: 20px;
-    }
-
-    &::after {
-      border-bottom: 3px solid #fff;
-      border-left: 3px solid #fff;
-      display: none;
-      height: 10px;
-      margin: -7px 0 0 3px;
-      transform: rotate(-45deg);
-      width: 14px;
-    }
-
-    &:hover,
-    &:focus,
-    &:active {
-      color: #1ab744;
-
-      &::before {
-        border-color: #1ab744;
-      }
-    }
-
-    &:focus,
-    &:active {
-      outline: none;
-
-      &::before {
-        background-color: #1ab744;
-        height: 16px;
-        margin: -8px 0 0 2px;
-        width: 16px;
-      }
-    }
-
-    :checked + & {
+    .tm-quark-checkbox__input:checked ~ & {
       color: #1ab744;
       font-weight: 700;
-
-      &::before {
-        background-color: #1ab744;
-        border-color: #1ab744;
-      }
-
-      &::after {
-        display: block;
-      }
-
-      &:focus,
-      &:active {
-        &::after {
-          display: none;
-        }
-      }
     }
 
-    :disabled + & {
+    .tm-quark-checkbox__input:disabled ~ & {
       color: #cfd8dc;
-      cursor: default;
-      pointer-events: none;
-      &::before {
-        border-color: #eceff1;
-      }
-    }
-
-    :disabled:checked + & {
-      &::before {
-        background-color: #cfd8dc;
-        border-color: #cfd8dc;
-      }
-
-      &::after {
-        display: block;
-      }
     }
   }
 }
