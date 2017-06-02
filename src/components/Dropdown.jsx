@@ -128,7 +128,6 @@ export default class Dropdown extends React.Component {
 
   close () {
     this.props.closeOnClickOutside && window.removeEventListener('click', this.handleDropdownBlur);
-    this.props.onClose && this.props.onClose(this.getValue());
 
     this.hideContent();
   }
@@ -153,13 +152,15 @@ export default class Dropdown extends React.Component {
   }
 
   handleHideContentAnimationEnd () {
-    this.button.blur();
+    this.button && this.button.blur();
 
     this.setState(() => {
       return {
         open        : false,
         showContent : false
       };
+    }, () => {
+      this.props.onClose && this.props.onClose(this.getValue());
     });
   }
 

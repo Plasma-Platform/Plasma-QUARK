@@ -1,10 +1,11 @@
 {
   "name": "quark",
-  "version": "1.0.9",
+  "version": "1.0.14",
   "description": "QUARK-React description",
   "main": "webpack.config.js",
   "scripts": {
     "build": "npm run compile && npm run build:css",
+    "build:demo": "npm run compile && npm run build:css  && cd example && npm start",
     "build:css": "rimraf css && webpack && rimraf css/main.js",
     "compile": "rimraf lib && BABEL_ENV=build babel src/components --out-dir lib",
     "test": "jest",

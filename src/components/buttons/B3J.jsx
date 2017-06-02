@@ -2,18 +2,16 @@ import React from 'react';
 
 import Button from '../Button.jsx';
 
-export default class B3J extends React.Component {
-  render () {
-    return (
-      <Button
-        {...this.props}
-        widthType   = "full"
-        heightType  = "medium"
-        roundedType = "bottom"
-        bgType      = "3"
-      >
-        {this.props.children}
-      </Button>
-    );
-  }
+export default function B3J (props) {
+  return (
+    <Button
+      widthType   = "full"
+      heightType  = "medium"
+      roundedType = "bottom"
+      bgType      = "3"
+      {...props}
+    >
+      {props.children}
+    </Button>
+  );
 }

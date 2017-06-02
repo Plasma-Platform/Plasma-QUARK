@@ -9,7 +9,8 @@ export default class TA5 extends Component {
     label            : React.PropTypes.string,
     notificationText : React.PropTypes.string,
     onValidate       : React.PropTypes.func,
-    maxLength        : React.PropTypes.number
+    maxLength        : React.PropTypes.number,
+    increaseValue    : React.PropTypes.bool
   };
 
   getValue = () => {
@@ -29,6 +30,7 @@ export default class TA5 extends Component {
         sizeType='TA5'
         className={ this.props.className || ''}
         maxLength={ this.props.maxLength || 2000 }
+        increaseValue = {this.props.increaseValue}
       />
     );
   }

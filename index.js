@@ -10,3 +10,4 @@ export { default as Popups }        from './src/components/popups';
 export { default as Loaders }       from './src/components/loaders';
 export { default as Avatar }        from './src/components/Avatar.jsx';
 export { default as Typography }    from './src/components/typography';
+export { default as StarsRating }   from './src/components/StarsRating.jsx';
