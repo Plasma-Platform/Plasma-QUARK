@@ -12,3 +12,4 @@ export { default as Switchers }     from './src/components/switchers';
 export { default as SwitcherGroup } from './src/components/switcherGroups';
 export { default as Textareas }     from './src/components/textareas';
 export { default as Typography }    from './src/components/typography';
+export { default as StarsRating }   from './src/components/StarsRating.jsx';

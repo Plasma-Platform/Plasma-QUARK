@@ -1,4 +1,4 @@
-import React    from 'react';
+import React from 'react';
 
 import Textarea from '../Textarea.jsx';
 
