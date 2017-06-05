@@ -62,9 +62,10 @@ export default class Notification extends Component {
     };
 
     let Button = null;
+    let buttonAttr = null;
     if ( !isEmptyObject(this.props.button) ) {
       Button = Buttons[this.props.button.code ? this.props.button.code : 'B2J'];
-      const buttonAttr = {
+      buttonAttr = {
         onClick   : this.props.button.onClick,
         type      : this.props.button.type,
         className : this.props.button.className
