@@ -4,6 +4,7 @@
   "description": "QUARK-React description",
   "main": "webpack.config.js",
   "scripts": {
+    "install": "./deploy/hooks.sh",
     "build": "npm run compile && npm run build:css",
     "build:demo": "npm run compile && npm run build:css  && cd example && npm start",
     "build:css": "rimraf css && webpack && rimraf css/main.js",
