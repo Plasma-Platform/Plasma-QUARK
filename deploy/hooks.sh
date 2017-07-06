@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-cp ./hooks/* ./.git/hooks/
+if [ -d './hooks' ] && [ -d './.git/hooks' ]; then
+  cp ./hooks/* ./.git/hooks/
+fi
