@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# An example hook script to prepare the commit log message.
+# Called by "git commit" with the name of the file that has the
+# commit message, followed by the description of the commit
+# message's source.  The hook's purpose is to edit the commit
+# message file.  If the hook fails with a non-zero status,
+# the commit is aborted.
+#
+# To enable this hook, rename this file to "prepare-commit-msg".
+
+MESSAGE=`cat "$1"`;
+
+if (! [[ "$MESSAGE" =~ ^[A-Z]+-[0-9]+\ -\ .{5,}$ ]]) && [ "$MESSAGE" != "merge" ] && [ "$MESSAGE" != "lock" ]; then echo "Commit message either should have following format: 'ISSUE-123 - description'. 'PTR-1 - fixed bug with fox eating clocks' for example. Either be 'lock' or 'merge' predefined commit messages."; exit 1;
+fi
+
+if [[ "$MESSAGE" =~ ([а-яА-Я]+) ]]; then echo "Use english language for commit message."; exit 1;
+fi
+
+if [[ ${#MESSAGE} -le 9 ]] && [ "$MESSAGE" != "merge" ] && [ "$MESSAGE" != "lock" ]; then echo "Commit message is too short (${#MESSAGE}), try be more descriptive."; exit 2;
+fi
+
+echo "Commit message is ok.";
+exit 0;
