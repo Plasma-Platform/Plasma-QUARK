@@ -1,0 +1,101 @@
+@import './colors.pcss';
+
+@define-mixin T $level: 4, $semantics: 'main', $type: 'text', $theme: 'light' {
+  text-decoration: none;
+  @if $level == 1 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  @else if $level == 2 {
+    font-size: 15px;
+    line-height: 22px;
+  }
+  @else if $level == 3 {
+    font-size: 15px;
+    line-height: 22px;
+  }
+  @else if $level == 4 {
+    font-size: 13px;
+    line-height: 20px;
+  }
+  @else if $level == 5 {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  @else if $level == 6 {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  @if $theme == 'light' {
+    @if $semantics == 'main' {
+      color: $color_dark_main;
+    }
+    @else if $semantics == 'normal' {
+      color: $color_link_normal_light;
+    }
+    @else if $semantics == 'positive' {
+      color: $color_link_positive_light;
+    }
+    @else if $semantics == 'negative' {
+      color: $color_link_negative_light;
+    }
+    @else if $semantics == 'important' {
+      color: $color_link_important_light;
+    }
+    @else if $semantics == 'unimportant' {
+      color: $color_grey_light;
+    }
+  }
+  @else {
+    @if $semantics == 'main' {
+      color: $color_light_main;
+    }
+    @else if $semantics == 'normal' {
+      color: $color_link_normal_dark;
+    }
+    @else if $semantics == 'positive' {
+      color: $color_link_positive_dark;
+    }
+    @else if $semantics == 'negative' {
+      color: $color_link_negative_dark;
+    }
+    @else if $semantics == 'important' {
+      color: $color_link_important_dark;
+    }
+    @else if $semantics == 'unimportant' {
+      color: $color_grey_dark;
+    }
+  }
+  @if $type == 'link' {
+    &:hover {
+      @if $theme == 'light' {
+        @else if $semantics == 'normal' {
+          color: $color_link_normal_hover_light;
+        }
+        @else if $semantics == 'positive' {
+          color: $color_link_positive_hover_light;
+        }
+        @else if $semantics == 'negative' {
+          color: $color_link_negative_hover_light;
+        }
+        @else if $semantics == 'important' {
+          color: $color_link_important_hover_light;
+        }
+      }
+      @else {
+        @else if $semantics == 'normal' {
+          color: $color_link_normal_hover_dark;
+        }
+        @else if $semantics == 'positive' {
+          color: $color_link_positive_hover_dark;
+        }
+        @else if $semantics == 'negative' {
+          color: $color_link_negative_hover_dark;
+        }
+        @else if $semantics == 'important' {
+          color: $color_link_important_hover_dark;
+        }
+      }
+    }
+  }
+}

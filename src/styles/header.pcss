@@ -1,0 +1,53 @@
+@import './colors.pcss';
+
+/*
+ * Text typographic. You should use .T() for text and .H(); .HL(); for links.
+ * @param $level {number} level of title from 0 to 3
+ * @param $theme {string} element theme [light, dark]
+ */
+
+@define-mixin H $level: '3', $theme: 'light' {
+  font-weight: bold;
+  text-decoration: none;
+  @if $level == 0 {
+    font-size: 50px;
+    line-height: 65px;
+  }
+  @else if $level == 1 {
+    font-size: 40px;
+    line-height: 52px;
+  }
+  @else if $level == 2 {
+    font-size: 30px;
+    line-height: 39px;
+  }
+  @else if $level == 3 {
+    font-size: 20px;
+    line-height: 30px;
+  }
+  @if $theme == 'light' {
+    color: $color_main_10;
+  }
+  @else if $theme == 'dark' {
+    color: $color_white;
+  }
+}
+
+@define-mixin HL $theme: 'light' {
+  @if $theme == 'light' {
+    color: $color_important_focus;
+
+    &:hover,
+    &:focus {
+      color: $color_important_focus;
+    }
+  }
+  @else if $theme == 'dark' {
+    color: $color_important_4;
+
+    &:hover,
+    &:focus {
+      color: $color_important_4;
+    }
+  }
+}
