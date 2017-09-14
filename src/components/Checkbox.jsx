@@ -1,30 +1,37 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Checkbox.less';
 
-export default function Checkbox (props) {
-  const {className, children, ...inputProps} = props;
+const Checkbox = ({
+  className,
+  children,
+  ...props
+}) => (
+  <label
+    className={`tm-quark-checkbox ${className}`}
+    tabIndex="0"
+  >
+    <input
+      {...props}
+      className="tm-quark-checkbox__input"
+      type="checkbox"
+    />
 
-  const customClassName = className ? ` ${className}` : '';
+    <i className="tm-quark-checkbox__icon" />
 
-  return (
-    <label
-      className = {`tm-quark-checkbox${customClassName}`}
-      tabIndex  = "0"
-    >
-      <input
-        {...inputProps}
-        className = "tm-quark-checkbox__input"
-        type      = "checkbox"
-      />
-      <i className="tm-quark-checkbox__icon"></i>
-      <span className="tm-quark-checkbox__label">
-        {children}
-      </span>
-    </label>
-  );
-}
+    <span className="tm-quark-checkbox__label">
+      {children}
+    </span>
+  </label>
+);
 
 Checkbox.propTypes = {
-  className: React.PropTypes.string
+  className: PropTypes.string,
+  children: PropTypes.node,
+};
+
+Checkbox.defaultProps = {
+  className: '',
+  children: null,
 };

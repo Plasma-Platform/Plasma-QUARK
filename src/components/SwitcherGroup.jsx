@@ -1,13 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './SwitcherGroup.less';
 
-export default class Switcher extends React.Component {
-  render () {
-    return (
-      <div className="switcher-group">
-        {this.props.children}
-      </div>
-    );
-  }
-}
+const SwitcherGroup = ({ children }) => (
+  <div className="switcher-group">
+    {children}
+  </div>
+);
+
+SwitcherGroup.propTypes = {
+  children: PropTypes.node,
+};
+
+SwitcherGroup.defaultProps = {
+  children: null,
+};
+
+export default SwitcherGroup;

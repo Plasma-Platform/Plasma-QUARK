@@ -1,18 +1,16 @@
 import React from 'react';
 
-import Button from '../Button.jsx';
+import Button from '../Button';
 
-export default function BT3 (props) {
-  return (
-    <Button
-      widthType   = "auto"
-      heightType  = "large"
-      roundedType = "all"
-      bgType      = "twitter"
-      icon        = "twitter"
-      {...props}
-    >
-      {props.children}
-    </Button>
-  );
-}
+const BT3 = props => (
+  <Button
+    widthType="auto"
+    heightType="large"
+    roundedType="all"
+    bgType="twitter"
+    icon="twitter"
+    {...props}
+  />
+);
+
+export default BT3;

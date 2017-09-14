@@ -1,13 +1,13 @@
-import React    from 'react';
+import React from 'react';
 
-import Textarea from '../Textarea.jsx';
+import Textarea from '../Textarea';
 
-export default function TA4 (props) {
-  return (
-    <Textarea
-      size = "large"
-      showTextareaIcon
-      {...props}
-    />
-  );
-};
+const TA4 = props => (
+  <Textarea
+    size="large"
+    showTextareaIcon
+    {...props}
+  />
+);
+
+export default TA4;

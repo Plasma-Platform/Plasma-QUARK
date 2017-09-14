@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Textarea from '../Textarea.jsx';
+import Textarea from '../Textarea';
 
-export default function TA5 (props) {
-  return (
-    <Textarea
-      size = "medium"
-      showSymbolsCounter
-      {...props}
-    />
-  );
-};
+const TA5 = props => (
+  <Textarea
+    size="medium"
+    showSymbolsCounter
+    {...props}
+  />
+);
+
+export default TA5;

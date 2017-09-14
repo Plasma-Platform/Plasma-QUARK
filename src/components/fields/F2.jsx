@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Field from '../Field.jsx';
+import Field from '../Field';
 
-export default function F2 (props) {
-  return (
-    <Field
-      size = "medium"
-      showInputIcon
-      {...props}
-    />
-  );
-};
+const F2 = props => (
+  <Field
+    size="medium"
+    showInputIcon
+    {...props}
+  />
+);
+
+export default F2;

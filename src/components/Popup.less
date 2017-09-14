@@ -1,32 +1,63 @@
-.popup {
+.tm-quark-popup {
+  animation-duration: .3s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(.86, 0, .07, 1);
+  background-color: rgba(36, 50, 56, .95);
+  bottom: 0;
   box-sizing: border-box;
-  height: 100%;
   left: 0;
-  position: fixed;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  top: 0;
-  width: 100%;
-  z-index: 9999;
-  overflow: auto;
   line-height: 100vh;
+  overflow: auto;
+  position: fixed;
+  right: 0;
   text-align: center;
+  top: 0;
+  z-index: 9999;
 
   *,
   *::before,
   *::after {
-    box-sizing: border-box;
+    box-sizing: inherit;
   }
 
-  &__bg {
-    background-color: #243238;
-    bottom: 0;
-    left: 0;
-    opacity: .95;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 0;
+  &__document {
+    overflow: hidden;
+  }
+
+  &_visible {
+    animation-name: TMQuarkShowPopup;
+
+    @keyframes TMQuarkShowPopup {
+      from {
+        opacity: 0;
+        transform: scale(.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+
+  &_hidden {
+    animation-name: TMQuarkHidePopup;
+
+    @keyframes TMQuarkHidePopup {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      to {
+        opacity: 0;
+        transform: scale(.8);
+      }
+    }
+  }
+
+  &:focus {
+    outline: none;
   }
 
   &__content {
@@ -36,17 +67,17 @@
     border-radius: 3px;
     display: inline-block;
     position: relative;
-    z-index: 1;
     line-height: 1;
     vertical-align: middle;
+    z-index: 1;
 
     &_padding {
       &_none {
-        &.dropdown__content_bg_transparent {
+        &.tm-quark-popup__content_bg_transparent {
           padding: 40px;
         }
 
-        &.dropdown__content_bg_fill {
+        &.tm-quark-popup__content_bg_fill {
           padding: 0;
         }
       }
@@ -62,214 +93,99 @@
 
     &_bg {
       &_transparent {
-        background-color: rgba(0,0,0,0);
+        background-color: rgba(0, 0, 0, 0);
         color: #fff;
+        margin: 40px;
+        max-width: calc(~"100% - 80px");
       }
 
       &_fill {
         background-color: #fff;
 
-        &.popup__content_padding_none,
-        &.popup__content_padding_medium {
+        &.tm-quark-popup__content_padding_none,
+        &.tm-quark-popup__content_padding_medium {
           margin: 40px;
           max-width: calc(~"100% - 80px");
         }
 
-        &.popup__content_padding_large {
+        &.tm-quark-popup__content_padding_large {
           margin: 80px;
           max-width: calc(~"100% - 160px");
         }
       }
     }
-
-    &_animate_show {
-      animation-name: showPopupContent;
-    }
-
-    &_animate_hide {
-      animation-name: hidePopupContent;
-    }
-
-    @keyframes showPopupContent {
-      from {
-        opacity: 0;
-        transform: scale(.8);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    @keyframes hidePopupContent {
-      from {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      to {
-        opacity: 0;
-        transform: scale(.8);
-      }
-    }
   }
 
-  &__close {
-    &-btn {
-      background: rgba(0, 0, 0, 0);
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      position: absolute;
-      -webkit-text-decoration-skip: objects;
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-      z-index: 2;
+  &__close-btn {
+    align-items: center;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    position: absolute;
+    width: 40px;
 
-      &::-moz-focus-inner {
-        border-style: none;
-        padding: 0;
-      }
-
-      &_bg {
-        &_fill {
-          right: -20px;
-          top: -20px;
-        }
-
-        &_transparent {
-          left: 100%;
-          top: 0;
-        }
-      }
+    &::before,
+    &::after {
+      background-color: #fff;
+      content: "";
+      width: 3px;
     }
 
-    &-cross {
-      position: absolute;
+    .tm-quark-popup__content_bg_fill & {
+      background-color: #b0bec5;
+      background-clip: padding-box;
+      border: 5px solid rgba(0, 0, 0, 0);
       border-radius: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(45deg);
-      z-index: 2;
+      right: 0;
+      top: 0;
+      transform: translateX(50%) translateY(-50%);
+
+      &:hover {
+        background-color: #d84315;
+      }
 
       &::before,
       &::after {
-        content: "";
-        position: absolute;
-        background-color: #fff;
+        height: 15px;
       }
 
-      &_bg {
-        &_fill {
-          background-color: #b0bec5;
-          height: 30px;
-          width: 30px;
+      &::before {
+        transform: rotate(45deg) translateX(50%);
+        transform-origin: right;
+      }
 
-          &::before {
-            width: 16px;
-            height: 4px;
-            left: 7px;
-            top: 13px;
-          }
-
-          &::after {
-            width: 4px;
-            height: 16px;
-            left: 13px;
-            top: 7px;
-          }
-
-          .popup__close-btn:hover &,
-          .popup__close-btn:focus & {
-            background-color: #d84315;
-          }
-        }
-
-        &_transparent {
-          background-color: rgba(0,0,0,0);
-          width: 26px;
-          height: 26px;
-
-          &::before,
-          &::after {
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-
-            .popup__close-btn:hover &,
-            .popup__close-btn:focus & {
-              background-color: #d84315;
-            }
-          }
-
-          &::before {
-            width: 100%;
-            height: 3px;
-          }
-
-          &::after {
-            width: 3px;
-            height: 100%;
-          }
-        }
+      &::after {
+        transform: rotate(-45deg) translateX(-50%);
+        transform-origin: left;
       }
     }
 
+    .tm-quark-popup__content_bg_transparent & {
+      right: 0;
+      top: 0;
+      transform: translateX(100%) translateY(40px);
 
-    &-text {
-      background-color: #546e7a;
-      border-radius: 3px;
-      color: #fff;
-      font-size: 13px;
-      height: 40px;
-      line-height: 40px;
-      opacity: 0;
-      padding: 0 20px;
-      position: absolute;
-      transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      transition-delay: .2s;
-      transition-duration: .5s;
-      transition-property: opacity, top, transform;
-      z-index: 1;
+      &::before,
+      &::after {
+        height: 20px;
+        border-radius: 3px;
+      }
+
+      &:hover {
+        &::before,
+        &::after {
+          background-color: #d84315;
+        }
+      }
 
       &::before {
-        background-color: #546e7a;
-        border-top-right-radius: 3px;
-        content: "";
-        height: 14px;
-        left: 50%;
-        margin-left: -7px;
-        position: absolute;
-        top: -7px;
-        transform: rotate(-45deg);
-        width: 14px;
+        transform: rotate(45deg) translateX(50%);
+        transform-origin: right;
       }
 
-      .popup__close-btn_bg_transparent + & {
-        left: 100%;
-        top: 10px;
-        transform: scale(.8) translateX(-62%);
-        margin-left: 20px;
-      }
-
-      .popup__close-btn_bg_fill + & {
-        left: 100%;
-        top: -5px;
-        transform: scale(.8) translateX(-62%);
-      }
-
-      .popup__close-btn:hover + & {
-        opacity: 1;
-        transform: scale(1) translateX(-50%);
-      }
-
-      .popup__close-btn_bg_transparent:hover + & {
-        top: 50px;
-      }
-
-      .popup__close-btn_bg_fill:hover + & {
-        top: 35px;
+      &::after {
+        transform: rotate(-45deg) translateX(-50%);
+        transform-origin: left;
       }
     }
   }

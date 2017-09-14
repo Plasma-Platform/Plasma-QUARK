@@ -1,58 +1,74 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Switcher.less';
 
 export default class Switcher extends React.Component {
   static propTypes = {
-    size      : React.PropTypes.oneOf(['medium', 'large']).isRequired,
-    className : React.PropTypes.string,
-    id        : React.PropTypes.string.isRequired,
-    name      : React.PropTypes.string.isRequired
+    size: PropTypes.oneOf(['medium', 'large']).isRequired,
+    className: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    onKeyUp: PropTypes.func,
+    onChange: PropTypes.func,
+    checked: PropTypes.bool,
+    label: PropTypes.node,
+    tabIndex: PropTypes.number,
   }
 
   static defaultProps = {
-    tabIndex: 0
-  }
-
-  constructor (props) {
-    super(props);
-
-    this.handleKeyUp = this.handleKeyUp.bind(this);
+    tabIndex: 0,
+    className: '',
+    onKeyUp: null,
+    onChange: null,
+    checked: false,
+    label: null,
   }
 
   handleKeyUp = (event) => {
-    this.props.onKeyUp ? this.props.onKeyUp() : null;
+    this.props.onKeyUp();
 
     if (event.keyCode === 13 && this.input.checked === false) {
       this.input.checked = !this.input.checked;
       this.label.blur();
-      this.props.onChange ? this.props.onChange() : null;
+      this.props.onChange();
     }
   }
 
-  render () {
-    const {size, className, id, name, label, checked, tabIndex, onKeyUp, ...props} = this.props;
-    const addClassName = className ? ` ${className}` : '';
+  render() {
+    const {
+      size,
+      className,
+      id,
+      name,
+      label,
+      checked,
+      tabIndex,
+      onKeyUp,
+      ...props
+    } = this.props;
 
     return (
       <div
-        className = {`switcher switcher_size_${size}${addClassName}`}
+        className={`switcher switcher_size_${size} ${className}`}
       >
         <input
           {...props}
-          className      = "switcher__input"
-          id             = {id}
-          name           = {name}
-          type           = "radio"
-          defaultChecked = {checked}
-          ref            = {ref => { this.input = ref; }}
+          className="switcher__input"
+          id={id}
+          name={name}
+          type="radio"
+          defaultChecked={checked}
+          ref={(ref) => { this.input = ref; }}
         />
+
         <label
-          className = "switcher__label"
-          htmlFor   = {id}
-          tabIndex  = {tabIndex || this.props.tabIndex}
-          onKeyUp   = {this.handleKeyUp}
-          ref       = {ref => { this.label = ref; }}
+          className="switcher__label"
+          htmlFor={id}
+          tabIndex={tabIndex || this.props.tabIndex}
+          onKeyUp={this.handleKeyUp}
+          ref={(ref) => { this.label = ref; }}
+          role="presentation"
         >
           {label}
         </label>

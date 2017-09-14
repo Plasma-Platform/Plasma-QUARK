@@ -1,17 +1,15 @@
 import React from 'react';
 
-import Button from '../Button.jsx';
+import Button from '../Button';
 
-export default function B3L (props) {
-  return (
-    <Button
-      widthType   = "full"
-      heightType  = "large"
-      roundedType = "bottom"
-      bgType      = "3"
-      {...props}
-    >
-      {props.children}
-    </Button>
-  );
-}
+const B3L = props => (
+  <Button
+    widthType="full"
+    heightType="large"
+    roundedType="bottom"
+    bgType="3"
+    {...props}
+  />
+);
+
+export default B3L;

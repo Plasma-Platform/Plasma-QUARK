@@ -1,15 +1,13 @@
 import React from 'react';
 
-import Loader from '../Loader.jsx';
+import Loader from '../Loader';
 
-export default class L1 extends React.Component {
-  render () {
-    return (
-      <Loader
-        {...this.props}
-        width  = "full"
-        height = "large"
-      />
-    );
-  }
-}
+const L1 = props => (
+  <Loader
+    width="full"
+    height="large"
+    {...props}
+  />
+);
+
+export default L1;

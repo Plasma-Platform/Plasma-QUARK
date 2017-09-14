@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Field from '../Field.jsx';
+import Field from '../Field';
 
-export default function F3 (props) {
-  return (
-    <Field
-      size = "large"
-      showPlaceholderOnInput
-      {...props}
-    />
-  );
-};
+const F3 = props => (
+  <Field
+    size="large"
+    showPlaceholderOnInput
+    {...props}
+  />
+);
+
+export default F3;

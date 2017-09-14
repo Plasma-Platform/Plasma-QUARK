@@ -1,15 +1,12 @@
 import React from 'react';
 
-import Switcher from '../Switcher.jsx';
+import Switcher from '../Switcher';
 
-export default class SW1 extends React.Component {
-  render () {
-    return (
-      <Switcher
-        {...this.props}
-        size = "medium"
-        ref  = {ref => { this.switcher = ref; }}
-      />
-    );
-  }
-}
+const SW1 = props => (
+  <Switcher
+    size="medium"
+    {...props}
+  />
+);
+
+export default SW1;

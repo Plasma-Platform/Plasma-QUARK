@@ -1,20 +1,17 @@
 import React from 'react';
 
-import Notification from '../Notification.jsx';
+import Notification from '../Notification';
 
-export default function N2E (props) {
-  const {children, ...notificationProps} = props;
-  return (
-    <Notification
-      type           = "error"
-      position       = "absolute"
-      placement      = "top"
-      height         = "auto"
-      width          = "auto"
-      arrowPlacement = "bottom"
-      {...notificationProps}
-    >
-      {children}
-    </Notification>
-  );
-}
+const N2E = props => (
+  <Notification
+    type="error"
+    position="absolute"
+    placement="top"
+    height="auto"
+    width="auto"
+    arrowPlacement="bottom"
+    {...props}
+  />
+);
+
+export default N2E;

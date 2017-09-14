@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Radio from '../Radio.jsx';
+import Radio from '../Radio';
 
-export default function R1 (props) {
-  return (
-    <Radio {...props} />
-  );
-}
+const R1 = props => (
+  <Radio {...props} />
+);
+
+export default R1;

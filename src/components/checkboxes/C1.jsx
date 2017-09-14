@@ -1,9 +1,9 @@
-import React    from 'react';
+import React from 'react';
 
-import Checkbox from '../Checkbox.jsx';
+import Checkbox from '../Checkbox';
 
-export default function C1 (props) {
-  return (
-    <Checkbox {...props} />
-  );
-}
+const C1 = props => (
+  <Checkbox {...props} />
+);
+
+export default C1;

@@ -5,6 +5,7 @@
   color: #fff;
   padding-left: 20px;
   padding-right: 20px;
+  z-index: 2;
 
   *,
   *::before,
@@ -48,7 +49,7 @@
       left: 0;
 
       &.tm-quark-notification_visible {
-        animation: TMQuarkNotificationShowToLeft .5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        animation: TMQuarkNotificationShowToLeft .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
 
         @keyframes TMQuarkNotificationShowToLeft {
           from {
@@ -66,7 +67,7 @@
       }
 
       &.tm-quark-notification_hidden {
-        animation: TMQuarkNotificationHideFromLeft .5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        animation: TMQuarkNotificationHideFromLeft .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
 
         @keyframes TMQuarkNotificationHideFromLeft {
           from {
@@ -88,7 +89,7 @@
       top: 0;
 
       &.tm-quark-notification_visible {
-        animation: TMQuarkNotificationShowToTop .5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        animation: TMQuarkNotificationShowToTop .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
 
         @keyframes TMQuarkNotificationShowToTop {
           from {
@@ -106,7 +107,7 @@
       }
 
       &.tm-quark-notification_hidden {
-        animation: TMQuarkNotificationHideFromTop .5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        animation: TMQuarkNotificationHideFromTop .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
 
         @keyframes TMQuarkNotificationHideFromTop {
           from {
@@ -128,7 +129,7 @@
       bottom: 0;
 
       &.tm-quark-notification_visible {
-        animation: TMQuarkNotificationShowToBottom .5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        animation: TMQuarkNotificationShowToBottom .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
 
         @keyframes TMQuarkNotificationShowToBottom {
           from {
@@ -146,7 +147,7 @@
       }
 
       &.tm-quark-notification_hidden {
-        animation: TMQuarkNotificationHideFromBottom .5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        animation: TMQuarkNotificationHideFromBottom .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
 
         @keyframes TMQuarkNotificationHideFromBottom {
           from {
@@ -168,7 +169,7 @@
       right: 0;
 
       &.tm-quark-notification_visible {
-        animation: TMQuarkNotificationShowToRight .5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        animation: TMQuarkNotificationShowToRight .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
 
         @keyframes TMQuarkNotificationShowToRight {
           from {
@@ -186,7 +187,7 @@
       }
 
       &.tm-quark-notification_hidden {
-        animation: TMQuarkNotificationHideFromRight .5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        animation: TMQuarkNotificationHideFromRight .5s cubic-bezier(.68, -.55, .265, 1.55) forwards;
 
         @keyframes TMQuarkNotificationHideFromRight {
           from {
@@ -215,10 +216,12 @@
     }
 
     &_fixed-medium {
+      font-size: 13px;
       height: 60px;
     }
 
     &_auto {
+      font-size: 13px;
       padding-bottom: 20px;
       padding-top: 20px;
     }
@@ -234,7 +237,7 @@
     &_success {
       color: #1ab744;
       background-color: #1ab744;
-      box-shadow: 0 5px 10px 0 rgba(0, 96, 35, 0.2);
+      box-shadow: 0 5px 10px 0 rgba(0, 96, 35, .2);
     }
 
     &_error {
@@ -299,7 +302,6 @@
 
   &__content {
     color: #fff;
-    position: relative;
     white-space: nowrap;
     width: 100%;
   }

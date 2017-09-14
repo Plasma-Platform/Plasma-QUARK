@@ -1,7 +1,2 @@
-import SW1 from './SW1.jsx';
-import SW2 from './SW2.jsx';
-
-export default {
-  SW1,
-  SW2
-};
+export SW1 from './SW1';
+export SW2 from './SW2';

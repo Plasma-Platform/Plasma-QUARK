@@ -1,106 +1,184 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import notifications from './notifications/';
 
 import './Popup.less';
 
-export default class Popup extends React.Component {
+export default class Popup extends Component {
   static propTypes = {
-    open           : React.PropTypes.bool.isRequired,
-    bg             : React.PropTypes.oneOf(['transparent', 'fill']).isRequired,
-    padding        : React.PropTypes.oneOf(['none', 'medium', 'large']).isRequired,
-    closeText      : React.PropTypes.string.isRequired,
-    onRequestClose : React.PropTypes.func.isRequired,
-    className      : React.PropTypes.string,
-    id             : React.PropTypes.string
+    onRequestHide: PropTypes.func.isRequired,
+    show: PropTypes.bool,
+    contentBg: PropTypes.oneOf(['transparent', 'fill']),
+    contentPadding: PropTypes.oneOf(['none', 'medium', 'large']),
+    showCloseBtn: PropTypes.bool,
+    closeBtnTooltipType: PropTypes.string,
+    closeBtnTooltipContent: PropTypes.node,
+    closeOnClickOnOverlay: PropTypes.bool,
+    hideOnPressEsc: PropTypes.bool,
+    children: PropTypes.node,
+    className: PropTypes.string,
   }
 
-  constructor (props) {
+  static defaultProps = {
+    show: false,
+    contentBg: 'fill',
+    contentPadding: 'medium',
+    showCloseBtn: true,
+    closeOnClickOnOverlay: true,
+    hideOnPressEsc: true,
+    closeBtnTooltipType: 'N1C',
+    closeBtnTooltipContent: null,
+    children: null,
+    className: null,
+  };
+
+  constructor(props) {
     super(props);
 
-    this.closePopupOnEsc = this.closePopupOnEsc.bind(this);
-    this.animateClose    = this.animateClose.bind(this);
-    this.close           = this.close.bind(this);
+    this.openCloseBtnTooltipTimeout = null;
   }
 
-  close () {
-    this.content.removeEventListener('animationend', this.close);
-    document.body.style.removeProperty('overflow');
-    this.props.onRequestClose();
+  state = {
+    renderContainer: this.props.show,
+    showCloseBtnTooltip: false,
   }
 
-  animateClose () {
-    this.content.classList.add('popup__content_animate_hide');
-    this.content.addEventListener('animationend', this.close);
-  }
-
-  closePopupOnEsc (event) {
-    if (event.keyCode === 27 && this.props.open) {
-      this.animateClose();
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.show && !this.state.renderContainer) {
+      this.setState(() => ({
+        renderContainer: true,
+      }));
     }
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.removeProperty('overflow');
+  componentWillUnmount() {
+    document.body.classList.remove('tm-quark-popup__document');
+  }
+
+  removeContainer = () => {
+    this.setState(() => ({
+      renderContainer: false,
+    }));
+  }
+
+  handleAnimationEnd = (event) => {
+    if (event.target === this.container) {
+      if (this.props.show) {
+        document.body.classList.add('tm-quark-popup__document');
+      } else {
+        document.body.classList.remove('tm-quark-popup__document');
+        this.removeContainer();
+      }
     }
   }
 
-  componentDidMount () {
-    if (this.props.open) {
-      document.body.style.overflow = 'hidden';
+  handleBlur = (event) => {
+    if (
+      (event.keyCode === 27 && this.props.hideOnPressEsc)
+      && this.container
+      && this.content
+      && (event.target === this.container || event.target === this.content)
+      && this.props.show
+      && this.props.onRequestHide
+    ) {
+      this.props.onRequestHide();
     }
-    document.addEventListener('keydown', this.closePopupOnEsc);
   }
 
-  componentWillUnmount () {
-    document.body.style.removeProperty('overflow');
-    document.removeEventListener('keydown', this.closePopupOnEsc);
+  handleClickOnOverlay = (event) => {
+    if (
+      this.container
+      && event.target === this.container
+      && this.props.closeOnClickOnOverlay
+      && this.props.onRequestHide
+    ) {
+      this.props.onRequestHide();
+    }
   }
 
-  renderContent () {
-    const popupClassName          = `popup${this.props.className ? ' ' + this.props.className : ''}`;
-    const contentBgClassName      = ` popup__content_bg_${this.props.bg}`;
-    const contentPaddingClassName = ` popup__content_padding_${this.props.padding}`;
-    const contentClassName        = `popup__content popup__content_animate_show${contentPaddingClassName}${contentBgClassName}`;
-    const closeBtnClassName       = `popup__close-btn popup__close-btn_bg_${this.props.bg}`;
-    const closeCrossClassName     = `popup__close-cross popup__close-cross_bg_${this.props.bg}`;
+  handleCloseBtnHover = () => {
+    this.openCloseBtnTooltipTimeout = setTimeout(() => {
+      this.setState(() => ({
+        showCloseBtnTooltip: true,
+      }));
+    }, 200);
+  }
+
+  hideCloseTooltip = () => {
+    clearTimeout(this.openCloseBtnTooltipTimeout);
+
+    this.setState(() => ({
+      showCloseBtnTooltip: false,
+    }));
+  }
+
+  render() {
+    const {
+      show,
+      onRequestHide,
+      contentBg,
+      contentPadding,
+      showCloseBtn,
+      closeBtnTooltipType,
+      closeBtnTooltipContent,
+      children,
+      className,
+      hideOnPressEsc,
+      closeOnClickOnOverlay,
+      ...popupProps
+    } = this.props;
+
+    const popupStateClassName = `tm-quark-popup_${show ? 'visible' : 'hidden'}`;
+
+    const popupContentBgClassName = `tm-quark-popup__content_bg_${contentBg}`;
+    const popupContentPaddingClassName = `tm-quark-popup__content_padding_${contentPadding}`;
+
+    const CloseBtnTooltipNotification = notifications[closeBtnTooltipType];
 
     return (
-      <div
-        className = {popupClassName}
-        id        = {this.props.id ? this.props.id : null}
-        role      = "dialog"
-        ref       = {ref => { this.container = ref; }}
-      >
+      this.state.renderContainer ? (
         <div
-          className = "popup__bg"
-          onClick   = {this.animateClose}
+          {...popupProps}
+          className={`tm-quark-popup ${popupStateClassName} ${className}`}
+          tabIndex="-1"
+          role="presentation"
+          onAnimationEnd={this.handleAnimationEnd}
+          onKeyDown={this.handleBlur}
+          onClick={this.handleClickOnOverlay}
+          ref={(ref) => { this.container = ref; }}
         >
-        </div>
-
-        <div
-          className = {contentClassName}
-          ref       = {ref => { this.content = ref; }}
-        >
-          <button
-            className  = {closeBtnClassName}
-            type       = "button"
-            aria-label = {this.props.closeText}
-            onClick    = {this.animateClose}
+          <div
+            className={`tm-quark-popup__content ${popupContentBgClassName} ${popupContentPaddingClassName}`}
+            ref={(ref) => { this.content = ref; }}
           >
-            <span className={closeCrossClassName}></span>
-          </button>
-          <span className="popup__close-text">{this.props.closeText}</span>
-          {this.props.children}
-        </div>
-      </div>
-    );
-  }
+            {showCloseBtn && (
+              <span
+                className="tm-quark-popup__close-btn"
+                role="button"
+                tabIndex="0"
+                onClick={onRequestHide}
+                onMouseEnter={this.handleCloseBtnHover}
+                onMouseLeave={this.hideCloseTooltip}
+                onTouchStart={this.handleCloseBtnHover}
+                onTouchEnd={this.hideCloseTooltip}
+              >
+                {CloseBtnTooltipNotification && closeBtnTooltipContent && (
+                  <CloseBtnTooltipNotification
+                    show={this.state.showCloseBtnTooltip}
+                    hideOnClickOutside={false}
+                  >
+                    {closeBtnTooltipContent}
+                  </CloseBtnTooltipNotification>
+                )}
+              </span>
+            )}
 
-  render () {
-    return (
-      this.props.open === true ? this.renderContent() : null
+            {children}
+          </div>
+        </div>
+      ) : (
+        null
+      )
     );
   }
 }

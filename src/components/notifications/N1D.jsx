@@ -1,20 +1,17 @@
 import React from 'react';
 
-import Notification from '../Notification.jsx';
+import Notification from '../Notification';
 
-export default function N1D (props) {
-  const {children, ...notificationProps} = props;
-  return (
-    <Notification
-      type           = "default"
-      position       = "absolute"
-      placement      = "top"
-      height         = "fixed-small"
-      width          = "auto"
-      arrowPlacement = "bottom"
-      {...notificationProps}
-    >
-      {children}
-    </Notification>
-  );
-}
+const N1D = props => (
+  <Notification
+    type="default"
+    position="absolute"
+    placement="top"
+    height="fixed-small"
+    width="auto"
+    arrowPlacement="bottom"
+    {...props}
+  />
+);
+
+export default N1D;

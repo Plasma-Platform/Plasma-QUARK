@@ -1,18 +1,16 @@
 import React from 'react';
 
-import Button from '../Button.jsx';
+import Button from '../Button';
 
-export default function BF3 (props) {
-  return (
-    <Button
-      widthType   = "auto"
-      heightType  = "large"
-      roundedType = "all"
-      bgType      = "facebook"
-      icon        = "facebook"
-      {...props}
-    >
-      {props.children}
-    </Button>
-  );
-}
+const BF3 = props => (
+  <Button
+    widthType="auto"
+    heightType="large"
+    roundedType="all"
+    bgType="facebook"
+    icon="facebook"
+    {...props}
+  />
+);
+
+export default BF3;

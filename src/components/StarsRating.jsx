@@ -1,45 +1,46 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './StarsRating.less';
 
 export default class StarsRating extends Component {
   static propTypes = {
-    defaultRating : React.PropTypes.number.isRequired,
-    onChange      : React.PropTypes.func,
-    value         : React.PropTypes.number,
-    disabled      : React.PropTypes.bool,
-    noHovered     : React.PropTypes.bool
+    defaultRating: PropTypes.number.isRequired,
+    onChange: PropTypes.func,
+    value: PropTypes.number,
+    disabled: PropTypes.bool,
+    noHovered: PropTypes.bool,
   };
   static defaultProps = {
     onChange: () => {
     },
-    disabled  : false,
-    noHovered : false
+    disabled: false,
+    noHovered: false,
   };
   state = {
-    value: this.props.defaultRating
+    value: this.props.defaultRating,
   };
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.defaultRating !== this.props.defaultRating) {
       this.setState({
-        value: nextProps.defaultRating
+        value: nextProps.defaultRating,
       });
     }
   }
 
-  select (val) {
+  select(val) {
     if (!this.props.disabled) {
       this.setState({
-        value: val
+        value: val,
       }, this.props.onChange.bind(this, val));
     } else if (this.props.noHovered) {
       this.setState({
-        value: this.props.defaultRating
+        value: this.props.defaultRating,
       }, this.props.onChange.bind(this, val));
     }
   }
 
-  printStarClass (value, i) {
+  printStarClass(value, i) {
     const floor = Math.floor(value);
     const free = value - floor;
     if (floor < i && i - floor === 1) {
@@ -58,25 +59,25 @@ export default class StarsRating extends Component {
     return '';
   }
 
-  render () {
+  render() {
     const starsLength = 5;
     return (
       <div className="stars-rating-wrapper">
         <div className={`stars-rating ${this.props.disabled ? '' : 'stars-rating_hovered'}
-          ${this.props.noHovered ? 'stars-rating_no-hovered' : ''}`}>
-          {Array.from({length: starsLength}).map((value, i) => {
+          ${this.props.noHovered ? 'stars-rating_no-hovered' : ''}`}
+        >
+          {Array.from({ length: starsLength }).map((value, i) => {
             i++;
             return (
               <i
                 key={i}
                 className={`stars-rating__icon ${this.printStarClass(this.state.value, i)}`}
                 onClick={this.select.bind(this, i)}
-              >
-              </i>
+              />
             );
           })}
         </div>
       </div>
     );
-  };
+  }
 }

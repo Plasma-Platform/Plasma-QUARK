@@ -1,47 +1,86 @@
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+const glob = require('glob');
 
 module.exports = {
-  entry: './index.js',
-
+  entry: glob.sync('./src/**/?(*.js|*.jsx)').reduce((result, item) => (
+    Object.assign({}, result, {
+      [item.replace(/\.[^/.]+$/, '').replace('./src/', './')]: item,
+    })
+  ), {}),
+  output: {
+    filename: '[name].js',
+    path: path.resolve('./lib'),
+    library: 'quark',
+    libraryTarget: 'umd',
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+  externals: {
+    React: {
+      commonjs: 'react',
+      commonjs2: 'react',
+      amd: 'react',
+      root: '_',
+    },
+  },
   plugins: [
+    new ExtractTextPlugin('[name].css'),
     new webpack.DefinePlugin({
       'process.env': {
-        BROWSER  : JSON.stringify(true),
-        NODE_ENV : JSON.stringify(process.env.NODE_ENV || 'development')
-      }
+        NODE_ENV: JSON.stringify('production'),
+      },
     }),
-    new ExtractTextPlugin('main.css')
+    new UglifyJSPlugin(),
   ],
-
-  output: {
-    path          : __dirname + '/css/',
-    libraryTarget : 'commonjs',
-    filename      : 'main.js'
-  },
-  target    : 'node',
-  externals : {
-    react: 'React'
-  },
   module: {
-    loaders: [
+    rules: [
       {
-        test   : /\.css$/,
-        loader : ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
+        test: /\.css$/,
+        exclude: /(node_modules|lib|example)/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+            },
+            'postcss-loader',
+          ],
+        }),
       },
       {
-        test   : /\.less$/,
-        loader : ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader!postcss-loader?parser=postcss-safe-parser')
+        test: /\.less$/,
+        exclude: /(node_modules|lib|example)/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+            },
+            'less-loader',
+            'postcss-loader',
+          ],
+        }),
       },
-      { test: /\.jsx$/, loader: 'babel', exclude: [/node_modules/, /public/] },
-      { test: /\.js$/, loader: 'babel', exclude: [/node_modules/, /public/] },
-      { test: /\.svg/, loader: 'url-loader' }
-    ]
+      {
+        enforce: 'pre',
+        test: /\.jsx?$/,
+        exclude: /(node_modules|lib|example)/,
+        use: 'eslint-loader',
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: /(node_modules|lib|example)/,
+        use: 'babel-loader',
+      },
+      {
+        test: /\.svg/,
+        exclude: /(node_modules|lib|example)/,
+        use: 'url-loader',
+      },
+    ],
   },
-  postcss: function () {
-    return [
-      require('postcss-inline-svg'),
-      require('autoprefixer')
-    ];
-  }
 };

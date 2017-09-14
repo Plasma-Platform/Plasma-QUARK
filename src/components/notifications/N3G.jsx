@@ -1,20 +1,17 @@
 import React from 'react';
 
-import Notification from '../Notification.jsx';
+import Notification from '../Notification';
 
-export default function N3G (props) {
-  const {children, ...notificationProps} = props;
-  return (
-    <Notification
-      type           = "success"
-      position       = "absolute"
-      placement      = "right"
-      height         = "auto"
-      width          = "auto"
-      arrowPlacement = "left"
-      {...notificationProps}
-    >
-      {children}
-    </Notification>
-  );
-}
+const N3G = props => (
+  <Notification
+    type="success"
+    position="absolute"
+    placement="right"
+    height="auto"
+    width="auto"
+    arrowPlacement="left"
+    {...props}
+  />
+);
+
+export default N3G;

@@ -1,85 +1,136 @@
-import React, {Component, PropTypes} from 'react';
-import notifications                 from './notifications/';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import notifications from './notifications/';
 
 import './Textarea.less';
 
+const getIntialValueLength = (value = '') => value.length === 0;
+
 export default class Textarea extends Component {
   static propTypes = {
-    containerClassName : PropTypes.string,
-    containerId        : PropTypes.string,
-    containerName      : PropTypes.string,
-    size               : PropTypes.oneOf(['medium', 'large']).isRequired,
-    showTextareaIcon   : PropTypes.bool,
-    icon               : PropTypes.string,
-    className          : PropTypes.string,
-    focused            : PropTypes.bool,
-    onChange           : PropTypes.func,
-    valid              : PropTypes.bool,
-    invalid            : PropTypes.bool,
-    errorMessage       : PropTypes.object
+    containerClassName: PropTypes.string,
+    containerId: PropTypes.string,
+    containerName: PropTypes.string,
+    size: PropTypes.oneOf(['medium', 'large']).isRequired,
+    showTextareaIcon: PropTypes.bool,
+    icon: PropTypes.string,
+    className: PropTypes.string,
+    focused: PropTypes.bool,
+    onChange: PropTypes.func,
+    valid: PropTypes.bool,
+    invalid: PropTypes.bool,
+    notification: PropTypes.shape({
+      show: PropTypes.bool,
+      content: PropTypes.node,
+    }),
+    value: PropTypes.string,
+    defaultValue: PropTypes.string,
+    maxLength: PropTypes.number,
+    showSymbolsCounter: PropTypes.bool,
   }
 
   static defaultProps = {
-    focused: false
+    focused: false,
+    containerClassName: '',
+    containerId: null,
+    containerName: null,
+    showTextareaIcon: false,
+    icon: null,
+    className: '',
+    onChange: null,
+    valid: false,
+    invalid: false,
+    notification: {},
+    value: null,
+    defaultValue: null,
+    maxLength: null,
+    showSymbolsCounter: false,
   }
 
   state = {
-    isEmpty      : this.props.value ? this.props.value.length === 0 : this.props.defaultValue ? this.props.defaultValue.length === 0 : true,
-    isDirty      : false,
-    symbolsCount : this.props.maxLength ? this.props.value ? this.props.maxLength - this.props.value.length : this.props.defaultValue ? this.props.maxLength - this.props.defaultValue.length : 0 : 0
+    isEmpty: getIntialValueLength(this.props.value || this.props.defaultValue),
+    isDirty: false,
+    symbolsCount: this.props.maxLength
+      ? (this.props.value || this.props.defaultValue || '').length
+      : 0,
   }
 
-  constructor (props) {
-    super(props);
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  focus () {
-    this.input && this.input.focus();
-  }
-
-  blur () {
-    this.input && this.input.blur();
-  }
-
-  handleInputChange (event) {
-    event.persist();
-
-    const inputValue = event.target.value;
-
-    const lineBreacks      = inputValue.match(/(\r\n|\n|\r)/g);
-    const lineBreacksCount = lineBreacks ? lineBreacks.length : 0;
-
-    this.setState({
-      symbolsCount : inputValue.length + lineBreacksCount,
-      isEmpty      : inputValue.length === 0,
-      isDirty      : true
-    }, () => {
-      this.input.style.height = 'auto';
-      this.input.style.height = `${this.input.scrollHeight}px`;
-      this.props.onChange && this.props.onChange(inputValue, event);
-    });
-  }
-
-  componentDidMount () {
-    this.props.focused && this.focus();
+  componentDidMount() {
+    if (this.props.focused) {
+      this.focus();
+    }
 
     this.input.style.height = 'auto';
     this.input.style.height = `${this.input.scrollHeight}px`;
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      isEmpty      : nextProps.value ? false : this.props.value ? true : this.input.value.length === 0,
-      symbolsCount : nextProps.value ? nextProps.value.length : this.props.value ? 0 : this.input.value.length
-    }, () => {
+  componentWillReceiveProps(nextProps) {
+    const {
+      value: nextValue,
+      focused: nextFocused,
+    } = nextProps;
+
+    const {
+      value: currentValue,
+      focused: currentFocused,
+    } = this.props;
+
+    const isEmpty = (
+      !nextValue && !!currentValue
+    ) || (
+        !nextValue && !currentValue && this.input.value.length === 0
+      );
+
+    const isNeedToBeFocued = nextFocused && !currentFocused;
+
+    const currentSymbolsCount = currentValue ? 0 : this.input.value.length;
+    const symbolsCount = nextValue ? nextValue.length : currentSymbolsCount;
+
+    this.setState(() => ({
+      isEmpty,
+      symbolsCount,
+    }), () => {
       this.input.style.height = 'auto';
       this.input.style.height = `${this.input.scrollHeight}px`;
+
+      if (isNeedToBeFocued) {
+        this.focus();
+      }
     });
   }
 
-  render () {
+  focus = () => {
+    if (this.input) {
+      this.input.focus();
+    }
+  }
+
+  blur = () => {
+    if (this.input) {
+      this.input.blur();
+    }
+  }
+
+  handleInputChange = (event) => {
+    event.persist();
+
+    const inputValue = event.target.value;
+
+    const lineBreacks = inputValue.match(/(\r\n|\n|\r)/g);
+    const lineBreacksCount = lineBreacks ? lineBreacks.length : 0;
+
+    this.setState({
+      symbolsCount: inputValue.length + lineBreacksCount,
+      isEmpty: inputValue.length === 0,
+      isDirty: true,
+    }, () => {
+      this.input.style.height = 'auto';
+      this.input.style.height = `${this.input.scrollHeight}px`;
+      this.props.onChange(inputValue, event);
+    });
+  }
+
+  render() {
     const {
       containerClassName,
       containerId,
@@ -91,72 +142,76 @@ export default class Textarea extends Component {
       focused,
       valid,
       invalid,
-      errorMessage,
+      notification,
       showSymbolsCounter,
       ...inputProps
     } = this.props;
 
     const containerCustomClassName = containerClassName ? ` ${containerClassName}` : '';
-    const containerSizeClassName   = ` tm-quark-textarea_size_${size}`;
+    const containerSizeClassName = ` tm-quark-textarea_size_${size}`;
 
-    const inputSizeClassName       = ` tm-quark-textarea__input_size_${size}`;
-    const inputValidClassName      = valid   ? ' tm-quark-textarea__input_valid'   : '';
-    const inputInvalidClassName    = invalid ? ' tm-quark-textarea__input_invalid' : '';
-    const inputStateClassName      = this.state.isEmpty ? ' tm-quark-textarea__input_empty' : ' tm-quark-textarea__input_filled';
-    const inputDirtyClassName      = this.state.isDirty ? ' tm-quark-textarea__input_dirty' : '';
-    const inputCustomClassName     = className ? ` ${className}` : '';
+    const inputSizeClassName = ` tm-quark-textarea__input_size_${size}`;
+    const inputValidClassName = valid ? ' tm-quark-textarea__input_valid' : '';
+    const inputInvalidClassName = invalid ? ' tm-quark-textarea__input_invalid' : '';
+    const inputStateClassName = this.state.isEmpty ? ' tm-quark-textarea__input_empty' : ' tm-quark-textarea__input_filled';
+    const inputDirtyClassName = this.state.isDirty ? ' tm-quark-textarea__input_dirty' : '';
+    const inputCustomClassName = className ? ` ${className}` : '';
 
-    const fieldIcon                = showTextareaIcon && icon ? icon : showTextareaIcon && (showTextareaIcon && (inputProps.type === 'password' || inputProps.type === 'search' || inputProps.type === 'email')) ? inputProps.type : null;
+    const fieldTypeIcon = showTextareaIcon && (inputProps.type === 'password' || inputProps.type === 'search' || inputProps.type === 'email')
+      ? inputProps.type
+      : null;
+    const fieldIcon = showTextareaIcon && !!icon
+      ? icon
+      : fieldTypeIcon;
 
-    const inputHasIconClassName    = fieldIcon ? ' tm-quark-textarea__input_with-icon' : '';
+    const inputHasIconClassName = fieldIcon ? ' tm-quark-textarea__input_with-icon' : '';
 
-    const FieldErrorMessage        = errorMessage && errorMessage.type ? notifications[errorMessage.type] : null;
+    const FieldNotification = notification && notification.type
+      ? notifications[notification.type]
+      : null;
 
     return (
       <label
-        className = {`tm-quark-textarea${containerSizeClassName}${containerCustomClassName}`}
-        id        = {containerId   || null}
-        name      = {containerName || null}
+        className={`tm-quark-textarea${containerSizeClassName}${containerCustomClassName}`}
+        id={containerId || null}
+        name={containerName || null}
       >
         <div className="tm-quark-textarea__inner">
           <textarea
             {...inputProps}
-            className = {`tm-quark-textarea__input${inputProps.disabled ? '' : `${inputValidClassName}${inputInvalidClassName}`}${inputSizeClassName}${inputStateClassName}${inputDirtyClassName}${inputHasIconClassName}${inputCustomClassName}`}
-            onChange  = {this.handleInputChange}
-            ref       = {(ref) => { this.input = ref; }}
-          >
-          </textarea>
+            className={`tm-quark-textarea__input${inputProps.disabled ? '' : `${inputValidClassName}${inputInvalidClassName}`}${inputSizeClassName}${inputStateClassName}${inputDirtyClassName}${inputHasIconClassName}${inputCustomClassName}`}
+            onChange={this.handleInputChange}
+            ref={(ref) => { this.input = ref; }}
+          />
 
           <span className="tm-quark-textarea__label">{inputProps.placeholder || null}</span>
 
           {fieldIcon && (
-            <i className={`tm-quark-textarea__icon tm-quark-textarea__icon_type_field-type tm-quark-textarea__icon_${fieldIcon}`}></i>
+            <i className={`tm-quark-textarea__icon tm-quark-textarea__icon_type_field-type tm-quark-textarea__icon_${fieldIcon}`} />
           )}
 
           {showSymbolsCounter && inputProps.maxLength && (
-            <span className="tm-quark-textarea__symbols-counter">{parseInt(inputProps.maxLength) - this.state.symbolsCount}</span>
+            <span className="tm-quark-textarea__symbols-counter">{parseInt(inputProps.maxLength, 10) - this.state.symbolsCount}</span>
           )}
 
           {inputProps.disabled !== true && (
             valid ? (
-              <i className="tm-quark-textarea__icon tm-quark-textarea__icon_type_validation-status tm-quark-textarea__icon_check"></i>
+              <i className="tm-quark-textarea__icon tm-quark-textarea__icon_type_validation-status tm-quark-textarea__icon_check" />
             ) : (
-              invalid ? (
-                <i className="tm-quark-textarea__icon tm-quark-textarea__icon_type_validation-status tm-quark-textarea__icon_warning"></i>
-              ) : (
-                null
+              invalid && (
+                <i className="tm-quark-textarea__icon tm-quark-textarea__icon_type_validation-status tm-quark-textarea__icon_warning" />
               )
             )
           )}
         </div>
 
-        {inputProps.disabled !== true && FieldErrorMessage && (
-          <FieldErrorMessage
-            show               = {invalid}
-            hideOnClickOutside = {false}
+        {inputProps.disabled !== true && FieldNotification && (
+          <FieldNotification
+            show={invalid}
+            hideOnClickOutside={false}
           >
-            {errorMessage.content || null}
-          </FieldErrorMessage>
+            {notification.content || null}
+          </FieldNotification>
         )}
       </label>
     );

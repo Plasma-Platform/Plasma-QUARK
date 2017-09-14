@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Field from '../Field.jsx';
+import Field from '../Field';
 
-export default function F1 (props) {
-  return (
-    <Field
-      size = "medium"
-      {...props}
-    />
-  );
-};
+const F1 = props => (
+  <Field
+    size="medium"
+    {...props}
+  />
+);
+
+export default F1;

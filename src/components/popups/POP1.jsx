@@ -1,15 +1,12 @@
 import React from 'react';
 
-import Popup from '../Popup.jsx';
+import Popup from '../Popup';
 
-export default class POP1 extends React.Component {
-  render () {
-    return (
-      <Popup
-        {...this.props}
-        ref = {ref => { this.popup = ref; }}
-        bg = "fill"
-      />
-    );
-  }
-}
+const POP1 = props => (
+  <Popup
+    bg="fill"
+    {...props}
+  />
+);
+
+export default POP1;

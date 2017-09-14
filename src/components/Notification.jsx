@@ -1,11 +1,12 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import './Notification.less';
 
 export default class Notification extends Component {
   static propTypes = {
-    onRequestHide : PropTypes.func,
-    position      : PropTypes.oneOf([
+    onRequestHide: PropTypes.func,
+    position: PropTypes.oneOf([
       'absolute',
       'fixed',
       'relative']).isRequired,
@@ -16,58 +17,64 @@ export default class Notification extends Component {
       'right',
       'static',
       'document-top',
-      'document-right'
+      'document-right',
     ]).isRequired,
     height: PropTypes.oneOf([
       'auto',
       'fixed-small',
-      'fixed-medium'
+      'fixed-medium',
     ]).isRequired,
     width: PropTypes.oneOf([
       'auto',
-      'full'
+      'full',
     ]).isRequired,
     type: PropTypes.oneOf([
       'default',
       'success',
       'warning',
-      'error'
+      'error',
     ]).isRequired,
-    show           : PropTypes.bool,
-    className      : PropTypes.string,
-    showArrow      : PropTypes.bool,
-    arrowPlacement : PropTypes.oneOf([
+    show: PropTypes.bool,
+    className: PropTypes.string,
+    showArrow: PropTypes.bool,
+    arrowPlacement: PropTypes.oneOf([
       'bottom',
       'left',
       'top',
-      'right'
+      'right',
     ]).isRequired,
-    showCloseBtn       : PropTypes.bool,
-    hideOnClickOutside : PropTypes.bool
+    showCloseBtn: PropTypes.bool,
+    hideOnClickOutside: PropTypes.bool,
+    children: PropTypes.node,
   }
 
   static defaultProps = {
-    onRequestHide      : () => {},
-    show               : false,
-    showArrow          : true,
-    showCloseBtn       : false,
-    hideOnClickOutside : true,
-    className          : ''
+    onRequestHide: () => {},
+    show: false,
+    showArrow: true,
+    showCloseBtn: false,
+    hideOnClickOutside: true,
+    className: '',
+    children: null,
   }
 
   state = {
-    renderContainer: this.props.show
+    renderContainer: this.props.show,
   }
 
-  constructor (props) {
-    super(props);
-
-    this.handleAnimationEnd = this.handleAnimationEnd.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-    this.removeContainer    = this.removeContainer.bind(this);
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.show && !this.state.renderContainer) {
+      this.setState({
+        renderContainer: true,
+      });
+    }
   }
 
-  handleAnimationEnd (event) {
+  componentWillUnmount() {
+    window.removeEventListener('click', this.handleClickOutside);
+  }
+
+  handleAnimationEnd = (event) => {
     if (event.target === this.container && !this.props.show) {
       window.removeEventListener('click', this.handleClickOutside);
 
@@ -77,27 +84,25 @@ export default class Notification extends Component {
     }
   }
 
-  handleClickOutside (event) {
-    if (this.props.hideOnClickOutside && this.container && event.target !== this.container && !this.container.contains(event.target) && this.props.show) {
+  handleClickOutside = (event) => {
+    if (
+      this.props.hideOnClickOutside
+      && this.container
+      && event.target !== this.container
+      && !this.container.contains(event.target)
+      && this.props.show
+    ) {
       this.props.onRequestHide();
     }
   }
 
-  removeContainer () {
+  removeContainer = () => {
     this.setState({
-      renderContainer: false
+      renderContainer: false,
     });
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.show && !this.state.renderContainer) {
-      this.setState({
-        renderContainer: true
-      });
-    }
-  }
-
-  render () {
+  render() {
     const {
       onRequestHide,
       position,
@@ -116,30 +121,29 @@ export default class Notification extends Component {
     } = this.props;
 
     const notificationPositionClassName = `tm-quark-notification_position_${position}`;
-    const notificationShowAtClassName   = `tm-quark-notification_placement_${placement}`;
-    const notificationHeightClassName   = `tm-quark-notification_height_${height}`;
-    const notificationWidthClassName    = `tm-quark-notification_width_${width}`;
-    const notificationTypeClassName     = `tm-quark-notification_type_${type}`;
-    const notificationArrowClassName    = showArrow ? `tm-quark-notification_arrow-placement_${arrowPlacement}` : '';
-    const notificationStateClassName    = `tm-quark-notification_${show ? 'visible' : 'hidden'}`;
+    const notificationShowAtClassName = `tm-quark-notification_placement_${placement}`;
+    const notificationHeightClassName = `tm-quark-notification_height_${height}`;
+    const notificationWidthClassName = `tm-quark-notification_width_${width}`;
+    const notificationTypeClassName = `tm-quark-notification_type_${type}`;
+    const notificationArrowClassName = showArrow ? `tm-quark-notification_arrow-placement_${arrowPlacement}` : '';
+    const notificationStateClassName = `tm-quark-notification_${show ? 'visible' : 'hidden'}`;
 
     return (
       this.state.renderContainer ? (
         <div
           {...notificationProps}
-          className      = {`tm-quark-notification ${notificationPositionClassName} ${notificationShowAtClassName} ${notificationHeightClassName} ${notificationWidthClassName} ${notificationTypeClassName} ${notificationArrowClassName} ${notificationStateClassName} ${className}`}
-          onAnimationEnd = {this.handleAnimationEnd}
-          role           = "alert"
-          ref            = {(ref) => { this.container = ref; }}
+          className={`tm-quark-notification ${notificationPositionClassName} ${notificationShowAtClassName} ${notificationHeightClassName} ${notificationWidthClassName} ${notificationTypeClassName} ${notificationArrowClassName} ${notificationStateClassName} ${className}`}
+          onAnimationEnd={this.handleAnimationEnd}
+          role="alert"
+          ref={(ref) => { this.container = ref; }}
         >
           {showCloseBtn && (
             <button
-              className  = "tm-quark-notification__close-btn"
-              type       = "button"
-              aria-label = "Close"
-              onClick    = {onRequestHide}
-            >
-            </button>
+              className="tm-quark-notification__close-btn"
+              type="button"
+              aria-label="Close"
+              onClick={onRequestHide}
+            />
           )}
 
           <div className="tm-quark-notification__content">

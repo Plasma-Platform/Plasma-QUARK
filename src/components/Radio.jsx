@@ -1,30 +1,39 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Radio.less';
 
-export default function Radio (props) {
-  const {className, children, ...inputProps} = props;
+const Radio = ({
+  className,
+  children,
+  ...inputProps
+}) => (
+  <label
+    className={`tm-quark-radio ${className}`}
+    tabIndex="0"
+  >
+    <input
+      {...inputProps}
+      className="tm-quark-radio__input"
+      type="radio"
+    />
 
-  const customClassName = className ? ` ${className}` : '';
+    <i className="tm-quark-radio__icon" />
 
-  return (
-    <label
-      className = {`tm-quark-radio${customClassName}`}
-      tabIndex  = "0"
-    >
-      <input
-        {...inputProps}
-        className = "tm-quark-radio__input"
-        type      = "radio"
-      />
-      <i className="tm-quark-radio__icon"></i>
-      <span className="tm-quark-radio__label">
-        {children}
-      </span>
-    </label>
-  );
-}
+    <span className="tm-quark-radio__label">
+      {children}
+    </span>
+  </label>
+);
 
 Radio.propTypes = {
-  className: React.PropTypes.string
+  className: PropTypes.string,
+  children: PropTypes.node,
 };
+
+Radio.defaultProps = {
+  className: '',
+  children: null,
+};
+
+export default Radio;

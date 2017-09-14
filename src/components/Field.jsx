@@ -1,95 +1,139 @@
-import React, {Component, PropTypes} from 'react';
-import notifications                 from './notifications/';
+import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
+import notifications from './notifications/';
 
 import './Field.less';
 
+const getIntialValueLength = (value = '') => value.length === 0;
+
 export default class Field extends Component {
   static propTypes = {
-    containerClassName          : PropTypes.string,
-    containerId                 : PropTypes.string,
-    containerName               : PropTypes.string,
-    size                        : PropTypes.oneOf(['medium', 'large']).isRequired,
-    showInputIcon               : PropTypes.bool,
-    icon                        : PropTypes.string,
-    className                   : PropTypes.string,
-    focused                     : PropTypes.bool,
-    showPlaceholderOnInput      : PropTypes.bool,
-    onChange                    : PropTypes.func,
-    valid                       : PropTypes.bool,
-    invalid                     : PropTypes.bool,
-    children                    : PropTypes.object,
-    showPasswordFieldTypeToggle : PropTypes.bool,
-    fieldTypeToggleHint         : PropTypes.object,
-    errorMessage                : PropTypes.object
+    containerClassName: PropTypes.string,
+    containerId: PropTypes.string,
+    containerName: PropTypes.string,
+    size: PropTypes.oneOf(['medium', 'large']).isRequired,
+    showInputIcon: PropTypes.bool,
+    icon: PropTypes.string,
+    className: PropTypes.string,
+    focused: PropTypes.bool,
+    showPlaceholderOnInput: PropTypes.bool,
+    onChange: PropTypes.func,
+    valid: PropTypes.bool,
+    invalid: PropTypes.bool,
+    children: PropTypes.node,
+    showPasswordFieldTypeToggle: PropTypes.bool,
+    fieldTypeToggleHint: PropTypes.node,
+    notification: PropTypes.shape({
+      type: PropTypes.string,
+      content: PropTypes.node,
+    }),
+    value: PropTypes.string,
+    defaultValue: PropTypes.string,
+    type: PropTypes.string,
   }
 
   static defaultProps = {
-    showPlaceholderOnInput : false,
-    focused                : false,
-    type                   : 'text',
-    errorMessage           : {}
+    containerClassName: '',
+    containerId: null,
+    containerName: null,
+    showInputIcon: false,
+    icon: null,
+    className: '',
+    focused: false,
+    showPlaceholderOnInput: false,
+    onChange: () => {},
+    valid: false,
+    invalid: false,
+    children: null,
+    type: 'text',
+    notification: {},
+    showPasswordFieldTypeToggle: false,
+    fieldTypeToggleHint: null,
+    value: null,
+    defaultValue: null,
   }
 
   state = {
-    isEmpty   : this.props.value ? this.props.value.length === 0 : this.props.defaultValue ? this.props.defaultValue.length === 0 : true,
-    isDirty   : false,
-    fieldType : this.props.type
+    isEmpty: getIntialValueLength(this.props.value || this.props.defaultValue),
+    isDirty: false,
+    fieldType: this.props.type,
   }
 
-  constructor (props) {
-    super(props);
+  componentDidMount() {
+    const { focused } = this.props;
 
-    this.handleInputChange          = this.handleInputChange.bind(this);
-    this.setPasswordFieldTypeToText = this.setPasswordFieldTypeToText.bind(this);
-    this.resetPasswordFieldType     = this.resetPasswordFieldType.bind(this);
+    if (focused) {
+      this.focus();
+    }
   }
 
-  focus () {
-    this.input && this.input.focus();
+  componentWillReceiveProps(nextProps) {
+    const {
+      value: nextValue,
+      focused: nextFocused,
+    } = nextProps;
+
+    const {
+      value: currentValue,
+      focused: currentFocused,
+    } = this.props;
+
+    const isEmpty = (
+      !nextValue && !!currentValue
+    ) || (
+        !nextValue && !currentValue && this.input.value.length === 0
+      );
+
+    const isNeedToBeFocued = nextFocused && !currentFocused;
+
+    this.setState(() => ({
+      isEmpty,
+    }), isNeedToBeFocued ? this.focus : null);
   }
 
-  blur () {
-    this.input && this.input.blur();
+  setPasswordFieldTypeToText = (event) => {
+    event.preventDefault();
+
+    this.setState(() => ({
+      fieldType: 'text',
+    }));
   }
 
-  handleInputChange (event) {
+  resetPasswordFieldType = (event) => {
+    event.preventDefault();
+
+    this.setState(() => ({
+      fieldType: 'password',
+    }));
+  }
+
+  focus = () => {
+    if (this.input) {
+      this.input.focus();
+    }
+  }
+
+  blur = () => {
+    if (this.input) {
+      this.input.blur();
+    }
+  }
+
+  handleInputChange = (event) => {
+    event.persist();
+
+    const { onChange } = this.props;
     const inputValue = event.target.value;
 
-    this.setState({
-      isEmpty : inputValue.length === 0,
-      isDirty : true
-    }, () => {
-      this.props.onChange && this.props.onChange(inputValue);
+    this.setState(() => ({
+      isEmpty: inputValue.length === 0,
+      isDirty: true,
+    }), () => {
+      onChange(inputValue, event);
     });
   }
 
-  setPasswordFieldTypeToText (event) {
-    event.preventDefault();
-
-    this.setState({
-      fieldType: 'text'
-    });
-  }
-
-  resetPasswordFieldType (event) {
-    event.preventDefault();
-
-    this.setState({
-      fieldType: 'password'
-    });
-  }
-
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      isEmpty: nextProps.value ? false : this.props.value ? true : this.input.value.length === 0
-    });
-  }
-
-  componentDidMount () {
-    this.props.focused && this.focus();
-  }
-
-  render () {
+  render() {
     const {
       containerClassName,
       containerId,
@@ -103,43 +147,46 @@ export default class Field extends Component {
       invalid,
       showPasswordFieldTypeToggle,
       fieldTypeToggleHint,
-      errorMessage,
+      notification,
       focused,
       ...inputProps
     } = this.props;
 
     const containerCustomClassName = containerClassName ? ` ${containerClassName}` : '';
-    const containerSizeClassName   = ` tm-quark-field_size_${size}`;
+    const containerSizeClassName = ` tm-quark-field_size_${size}`;
 
-    const inputSizeClassName       = ` tm-quark-field__input_size_${size}`;
-    const inputValidClassName      = valid   ? ' tm-quark-field__input_valid'   : '';
-    const inputInvalidClassName    = invalid ? ' tm-quark-field__input_invalid' : '';
-    const inputStateClassName      = this.state.isEmpty ? ' tm-quark-field__input_empty' : ' tm-quark-field__input_filled';
-    const inputDirtyClassName      = this.state.isDirty ? ' tm-quark-field__input_dirty' : '';
-    const inputCustomClassName     = className ? ` ${className}` : '';
+    const inputSizeClassName = ` tm-quark-field__input_size_${size}`;
+    const inputValidClassName = valid ? ' tm-quark-field__input_valid' : '';
+    const inputInvalidClassName = invalid ? ' tm-quark-field__input_invalid' : '';
+    const inputStateClassName = this.state.isEmpty ? ' tm-quark-field__input_empty' : ' tm-quark-field__input_filled';
+    const inputDirtyClassName = this.state.isDirty ? ' tm-quark-field__input_dirty' : '';
+    const inputCustomClassName = className ? ` ${className}` : '';
 
-    const fieldIcon                = showInputIcon && icon ? icon : showInputIcon && (showInputIcon && (inputProps.type === 'password' || inputProps.type === 'search' || inputProps.type === 'email')) ? inputProps.type : null;
+    const fieldTypeIcon = showInputIcon && (inputProps.type === 'password' || inputProps.type === 'search' || inputProps.type === 'email')
+      ? inputProps.type
+      : null;
+    const fieldIcon = showInputIcon && !!icon
+      ? icon
+      : fieldTypeIcon;
 
-    const inputHasIconClassName    = fieldIcon ? ' tm-quark-field__input_with-icon' : '';
+    const inputHasIconClassName = fieldIcon ? ' tm-quark-field__input_with-icon' : '';
 
-    const FieldErrorMessage        = errorMessage && errorMessage.type ? notifications[errorMessage.type] : null;
-
-    if (errorMessage.content) {
-      this.errorMessageContent = errorMessage.content;
-    }
+    const FieldNotification = notification && notification.type
+      ? notifications[notification.type]
+      : null;
 
     return (
       <label
-        className = {`tm-quark-field${containerSizeClassName}${containerCustomClassName}`}
-        id        = {containerId   || null}
-        name      = {containerName || null}
+        className={`tm-quark-field${containerSizeClassName}${containerCustomClassName}`}
+        id={containerId}
+        name={containerName}
       >
         <input
           {...inputProps}
-          className    = {`tm-quark-field__input${inputProps.disabled ? '' : `${inputValidClassName}${inputInvalidClassName}`}${inputSizeClassName}${showPlaceholderOnInput ? ' tm-quark-field__input_with-label' : ''}${inputStateClassName}${inputDirtyClassName}${inputHasIconClassName}${inputCustomClassName}`}
-          type         = {this.state.fieldType}
-          onChange     = {this.handleInputChange}
-          ref          = {(ref) => { this.input = ref; }}
+          className={`tm-quark-field__input${inputProps.disabled ? '' : `${inputValidClassName}${inputInvalidClassName}`}${inputSizeClassName}${showPlaceholderOnInput ? ' tm-quark-field__input_with-label' : ''}${inputStateClassName}${inputDirtyClassName}${inputHasIconClassName}${inputCustomClassName}`}
+          type={this.state.fieldType}
+          onChange={this.handleInputChange}
+          ref={(ref) => { this.input = ref; }}
         />
 
         {showPlaceholderOnInput && inputProps.placeholder && (
@@ -147,42 +194,39 @@ export default class Field extends Component {
         )}
 
         {fieldIcon && (
-          <i className={`tm-quark-field__icon tm-quark-field__icon_type_field-type tm-quark-field__icon_${fieldIcon}`}></i>
+          <i className={`tm-quark-field__icon tm-quark-field__icon_type_field-type tm-quark-field__icon_${fieldIcon}`} />
         )}
 
         {inputProps.disabled !== true && (
-          valid ? (
-            <i className="tm-quark-field__icon tm-quark-field__icon_type_validation-status tm-quark-field__icon_check"></i>
-          ) : (
-            invalid ? (
-              <i className="tm-quark-field__icon tm-quark-field__icon_type_validation-status tm-quark-field__icon_warning"></i>
-            ) : (
-              null
-            )
+          valid && (
+            <i className="tm-quark-field__icon tm-quark-field__icon_type_validation-status tm-quark-field__icon_check" />
+          ) && invalid && (
+            <i className="tm-quark-field__icon tm-quark-field__icon_type_validation-status tm-quark-field__icon_warning" />
           )
         )}
 
         {inputProps.disabled !== true && inputProps.type === 'password' && showPasswordFieldTypeToggle && (
           <i
-            className   = "tm-quark-field__icon tm-quark-field__icon_type_field-type-toggle tm-quark-field__icon_eye"
-            onMouseDown   = {this.setPasswordFieldTypeToText}
-            onMouseUp     = {this.resetPasswordFieldType}
-            onMouseOut    = {this.resetPasswordFieldType}
-            onTouchStart  = {this.setPasswordFieldTypeToText}
-            onTouchEnd    = {this.resetPasswordFieldType}
-            onTouchCancel = {this.resetPasswordFieldType}
+            className="tm-quark-field__icon tm-quark-field__icon_type_field-type-toggle tm-quark-field__icon_eye"
+            onMouseDown={this.setPasswordFieldTypeToText}
+            onMouseUp={this.resetPasswordFieldType}
+            onMouseOut={this.resetPasswordFieldType}
+            onTouchStart={this.setPasswordFieldTypeToText}
+            onTouchEnd={this.resetPasswordFieldType}
+            onTouchCancel={this.resetPasswordFieldType}
+            role="presentation"
           >
             {fieldTypeToggleHint || null}
           </i>
         )}
 
-        {inputProps.disabled !== true && FieldErrorMessage && (
-          <FieldErrorMessage
-            show               = {invalid}
-            hideOnClickOutside = {false}
+        {inputProps.disabled !== true && FieldNotification && (
+          <FieldNotification
+            show={invalid}
+            hideOnClickOutside={false}
           >
-            {this.errorMessageContent || null}
-          </FieldErrorMessage>
+            {notification.content || null}
+          </FieldNotification>
         )}
       </label>
     );

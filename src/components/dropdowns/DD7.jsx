@@ -1,39 +1,16 @@
-import React  from 'react';
+import React from 'react';
 
-import Dropdown from '../Dropdown.jsx';
+import Dropdown from '../Dropdown';
 
-export default class DD7 extends React.Component {
-  constructor (props) {
-    super(props);
+const DD7 = props => (
+  <Dropdown
+    type={7}
+    showButton={false}
+    showLabel={false}
+    optionSize="large"
+    optionIconSize="large"
+    {...props}
+  />
+);
 
-    this.getValue = this.getValue.bind(this);
-    this.open     = this.open.bind(this);
-    this.close    = this.close.bind(this);
-  }
-
-  getValue () {
-    return this.dropdown.getValue();
-  }
-
-  open () {
-    this.dropdown.open();
-  }
-
-  close () {
-    this.dropdown.close();
-  }
-
-  render () {
-    return (
-      <Dropdown
-        type           = {7}
-        showButton     = {false}
-        showLabel      = {false}
-        optionSize     = "large"
-        optionIconSize = "large"
-        ref  = {ref => { this.dropdown = ref; }}
-        {...this.props}
-      />
-    );
-  }
-}
+export default DD7;

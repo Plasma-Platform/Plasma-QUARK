@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Slider from '../Slider.jsx';
+import Slider from '../Slider';
 
-export default function Slider1 (props) {
-  return (
-    <Slider
-      orientation = "horizontal"
-      {...props}
-    />
-  );
-};
+const Slider1 = props => (
+  <Slider
+    orientation="horizontal"
+    {...props}
+  />
+);
+
+export default Slider1;

@@ -1,18 +1,16 @@
 import React from 'react';
 
-import Button from '../Button.jsx';
+import Button from '../Button';
 
-export default function BV6 (props) {
-  return (
-    <Button
-      widthType   = "square"
-      heightType  = "large"
-      roundedType = "all"
-      bgType      = "vk"
-      icon        = "vk"
-      {...props}
-    >
-      {props.children}
-    </Button>
-  );
-}
+const BV6 = props => (
+  <Button
+    widthType="square"
+    heightType="large"
+    roundedType="all"
+    bgType="vk"
+    icon="vk"
+    {...props}
+  />
+);
+
+export default BV6;

@@ -1,17 +1,15 @@
 import React from 'react';
 
-import Button from '../Button.jsx';
+import Button from '../Button';
 
-export default function B1A (props) {
-  return (
-    <Button
-      widthType   = "auto"
-      heightType  = "medium"
-      roundedType = "all"
-      bgType      = "1"
-      {...props}
-    >
-      {props.children}
-    </Button>
-  );
-}
+const B1A = props => (
+  <Button
+    widthType="auto"
+    heightType="medium"
+    roundedType="all"
+    bgType="1"
+    {...props}
+  />
+);
+
+export default B1A;

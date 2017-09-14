@@ -1,5 +1,1 @@
-import R1 from './R1.jsx';
-
-export default {
-  R1
-};
+export R1 from './R1';

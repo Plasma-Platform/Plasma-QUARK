@@ -1,18 +1,16 @@
 import React from 'react';
 
-import Button from '../Button.jsx';
+import Button from '../Button';
 
-export default function BT5 (props) {
-  return (
-    <Button
-      widthType   = "square"
-      heightType  = "medium"
-      roundedType = "all"
-      bgType      = "twitter"
-      icon        = "twitter"
-      {...props}
-    >
-      {props.children}
-    </Button>
-  );
-}
+const BT5 = props => (
+  <Button
+    widthType="square"
+    heightType="medium"
+    roundedType="all"
+    bgType="twitter"
+    icon="twitter"
+    {...props}
+  />
+);
+
+export default BT5;

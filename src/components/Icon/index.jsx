@@ -31,11 +31,11 @@ const Icon = ({ viewBox, width, height, icon, className }) => (
  * @type {Object}
  */
 Icon.propTypes = {
-  icon      : PropTypes.string.isRequired,
-  className : PropTypes.string,
-  viewBox   : PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  width     : PropTypes.number,
-  height    : PropTypes.number
+  icon: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  viewBox: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  width: PropTypes.number,
+  height: PropTypes.number,
 };
 
 /**
@@ -45,10 +45,10 @@ Icon.propTypes = {
  * @type {Object}
  */
 Icon.defaultProps = {
-  className : '',
-  width     : 20,
-  height    : 20,
-  viewBox   : false
+  className: '',
+  width: 20,
+  height: 20,
+  viewBox: false,
 };
 
 export default Icon;

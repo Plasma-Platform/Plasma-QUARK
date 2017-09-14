@@ -1,18 +1,16 @@
 import React from 'react';
 
-import Button from '../Button.jsx';
+import Button from '../Button';
 
-export default function BP5 (props) {
-  return (
-    <Button
-      widthType   = "square"
-      heightType  = "medium"
-      roundedType = "all"
-      bgType      = "pinterest"
-      icon        = "pinterest"
-      {...props}
-    >
-      {props.children}
-    </Button>
-  );
-}
+const BP5 = props => (
+  <Button
+    widthType="square"
+    heightType="medium"
+    roundedType="all"
+    bgType="pinterest"
+    icon="pinterest"
+    {...props}
+  />
+);
+
+export default BP5;

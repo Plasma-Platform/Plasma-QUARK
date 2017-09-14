@@ -1,18 +1,16 @@
 import React from 'react';
 
-import Button from '../Button.jsx';
+import Button from '../Button';
 
-export default function BG2 (props) {
-  return (
-    <Button
-      widthType   = "full"
-      heightType  = "medium"
-      roundedType = "all"
-      bgType      = "google-plus"
-      icon        = "google-plus"
-      {...props}
-    >
-      {props.children}
-    </Button>
-  );
-}
+const BG2 = props => (
+  <Button
+    widthType="full"
+    heightType="medium"
+    roundedType="all"
+    bgType="google-plus"
+    icon="google-plus"
+    {...props}
+  />
+);
+
+export default BG2;

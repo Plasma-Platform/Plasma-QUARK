@@ -1,26 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Loader.less';
 
-export default class Loader extends React.Component {
-  static propTypes = {
-    width     : React.PropTypes.oneOf(['fixed', 'full']).isRequired,
-    height    : React.PropTypes.oneOf(['medium', 'large']).isRequired,
-    className : React.PropTypes.string
-  }
+const Loader = ({
+  width,
+  height,
+  className,
+}) => (
+  <span className={`tm-quark-loader tm-quark-loader_width_${width} tm-quark-loader_height_${height} ${className}`}>
+    <span className="loader__line" />
+    <span className="loader__line" />
+    <span className="loader__line" />
+  </span>
+);
 
-  render () {
-    const addClassName    = this.props.className ? ` ${this.props.className}` : '';
-    const widthClassName  = ` loader_width_${this.props.width}`;
-    const heightClassName = ` loader_height_${this.props.height}`;
-    const fullClassName   = `loader${widthClassName}${heightClassName}${addClassName}`;
+Loader.propTypes = {
+  width: PropTypes.oneOf(['fixed', 'full']).isRequired,
+  height: PropTypes.oneOf(['medium', 'large']).isRequired,
+  className: PropTypes.string,
+};
 
-    return (
-      <span className={fullClassName}>
-        <span className="loader__line"></span>
-        <span className="loader__line"></span>
-        <span className="loader__line"></span>
-      </span>
-    );
-  }
-}
+Loader.defaultProps = {
+  className: '',
+};
+
+export default Loader;
