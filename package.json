@@ -1,7 +1,7 @@
 {
   "name": "quark",
   "version": "3.0.0",
-  "description": "QUARK-React description",
+  "description": "TemplateMonster UI components built with React",
   "main": "lib/components/index.js",
   "scripts": {
     "build": "rimraf lib && NODE_ENV=production webpack -p --progress --colors --display",
