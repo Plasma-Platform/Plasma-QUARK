@@ -1,6 +1,6 @@
 {
   "name": "quark",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "description": "QUARK-React description",
   "main": "lib/components/index.js",
   "scripts": {
