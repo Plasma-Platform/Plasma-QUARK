@@ -4,7 +4,7 @@
   "description": "TemplateMonster UI components built with React",
   "main": "lib/components/index.js",
   "scripts": {
-    "build": "rimraf lib && NODE_ENV=production webpack -p --progress --colors --display",
+    "build": "rimraf lib && NODE_ENV=production webpack -p --profile --progress --colors --display --verbose",
     "test": "jest",
     "test-coverage": "jest --coverage"
   },
@@ -30,7 +30,6 @@
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-syntax-export-extensions": "^6.13.0",
-    "babel-plugin-transform-require-ignore": "^0.1.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",

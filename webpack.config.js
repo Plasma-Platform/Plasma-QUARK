@@ -5,9 +5,9 @@ const path = require('path');
 const glob = require('glob');
 
 module.exports = {
-  entry: glob.sync('./src/**/?(*.js|*.jsx)').reduce((result, item) => (
+  entry: glob.sync('./src/components/**/?(*.js|*.jsx)').reduce((result, item) => (
     Object.assign({}, result, {
-      [item.replace(/\.[^/.]+$/, '').replace('./src/', './')]: item,
+      [item.replace(/\.[^/.]+$/, '').replace('./src/components/', './')]: item,
     })
   ), {}),
   output: {
@@ -20,11 +20,19 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   externals: {
-    React: {
-      commonjs: 'react',
+    react: {
+      root: 'React',
       commonjs2: 'react',
+      commonjs: 'react',
       amd: 'react',
-      root: '_',
+      umd: 'react',
+    },
+    'react-dom': {
+      root: 'ReactDOM',
+      commonjs2: 'react-dom',
+      commonjs: 'react-dom',
+      amd: 'react-dom',
+      umd: 'react-dom',
     },
   },
   plugins: [
