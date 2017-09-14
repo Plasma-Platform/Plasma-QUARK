@@ -69,7 +69,7 @@
   @if $type == 'link' {
     &:hover {
       @if $theme == 'light' {
-        @else if $semantics == 'normal' {
+        @if $semantics == 'normal' {
           color: $color_link_normal_hover_light;
         }
         @else if $semantics == 'positive' {
@@ -83,7 +83,7 @@
         }
       }
       @else {
-        @else if $semantics == 'normal' {
+        @if $semantics == 'normal' {
           color: $color_link_normal_hover_dark;
         }
         @else if $semantics == 'positive' {
