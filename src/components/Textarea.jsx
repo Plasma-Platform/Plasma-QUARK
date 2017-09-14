@@ -4,8 +4,6 @@ import notifications from './notifications/';
 
 import './Textarea.less';
 
-const getIntialValueLength = (value = '') => value.length === 0;
-
 export default class Textarea extends Component {
   static propTypes = {
     containerClassName: PropTypes.string,
@@ -27,6 +25,9 @@ export default class Textarea extends Component {
     defaultValue: PropTypes.string,
     maxLength: PropTypes.number,
     showSymbolsCounter: PropTypes.bool,
+    placeholder: PropTypes.node,
+    disabled: PropTypes.bool,
+    type: PropTypes.string,
   }
 
   static defaultProps = {
@@ -34,6 +35,7 @@ export default class Textarea extends Component {
     containerClassName: '',
     containerId: null,
     containerName: null,
+    disabled: false,
     showTextareaIcon: false,
     icon: null,
     className: '',
@@ -45,10 +47,12 @@ export default class Textarea extends Component {
     defaultValue: null,
     maxLength: null,
     showSymbolsCounter: false,
+    placeholder: null,
+    type: null,
   }
 
   state = {
-    isEmpty: getIntialValueLength(this.props.value || this.props.defaultValue),
+    isEmpty: !(this.props.value || this.props.defaultValue),
     isDirty: false,
     symbolsCount: this.props.maxLength
       ? (this.props.value || this.props.defaultValue || '').length
@@ -144,6 +148,12 @@ export default class Textarea extends Component {
       invalid,
       notification,
       showSymbolsCounter,
+      value,
+      placeholder,
+      defaultValue,
+      maxLength,
+      disabled,
+      type,
       ...inputProps
     } = this.props;
 
@@ -157,8 +167,8 @@ export default class Textarea extends Component {
     const inputDirtyClassName = this.state.isDirty ? ' tm-quark-textarea__input_dirty' : '';
     const inputCustomClassName = className ? ` ${className}` : '';
 
-    const fieldTypeIcon = showTextareaIcon && (inputProps.type === 'password' || inputProps.type === 'search' || inputProps.type === 'email')
-      ? inputProps.type
+    const fieldTypeIcon = showTextareaIcon && (type === 'password' || type === 'search' || type === 'email')
+      ? type
       : null;
     const fieldIcon = showTextareaIcon && !!icon
       ? icon
@@ -179,22 +189,27 @@ export default class Textarea extends Component {
         <div className="tm-quark-textarea__inner">
           <textarea
             {...inputProps}
-            className={`tm-quark-textarea__input${inputProps.disabled ? '' : `${inputValidClassName}${inputInvalidClassName}`}${inputSizeClassName}${inputStateClassName}${inputDirtyClassName}${inputHasIconClassName}${inputCustomClassName}`}
+            maxLength={maxLength}
+            placeholder={placeholder}
+            disabled={disabled}
+            value={!value && value !== '' ? undefined : value}
+            defaultValue={!value && value !== '' ? defaultValue : undefined}
+            className={`tm-quark-textarea__input${disabled ? '' : `${inputValidClassName}${inputInvalidClassName}`}${inputSizeClassName}${inputStateClassName}${inputDirtyClassName}${inputHasIconClassName}${inputCustomClassName}`}
             onChange={this.handleInputChange}
             ref={(ref) => { this.input = ref; }}
           />
 
-          <span className="tm-quark-textarea__label">{inputProps.placeholder || null}</span>
+          <span className="tm-quark-textarea__label">{placeholder}</span>
 
           {fieldIcon && (
             <i className={`tm-quark-textarea__icon tm-quark-textarea__icon_type_field-type tm-quark-textarea__icon_${fieldIcon}`} />
           )}
 
-          {showSymbolsCounter && inputProps.maxLength && (
-            <span className="tm-quark-textarea__symbols-counter">{parseInt(inputProps.maxLength, 10) - this.state.symbolsCount}</span>
+          {showSymbolsCounter && maxLength && (
+            <span className="tm-quark-textarea__symbols-counter">{parseInt(maxLength, 10) - this.state.symbolsCount}</span>
           )}
 
-          {inputProps.disabled !== true && (
+          {disabled !== true && (
             valid ? (
               <i className="tm-quark-textarea__icon tm-quark-textarea__icon_type_validation-status tm-quark-textarea__icon_check" />
             ) : (
@@ -205,7 +220,7 @@ export default class Textarea extends Component {
           )}
         </div>
 
-        {inputProps.disabled !== true && FieldNotification && (
+        {disabled !== true && FieldNotification && (
           <FieldNotification
             show={invalid}
             hideOnClickOutside={false}

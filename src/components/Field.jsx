@@ -4,8 +4,6 @@ import notifications from './notifications/';
 
 import './Field.less';
 
-const getIntialValueLength = (value = '') => value.length === 0;
-
 export default class Field extends Component {
   static propTypes = {
     containerClassName: PropTypes.string,
@@ -30,6 +28,8 @@ export default class Field extends Component {
     value: PropTypes.string,
     defaultValue: PropTypes.string,
     type: PropTypes.string,
+    disabled: PropTypes.bool,
+    placeholder: PropTypes.node,
   }
 
   static defaultProps = {
@@ -50,11 +50,13 @@ export default class Field extends Component {
     showPasswordFieldTypeToggle: false,
     fieldTypeToggleHint: null,
     value: null,
-    defaultValue: null,
+    defaultValue: '',
+    placeholder: null,
+    disabled: false,
   }
 
   state = {
-    isEmpty: getIntialValueLength(this.props.value || this.props.defaultValue),
+    isEmpty: !(this.props.value || this.props.defaultValue),
     isDirty: false,
     fieldType: this.props.type,
   }
@@ -149,6 +151,11 @@ export default class Field extends Component {
       fieldTypeToggleHint,
       notification,
       focused,
+      value,
+      defaultValue,
+      type,
+      disabled,
+      placeholder,
       ...inputProps
     } = this.props;
 
@@ -162,8 +169,8 @@ export default class Field extends Component {
     const inputDirtyClassName = this.state.isDirty ? ' tm-quark-field__input_dirty' : '';
     const inputCustomClassName = className ? ` ${className}` : '';
 
-    const fieldTypeIcon = showInputIcon && (inputProps.type === 'password' || inputProps.type === 'search' || inputProps.type === 'email')
-      ? inputProps.type
+    const fieldTypeIcon = showInputIcon && (type === 'password' || type === 'search' || type === 'email')
+      ? type
       : null;
     const fieldIcon = showInputIcon && !!icon
       ? icon
@@ -183,21 +190,25 @@ export default class Field extends Component {
       >
         <input
           {...inputProps}
-          className={`tm-quark-field__input${inputProps.disabled ? '' : `${inputValidClassName}${inputInvalidClassName}`}${inputSizeClassName}${showPlaceholderOnInput ? ' tm-quark-field__input_with-label' : ''}${inputStateClassName}${inputDirtyClassName}${inputHasIconClassName}${inputCustomClassName}`}
+          className={`tm-quark-field__input${disabled ? '' : `${inputValidClassName}${inputInvalidClassName}`}${inputSizeClassName}${showPlaceholderOnInput ? ' tm-quark-field__input_with-label' : ''}${inputStateClassName}${inputDirtyClassName}${inputHasIconClassName}${inputCustomClassName}`}
           type={this.state.fieldType}
+          placeholder={placeholder}
+          value={!value && value !== '' ? undefined : value}
+          defaultValue={!value && value !== '' ? defaultValue : undefined}
           onChange={this.handleInputChange}
+          disabled={disabled}
           ref={(ref) => { this.input = ref; }}
         />
 
-        {showPlaceholderOnInput && inputProps.placeholder && (
-          <span className="tm-quark-field__label">{inputProps.placeholder}</span>
+        {showPlaceholderOnInput && placeholder && (
+          <span className="tm-quark-field__label">{placeholder}</span>
         )}
 
         {fieldIcon && (
           <i className={`tm-quark-field__icon tm-quark-field__icon_type_field-type tm-quark-field__icon_${fieldIcon}`} />
         )}
 
-        {inputProps.disabled !== true && (
+        {!disabled && (
           valid && (
             <i className="tm-quark-field__icon tm-quark-field__icon_type_validation-status tm-quark-field__icon_check" />
           ) && invalid && (
@@ -205,7 +216,7 @@ export default class Field extends Component {
           )
         )}
 
-        {inputProps.disabled !== true && inputProps.type === 'password' && showPasswordFieldTypeToggle && (
+        {!disabled && type === 'password' && showPasswordFieldTypeToggle && (
           <i
             className="tm-quark-field__icon tm-quark-field__icon_type_field-type-toggle tm-quark-field__icon_eye"
             onMouseDown={this.setPasswordFieldTypeToText}
@@ -220,7 +231,7 @@ export default class Field extends Component {
           </i>
         )}
 
-        {inputProps.disabled !== true && FieldNotification && (
+        {!disabled && FieldNotification && (
           <FieldNotification
             show={invalid}
             hideOnClickOutside={false}

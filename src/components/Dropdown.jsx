@@ -80,9 +80,9 @@ export default class Dropdown extends React.Component {
     optionIconRadioStyle: false,
     optionIconSize: 'medium',
     disabled: false,
-    onOpen: null,
-    onChange: null,
-    onClose: null,
+    onOpen: () => {},
+    onChange: () => {},
+    onClose: () => {},
     buttonContent: null,
     label: null,
     id: null,
@@ -472,7 +472,6 @@ export default class Dropdown extends React.Component {
                   onChange={(event) => { this.filterOptions(event.target.value); }}
                   onKeyDown={this.handleFilterInputKeyDown}
                   ref={(ref) => { this.filterInput = ref; }}
-                  autoFocus
                 />
               </div>
             )}

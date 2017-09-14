@@ -85,7 +85,7 @@ export default class Avatar extends React.Component {
       size,
     } = this.props;
 
-    const avatarClassName = this.getAvatarClassName();
+    const avatarClassName = this.getImageClassName();
 
     const nameParts = name.trim().replace(/\s{2,}/g, ' ').split(' ');
     const emailParts = email.trim().split('');

@@ -35,3 +35,5 @@ Checkbox.defaultProps = {
   className: '',
   children: null,
 };
+
+export default Checkbox;

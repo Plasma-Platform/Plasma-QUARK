@@ -27,12 +27,12 @@ module.exports = {
       amd: 'react',
       umd: 'react',
     },
-    'react-dom': {
-      root: 'ReactDOM',
-      commonjs2: 'react-dom',
-      commonjs: 'react-dom',
-      amd: 'react-dom',
-      umd: 'react-dom',
+    'prop-types': {
+      root: 'PropTypes',
+      commonjs2: 'prop-types',
+      commonjs: 'prop-types',
+      amd: 'prop-types',
+      umd: 'prop-types',
     },
   },
   plugins: [
@@ -52,9 +52,7 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            {
-              loader: 'css-loader',
-            },
+            'css-loader',
             'postcss-loader',
           ],
         }),
@@ -65,9 +63,7 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            {
-              loader: 'css-loader',
-            },
+            'css-loader',
             'less-loader',
             'postcss-loader',
           ],

@@ -35,7 +35,7 @@ export default class Slider extends Component {
     showMinValue: true,
     showMaxValue: true,
     showMiddleValue: true,
-    onChange: null,
+    onChange: () => {},
     labeledValues: [],
     labeledValuesStep: null,
     value: null,
@@ -85,13 +85,11 @@ export default class Slider extends Component {
     window.removeEventListener('resize', this.hideOverlappingValues);
   }
 
-  getLabeledValuesByStep(labeledValuesStep = this.props.max - this.props.min) {
-    return Array.from({
-      length: Math.floor((this.props.max - this.props.min) / labeledValuesStep) + 1,
-    }).map((value, valueIndex) => this.props.min + (valueIndex * labeledValuesStep));
-  }
+  getLabeledValuesByStep = (labeledValuesStep = this.props.max - this.props.min) => Array.from({
+    length: Math.floor((this.props.max - this.props.min) / labeledValuesStep) + 1,
+  }).map((value, valueIndex) => this.props.min + (valueIndex * labeledValuesStep))
 
-  getDisplayedValues() {
+  getDisplayedValues = () => {
     const {
       min,
       max,
@@ -147,13 +145,13 @@ export default class Slider extends Component {
     this.handleRangeChange(event);
   }
 
-  handleRangeMouseMove(event) {
+  handleRangeMouseMove = (event) => {
     if (this.isMouseFocused) {
       this.handleRangeChange(event);
     }
   }
 
-  handleRangeMouseUp(event) {
+  handleRangeMouseUp = (event) => {
     this.isMouseFocused = false;
 
     document.removeEventListener('mousemove', this.handleRangeMouseMove);
@@ -162,7 +160,7 @@ export default class Slider extends Component {
     this.handleRangeChange(event);
   }
 
-  handleRangeTouchStart(event) {
+  handleRangeTouchStart = (event) => {
     this.isTouchFocused = true;
 
     document.addEventListener('touchmove', this.handleRangeTouchMove);
@@ -171,13 +169,13 @@ export default class Slider extends Component {
     this.handleRangeChange(event);
   }
 
-  handleRangeTouchMove(event) {
+  handleRangeTouchMove = (event) => {
     if (this.isTouchFocused) {
       this.handleRangeChange(event);
     }
   }
 
-  handleRangeTouchEnd(event) {
+  handleRangeTouchEnd = (event) => {
     this.isTouchFocused = false;
 
     document.removeEventListener('touchmove', this.handleRangeTouchMove);
@@ -186,7 +184,7 @@ export default class Slider extends Component {
     this.handleRangeChange(event);
   }
 
-  handleRangeChange(event) {
+  handleRangeChange = (event) => {
     const rangeValue = event.target.value;
 
     this.setState({
@@ -199,7 +197,7 @@ export default class Slider extends Component {
     });
   }
 
-  hideOverlappingValues() {
+  hideOverlappingValues = () => {
     if (this.container) {
       const containerWidth = this.container.offsetWidth;
       const containerHeight = this.container.offsetHeight;
@@ -244,15 +242,19 @@ export default class Slider extends Component {
       labeledValues,
       labeledValuesStep,
       labelPattern,
+      value,
+      defaultValue,
+      min,
+      max,
       ...sliderProps
     } = this.props;
 
     this.currentValue = (
-      this.props.value ||
-      (this.input ? this.input.value : this.props.defaultValue || this.props.min)
+      value ||
+      (this.input ? this.input.value : defaultValue || min)
     );
     this.currentValuePosition = (
-      100 * ((this.currentValue - this.props.min) / (this.props.max - this.props.min))
+      100 * ((this.currentValue - min) / (max - min))
     );
     this.intermediateValuesLabels = [];
 
@@ -268,11 +270,11 @@ export default class Slider extends Component {
         ref={(ref) => { this.container = ref; }}
       >
         <span className={`tm-quark-slider__labels tm-quark-slider__labels_orientation_${orientation}`}>
-          {displayedValues.map((value) => {
+          {displayedValues.map((displayedValue) => {
             const valuePosition = (
-              100 * ((value - this.props.min) / (this.props.max - this.props.min))
+              100 * ((displayedValue - min) / (max - min))
             );
-            const valueLabelText = labelPattern.replace(/\[\]/g, value);
+            const valueLabelText = labelPattern.replace(/\[\]/g, displayedValue);
 
             return (
               <span
@@ -288,7 +290,7 @@ export default class Slider extends Component {
                     hidden: false,
                   });
                 }}
-                key={value}
+                key={displayedValue}
               >
                 {valueLabelText}
               </span>
@@ -311,6 +313,10 @@ export default class Slider extends Component {
         <span className={`tm-quark-slider__range tm-quark-slider__range_orientation_${orientation}`}>
           <input
             {...sliderProps}
+            value={!value && value !== 0 ? undefined : value}
+            defaultValue={!value && value !== 0 ? defaultValue || min : undefined}
+            min={min}
+            max={max}
             className={`tm-quark-slider__input tm-quark-slider__input_orientation_${orientation} ${className}`}
             type="range"
             onMouseDown={this.handleRangeMouseDown}

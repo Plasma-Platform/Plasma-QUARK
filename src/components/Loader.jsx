@@ -9,9 +9,9 @@ const Loader = ({
   className,
 }) => (
   <span className={`tm-quark-loader tm-quark-loader_width_${width} tm-quark-loader_height_${height} ${className}`}>
-    <span className="loader__line" />
-    <span className="loader__line" />
-    <span className="loader__line" />
+    <span className="tm-quark-loader__line" />
+    <span className="tm-quark-loader__line" />
+    <span className="tm-quark-loader__line" />
   </span>
 );
 
