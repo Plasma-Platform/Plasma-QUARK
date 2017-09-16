@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const glob = require('glob');
 
@@ -36,7 +35,6 @@ module.exports = {
     },
   },
   plugins: [
-    new ExtractTextPlugin('[name].css'),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
@@ -47,27 +45,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        exclude: /(node_modules|lib|example)/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            'css-loader',
-            'postcss-loader',
-          ],
-        }),
-      },
-      {
         test: /\.less$/,
         exclude: /(node_modules|lib|example)/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            'css-loader',
-            'less-loader',
-            'postcss-loader',
-          ],
-        }),
+        use: [
+          'style-loader',
+          'css-loader',
+          'less-loader',
+          'postcss-loader',
+        ],
       },
       {
         enforce: 'pre',

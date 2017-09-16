@@ -2,7 +2,7 @@
   "name": "quark",
   "version": "3.0.0",
   "description": "TemplateMonster UI components built with React",
-  "main": "lib/components/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "rimraf lib && NODE_ENV=production webpack -p --profile --progress --colors --display --verbose",
     "test": "jest",
@@ -41,8 +41,6 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.3.0",
-    "extract-text-webpack-plugin": "^3.0.0",
-    "file-loader": "^0.11.2",
     "glob": "^7.1.2",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",

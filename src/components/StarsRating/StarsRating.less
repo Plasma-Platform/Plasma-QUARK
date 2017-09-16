@@ -1,0 +1,53 @@
+.stars-rating {
+  display: inline;
+  &-wrapper {
+    position: relative;
+  }
+  &__icon {
+    display: inline-block;
+    box-sizing: initial;
+    position: relative;
+    height: 20px;
+    width: 20px;
+    padding-right: 5px;
+    vertical-align: text-bottom;
+    background-image: svg-load("../../assets/images/icons/icon-star-fill.svg");
+    background-repeat: no-repeat;
+    border: 10px solid transparent;
+    border-right-width: 0;
+    border-left-width: 0;
+    &:last-child {
+      padding-right: 10px;
+    }
+    &:first-child {
+      border-left-width: 10px;
+    }
+    &_empty {
+      background-image: svg-load("../../assets/images/icons/icon-star-empty.svg");
+    }
+    &_half {
+      background-image: svg-load("../../assets/images/icons/icon-star-half.svg");
+    }
+  }
+  &_hovered {
+    &:hover {
+      .stars-rating__icon {
+        background-image: svg-load("../../assets/images/icons/icon-star-fill.svg");
+        cursor: pointer;
+        &:hover {
+          background-image: svg-load("../../assets/images/icons/icon-star-fill.svg");
+          & ~ .stars-rating__icon {
+            background-image: svg-load("../../assets/images/icons/icon-star-empty.svg");
+          }
+        }
+      }
+    }
+  }
+  &_no-hovered {
+    &:hover {
+      .stars-rating__icon {
+        cursor: pointer;
+      }
+    }
+  }
+}
