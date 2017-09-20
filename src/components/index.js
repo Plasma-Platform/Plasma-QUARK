@@ -10,6 +10,7 @@ export * from './Slider/';
 export * from './Switcher/';
 export * from './SwitcherGroup/';
 export * from './Textarea/';
+export * from './Tag/';
 export StarsRating from './StarsRating/';
 export Icon from './Icon/';
 export Avatar from './Avatar/';
