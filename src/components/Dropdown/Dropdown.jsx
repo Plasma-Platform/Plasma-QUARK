@@ -135,14 +135,11 @@ export default class Dropdown extends Component {
 
     options.slice(0, lastVisibleOptionIndex + 1).forEach((option, optionIndex) => {
       optionsListHeight += (
-        (
-          lastVisibleOptionIndex === optionIndex
-          && options.length
-        ) > (
-          this.props.optionsToShow
-            ? option.offsetHeight / 2
-            : option.offsetHeight
-        )
+        lastVisibleOptionIndex === optionIndex
+        && options.length >
+        this.props.optionsToShow
+          ? option.offsetHeight / 2
+          : option.offsetHeight
       );
     });
 
@@ -438,7 +435,6 @@ export default class Dropdown extends Component {
                     && !this.props.optionIconRadioStyle) && (
                       <i className={`tm-quark-dropdown__icon tm-quark-dropdown__icon_size_medium icon icon-${this.selectedOption.icon}`} />
                     )}
-
                   <span className="tm-quark-dropdown__button-label-content">
                     {this.props.showOptionHTMLInButton && !!this.selectedOption && (
                       this.selectedOption.html || this.selectedOption.label
