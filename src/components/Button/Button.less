@@ -1,0 +1,313 @@
+.tm-quark-button {
+  border: 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0;
+  overflow: hidden;
+  padding-bottom: 0;
+  padding-top: 0;
+  -webkit-text-decoration-skip: objects;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  touch-action: manipulation;
+  text-align: center;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
+  &:hover,
+  &:focus {
+    color: #fff;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    -moz-outline-style: none;
+  }
+
+  &::-moz-focus-inner {
+    border-style: none;
+    padding: 0;
+  }
+
+  &[type="button"]:-moz-focusring {
+    outline: 0;
+  }
+
+  &::-webkit-file-upload-button {
+    -webkit-appearance: button;
+    font: inherit;
+  }
+
+  &:active {
+    padding-top: 1px;
+  }
+
+  &__icon {
+    display: inline-block;
+    height: 20px;
+    position: relative;
+    vertical-align: top;
+    width: 20px;
+
+    .tm-quark-button_width_auto &,
+    .tm-quark-button_width_full & {
+      margin-right: 10px;
+    }
+
+    .tm-quark-button_height_medium & {
+      margin-top: 10px;
+    }
+
+    .tm-quark-button_height_medium:disabled & {
+      margin-top: 8px;
+    }
+
+    .tm-quark-button_height_large & {
+      margin-top: 20px;
+    }
+
+    .tm-quark-button_height_large:disabled & {
+      margin-top: 18px;
+    }
+
+    &::before {
+      content: "";
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+
+    &-facebook::before {
+      background-image: svg-load("../../assets/images/icons/icon-facebook.svg", fill: #fff);
+    }
+
+    &-google-plus::before {
+      background-image: svg-load("../../assets/images/icons/icon-google-plus.svg", fill: #fff);
+    }
+
+    &-twitter::before {
+      background-image: svg-load("../../assets/images/icons/icon-twitter.svg", fill: #fff);
+    }
+
+    &-pinterest::before {
+      background-image: svg-load("../../assets/images/icons/icon-pinterest.svg", fill: #fff);
+    }
+
+    &-vk::before {
+      background-image: svg-load("../../assets/images/icons/icon-vk.svg", fill: #fff);
+    }
+  }
+
+
+  /* .tm-quark-button width */
+
+  &_width_square {
+    color: rgba(0,0,0,0);
+
+    &.tm-quark-button_height_medium {
+      font-size: 0;
+      width: 40px;
+    }
+
+    &.tm-quark-button_height_large {
+      font-size: 0;
+      width: 60px;
+    }
+  }
+
+  &_width_auto {
+    width: auto;
+  }
+
+  &_width_full {
+    width: 100%;
+  }
+
+
+  /* .tm-quark-button height */
+
+  &_height_medium {
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+
+    &.tm-quark-button_width_auto,
+    &.tm-quark-button_width_full {
+      padding-left: 20px;
+      padding-right: 20px;
+
+      &:disabled {
+        line-height: 36px;
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+    }
+  }
+
+  &_height_large {
+    font-size: 16px;
+    height: 60px;
+    line-height: 60px;
+
+    &.tm-quark-button_width_auto,
+    &.tm-quark-button_width_full {
+      padding-left: 30px;
+      padding-right: 30px;
+
+      &:disabled {
+        line-height: 56px;
+        padding-left: 28px;
+        padding-right: 28px;
+      }
+    }
+  }
+
+
+  /* .tm-quark-button rounded */
+
+  &_rounded_all {
+    border-radius: 3px;
+  }
+
+  &_rounded_bottom {
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+
+  /* .tm-quark-button bg */
+
+  &_bg_1 {
+    background: linear-gradient(to bottom, #f4511e 0%, #d84315 100%);
+
+    &:hover,
+    &:focus {
+      background: linear-gradient(to bottom, #d84315 0%, #bf360c 100%);
+    }
+
+    &:active {
+      background: linear-gradient(to bottom, #9c2500 0%, #bf360c 100%);
+    }
+  }
+
+  &_bg_2 {
+    background: linear-gradient(to bottom, #42a5f5 0%, #2196f3 100%);
+
+    &:hover,
+    &:focus {
+      background: linear-gradient(to bottom, #2196f3 0%, #1976d2 100%);
+    }
+
+    &:active {
+      background: linear-gradient(to bottom, #0d47a1 0%, #1976d2 100%);
+    }
+  }
+
+  &_bg_3 {
+    background: linear-gradient(to bottom, #90a4ae 0%, #78909c 100%);
+
+    &:hover,
+    &:focus {
+      background: linear-gradient(to bottom, #78909c 0%, #546e7a 100%);
+    }
+
+    &:active {
+      background: linear-gradient(to bottom, #455a64 0%, #546e7a 100%);
+    }
+  }
+
+  &_bg_facebook {
+    background: linear-gradient(to bottom, #4f69a3 0%, #415b93 100%);
+
+    &:hover,
+    &:focus {
+      background: linear-gradient(to bottom, #415b93 0%, #324d89 100%);
+    }
+
+    &:active {
+      background: linear-gradient(to bottom, #24407d 0%, #324d89 100%);
+    }
+  }
+
+  &_bg_google-plus {
+    background: linear-gradient(to bottom, #db4937 0%, #c43a2e 100%);
+
+    &:hover,
+    &:focus {
+      background: linear-gradient(to bottom, #c43a2e 0%, #ba2b1f 100%);
+    }
+
+    &:active {
+      background: linear-gradient(to bottom, #a91e13 0%, #ba2b1f 100%);
+    }
+  }
+
+  &_bg_twitter {
+    background: linear-gradient(to bottom, #56acee 0%, #4f9fdb 100%);
+
+    &:hover,
+    &:focus {
+      background: linear-gradient(to bottom, #4f9fdb 0%, #3a8ece 100%);
+    }
+
+    &:active {
+      background: linear-gradient(to bottom, #227abe 0%, #3a8ece 100%);
+    }
+  }
+
+  &_bg_pinterest {
+    background: linear-gradient(to bottom, #e3262d 0%, #cb2026 100%);
+
+    &:hover,
+    &:focus {
+      background: linear-gradient(to bottom, #cb2026 0%, #b70f15 100%);
+    }
+
+    &:active {
+      background: linear-gradient(to bottom, #9f0006 0%, #b70f15 100%);
+    }
+  }
+
+  &_bg_vk {
+    background: linear-gradient(to bottom, #5b7fa6 0%, #346184 100%);
+
+    &:hover,
+    &:focus {
+      background: linear-gradient(to bottom, #346184 0%, #1d4b6e 100%);
+    }
+
+    &:active {
+      background: linear-gradient(to bottom, #113b5a 0%, #1d4b6e 100%);
+    }
+  }
+
+
+  /* .tm-quark-button disabled */
+
+  &:disabled {
+    background: rgba(0, 0, 0, 0);
+    border: 2px solid #b0bec5;
+    cursor: not-allowed;
+
+    &:not(.tm-quark-button_width_square) {
+      color: #b0bec5;
+    }
+
+    .tm-quark-button__icon {
+      &-facebook::before {
+        background-image: svg-load("../../assets/images/icons/icon-facebook.svg", fill: #b0bec5);
+      }
+    }
+  }
+}
