@@ -1,4 +1,6 @@
-.tm-quark-field {
+@import '../../styles/typography.pcss';
+
+.TMField {
   box-sizing: border-box;
   display: flex;
   position: relative;
@@ -10,22 +12,22 @@
     box-sizing: inherit;
   }
 
-  &_size {
-    &_medium {
+  &--size {
+    &Medium {
       height: 40px;
     }
 
-    &_large {
+    &Large {
       height: 60px;
     }
   }
 
   &__input {
-    background-color: #eceff1;
+    background-color: $color_bg_main;
     border: 1px solid transparent;
-    box-shadow: inset 0 1px 0 0 #cfd8dc;
+    box-shadow: inset 0 1px 0 0 $color_main_4;
     border-radius: 3px;
-    color: #243238;
+    color: $color_main_10;
     margin: 0;
     padding-left: 19px;
     padding-right: 19px;
@@ -67,12 +69,12 @@
       appearance: textfield;
     }
 
-    &_with-icon {
+    &--withIcon {
       padding-left: 49px;
     }
 
-    &_size {
-      &_medium {
+    &--size {
+      &Medium {
         font-size: 14px;
         line-height: 20px;
         height: 40px;
@@ -80,19 +82,19 @@
         padding-bottom: 9px;
 
         &::placeholder {
-          color: #90a4ae;
+          color: $color_grey_light;
         }
 
         &:focus::placeholder {
-          color: #bbdefb;
+          color: $color_link_normal_hover_dark;
         }
 
         &:disabled::placeholder {
-          color: #cfd8dc;
+          color: $color_main_4;
         }
       }
 
-      &_large {
+      &Large {
         font-size: 16px;
         line-height: 24px;
         height: 60px;
@@ -104,56 +106,56 @@
           user-select: none;
         }
 
-        &.tm-quark-field__input_filled.tm-quark-field__input_with-label {
+        &.TMField__input--filled.TMField__input--withLabel {
           padding-top: 26px;
           padding-bottom: 10px;
         }
       }
     }
 
-    &_valid,
-    &_invalid {
+    &--valid,
+    &--invalid {
       padding-right: 49px;
     }
 
-    &_valid {
+    &--valid {
       animation: TMQuarkInputMarkValid 1s cubic-bezier(.645, .045, .355, 1);
 
       @keyframes TMQuarkInputMarkValid {
         25%,
         75% {
-          background-color: #ddf7e5;
-          box-shadow: inset 0 1px 0 0 #a8e4bb;
+          background-color: $color_success_2;
+          box-shadow: inset 0 1px 0 0 $color_success_3;
           border-color: transparent;
         }
       }
     }
 
-    &_invalid {
+    &--invalid {
       animation: TMQuarkInputMarkInvalid 1s cubic-bezier(.645, .045, .355, 1);
 
       @keyframes TMQuarkInputMarkInvalid {
         25%,
         75% {
-          background-color: #fff8e1;
-          box-shadow: inset 0 1px 0 0 #ffca28;
+          background-color: $color_warning_2;
+          box-shadow: inset 0 1px 0 0 $color_warning_focus;
           border-color: transparent;
         }
       }
     }
 
     &:focus {
-      background-color: #fff;
-      border-color: #90caf9;
+      background-color: $color_light_main;
+      border-color: $color_link_normal_dark;
       box-shadow: none;
       outline: none;
     }
 
     &:disabled {
-      background-color: #fff;
-      border-color: #eceff1;
+      background-color: $color_light_main;
+      border-color: $color_main_2;
       box-shadow: none;
-      color: #cfd8dc;
+      color: $color_main_4;
       cursor: not-allowed;
     }
   }
@@ -177,18 +179,18 @@
       width: 100%;
     }
 
-    &_type {
-      &_field-type {
+    &--type {
+      &--fieldType {
         left: 20px;
       }
 
-      &_validation-status {
+      &--validationStatus {
         animation: TMQuarkInputShowValidationStatusIcon .25s cubic-bezier(.645, .045, .355, 1);
         display: none;
         right: 20px;
 
-        .tm-quark-field__input_valid ~ &,
-        .tm-quark-field__input_invalid ~ & {
+        .TMField__input--valid ~ &,
+        .TMField__input--invalid ~ & {
           display: block;
         }
 
@@ -203,72 +205,72 @@
         }
       }
 
-      &_field-type-toggle {
+      &--fieldTypeToggle {
         right: 20px;
 
-        .tm-quark-field__input_valid ~ &,
-        .tm-quark-field__input_invalid ~ & {
+        .TMField__input--valid ~ &,
+        .TMField__input--invalid ~ & {
           right: 50px;
         }
       }
     }
 
-    &_check {
+    &--check {
       &::before {
         background-image: url("data:image/svg+xml;charset=utf-8, <svg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' fill='%231ab744'><path d='M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zM8 15l-5-5 1.41-1.41L8 12.17l7.59-7.59L17 6l-9 9z'/></svg>");
       }
     }
 
-    &_warning {
+    &--warning {
       &::before {
         background-image: url("data:image/svg+xml;charset=utf-8, <svg width='20' height='20' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 34'><g fill='none'><g fill='%23FF8F00'><path d='M0 34L40 34 20 0 0 34 0 34ZM21.8 28.6L18.2 28.6 18.2 25.1 21.8 25.1 21.8 28.6 21.8 28.6ZM21.8 21.5L18.2 21.5 18.2 14.3 21.8 14.3 21.8 21.5 21.8 21.5Z'/></g></g></svg>");
       }
     }
 
-    &_search,
-    &_maginifier {
+    &--search,
+    &--maginifier {
       &::before {
         background-image: url("data:image/svg+xml;charset=utf-8, <svg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' fill='%23b0bec5'><path d='M14.294 12.579h-.903l-.32-.31a7.4 7.4 0 0 0 1.795-4.836 7.433 7.433 0 1 0-7.433 7.433 7.4 7.4 0 0 0 4.837-1.796l.309.32v.904L18.296 20 20 18.296l-5.706-5.717zm-6.861 0a5.139 5.139 0 0 1-5.146-5.146 5.139 5.139 0 0 1 5.146-5.146 5.139 5.139 0 0 1 5.146 5.146 5.139 5.139 0 0 1-5.146 5.146z'/></svg>");
       }
 
-      .tm-quark-field__input:focus ~ &::before {
+      .TMField__input:focus ~ &::before {
         background-image: url("data:image/svg+xml;charset=utf-8, <svg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' fill='%2390caf9'><path d='M14.294 12.579h-.903l-.32-.31a7.4 7.4 0 0 0 1.795-4.836 7.433 7.433 0 1 0-7.433 7.433 7.4 7.4 0 0 0 4.837-1.796l.309.32v.904L18.296 20 20 18.296l-5.706-5.717zm-6.861 0a5.139 5.139 0 0 1-5.146-5.146 5.139 5.139 0 0 1 5.146-5.146 5.139 5.139 0 0 1 5.146 5.146 5.139 5.139 0 0 1-5.146 5.146z'/></svg>");
       }
     }
 
-    &_email,
-    &_letter {
+    &--email,
+    &--letter {
       &::before {
         background-image: url("data:image/svg+xml;charset=utf-8, <svg width='20' height='16' viewBox='0 0 20 16' xmlns='http://www.w3.org/2000/svg' fill='%23b0bec5'><path d='M18 0H2C.9 0 .01.9.01 2L0 14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V2l8 5 8-5v2z'/></svg>");
       }
 
-      .tm-quark-field__input:focus ~ &::before {
+      .TMField__input:focus ~ &::before {
         background-image: url("data:image/svg+xml;charset=utf-8, <svg width='20' height='16' viewBox='0 0 20 16' xmlns='http://www.w3.org/2000/svg' fill='%2390caf9'><path d='M18 0H2C.9 0 .01.9.01 2L0 14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V2l8 5 8-5v2z'/></svg>");
       }
     }
 
-    &_password,
-    &_key {
+    &--password,
+    &--key {
       &::before {
         background-image: url("data:image/svg+xml;charset=utf-8, <svg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' fill='%23b0bec5'><path d='M10.375 14.448l-2.042 2.219H6.667v1.666H5V20H0v-4.167l5.72-5.791a8.37 8.37 0 0 0 4.656 4.406h-.001zM20 6.667a6.667 6.667 0 1 1-13.333 0 6.667 6.667 0 0 1 13.333 0zm-2.5-2.5a1.667 1.667 0 1 0-3.333 0 1.667 1.667 0 0 0 3.333 0z'/></svg>");
       }
 
-      .tm-quark-field__input:focus ~ &::before {
+      .TMField__input:focus ~ &::before {
         background-image: url("data:image/svg+xml;charset=utf-8, <svg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' fill='%2390caf9'><path d='M10.375 14.448l-2.042 2.219H6.667v1.666H5V20H0v-4.167l5.72-5.791a8.37 8.37 0 0 0 4.656 4.406h-.001zM20 6.667a6.667 6.667 0 1 1-13.333 0 6.667 6.667 0 0 1 13.333 0zm-2.5-2.5a1.667 1.667 0 1 0-3.333 0 1.667 1.667 0 0 0 3.333 0z'/></svg>");
       }
     }
 
-    &_user {
+    &--user {
       &::before {
         background-image: url("data:image/svg+xml;charset=utf-8, <svg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' fill='%23b0bec5'><path d='M17.4 15.1c-2.9-.7-5.6-1.3-4.3-3.7C17 4 14.2 0 10 0S2.9 4.1 6.9 11.4c1.3 2.5-1.4 3-4.3 3.7-2.5.6-2.6 1.8-2.6 4.1v.8h20v-.8c0-2.2-.1-3.5-2.6-4.1z'/></svg>");
       }
 
-      .tm-quark-field__input:focus ~ &::before {
+      .TMField__input:focus ~ &::before {
         background-image: url("data:image/svg+xml;charset=utf-8, <svg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg' fill='%2390caf9'><path d='M17.4 15.1c-2.9-.7-5.6-1.3-4.3-3.7C17 4 14.2 0 10 0S2.9 4.1 6.9 11.4c1.3 2.5-1.4 3-4.3 3.7-2.5.6-2.6 1.8-2.6 4.1v.8h20v-.8c0-2.2-.1-3.5-2.6-4.1z'/></svg>");
       }
     }
 
-    &_eye {
+    &--eye {
       &::before {
         background-image: url("data:image/svg+xml;charset=utf-8, <svg xmlns='http://www.w3.org/2000/svg' width='20' height='15' viewBox='0 0 20 15' fill='%232196f3'><path d='M0 7.1C1.6 11.3 5.5 14.3 10 14.3 14.5 14.3 18.4 11.3 20 7.1 18.4 3 14.5 0 10 0 5.5 0 1.6 3 0 7.1ZM5.7 7.1C5.7 4.8 7.6 2.9 10 2.9 12.4 2.9 14.3 4.8 14.3 7.1 14.3 9.5 12.4 11.4 10 11.4 7.6 11.4 5.7 9.5 5.7 7.1ZM7.6 7.1C7.6 8.5 8.7 9.5 10 9.5 11.3 9.5 12.4 8.5 12.4 7.1 12.4 5.8 11.3 4.8 10 4.8 8.7 4.8 7.6 5.8 7.6 7.1Z'/></svg>");
       }
@@ -280,7 +282,7 @@
   }
 
   &__label {
-    color: #90a4ae;
+    color: $color_main_6;
     font-size: 16px;
     line-height: 24px;
     left: 20px;
@@ -289,23 +291,23 @@
     top: 17px;
     transition: all .45s cubic-bezier(.23, 1, .32, 1);
 
-    .tm-quark-field__input_with-icon + & {
+    .TMField__input--withIcon + & {
       left: 50px;
     }
 
-    .tm-quark-field__input_empty:focus + & {
-      color: #bbdefb;
+    .TMField__input--empty:focus + & {
+      color: $color_link_normal_hover_dark;
     }
 
-    .tm-quark-field__input_filled + & {
+    .TMField__input--filled + & {
       font-size: 11px;
       line-height: 16px;
-      color: #90a4ae;
+      color: $color_main_top;
       top: 10px;
     }
 
-    .tm-quark-field__input:disabled + & {
-      color: #cfd8dc;
+    .TMField__input:disabled + & {
+      color: $color_main_4;
     }
   }
 }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import Icon from '../Icon';
 
-import './Field.less';
+import './Field.pcss';
+import ucfirst from '../../utils';
 
 export default class Field extends Component {
   static propTypes = {
@@ -25,7 +27,7 @@ export default class Field extends Component {
     type: PropTypes.string,
     disabled: PropTypes.bool,
     placeholder: PropTypes.node,
-  }
+  };
 
   static defaultProps = {
     containerClassName: '',
@@ -47,13 +49,13 @@ export default class Field extends Component {
     defaultValue: '',
     placeholder: null,
     disabled: false,
-  }
+  };
 
   state = {
     isEmpty: !(this.props.value || this.props.defaultValue),
     isDirty: false,
     fieldType: this.props.type,
-  }
+  };
 
   componentDidMount() {
     const { focused } = this.props;
@@ -93,7 +95,7 @@ export default class Field extends Component {
     this.setState(() => ({
       fieldType: 'text',
     }));
-  }
+  };
 
   resetPasswordFieldType = (event) => {
     event.preventDefault();
@@ -101,19 +103,19 @@ export default class Field extends Component {
     this.setState(() => ({
       fieldType: 'password',
     }));
-  }
+  };
 
   focus = () => {
     if (this.input) {
       this.input.focus();
     }
-  }
+  };
 
   blur = () => {
     if (this.input) {
       this.input.blur();
     }
-  }
+  };
 
   handleInputChange = (event) => {
     event.persist();
@@ -127,7 +129,7 @@ export default class Field extends Component {
     }), () => {
       onChange(inputValue, event);
     });
-  }
+  };
 
   render() {
     const {
@@ -154,13 +156,13 @@ export default class Field extends Component {
     } = this.props;
 
     const containerCustomClassName = containerClassName ? ` ${containerClassName}` : '';
-    const containerSizeClassName = ` tm-quark-field_size_${size}`;
+    const containerSizeClassName = ` TMField--size${ucfirst(size)}`;
 
-    const inputSizeClassName = ` tm-quark-field__input_size_${size}`;
-    const inputValidClassName = valid ? ' tm-quark-field__input_valid' : '';
-    const inputInvalidClassName = invalid ? ' tm-quark-field__input_invalid' : '';
-    const inputStateClassName = this.state.isEmpty ? ' tm-quark-field__input_empty' : ' tm-quark-field__input_filled';
-    const inputDirtyClassName = this.state.isDirty ? ' tm-quark-field__input_dirty' : '';
+    const inputSizeClassName = ` TMField__input--size${ucfirst(size)}`;
+    const inputValidClassName = valid ? ' TMField__input--valid' : '';
+    const inputInvalidClassName = invalid ? ' TMField__input--invalid' : '';
+    const inputStateClassName = this.state.isEmpty ? ' TMField__input--empty' : ' TMField__input--filled';
+    const inputDirtyClassName = this.state.isDirty ? ' TMField__input--dirty' : '';
     const inputCustomClassName = className ? ` ${className}` : '';
 
     const fieldTypeIcon = showInputIcon && (type === 'password' || type === 'search' || type === 'email')
@@ -170,17 +172,17 @@ export default class Field extends Component {
       ? icon
       : fieldTypeIcon;
 
-    const inputHasIconClassName = fieldIcon ? ' tm-quark-field__input_with-icon' : '';
+    const inputHasIconClassName = fieldIcon ? ' TMField__input--withIcon' : '';
 
     return (
       <label
-        className={`tm-quark-field${containerSizeClassName}${containerCustomClassName}`}
+        className={`TMField${containerSizeClassName}${containerCustomClassName}`}
         id={containerId}
         name={containerName}
       >
         <input
           {...inputProps}
-          className={`tm-quark-field__input${disabled ? '' : `${inputValidClassName}${inputInvalidClassName}`}${inputSizeClassName}${showPlaceholderOnInput ? ' tm-quark-field__input_with-label' : ''}${inputStateClassName}${inputDirtyClassName}${inputHasIconClassName}${inputCustomClassName}`}
+          className={`TMField__input${disabled ? '' : `${inputValidClassName}${inputInvalidClassName}`}${inputSizeClassName}${showPlaceholderOnInput ? ' TMField__input--withLabel' : ''}${inputStateClassName}${inputDirtyClassName}${inputHasIconClassName}${inputCustomClassName}`}
           type={this.state.fieldType}
           placeholder={placeholder}
           value={!value && value !== '' ? undefined : value}
@@ -191,24 +193,29 @@ export default class Field extends Component {
         />
 
         {showPlaceholderOnInput && placeholder && (
-          <span className="tm-quark-field__label">{placeholder}</span>
+          <span className="TMField__label">{placeholder}</span>
         )}
 
         {fieldIcon && (
-          <i className={`tm-quark-field__icon tm-quark-field__icon_type_field-type tm-quark-field__icon_${fieldIcon}`} />
+          <Icon
+            className="TMField__icon TMField__icon--type--fieldType"
+            icon={fieldIcon}
+            width={20}
+            height={20}
+          />
         )}
 
         {!disabled && (
           valid && (
-            <i className="tm-quark-field__icon tm-quark-field__icon_type_validation-status tm-quark-field__icon_check" />
+            <i className="TMField__icon TMField__icon--type--validationStatus TMField__icon--check" />
           ) && invalid && (
-            <i className="tm-quark-field__icon tm-quark-field__icon_type_validation-status tm-quark-field__icon_warning" />
+            <i className="TMField__icon TMField__icon--type--validationStatus TMField__icon--warning" />
           )
         )}
 
         {!disabled && type === 'password' && showPasswordFieldTypeToggle && (
           <i
-            className="tm-quark-field__icon tm-quark-field__icon_type_field-type-toggle tm-quark-field__icon_eye"
+            className="TMField__icon TMField__icon--type--fieldTypeToggle TMField__iconEye"
             onMouseDown={this.setPasswordFieldTypeToText}
             onMouseUp={this.resetPasswordFieldType}
             onMouseOut={this.resetPasswordFieldType}

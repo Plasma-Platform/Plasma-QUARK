@@ -1,3 +1,19 @@
+require('postcss-svg');
+require('postcss-import');
+require('postcss-partial-import');
+require('postcss-mixins');
+require('postcss-simple-vars');
+require('postcss-conditionals');
+require('postcss-custom-media');
+require('postcss-media-minmax');
+require('postcss-color-function');
+require('postcss-nested');
+require('postcss-property-lookup');
+require('postcss-extend');
+require('autoprefixer');
+require('postcss-discard-empty');
+require('postcss-inline-svg');
+
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
@@ -51,6 +67,14 @@ module.exports = {
           'style-loader',
           'css-loader',
           'less-loader',
+          'postcss-loader',
+        ],
+      },
+      {
+        test: /\.pcss$/,
+        exclude: /(node_modules|lib|example)/,
+        use: [
+          'style-loader',
           'postcss-loader',
         ],
       },
