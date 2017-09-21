@@ -135,14 +135,12 @@ export default class Dropdown extends Component {
 
     options.slice(0, lastVisibleOptionIndex + 1).forEach((option, optionIndex) => {
       optionsListHeight += (
-        (
-          lastVisibleOptionIndex === optionIndex
-          && options.length
-        ) > (
+        lastVisibleOptionIndex === optionIndex
+        && options.length
+        >
           this.props.optionsToShow
-            ? option.offsetHeight / 2
-            : option.offsetHeight
-        )
+          ? option.offsetHeight / 2
+          : option.offsetHeight
       );
     });
 
