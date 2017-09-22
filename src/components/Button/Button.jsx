@@ -25,9 +25,6 @@ const Button = ({
   const buttonIcon = iconClassName.length > 0
     ? <i className={iconClassName} />
     : null;
-  const buttonChildren = (
-    buttonIcon && children
-  );
 
   if (type === 'link') {
     return (
@@ -35,7 +32,8 @@ const Button = ({
         {...props}
         className={buttonClassName}
       >
-        {buttonChildren}
+        {buttonIcon}
+        {children}
       </a>
     );
   } else if (type === 'text') {
@@ -44,7 +42,8 @@ const Button = ({
         {...props}
         className={buttonClassName}
       >
-        {buttonChildren}
+        {buttonIcon}
+        {children}
       </span>
     );
   }
@@ -55,7 +54,8 @@ const Button = ({
       type={type}
       className={buttonClassName}
     >
-      {buttonChildren}
+      {buttonIcon}
+      {children}
     </button>
   );
 };
