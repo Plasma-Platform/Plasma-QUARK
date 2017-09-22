@@ -1,23 +1,14 @@
 {
   "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions", "ie >= 11"]
+        }
+      }
+    ],
     "react",
-    "es2015"
+    "stage-0",
   ],
-
-  "plugins": [
-    "transform-async-to-generator",
-    "transform-class-properties",
-    "transform-decorators",
-    "transform-object-rest-spread",
-    "transform-runtime"
-  ],
-
-  "env": {
-    "build": {
-      "plugins": [
-        ["transform-require-ignore", {"extensions": [".less"] }],
-        "transform-import-extension-jsx-to-js"
-      ]
-    }
-  }
 }

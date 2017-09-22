@@ -1,0 +1,64 @@
+.tm-quark-loader {
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  &_width_full {
+    width: 100%;
+  }
+
+  &_width_fixed {
+    width: 120px;
+  }
+
+  &_height_medium {
+    height: 4px;
+  }
+
+  &_height_large {
+    height: 8px;
+  }
+
+  &__line {
+    animation-name: loaderLineMove;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    background-color: #2196f3;
+    bottom: 0;
+    position: absolute;
+    top: 0;
+
+    &:first-child {
+      animation-delay: .2s;
+      left: 0;
+      opacity: .25;
+      width: 25%;
+    }
+
+    &:nth-child(2) {
+      animation-delay: .1s;
+      left: 0;
+      opacity: .5;
+      width: 25%;
+    }
+
+    &:last-child {
+      left: 12.5%;
+      width: 12.5%;
+    }
+
+    @keyframes loaderLineMove {
+      50% {
+        left: 75%;
+      }
+    }
+  }
+}
