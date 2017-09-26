@@ -1,0 +1,155 @@
+.TMSliderFilter {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-flow: row wrap;
+  height: 20px;
+  position: relative;
+  width: 100%;
+
+  *,
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
+
+  &__input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    display: inline-flex;
+    height: 20px;
+    margin: 0;
+    opacity: 0;
+    position: relative;
+    z-index: 2;
+
+    &--type--min:hover ~ .TMSliderFilter__value--type--min,
+    &--type--max:hover ~ .TMSliderFilter__value--type--max {
+      background-image: url('data:image/svg+xml,<svg%20width%3D"30"%20height%3D"20"%20viewBox%3D"0%200%2030%2020"%20version%3D"1.1"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20xmlns%3Axlink%3D"http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink">%0A<title>Canvas<%2Ftitle>%0A<desc>Created%20using%20Figma<%2Fdesc>%0A<g%20id%3D"Canvas"%20transform%3D"translate%28-267%20381%29">%0A<g%20id%3D"Snap">%0A<use%20xlink%3Ahref%3D"%23path0_fill"%20transform%3D"translate%28267%20-381%29"%20fill%3D"url%28%23paint0_linear%29"%2F>%0A<%2Fg>%0A<g%20id%3D"lines">%0A<use%20xlink%3Ahref%3D"%23path1_fill"%20transform%3D"translate%28279%20-375%29"%20fill%3D"%23FFFFFF"%2F>%0A<%2Fg>%0A<%2Fg>%0A<defs>%0A<linearGradient%20id%3D"paint0_linear"%20x1%3D"0"%20y1%3D"0"%20x2%3D"1"%20y2%3D"0"%20gradientUnits%3D"userSpaceOnUse"%20gradientTransform%3D"matrix%280%2020%20-30%200%2015%200%29">%0A<stop%20offset%3D"0"%20stop-color%3D"%232196F3"%2F>%0A<stop%20offset%3D"1"%20stop-color%3D"%231976D2"%2F>%0A<%2FlinearGradient>%0A<path%20id%3D"path0_fill"%20fill-rule%3D"evenodd"%20d%3D"M%200%2010C%200%204.47715%204.47715%200%2010%200L%2020%200C%2025.5228%200%2030%204.47715%2030%2010C%2030%2015.5228%2025.5228%2020%2020%2020L%2010%2020C%204.47715%2020%200%2015.5228%200%2010Z"%2F>%0A<path%20id%3D"path1_fill"%20fill-rule%3D"evenodd"%20d%3D"M%200%200.399994C%200%200.179077%200.179077%200%200.399994%200C%200.620911%200%200.799988%200.179077%200.799988%200.399994L%200.799988%207.60001C%200.799988%207.82092%200.620911%208%200.399994%208C%200.179077%208%200%207.82092%200%207.60001L%200%200.399994ZM%203%200.399994C%203%200.179077%203.17908%200%203.39999%200C%203.62091%200%203.79999%200.179077%203.79999%200.399994L%203.79999%207.60001C%203.79999%207.82092%203.62091%208%203.39999%208C%203.17908%208%203%207.82092%203%207.60001L%203%200.399994ZM%206.39999%200C%206.17908%200%206%200.179077%206%200.399994L%206%207.60001C%206%207.82092%206.17908%208%206.39999%208C%206.62091%208%206.79999%207.82092%206.79999%207.60001L%206.79999%200.399994C%206.79999%200.179077%206.62091%200%206.39999%200Z"%2F>%0A<%2Fdefs>%0A<%2Fsvg>%0A');
+      border: 0;
+      color: rgba(0, 0, 0, 0);
+
+      .TMSliderFilter__colored-value {
+        display: block;
+      }
+    }
+
+    &--type--min:active ~ .TMSliderFilter__value--type--min,
+    &--type--max:active ~ .TMSliderFilter__value--type--max {
+      background-image: url('data:image/svg+xml,<svg%20width%3D"30"%20height%3D"20"%20viewBox%3D"0%200%2030%2020"%20version%3D"1.1"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20xmlns%3Axlink%3D"http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink">%0A<title>Canvas<%2Ftitle>%0A<desc>Created%20using%20Figma<%2Fdesc>%0A<g%20id%3D"Canvas"%20transform%3D"translate%28-350%20380%29">%0A<g%20id%3D"Snap">%0A<use%20xlink%3Ahref%3D"%23path0_fill"%20transform%3D"translate%28350%20-380%29"%20fill%3D"url%28%23paint0_linear%29"%2F>%0A<%2Fg>%0A<g%20id%3D"lines">%0A<use%20xlink%3Ahref%3D"%23path1_fill"%20transform%3D"translate%28362%20-374%29"%20fill%3D"%23FFFFFF"%2F>%0A<%2Fg>%0A<%2Fg>%0A<defs>%0A<linearGradient%20id%3D"paint0_linear"%20x1%3D"0"%20y1%3D"0"%20x2%3D"1"%20y2%3D"0"%20gradientUnits%3D"userSpaceOnUse"%20gradientTransform%3D"matrix%281.33227e-14%2020%20-30%208.88178e-15%2015%200%29">%0A<stop%20offset%3D"0"%20stop-color%3D"%230D47A1"%2F>%0A<stop%20offset%3D"1"%20stop-color%3D"%231976D2"%2F>%0A<%2FlinearGradient>%0A<path%20id%3D"path0_fill"%20fill-rule%3D"evenodd"%20d%3D"M%200%2010C%200%204.47715%204.47715%200%2010%200L%2020%200C%2025.5228%200%2030%204.47715%2030%2010C%2030%2015.5228%2025.5228%2020%2020%2020L%2010%2020C%204.47715%2020%200%2015.5228%200%2010Z"%2F>%0A<path%20id%3D"path1_fill"%20fill-rule%3D"evenodd"%20d%3D"M%200%200.399994C%200%200.179077%200.179077%200%200.399994%200C%200.620911%200%200.799988%200.179077%200.799988%200.399994L%200.799988%207.60001C%200.799988%207.82092%200.620911%208%200.399994%208C%200.179077%208%200%207.82092%200%207.60001L%200%200.399994ZM%203%200.399994C%203%200.179077%203.17908%200%203.39999%200C%203.62091%200%203.79999%200.179077%203.79999%200.399994L%203.79999%207.60001C%203.79999%207.82092%203.62091%208%203.39999%208C%203.17908%208%203%207.82092%203%207.60001L%203%200.399994ZM%206.39999%200C%206.17908%200%206%200.179077%206%200.399994L%206%207.60001C%206%207.82092%206.17908%208%206.39999%208C%206.62091%208%206.79999%207.82092%206.79999%207.60001L%206.79999%200.399994C%206.79999%200.179077%206.62091%200%206.39999%200Z"%2F>%0A<%2Fdefs>%0A<%2Fsvg>%0A');
+      border: 0;
+      color: rgba(0, 0, 0, 0);
+
+      .TMSliderFilter__colored-value {
+        display: block;
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &::-webkit-slider-runnable-track {
+      height: 20px;
+    }
+
+    &::-moz-range-track {
+      height: 20px;
+    }
+
+    &::-ms-track {
+      height: 20px;
+    }
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      cursor: pointer;
+      height: 20px;
+      min-height: 20px;
+      min-width: 30px;
+      opacity: 0;
+      width: 30px;
+    }
+
+    &::-moz-range-thumb {
+      -moz-appearance: none;
+      cursor: pointer;
+      height: 20px;
+      opacity: 0;
+      width: 30px;
+    }
+
+    &::-ms-thumb {
+      -ms-appearance: none;
+      cursor: pointer;
+      height: 20px;
+      opacity: 0;
+      width: 30px;
+    }
+
+    &::-ms-tooltip {
+      display: none;
+    }
+  }
+
+  &__track {
+    background: #e2f2fd;
+    border-radius: 3px;
+    height: 3px;
+    margin: -10px auto 0;
+    position: relative;
+    transform: translateY(-50%);
+    width: calc(100% - 30px);
+
+    &::before,
+    &::after {
+      background-color: #2196f3;
+      border-radius: 50%;
+      content: '';
+      height: 3px;
+      position: absolute;
+      top: 0;
+      width: 3px;
+    }
+
+    &::before {
+      left: 0;
+    }
+
+    &::after {
+      right: 0;
+    }
+  }
+
+  &__selectedRange {
+    background-color: #2196f3;
+    height: 3px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 0;
+  }
+
+  &__value {
+    background-color: #ffffff;
+    border: 1px solid;
+    border-radius: 20px;
+    color: #2196f3;
+    height: 20px;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 2px 0;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 30px;
+  }
+
+  &__colored-value {
+    display: none;
+    left: 50%;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%) translateY(-100%);
+  }
+}

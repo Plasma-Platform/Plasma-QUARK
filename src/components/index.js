@@ -14,3 +14,4 @@ export * from './Tag/';
 export StarsRating from './StarsRating/';
 export Icon from './Icon/';
 export Avatar from './Avatar/';
+export SliderFilter from './SliderFilter/';
