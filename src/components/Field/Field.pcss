@@ -35,6 +35,10 @@
     overflow: visible;
     width: 100%;
 
+    ~.TMField__icon--type--fieldType {
+      fill: $color_main_5;
+    }
+
     &[type="number"]::-webkit-inner-spin-button,
     &[type="number"]::-webkit-outer-spin-button {
       height: auto;
@@ -149,6 +153,10 @@
       border-color: $color_link_normal_dark;
       box-shadow: none;
       outline: none;
+
+      ~.TMField__icon--type--fieldType {
+        fill: $color_link_normal_dark;
+      }
     }
 
     &:disabled {
@@ -157,6 +165,10 @@
       box-shadow: none;
       color: $color_main_4;
       cursor: not-allowed;
+
+      ~.TMField__icon--type--fieldType {
+        fill: $color_main_4;
+      }
     }
   }
 
