@@ -198,7 +198,7 @@ export default class Field extends Component {
 
         {fieldIcon && (
           <Icon
-            className="TMField__icon TMField__icon--type--fieldType"
+            className="TMField__icon TMField__icon--typeFieldType"
             icon={fieldIcon}
             width={20}
             height={20}
@@ -207,15 +207,15 @@ export default class Field extends Component {
 
         {!disabled && (
           valid && (
-            <i className="TMField__icon TMField__icon--type--validationStatus TMField__icon--check" />
+            <i className="TMField__icon TMField__icon--typeValidationStatus TMField__icon--check" />
           ) && invalid && (
-            <i className="TMField__icon TMField__icon--type--validationStatus TMField__icon--warning" />
+            <i className="TMField__icon TMField__icon--typeValidationStatus TMField__icon--warning" />
           )
         )}
 
         {!disabled && type === 'password' && showPasswordFieldTypeToggle && (
           <i
-            className="TMField__icon TMField__icon--type--fieldTypeToggle TMField__iconEye"
+            className="TMField__icon TMField__icon--typeFieldTypeToggle TMField__iconEye"
             onMouseDown={this.setPasswordFieldTypeToText}
             onMouseUp={this.resetPasswordFieldType}
             onMouseOut={this.resetPasswordFieldType}

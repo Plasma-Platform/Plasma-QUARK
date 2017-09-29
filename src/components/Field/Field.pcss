@@ -79,8 +79,8 @@
 
     &--size {
       &Medium {
-        font-size: 14px;
-        line-height: 20px;
+
+        @mixin T 3;
         height: 40px;
         padding-top: 9px;
         padding-bottom: 9px;
@@ -99,8 +99,8 @@
       }
 
       &Large {
-        font-size: 16px;
-        line-height: 24px;
+
+        @mixin T 1;
         height: 60px;
         padding-top: 17px;
         padding-bottom: 17px;
@@ -192,11 +192,11 @@
     }
 
     &--type {
-      &--fieldType {
+      &FieldType {
         left: 20px;
       }
 
-      &--validationStatus {
+      &ValidationStatus {
         animation: TMQuarkInputShowValidationStatusIcon .25s cubic-bezier(.645, .045, .355, 1);
         display: none;
         right: 20px;
@@ -217,7 +217,7 @@
         }
       }
 
-      &--fieldTypeToggle {
+      &FieldTypeToggle {
         right: 20px;
 
         .TMField__input--valid ~ &,
@@ -294,9 +294,9 @@
   }
 
   &__label {
+
+    @mixin T 1;
     color: $color_main_6;
-    font-size: 16px;
-    line-height: 24px;
     left: 20px;
     pointer-events: none;
     position: absolute;
@@ -312,8 +312,8 @@
     }
 
     .TMField__input--filled + & {
-      font-size: 11px;
-      line-height: 16px;
+
+      @mixin T 6;
       color: $color_main_top;
       top: 10px;
     }
