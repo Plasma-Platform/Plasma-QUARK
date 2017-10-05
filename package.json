@@ -4,7 +4,7 @@
   "description": "QUARK-React description",
   "main": "webpack.config.js",
   "scripts": {
-    "release": "npm version patch && git commit -a -m'lock' && git push && git push --tags && npm publish",
+    "release": "npm version patch && git push && git push --tags && npm publish --access=public",
     "build": "npm run compile && npm run build:css",
     "build:demo": "npm run compile && npm run build:css  && cd example && npm start",
     "build:css": "rimraf css && webpack && rimraf css/main.js",
