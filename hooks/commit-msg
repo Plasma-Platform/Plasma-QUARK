@@ -11,7 +11,7 @@
 
 MESSAGE=`cat "$1"`;
 
-if (! [[ "$MESSAGE" =~ ^[A-Z]+-[0-9]+\ -\ [\W\w\ ]{5,}$ ]]) && (! [[ "$MESSAGE" =~ ^[\d]+(.[\d]+)?(.[\d]+)?$ ]]) && [ "$MESSAGE" != "merge" ] && [ "$MESSAGE" != "lock" ]; then echo "Commit message either should have following format: 'ISSUE-123 - description'. 'PTR-1 - fixed bug with fox eating clocks' for example. Either be 'lock' or 'merge' predefined commit messages."; exit 1;
+if (! [[ "$MESSAGE" =~ ^[A-Z]+-[0-9]+\ -\ [\W\w\ ]{5,}$ ]]) && (! [[ "$MESSAGE" =~ ^(v)?[\d]+(.[\d]+)?(.[\d]+)?$ ]]) && [ "$MESSAGE" != "merge" ] && [ "$MESSAGE" != "lock" ]; then echo "Commit message either should have following format: 'ISSUE-123 - description'. 'PTR-1 - fixed bug with fox eating clocks' for example. Either be 'lock' or 'merge' predefined commit messages."; exit 1;
 fi
 
 if [[ "$MESSAGE" =~ ([а-яА-Я]+) ]]; then echo "Use english language for commit message."; exit 1;
