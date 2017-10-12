@@ -1,6 +1,6 @@
 {
   "name": "@plasma-platform/quark",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "TemplateMonster UI components built with React",
   "main": "lib/index.js",
   "scripts": {
