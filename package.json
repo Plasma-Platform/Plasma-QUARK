@@ -1,9 +1,10 @@
 {
-  "name": "quark",
+  "name": "@plasma-platform/quark",
   "version": "3.0.2",
   "description": "TemplateMonster UI components built with React",
   "main": "lib/index.js",
   "scripts": {
+    "release": "npm version patch && git push && git push --tags && npm publish --access public",
     "build": "rimraf lib && NODE_ENV=production webpack -p --profile --progress --colors --display --verbose",
     "test": "jest",
     "test-coverage": "jest --coverage"
