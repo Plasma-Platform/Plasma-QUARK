@@ -1,5 +1,5 @@
 {
-  "name": "@plasma-platform/plasma-quark",
+  "name": "@plasma-platform/quark",
   "version": "2.0.14",
   "description": "QUARK-React description",
   "main": "webpack.config.js",
