@@ -33,7 +33,9 @@ const Icon = ({ viewBox, width, height, icon, className }) => (
     height={height}
   >
     <use xlinkHref={`#${icon}`} />
-    <rect fill={getRandomColor()} width={width} height={height} rx="3"></rect>
+    <defs>
+      <rect id={icon} fill={getRandomColor()} width="100%" height="100%" rx="3"></rect>
+    </defs>
   </svg>
 );
 
