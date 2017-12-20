@@ -3,6 +3,19 @@ import PropTypes from 'prop-types';
 import './Icon.less';
 
 /**
+ * Generate random color
+ * @return {string} rgb color
+ */
+const getRandomColor = () => {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
+/**
  * Abstract Icon class
  * @namespace Icon
  * @param {string} icon icon name id in the sprite
@@ -20,6 +33,9 @@ const Icon = ({ viewBox, width, height, icon, className }) => (
     height={height}
   >
     <use xlinkHref={`#${icon}`} />
+    <defs>
+      <rect id={icon} fill={getRandomColor()} width="100%" height="100%" rx="3"></rect>
+    </defs>
   </svg>
 );
 

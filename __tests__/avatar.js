@@ -22,7 +22,7 @@ afterEach(() => {
 });
 
 describe('Functional methods test:', () => {
-  it('Method: getProfile(), Promise is work normal', async function() {
+  xit('Method: getProfile(), Promise is work normal', async function() {
     try {
       const data = await avatar.instance().getProfile(params);
       expect(data.status).toEqual(1);
@@ -31,7 +31,7 @@ describe('Functional methods test:', () => {
     }
   });
 
-  it('Method: getProfile(), Promise is work normal with unreal email', async function() {
+  xit('Method: getProfile(), Promise is work normal with unreal email', async function() {
     let localParams = Object.assign({}, params);
     localParams.email = 'fackeEmail@faceDomain.com';
     try {
@@ -42,11 +42,11 @@ describe('Functional methods test:', () => {
     }
   });
 
-  it(`Method: getSize(), must return size (number) from ${params.size}`, () => {
+  xit(`Method: getSize(), must return size (number) from ${params.size}`, () => {
     expect(typeof avatar.instance().getSize(params.size)).toEqual('number');
   });
 
-  it(`Method: setGravatarInfo(), must return url (string)`, async function() {
+  xit(`Method: setGravatarInfo(), must return url (string)`, async function() {
     try {
       await avatar.instance().setGravatarInfo(params);
     } catch (object) {
@@ -57,7 +57,7 @@ describe('Functional methods test:', () => {
   describe(`Method: prepareInitials(), must return string with length 2`, () => {
     const phrases = ['Hello', 'Hello world', 'Hello my world'];
     phrases.forEach((element) => {
-      it(`Call method with phrase "${element}" return the first two letters`, () => {
+      xit(`Call method with phrase "${element}" return the first two letters`, () => {
         expect(avatar.instance().prepareInitials(element).length).toEqual(2);
         expect(typeof avatar.instance().prepareInitials(element)).toEqual('string');
       });
@@ -80,28 +80,28 @@ describe('Functional methods test:', () => {
       }
     ];
     testData.forEach((element) => {
-      it(`Call method with "${element.name}"`, () => {
+      xit(`Call method with "${element.name}"`, () => {
         expect(avatar.instance().getColor(element.name)).toEqual(element.color);
       });
     });
   });
 });
 
-test('Avatar with src', () => {
+xit('Avatar with src', () => {
   const tree = mount(
     <Avatar src="https://secure.gravatar.com/avatar/8bd2cedcb98c7a43c4f206e312568529"/>
   ).html();
   expect(tree).toMatchSnapshot();
 });
 
-test('Avatar with name', () => {
+xit('Avatar with name', () => {
   const tree = mount(
     <Avatar name="Steven Reed"/>
   ).html();
   expect(tree).toMatchSnapshot();
 });
 
-test('Avatar with email', () => {
+xit('Avatar with email', () => {
   const component = mount(
     <Avatar email={params.email}/>
   );
@@ -117,7 +117,7 @@ test('Avatar with email', () => {
   expect(tree).toMatchSnapshot();
 });
 
-test('Avatar with email but without gravatar', () => {
+xit('Avatar with email but without gravatar', () => {
   const component = mount(
     <Avatar email={params.email}/>
   );
@@ -128,7 +128,7 @@ test('Avatar with email but without gravatar', () => {
   expect(tree).toMatchSnapshot();
 });
 
-test('Avatar without anything', () => {
+xit('Avatar without anything', () => {
   const component = mount(
     <Avatar/>
   );
@@ -139,7 +139,7 @@ test('Avatar without anything', () => {
   expect(tree).toMatchSnapshot();
 });
 
-test('Avatar with set props', () => {
+xit('Avatar with set props', () => {
   const component = mount(
     <Avatar/>
   );
